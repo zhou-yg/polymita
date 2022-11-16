@@ -1,0 +1,28 @@
+{
+  "name": "tarat-design",
+  "version": "0.0.1",
+  "description": "a infinite extensional component library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhou-yg/tarat.design.git"
+  },
+  "keywords": [
+    "infinite",
+    "extensional",
+    "components",
+    "library"
+  ],
+  "author": "zhou-yg",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/zhou-yg/tarat.design/issues"
+  },
+  "homepage": "https://github.com/zhou-yg/tarat.design#readme",
+  "dependencies": {
+    "tarat-renderer": "0.0.2"
+  }
+}
