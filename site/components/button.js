@@ -29,17 +29,16 @@ var layout = (props) => {
   return /* @__PURE__ */ h("buttonBox", {
     className: "block"
   }, /* @__PURE__ */ h("div", {
-    onClick: props.onClick
-  }), /* @__PURE__ */ h("button", {
     className: "block",
     onClick: props.onClick
-  }, "123", props.children));
+  }, props.children));
 };
 var style = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
-  layout2.buttonBox.style = {
-    backgroundColor: logic2.count > 0 ? "red" : "blue"
+  layout2.buttonBox.props.style = {
+    backgroundColor: logic2.count > 0 ? "red" : "blue",
+    display: "inline-block"
   };
 };
 

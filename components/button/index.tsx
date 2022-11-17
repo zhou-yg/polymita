@@ -25,14 +25,12 @@ export const layout = (props: ButtonProps) => {
 
   return (
     <buttonBox className="block">
-      <div onClick={props.onClick}></div>
-      <button
+      <div
         className="block"
         onClick={props.onClick}
       >
-        123
         {props.children}
-      </button>
+      </div>
     </buttonBox>
   )
 }
@@ -41,8 +39,9 @@ export const layout = (props: ButtonProps) => {
 export const style = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
-  layout.buttonBox.style = ({
+  layout.buttonBox.props.style = ({
     backgroundColor: logic.count > 0 ? 'red' : 'blue',
+    display: 'inline-block'
   })
 }
 
