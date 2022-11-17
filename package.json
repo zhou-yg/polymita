@@ -4,7 +4,10 @@
   "description": "a infinite extensional component library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build:demo": "node scripts/build-demo.mjs",
+    "pg": "npm run playground",
+    "playground": "vite --host"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,15 @@
   "dependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
-    "tarat-renderer": "0.0.3"
+    "react": "^18.2.0",
+    "tarat-renderer": "^0.0.6"
+  },
+  "devDependencies": {
+    "@mdx-js/esbuild": "^2.1.5",
+    "@types/react-dom": "^18.0.9",
+    "esbuild": "^0.15.14",
+    "react-dom": "^18.2.0",
+    "vite": "^3.2.4",
+    "vite-tsconfig-paths": "^3.5.2"
   }
 }

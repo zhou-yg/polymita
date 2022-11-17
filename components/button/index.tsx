@@ -1,15 +1,19 @@
-import { h, useLayout, useLogic } from 'tarat-renderer'
+import { h, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 
 export interface ButtonProps {
   children?: string;
   type?: 'primary';
-  onClick: (e: Event) => void
+  onClick: (e: any) => void
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: ButtonProps) => {
   return {
+    actionType: 'hover',
+    disable: false,
+    selected: true,
+    active: true,
     count: 0,
   }
 }
@@ -21,10 +25,12 @@ export const layout = (props: ButtonProps) => {
 
   return (
     <buttonBox className="block">
+      <div onClick={props.onClick}></div>
       <button
         className="block"
         onClick={props.onClick}
       >
+        123
         {props.children}
       </button>
     </buttonBox>
@@ -35,16 +41,8 @@ export const layout = (props: ButtonProps) => {
 export const style = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
-  layout.buttonBox.style({
+  layout.buttonBox.style = ({
     backgroundColor: logic.count > 0 ? 'red' : 'blue',
   })
 }
 
-export const designPattern = (props: ButtonProps) => {
-  return {
-    containerBg: ['red'],
-    bdc:['blue'],
-    ts: ['12px', '18px'],
-    tc: ['red', 'blue'],
-  }
-}
