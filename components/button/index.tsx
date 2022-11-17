@@ -1,4 +1,4 @@
-import { h, useLogic } from 'tarat-renderer'
+import { h, useLayout, useLogic } from 'tarat-renderer'
 
 export interface ButtonProps {
   children?: string;
@@ -17,7 +17,7 @@ export const logic = (props: ButtonProps) => {
 // tailwindcss
 export const layout = (props: ButtonProps) => {
 
-  const logicResult = useLogic<LogicReturn>()
+  const logicResult = useLogic<LogicReturn>();
 
   return (
     <buttonBox className="block">
@@ -31,10 +31,20 @@ export const layout = (props: ButtonProps) => {
   )
 }
 
-export const designPattern = (props: ButtonProps) => {
-}
-
 // css in js
 export const style = (props: ButtonProps) => {
-  
+  const logic = useLogic<LogicReturn>()
+  const layout = useLayout()
+  layout.buttonBox.style({
+    backgroundColor: logic.count > 0 ? 'red' : 'blue',
+  })
+}
+
+export const designPattern = (props: ButtonProps) => {
+  return {
+    containerBg: ['red'],
+    bdc:['blue'],
+    ts: ['12px', '18px'],
+    tc: ['red', 'blue'],
+  }
 }
