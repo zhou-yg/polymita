@@ -10,10 +10,12 @@ type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: ButtonProps) => {
   return {
-    actionType: 'hover',
-    disable: false,
-    selected: true,
-    active: true,
+    interactive: {
+      actionType: 'hover',
+      disable: false,
+      selected: true,
+      active: true,
+    },
     count: 0
   }
 }
@@ -29,6 +31,16 @@ export const layout = (props: ButtonProps) => {
       </div>
     </buttonBox>
   )
+}
+
+export const designPattern = (props: ButtonProps) => {
+  const logicResult = useLogic<LogicReturn>()
+  const layoutResult = useLayout()
+
+  // buttonPattern(logicResult.interactive)
+
+  return {
+  }
 }
 
 // css in js
