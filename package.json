@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build:demo": "node scripts/build-demo.mjs",
+    "build:demo": "npm run build:demo:components && npm run build:demo:tw",
+    "build:demo:components": "node scripts/build-demo.mjs",
+    "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./site/index.css",
     "pg": "npm run playground",
     "playground": "vite --host --force"
   },
@@ -28,7 +30,6 @@
   "dependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
-    "postcss": "^8.4.19",
     "react": "^18.2.0",
     "tailwindcss": "^3.2.4",
     "tarat-renderer": "^0.0.7"

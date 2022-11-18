@@ -1,8 +1,8 @@
 import { h, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 
 export interface ButtonProps {
-  children?: string;
-  type?: 'primary';
+  children?: string
+  type?: 'primary'
   onClick: (e: any) => void
 }
 
@@ -14,21 +14,17 @@ export const logic = (props: ButtonProps) => {
     disable: false,
     selected: true,
     active: true,
-    count: 0,
+    count: 0
   }
 }
 
 // tailwindcss
 export const layout = (props: ButtonProps) => {
-
-  const logicResult = useLogic<LogicReturn>();
+  const logicResult = useLogic<LogicReturn>()
 
   return (
-    <buttonBox className="block">
-      <div
-        className="block"
-        onClick={props.onClick}
-      >
+    <buttonBox className="block bg-slate-400">
+      <div className="block" onClick={props.onClick}>
         {props.children}
       </div>
     </buttonBox>
@@ -39,9 +35,8 @@ export const layout = (props: ButtonProps) => {
 export const style = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
-  layout.buttonBox.props.style = ({
+  layout.buttonBox.div.props.style = {
     backgroundColor: logic.count > 0 ? 'red' : 'blue',
     display: 'inline-block'
-  })
+  }
 }
-

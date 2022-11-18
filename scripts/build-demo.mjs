@@ -7,15 +7,17 @@ import { existsSync, fstat, readdir, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 // get dirname in mjs
 import { fileURLToPath } from 'url'
+import { spawn } from 'child_process'
 const __dirname = join(fileURLToPath(import.meta.url), '../')
-console.log('__dirname: ', __dirname);
 
 const componentsDir = join(__dirname, '../components/')
-console.log('componentsDir: ', componentsDir);
 
 const demoOutputDir = join(__dirname, '../site/components')
 
 const demoEntryFile = 'demo.mdx'
+
+console.log('__dirname: ', __dirname);
+console.log('componentsDir: ', componentsDir);
 
 const files = readdirSync(componentsDir).map((file) => {
   const filePath = join(componentsDir, file)
@@ -49,7 +51,9 @@ const arr =  files.map(({
       bundle: true,
       outfile: demoOutputPath,
       format: 'esm',
-      plugins: [mdx()],
+      plugins: [
+        mdx()
+      ],
       // tsconfig: '',
       external: ['react', 'tarat-renderer']
     })

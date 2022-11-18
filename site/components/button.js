@@ -27,7 +27,7 @@ var logic = (props) => {
 var layout = (props) => {
   const logicResult = useLogic();
   return /* @__PURE__ */ h("buttonBox", {
-    className: "block"
+    className: "block bg-slate-400"
   }, /* @__PURE__ */ h("div", {
     className: "block",
     onClick: props.onClick
@@ -36,7 +36,7 @@ var layout = (props) => {
 var style = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
-  layout2.buttonBox.props.style = {
+  layout2.buttonBox.div.props.style = {
     backgroundColor: logic2.count > 0 ? "red" : "blue",
     display: "inline-block"
   };
