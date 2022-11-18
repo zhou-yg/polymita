@@ -1,4 +1,5 @@
 import { h, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { controlActivePattern } from '../../patterns'
 
 export interface ButtonProps {
   children?: string
@@ -35,11 +36,10 @@ export const layout = (props: ButtonProps) => {
 
 export const designPattern = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
-  const layoutResult = useLayout()
-
-  // buttonPattern(logicResult.interactive)
+  const pattern = controlActivePattern(logicResult.interactive)
 
   return {
+    ...pattern,
   }
 }
 
