@@ -1,4 +1,4 @@
-import { matchMatrix } from "../../shared/pattern-utils";
+import { matchMatrix } from "../shared/pattern-utils";
 
 /**
  * for components:
