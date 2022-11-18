@@ -4,7 +4,7 @@ import { matchMatrix } from "../shared/pattern-utils";
  * for components:
  * - Button
  */
-export default function pattern (arg: {
+export function controlActivePattern (arg: {
   actionType: string,
   disable: boolean,
   selected: boolean,
