@@ -9,7 +9,7 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   tailwindcss: ^3.2.4
-  tarat-renderer: ^0.0.9
+  tarat-renderer: ^0.0.13
   vite: ^3.2.4
   vite-tsconfig-paths: ^3.5.2
 
@@ -18,7 +18,7 @@ dependencies:
   '@types/node': 18.11.9
   react: 18.2.0
   tailwindcss: 3.2.4_postcss@8.4.19
-  tarat-renderer: 0.0.9_k35zwyycrckt5xfsejji7kbwn4
+  tarat-renderer: 0.0.13_k35zwyycrckt5xfsejji7kbwn4
 
 devDependencies:
   '@mdx-js/esbuild': 2.1.5_esbuild@0.15.14
@@ -2120,8 +2120,8 @@ packages:
       - ts-node
     dev: false
 
-  /tarat-renderer/0.0.9_k35zwyycrckt5xfsejji7kbwn4:
-    resolution: {integrity: sha512-NvVrdzm6Z3hEi7mRw17Oss66ZkWI/F9GBeh1QvOvfiSM7FAbepp6B7KHFFhlMV5D/2hM1f9gPA3t8OOS8g8FAg==}
+  /tarat-renderer/0.0.13_k35zwyycrckt5xfsejji7kbwn4:
+    resolution: {integrity: sha512-WB7RB/q6BEtWxqu7fgTwYQu6IepPyZL11cC/HSEq2N0FZZd58ZcmdkW5sSYHoWdC0yL8Q4hWrKzCLvj88d9sSQ==}
     dependencies:
       atomic-signal: 0.0.3_k35zwyycrckt5xfsejji7kbwn4
       csstype: 3.1.1

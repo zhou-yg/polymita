@@ -61,7 +61,7 @@ var logic = (props) => {
   return {
     interactive: {
       actionType: "hover",
-      disable: false,
+      disable: props.disabled,
       selected: true,
       active: true
     },
@@ -73,7 +73,7 @@ var layout = (props) => {
   return /* @__PURE__ */ h("buttonBox", {
     "is-container": true,
     "has-border": true,
-    className: "block bg-slate-400"
+    className: "inline-block pd-2"
   }, /* @__PURE__ */ h("div", {
     "is-text": true,
     className: "block",

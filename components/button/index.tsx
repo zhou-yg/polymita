@@ -5,6 +5,7 @@ export interface ButtonProps {
   children?: string
   type?: 'primary'
   onClick: (e: any) => void
+  disabled?: boolean
 }
 
 type LogicReturn = ReturnType<typeof logic>
@@ -13,7 +14,7 @@ export const logic = (props: ButtonProps) => {
   return {
     interactive: {
       actionType: 'hover',
-      disable: false,
+      disable: props.disabled,
       selected: true,
       active: true,
     },
@@ -26,7 +27,7 @@ export const layout = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
   return (
-    <buttonBox is-container has-border className="block bg-slate-400">
+    <buttonBox is-container has-border className="inline-block pd-2">
       <div is-text className="block" onClick={props.onClick}>
         {props.children}
       </div>
