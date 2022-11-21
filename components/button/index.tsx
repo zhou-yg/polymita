@@ -26,8 +26,8 @@ export const layout = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
   return (
-    <buttonBox className="block bg-slate-400">
-      <div className="block" onClick={props.onClick}>
+    <buttonBox is-container has-border className="block bg-slate-400">
+      <div is-text className="block" onClick={props.onClick}>
         {props.children}
       </div>
     </buttonBox>
@@ -44,11 +44,19 @@ export const designPattern = (props: ButtonProps) => {
 }
 
 // css in js
-export const style = (props: ButtonProps) => {
+export const styleRules = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
   layout.buttonBox.div.props.style = {
     backgroundColor: logic.count > 0 ? 'red' : 'blue',
     display: 'inline-block'
   }
+  return [
+    {
+      target: layout.buttonBox.div,
+      condition: logic.count > 0,
+      style: {
+      }
+    }
+  ]
 }

@@ -1,4 +1,19 @@
 var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b ||= {})
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -10,36 +25,80 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/button/index.tsx
 var button_exports = {};
 __export(button_exports, {
+  designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
-  style: () => style
+  styleRules: () => styleRules
 });
 import { h, useLayout, useLogic } from "tarat-renderer";
+
+// patterns/control-active.tsx
+import { matchPatternMatrix } from "tarat-renderer";
+function controlActivePattern(arg) {
+  return matchPatternMatrix(
+    [arg.actionType, arg.disable, arg.selected, arg.active]
+  )({
+    container: {
+      backgroundColor: {
+        blue: ["1", true, true, true]
+      }
+    },
+    border: {
+      ["border-color"]: {
+        blue: ["1", true, true, true]
+      }
+    },
+    text: {
+      ["font-size"]: {
+        small: ["1", true, true, true]
+      }
+    }
+  });
+}
+
+// components/button/index.tsx
 var logic = (props) => {
   return {
-    actionType: "hover",
-    disable: false,
-    selected: true,
-    active: true,
+    interactive: {
+      actionType: "hover",
+      disable: false,
+      selected: true,
+      active: true
+    },
     count: 0
   };
 };
 var layout = (props) => {
   const logicResult = useLogic();
   return /* @__PURE__ */ h("buttonBox", {
+    "is-container": true,
+    "has-border": true,
     className: "block bg-slate-400"
   }, /* @__PURE__ */ h("div", {
+    "is-text": true,
     className: "block",
     onClick: props.onClick
   }, props.children));
 };
-var style = (props) => {
+var designPattern = (props) => {
+  const logicResult = useLogic();
+  const pattern = controlActivePattern(logicResult.interactive);
+  return __spreadValues({}, pattern);
+};
+var styleRules = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
   layout2.buttonBox.div.props.style = {
     backgroundColor: logic2.count > 0 ? "red" : "blue",
     display: "inline-block"
   };
+  return [
+    {
+      target: layout2.buttonBox.div,
+      condition: logic2.count > 0,
+      style: {}
+    }
+  ];
 };
 
 // shared/render.ts

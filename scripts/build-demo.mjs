@@ -32,6 +32,13 @@ const files = readdirSync(componentsDir).map((file) => {
   }
 })
 
+function buildTw () {
+  const instance = spawn('npm', ['run', 'build:demo:tw'], {
+    cwd: join(__dirname, ''),
+    stdio: [process.stdin, process.stdout, process.stderr]
+  })
+}
+
 /**
  * compile mdx to site components
  */
@@ -51,6 +58,15 @@ const arr =  files.map(({
       bundle: true,
       outfile: demoOutputPath,
       format: 'esm',
+      watch: {
+        onRebuild (error, result) {
+          if (error) console.error('watch build failed:', error)
+          else {
+            console.log('watch build succeeded:', result)
+            buildTw()
+          }
+        }
+      },
       plugins: [
         mdx()
       ],

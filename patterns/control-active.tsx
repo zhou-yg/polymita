@@ -1,4 +1,4 @@
-import { matchMatrix } from "../shared/pattern-utils";
+import { matchPatternMatrix } from "tarat-renderer";
 
 /**
  * for components:
@@ -11,7 +11,7 @@ export function controlActivePattern (arg: {
   active: boolean,
 }) {
 
-  return matchMatrix(
+  return matchPatternMatrix(
     [arg.actionType, arg.disable, arg.selected, arg.active]
   )({
     container: {
