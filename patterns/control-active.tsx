@@ -73,13 +73,16 @@ export function blockPattern (
         [colors.bg[0]]: [],
         [colors.bg[1]]: [true, '*', '*', false],
         [colors.bg[2]]: ['*', true, '*', false],
-        [token.colors.grays[0]]: ['*', '*', '*', true],
+        [token.colors.disables[0]]: ['*', '*', '*', true],
+      },
+      cursor: {
+        'not-allowed': ['*', '*', '*', true],
       }
     },
     text: {
       color: {
         [colors.text]: [],
-        [token.colors.grays[1]]: ['*', '*', '*', true],
+        [token.colors.disables[1]]: ['*', '*', '*', true],
       }
     }
   })
@@ -99,7 +102,10 @@ export function strokePattern (
   )({
     container: {
       backgroundColor: {
-        [token.colors.grays[0]]: ['*', '*', '*', true],
+        [token.colors.disables[0]]: ['*', '*', '*', true],
+      },
+      cursor: {
+        'not-allowed': ['*', '*', '*', true],
       }
     },
     border: {
@@ -114,7 +120,7 @@ export function strokePattern (
         [colors.border[1]]:     [],
         [colors.border[0]]: [true, '*', '*', false],
         [colors.border[2]]: ['*', true, '*', false],
-        [token.colors.grays[1]]: ['*', '*', '*', true],
+        [token.colors.disables[1]]: ['*', '*', '*', true],
       },
     },
     text: {
@@ -122,7 +128,7 @@ export function strokePattern (
         [colors.text[1]]: [],
         [colors.text[0]]: [true, '*', '*', false],
         [colors.text[2]]: ['*', true, '*', false],
-        [token.colors.grays[1]]: ['*', '*', '*', true],
+        [token.colors.disables[1]]: ['*', '*', '*', true],
       }
     }
   })

@@ -14,6 +14,10 @@ export const colors = {
     '#f5222d',
     '#cf1322'
   ],
+  disables: [
+    'rgba(0,0,0,.1)',
+    'rgba(0,0,0,.3)',
+  ],
 
   none: '#fff',
   text: '#434343'
