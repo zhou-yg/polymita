@@ -1,10 +1,12 @@
 import Button from './components/button'
+import Menu from './components/menu'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
 const componentsPlayground = {
   all: {
     Button,
+    Menu,
   }
 }
 

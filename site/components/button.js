@@ -55,6 +55,10 @@ var colors = {
     "#f5222d",
     "#cf1322"
   ],
+  disables: [
+    "rgba(0,0,0,.1)",
+    "rgba(0,0,0,.3)"
+  ],
   none: "#fff",
   text: "#434343"
 };
@@ -69,13 +73,16 @@ function blockPattern(arg, colors2) {
         [colors2.bg[0]]: [],
         [colors2.bg[1]]: [true, "*", "*", false],
         [colors2.bg[2]]: ["*", true, "*", false],
-        [colors.grays[0]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
+      },
+      cursor: {
+        "not-allowed": ["*", "*", "*", true]
       }
     },
     text: {
       color: {
         [colors2.text]: [],
-        [colors.grays[1]]: ["*", "*", "*", true]
+        [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
   });
@@ -86,7 +93,10 @@ function strokePattern(arg, colors2) {
   )({
     container: {
       backgroundColor: {
-        [colors.grays[0]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
+      },
+      cursor: {
+        "not-allowed": ["*", "*", "*", true]
       }
     },
     border: {
@@ -101,7 +111,7 @@ function strokePattern(arg, colors2) {
         [colors2.border[1]]: [],
         [colors2.border[0]]: [true, "*", "*", false],
         [colors2.border[2]]: ["*", true, "*", false],
-        [colors.grays[1]]: ["*", "*", "*", true]
+        [colors.disables[1]]: ["*", "*", "*", true]
       }
     },
     text: {
@@ -109,7 +119,7 @@ function strokePattern(arg, colors2) {
         [colors2.text[1]]: [],
         [colors2.text[0]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],
-        [colors.grays[1]]: ["*", "*", "*", true]
+        [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
   });
@@ -206,21 +216,15 @@ var designPattern = (props) => {
           text: [colors.primaries[1], colors.text, colors.primaries[2]]
         }
       );
+      break;
   }
+  console.log("pattern: ", props.type, pattern);
   return pattern;
 };
 var styleRules = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
-  return [
-    {
-      target: layout2.buttonBox,
-      condition: logic2.interactive.disabled,
-      style: {
-        cursor: "not-allowed"
-      }
-    }
-  ];
+  return [];
 };
 
 // shared/render.ts
@@ -239,7 +243,7 @@ function RenderToReact(module) {
 }
 
 // components/button/demo.mdx
-var RButton = RenderToReact(button_exports);
+var Component = RenderToReact(button_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -250,33 +254,33 @@ function _createMdxContent(props) {
       children: "Button \u6309\u94AE"
     }), "\n", _jsx(_components.p, {
       children: "\u6807\u8BB0\u4E86\u4E00\u4E2A\uFF08\u6216\u5C01\u88C5\u4E00\u7EC4\uFF09\u64CD\u4F5C\u547D\u4EE4\uFF0C\u54CD\u5E94\u7528\u6237\u70B9\u51FB\u884C\u4E3A\uFF0C\u89E6\u53D1\u76F8\u5E94\u7684\u4E1A\u52A1\u903B\u8F91"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       type: "primary",
       onClick: () => console.log("click on primary"),
       children: "Primary Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       type: "text",
       children: "Text Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       children: "Default Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       type: "link",
       children: "Link Button"
     }), "\n", _jsx(_components.p, {
       children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       disabled: true,
       type: "primary",
       onClick: () => console.log("click on primary"),
       children: "Primary Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       disabled: true,
       type: "text",
       children: "Text Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       disabled: true,
       children: "Default Button"
-    }), "\n", _jsx(RButton, {
+    }), "\n", _jsx(Component, {
       disabled: true,
       type: "link",
       children: "Link Button"
@@ -293,6 +297,6 @@ function MDXContent(props = {}) {
 }
 var demo_default = MDXContent;
 export {
-  RButton,
+  Component,
   demo_default as default
 };
