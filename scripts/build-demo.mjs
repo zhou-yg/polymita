@@ -71,7 +71,7 @@ const arr =  files.map(({
         mdx()
       ],
       // tsconfig: '',
-      external: ['react', 'tarat-renderer']
+      external: ['react', 'tarat-renderer', 'atomic-signal']
     })
 })
 

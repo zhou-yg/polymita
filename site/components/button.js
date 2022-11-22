@@ -34,64 +34,165 @@ import { h, useLayout, useLogic } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
-function controlActivePattern(arg) {
+
+// patterns/token.ts
+var colors = {
+  primaries: [
+    "#4096ff",
+    "#1677ff",
+    "#0958d9"
+  ],
+  grays: [
+    "#f0f0f0",
+    "#d9d9d9",
+    "#bfbfbf"
+  ],
+  default: "#fff",
+  primary: "#1677ff",
+  secondary: "#4096ff",
+  active: "#0958d9",
+  none: "#fff",
+  text: "#434343"
+};
+
+// patterns/control-active.tsx
+function blockPattern(arg, colors2) {
   return matchPatternMatrix(
-    [arg.actionType, arg.disable, arg.selected, arg.active]
+    [arg.hover(), arg.active(), arg.selected, arg.disabled]
   )({
     container: {
       backgroundColor: {
-        blue: ["1", true, true, true]
-      }
-    },
-    border: {
-      ["border-color"]: {
-        blue: ["1", true, true, true]
+        [colors2.bg[0]]: [],
+        [colors2.bg[1]]: [true, "*", "*", "*"],
+        [colors2.bg[2]]: ["*", true, "*", "*"]
       }
     },
     text: {
-      ["font-size"]: {
-        small: ["1", true, true, true]
+      color: {
+        [colors2.text]: []
+      }
+    }
+  });
+}
+function strokePattern(arg, colors2) {
+  return matchPatternMatrix(
+    [arg.hover(), arg.active(), arg.selected, arg.disabled]
+  )({
+    container: {
+      backgroundColor: {}
+    },
+    border: {
+      borderStyle: {
+        solid: []
+      },
+      borderWidth: {
+        [`${colors2.bdw}px`]: []
+      },
+      borderColor: {
+        [colors2.border[1]]: [],
+        [colors2.border[0]]: [true, "*", "*", "*"],
+        [colors2.border[2]]: ["*", true, "*", "*"]
+      }
+    },
+    text: {
+      color: {
+        [colors2.text[1]]: [],
+        [colors2.text[0]]: [true, "*", "*", "*"],
+        [colors2.text[2]]: ["*", true, "*", "*"]
       }
     }
   });
 }
 
 // components/button/index.tsx
+import { action, signal } from "atomic-signal";
 var logic = (props) => {
+  const hover = signal(false);
+  const active = signal(false);
+  const mouseOver = action(() => {
+    hover(() => true);
+  });
+  const mouseLeave = action(() => {
+    hover(() => false);
+  });
+  const mouseDown = action(() => {
+    active(() => true);
+  });
+  const mouseUp = action(() => {
+    active(() => false);
+  });
   return {
     interactive: {
-      actionType: "hover",
-      disable: props.disabled,
+      hover,
+      active,
       selected: true,
-      active: true
+      disabled: props.disabled
     },
+    mouseOver,
+    mouseLeave,
+    mouseDown,
+    mouseUp,
     count: 0
   };
 };
 var layout = (props) => {
   const logicResult = useLogic();
   return /* @__PURE__ */ h("buttonBox", {
+    className: "inline-block p-2 rounded hover:cursor-pointer",
+    onMouseLeave: logicResult.mouseLeave,
+    onMouseOver: logicResult.mouseOver,
+    onMouseDown: logicResult.mouseDown,
+    onMouseUp: logicResult.mouseUp,
     "is-container": true,
-    "has-border": true,
-    className: "inline-block pd-2"
-  }, /* @__PURE__ */ h("div", {
+    "has-border": true
+  }, /* @__PURE__ */ h("span", {
     "is-text": true,
-    className: "block",
+    className: "block select-none",
     onClick: props.onClick
   }, props.children));
 };
 var designPattern = (props) => {
   const logicResult = useLogic();
-  const pattern = controlActivePattern(logicResult.interactive);
+  let pattern;
+  const blockPatternWithInteractive = blockPattern.bind(null, logicResult.interactive);
+  const strokePatternWithInteractive = strokePattern.bind(null, logicResult.interactive);
+  switch (props.type) {
+    case "primary":
+      pattern = blockPatternWithInteractive(
+        {
+          bg: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
+          text: colors.none
+        }
+      );
+      break;
+    case "link":
+      pattern = strokePatternWithInteractive({
+        border: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
+        text: [colors.primaries[0], colors.primaries[1], colors.primaries[2]]
+      });
+      break;
+    case "text":
+      pattern = blockPatternWithInteractive(
+        {
+          bg: [colors.none, colors.grays[0], colors.grays[1]],
+          text: colors.text
+        }
+      );
+      break;
+    default:
+      pattern = strokePatternWithInteractive(
+        {
+          bdw: 1,
+          border: [colors.primaries[1], colors.grays[1], colors.primaries[2]],
+          text: [colors.primaries[1], colors.text, colors.primaries[2]]
+        }
+      );
+  }
   return __spreadValues({}, pattern);
 };
 var styleRules = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
-  layout2.buttonBox.div.props.style = {
-    backgroundColor: logic2.count > 0 ? "red" : "blue",
-    display: "inline-block"
-  };
   return [
     {
       target: layout2.buttonBox.div,
@@ -129,10 +230,17 @@ function _createMdxContent(props) {
     }), "\n", _jsx(_components.p, {
       children: "\u6807\u8BB0\u4E86\u4E00\u4E2A\uFF08\u6216\u5C01\u88C5\u4E00\u7EC4\uFF09\u64CD\u4F5C\u547D\u4EE4\uFF0C\u54CD\u5E94\u7528\u6237\u70B9\u51FB\u884C\u4E3A\uFF0C\u89E6\u53D1\u76F8\u5E94\u7684\u4E1A\u52A1\u903B\u8F91"
     }), "\n", _jsx(RButton, {
-      pattern: {
-        type: "primary"
-      },
-      children: "pattern is primary"
+      type: "primary",
+      onClick: () => console.log("click on primary"),
+      children: "Primary Button"
+    }), "\n", _jsx(RButton, {
+      children: "Default Button"
+    }), "\n", _jsx(RButton, {
+      type: "text",
+      children: "Text Button"
+    }), "\n", _jsx(RButton, {
+      type: "link",
+      children: "Link Button"
     }), "\n", _jsx(_components.p, {
       children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
     })]

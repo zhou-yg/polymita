@@ -521,3 +521,25 @@ video {
   display: inline-block;
 }
 
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+

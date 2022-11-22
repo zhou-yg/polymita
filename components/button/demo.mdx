@@ -6,6 +6,12 @@ export const RButton = RenderToReact(Button)
 
 标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑
 
-<RButton pattern={{ type: 'primary' }} >pattern is primary</RButton>
+<RButton type="primary" onClick={() => console.log('click on primary')} >Primary Button</RButton>
+
+<RButton >Default Button</RButton>
+
+<RButton type="text" >Text Button</RButton>
+
+<RButton type="link" >Link Button</RButton>
 
 基本的按钮展示

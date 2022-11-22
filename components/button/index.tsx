@@ -1,9 +1,11 @@
-import { h, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { controlActivePattern } from '../../patterns'
+import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { blockPattern, defaultControlPattern, primaryControlPattern, strokePattern } from '../../patterns'
+import { action, signal } from 'atomic-signal'
+import { colors } from '../../patterns/token'
 
 export interface ButtonProps {
   children?: string
-  type?: 'primary'
+  type?: 'primary' | 'link' | 'text'
   onClick: (e: any) => void
   disabled?: boolean
 }
@@ -11,13 +13,33 @@ export interface ButtonProps {
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: ButtonProps) => {
+  const hover = signal(false)
+  const active = signal(false)
+
+  const mouseOver = action(() => {
+    hover(() => true)
+  })
+  const mouseLeave = action(() => {
+    hover(() => false)
+  })
+  const mouseDown = action(() => {
+    active(() => true)
+  })
+  const mouseUp = action(() => {
+    active(() => false)
+  })
+  
   return {
     interactive: {
-      actionType: 'hover',
-      disable: props.disabled,
+      hover: hover,
+      active: active,
       selected: true,
-      active: true,
+      disabled: props.disabled,
     },
+    mouseOver,
+    mouseLeave,
+    mouseDown,
+    mouseUp,
     count: 0
   }
 }
@@ -26,19 +48,64 @@ export const logic = (props: ButtonProps) => {
 export const layout = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
+  // const v = logicResult.interactive.actionType()
+  // console.log('logicResult.interactive.actionType(): ', v, typeof v);
+
   return (
-    <buttonBox is-container has-border className="inline-block pd-2">
-      <div is-text className="block" onClick={props.onClick}>
-        {props.children}
-      </div>
+    <buttonBox
+      className="inline-block p-2 rounded hover:cursor-pointer"
+      onMouseLeave={logicResult.mouseLeave}
+      onMouseOver={logicResult.mouseOver}
+      onMouseDown={logicResult.mouseDown}
+      onMouseUp={logicResult.mouseUp}
+      is-container
+      has-border
+    >
+      <span is-text className="block select-none" onClick={props.onClick}>
+         {props.children}
+      </span>
     </buttonBox>
   )
 }
 
 export const designPattern = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
-  const pattern = controlActivePattern(logicResult.interactive)
 
+  let pattern: PatternStructure;
+  const blockPatternWithInteractive = blockPattern.bind(null, logicResult.interactive)
+  const strokePatternWithInteractive = strokePattern.bind(null, logicResult.interactive)
+  switch (props.type) {
+    case 'primary':
+      pattern = blockPatternWithInteractive(
+        {
+          bg: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
+          text: colors.none,
+        }
+      )
+      break;
+    case 'link':
+      pattern = strokePatternWithInteractive({
+        border: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
+        text: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
+      })
+      break;
+    case 'text':
+      pattern = blockPatternWithInteractive(
+        {
+          bg: [colors.none, colors.grays[0], colors.grays[1]],
+          text: colors.text,
+        },
+      )
+      break
+    default:
+      pattern = strokePatternWithInteractive(
+        {
+          bdw: 1,
+          border: [colors.primaries[1], colors.grays[1], colors.primaries[2]],
+          text: [colors.primaries[1], colors.text, colors.primaries[2]],
+        },
+      )
+  }
   return {
     ...pattern,
   }
@@ -48,10 +115,6 @@ export const designPattern = (props: ButtonProps) => {
 export const styleRules = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
-  layout.buttonBox.div.props.style = {
-    backgroundColor: logic.count > 0 ? 'red' : 'blue',
-    display: 'inline-block'
-  }
   return [
     {
       target: layout.buttonBox.div,

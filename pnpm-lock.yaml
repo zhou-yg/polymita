@@ -5,6 +5,7 @@ specifiers:
   '@types/jest': ^29.2.3
   '@types/node': ^18.11.9
   '@types/react-dom': ^18.0.9
+  atomic-signal: ^0.0.3
   esbuild: ^0.15.14
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -16,9 +17,10 @@ specifiers:
 dependencies:
   '@types/jest': 29.2.3
   '@types/node': 18.11.9
+  atomic-signal: 0.0.3_k35zwyycrckt5xfsejji7kbwn4
   react: 18.2.0
   tailwindcss: 3.2.4_postcss@8.4.19
-  tarat-renderer: 0.0.13_k35zwyycrckt5xfsejji7kbwn4
+  tarat-renderer: link:node_modules/tarat-renderer
 
 devDependencies:
   '@mdx-js/esbuild': 2.1.5_esbuild@0.15.14
@@ -558,6 +560,7 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+    dev: true
 
   /data-uri-to-buffer/4.0.0:
     resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
@@ -2118,16 +2121,6 @@ packages:
       resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
-    dev: false
-
-  /tarat-renderer/0.0.13_k35zwyycrckt5xfsejji7kbwn4:
-    resolution: {integrity: sha512-WB7RB/q6BEtWxqu7fgTwYQu6IepPyZL11cC/HSEq2N0FZZd58ZcmdkW5sSYHoWdC0yL8Q4hWrKzCLvj88d9sSQ==}
-    dependencies:
-      atomic-signal: 0.0.3_k35zwyycrckt5xfsejji7kbwn4
-      csstype: 3.1.1
-    transitivePeerDependencies:
-      - rollup
-      - typescript
     dev: false
 
   /thenify-all/1.6.0:
