@@ -9,10 +9,11 @@ export const colors = {
     '#d9d9d9',
     '#bfbfbf'
   ],
-  default: '#fff',
-  primary: '#1677ff',
-  secondary: '#4096ff',
-  active: '#0958d9',
+  dangers: [
+    '#ff4d4f',
+    '#f5222d',
+    '#cf1322'
+  ],
 
   none: '#fff',
   text: '#434343'

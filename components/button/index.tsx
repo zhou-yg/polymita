@@ -1,5 +1,5 @@
 import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { blockPattern, defaultControlPattern, primaryControlPattern, strokePattern } from '../../patterns'
+import { blockPattern, strokePattern } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 
@@ -34,7 +34,7 @@ export const logic = (props: ButtonProps) => {
       hover: hover,
       active: active,
       selected: true,
-      disabled: props.disabled,
+      disabled: !!props.disabled,
     },
     mouseOver,
     mouseLeave,
@@ -44,6 +44,7 @@ export const logic = (props: ButtonProps) => {
   }
 }
 
+
 // tailwindcss
 export const layout = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
@@ -51,17 +52,24 @@ export const layout = (props: ButtonProps) => {
   // const v = logicResult.interactive.actionType()
   // console.log('logicResult.interactive.actionType(): ', v, typeof v);
 
+  const events = props.disabled ? {} : {
+    onMouseLeave: logicResult.mouseLeave,
+    onMouseOver: logicResult.mouseOver,
+    onMouseDown: logicResult.mouseDown,
+    onMouseUp: logicResult.mouseUp,
+  }
+
   return (
     <buttonBox
       className="inline-block p-2 rounded hover:cursor-pointer"
-      onMouseLeave={logicResult.mouseLeave}
-      onMouseOver={logicResult.mouseOver}
-      onMouseDown={logicResult.mouseDown}
-      onMouseUp={logicResult.mouseUp}
+      {...events}
       is-container
       has-border
     >
-      <span is-text className="block select-none" onClick={props.onClick}>
+      <span is-text className="block select-none" onClick={(e) => {
+        if (props.disabled) return
+        props.onClick?.(e)
+      }}>
          {props.children}
       </span>
     </buttonBox>
@@ -106,9 +114,7 @@ export const designPattern = (props: ButtonProps) => {
         },
       )
   }
-  return {
-    ...pattern,
-  }
+  return pattern
 }
 
 // css in js
@@ -117,9 +123,10 @@ export const styleRules = (props: ButtonProps) => {
   const layout = useLayout()
   return [
     {
-      target: layout.buttonBox.div,
-      condition: logic.count > 0,
+      target: layout.buttonBox,
+      condition: logic.interactive.disabled,
       style: {
+        cursor: 'not-allowed',
       }
     }
   ]

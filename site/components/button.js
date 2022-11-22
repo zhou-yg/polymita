@@ -1,4 +1,6 @@
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -14,6 +16,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -47,10 +50,11 @@ var colors = {
     "#d9d9d9",
     "#bfbfbf"
   ],
-  default: "#fff",
-  primary: "#1677ff",
-  secondary: "#4096ff",
-  active: "#0958d9",
+  dangers: [
+    "#ff4d4f",
+    "#f5222d",
+    "#cf1322"
+  ],
   none: "#fff",
   text: "#434343"
 };
@@ -63,13 +67,15 @@ function blockPattern(arg, colors2) {
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, "*", "*", "*"],
-        [colors2.bg[2]]: ["*", true, "*", "*"]
+        [colors2.bg[1]]: [true, "*", "*", false],
+        [colors2.bg[2]]: ["*", true, "*", false],
+        [colors.grays[0]]: ["*", "*", "*", true]
       }
     },
     text: {
       color: {
-        [colors2.text]: []
+        [colors2.text]: [],
+        [colors.grays[1]]: ["*", "*", "*", true]
       }
     }
   });
@@ -79,26 +85,31 @@ function strokePattern(arg, colors2) {
     [arg.hover(), arg.active(), arg.selected, arg.disabled]
   )({
     container: {
-      backgroundColor: {}
+      backgroundColor: {
+        [colors.grays[0]]: ["*", "*", "*", true]
+      }
     },
     border: {
       borderStyle: {
         solid: []
       },
       borderWidth: {
-        [`${colors2.bdw}px`]: []
+        [`${colors2.bdw}px`]: [],
+        "0px": ["*", "*", "*", true]
       },
       borderColor: {
         [colors2.border[1]]: [],
-        [colors2.border[0]]: [true, "*", "*", "*"],
-        [colors2.border[2]]: ["*", true, "*", "*"]
+        [colors2.border[0]]: [true, "*", "*", false],
+        [colors2.border[2]]: ["*", true, "*", false],
+        [colors.grays[1]]: ["*", "*", "*", true]
       }
     },
     text: {
       color: {
         [colors2.text[1]]: [],
-        [colors2.text[0]]: [true, "*", "*", "*"],
-        [colors2.text[2]]: ["*", true, "*", "*"]
+        [colors2.text[0]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors.grays[1]]: ["*", "*", "*", true]
       }
     }
   });
@@ -126,7 +137,7 @@ var logic = (props) => {
       hover,
       active,
       selected: true,
-      disabled: props.disabled
+      disabled: !!props.disabled
     },
     mouseOver,
     mouseLeave,
@@ -137,18 +148,26 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ h("buttonBox", {
-    className: "inline-block p-2 rounded hover:cursor-pointer",
+  const events = props.disabled ? {} : {
     onMouseLeave: logicResult.mouseLeave,
     onMouseOver: logicResult.mouseOver,
     onMouseDown: logicResult.mouseDown,
-    onMouseUp: logicResult.mouseUp,
+    onMouseUp: logicResult.mouseUp
+  };
+  return /* @__PURE__ */ h("buttonBox", __spreadProps(__spreadValues({
+    className: "inline-block p-2 rounded hover:cursor-pointer"
+  }, events), {
     "is-container": true,
     "has-border": true
-  }, /* @__PURE__ */ h("span", {
+  }), /* @__PURE__ */ h("span", {
     "is-text": true,
     className: "block select-none",
-    onClick: props.onClick
+    onClick: (e) => {
+      var _a;
+      if (props.disabled)
+        return;
+      (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+    }
   }, props.children));
 };
 var designPattern = (props) => {
@@ -188,16 +207,18 @@ var designPattern = (props) => {
         }
       );
   }
-  return __spreadValues({}, pattern);
+  return pattern;
 };
 var styleRules = (props) => {
   const logic2 = useLogic();
   const layout2 = useLayout();
   return [
     {
-      target: layout2.buttonBox.div,
-      condition: logic2.count > 0,
-      style: {}
+      target: layout2.buttonBox,
+      condition: logic2.interactive.disabled,
+      style: {
+        cursor: "not-allowed"
+      }
     }
   ];
 };
@@ -234,15 +255,33 @@ function _createMdxContent(props) {
       onClick: () => console.log("click on primary"),
       children: "Primary Button"
     }), "\n", _jsx(RButton, {
-      children: "Default Button"
-    }), "\n", _jsx(RButton, {
       type: "text",
       children: "Text Button"
+    }), "\n", _jsx(RButton, {
+      children: "Default Button"
     }), "\n", _jsx(RButton, {
       type: "link",
       children: "Link Button"
     }), "\n", _jsx(_components.p, {
       children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
+    }), "\n", _jsx(RButton, {
+      disabled: true,
+      type: "primary",
+      onClick: () => console.log("click on primary"),
+      children: "Primary Button"
+    }), "\n", _jsx(RButton, {
+      disabled: true,
+      type: "text",
+      children: "Text Button"
+    }), "\n", _jsx(RButton, {
+      disabled: true,
+      children: "Default Button"
+    }), "\n", _jsx(RButton, {
+      disabled: true,
+      type: "link",
+      children: "Link Button"
+    }), "\n", _jsx(_components.p, {
+      children: "disabled \u6309\u94AE\u5C55\u793A"
     })]
   });
 }

@@ -8,10 +8,20 @@ export const RButton = RenderToReact(Button)
 
 <RButton type="primary" onClick={() => console.log('click on primary')} >Primary Button</RButton>
 
-<RButton >Default Button</RButton>
-
 <RButton type="text" >Text Button</RButton>
+
+<RButton >Default Button</RButton>
 
 <RButton type="link" >Link Button</RButton>
 
 基本的按钮展示
+
+<RButton disabled type="primary" onClick={() => console.log('click on primary')} >Primary Button</RButton>
+
+<RButton disabled type="text" >Text Button</RButton>
+
+<RButton disabled >Default Button</RButton>
+
+<RButton disabled type="link" >Link Button</RButton>
+
+disabled 按钮展示

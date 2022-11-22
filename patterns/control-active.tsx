@@ -1,59 +1,59 @@
 import { matchPatternMatrix } from "tarat-renderer";
-import { colors } from "./token";
+import * as token from "./token";
 
 /**
  * for components:
  * - Button
  */
-export function primaryControlPattern (arg: {
-  hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-  active: () => boolean,
-  selected: boolean,
-  disabled: boolean,
-}) {
+// export function primaryControlPattern (arg: {
+//   hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
+//   active: () => boolean,
+//   selected: boolean,
+//   disabled: boolean,
+// }) {
 
-  return matchPatternMatrix(
-    [arg.hover(), arg.active(), arg.selected, arg.disabled]
-  )({
-    container: {
-      backgroundColor: {
-        [colors.primary]:   [],
-        [colors.secondary]: [true, '*', '*', '*'],
-        [colors.active]:    ['*', true, '*', '*'],
-      }
-    },
-    text: {
-      color: {
-        [colors.none]: []
-      }
-    }
-  })
-}
+//   return matchPatternMatrix(
+//     [arg.hover(), arg.active(), arg.selected, arg.disabled]
+//   )({
+//     container: {
+//       backgroundColor: {
+//         [colors.primary]:   [],
+//         [colors.secondary]: [true, '*', '*', '*'],
+//         [colors.active]:    ['*', true, '*', '*'],
+//       }
+//     },
+//     text: {
+//       color: {
+//         [colors.none]: []
+//       }
+//     }
+//   })
+// }
 
-export function defaultControlPattern (arg: {
-  hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-  active: () => boolean,
-  selected: boolean,
-  disabled: boolean,
-}) {
+// export function defaultControlPattern (arg: {
+//   hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
+//   active: () => boolean,
+//   selected: boolean,
+//   disabled: boolean,
+// }) {
 
-  return matchPatternMatrix(
-    [arg.hover(), arg.active(), arg.selected, arg.disabled]
-  )({
-    container: {
-      backgroundColor: {
-        [colors.none]:     [],
-        [colors.grays[0]]: [true, '*', '*', '*'],
-        [colors.grays[1]]: ['*', true, '*', '*'],
-      }
-    },
-    text: {
-      color: {
-        [colors.text]: []
-      }
-    }
-  })
-}
+//   return matchPatternMatrix(
+//     [arg.hover(), arg.active(), arg.selected, arg.disabled]
+//   )({
+//     container: {
+//       backgroundColor: {
+//         [colors.none]:     [],
+//         [colors.grays[0]]: [true, '*', '*', '*'],
+//         [colors.grays[1]]: ['*', true, '*', '*'],
+//       }
+//     },
+//     text: {
+//       color: {
+//         [colors.text]: []
+//       }
+//     }
+//   })
+// }
 
 export function blockPattern (
   arg: {
@@ -70,14 +70,16 @@ export function blockPattern (
   )({
     container: {
       backgroundColor: {
-        [colors.bg[0]]:     [],
-        [colors.bg[1]]: [true, '*', '*', '*'],
-        [colors.bg[2]]: ['*', true, '*', '*'],
+        [colors.bg[0]]: [],
+        [colors.bg[1]]: [true, '*', '*', false],
+        [colors.bg[2]]: ['*', true, '*', false],
+        [token.colors.grays[0]]: ['*', '*', '*', true],
       }
     },
     text: {
       color: {
-        [colors.text]: []
+        [colors.text]: [],
+        [token.colors.grays[1]]: ['*', '*', '*', true],
       }
     }
   })
@@ -97,6 +99,7 @@ export function strokePattern (
   )({
     container: {
       backgroundColor: {
+        [token.colors.grays[0]]: ['*', '*', '*', true],
       }
     },
     border: {
@@ -105,18 +108,21 @@ export function strokePattern (
       },
       borderWidth: {
         [`${colors.bdw}px`]: [],
+        '0px': ['*', '*', '*', true],
       },
       borderColor: {
         [colors.border[1]]:     [],
-        [colors.border[0]]: [true, '*', '*', '*'],
-        [colors.border[2]]: ['*', true, '*', '*'],
+        [colors.border[0]]: [true, '*', '*', false],
+        [colors.border[2]]: ['*', true, '*', false],
+        [token.colors.grays[1]]: ['*', '*', '*', true],
       },
     },
     text: {
       color: {
         [colors.text[1]]: [],
-        [colors.text[0]]: [true, '*', '*', '*'],
-        [colors.text[2]]: ['*', true, '*', '*'],
+        [colors.text[0]]: [true, '*', '*', false],
+        [colors.text[2]]: ['*', true, '*', false],
+        [token.colors.grays[1]]: ['*', '*', '*', true],
       }
     }
   })

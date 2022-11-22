@@ -30,10 +30,10 @@
   "dependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
-    "atomic-signal": "^0.0.4",
+    "atomic-signal": "latest",
     "react": "^18.2.0",
     "tailwindcss": "^3.2.4",
-    "tarat-renderer": "^0.0.13"
+    "tarat-renderer": "latest"
   },
   "devDependencies": {
     "@mdx-js/esbuild": "^2.1.5",
