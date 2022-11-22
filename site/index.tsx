@@ -12,9 +12,9 @@ function Home() {
 
   const node = Object.entries(componentsPlayground).map(([groupName, group]) => {
     return (
-      <div key={groupName}>
-        <h2 className="group-name">{groupName}</h2>
-        <div>
+      <div key={groupName} className="flex" >
+        <h2 className="group-name m-2 p-2">{groupName}</h2>
+        <div className="flex-1">
           {Object.entries(group).map(([componentName, ComponentPreview]) => {
             return (
               <div key={componentName}>

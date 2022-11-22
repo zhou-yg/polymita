@@ -155,7 +155,7 @@ var layout = (props) => {
     onMouseUp: logicResult.mouseUp
   };
   return /* @__PURE__ */ h("buttonBox", __spreadProps(__spreadValues({
-    className: "inline-block p-2 rounded hover:cursor-pointer"
+    className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
   }, events), {
     "is-container": true,
     "has-border": true
