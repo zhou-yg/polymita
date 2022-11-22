@@ -113,7 +113,9 @@ export const designPattern = (props: ButtonProps) => {
           text: [colors.primaries[1], colors.text, colors.primaries[2]],
         },
       )
+      break;
   }
+  console.log('pattern: ', props.type, pattern);
   return pattern
 }
 
@@ -122,12 +124,12 @@ export const styleRules = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
   return [
-    {
-      target: layout.buttonBox,
-      condition: logic.interactive.disabled,
-      style: {
-        cursor: 'not-allowed',
-      }
-    }
+    // {
+    //   target: layout.buttonBox,
+    //   condition: logic.interactive.disabled,
+    //   style: {
+    //     cursor: 'not-allowed',
+    //   }
+    // }
   ]
 }
