@@ -1,4 +1,5 @@
 import { matchPatternMatrix } from "tarat-renderer";
+import { action, signal } from 'atomic-signal'
 import * as token from "./token";
 
 /**
@@ -54,6 +55,46 @@ import * as token from "./token";
 //     }
 //   })
 // }
+export function useInteractive (props: { disabled?: boolean, selected?: boolean }) {
+  const hover = signal(false)
+  const active = signal(false)
+
+  const mouseOver = action(() => {
+    if (props.disabled) return
+    hover(() => true)
+  })
+  const mouseLeave = action(() => {
+    if (props.disabled) return
+    hover(() => false)
+  })
+  const mouseDown = action(() => {
+    if (props.disabled) return
+    active(() => true)
+  })
+  const mouseUp = action(() => {
+    if (props.disabled) return
+    active(() => false)
+  })
+  
+  return {
+    states: {
+      hover: hover,
+      active: active,
+      selected: !!props.selected,
+      disabled: !!props.disabled,
+    },
+    events: {
+      onMouseOver: mouseOver,
+      onMouseLeave: mouseLeave,
+      onMouseDown: mouseDown,
+      onMouseUp: mouseUp,
+    }
+  }
+}
+
+type NormalColor = string
+type HoverColor = string
+type ActiveColor = string
 
 export function blockPattern (
   arg: {
@@ -62,7 +103,7 @@ export function blockPattern (
     selected: boolean,
     disabled: boolean,
   },
-  colors: { bg: [string, string, string], text: string },
+  colors: { bg: [NormalColor, HoverColor, ActiveColor?], text: [NormalColor, HoverColor?, ActiveColor?] },
 ) {
 
   return matchPatternMatrix(
@@ -76,12 +117,17 @@ export function blockPattern (
         [token.colors.disables[0]]: ['*', '*', '*', true],
       },
       cursor: {
+        pointer: [],
         'not-allowed': ['*', '*', '*', true],
+      },
+      'user-select': {
+        none: [],
       }
     },
     text: {
       color: {
-        [colors.text]: [],
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, '*', '*', false],
         [token.colors.disables[1]]: ['*', '*', '*', true],
       }
     }
@@ -94,7 +140,11 @@ export function strokePattern (
     selected: boolean,
     disabled: boolean,
   },
-  colors: { bdw: number, border: [string, string, string], text: [string, string, string] },
+  colors: {
+    bdw?: number,
+    border: [NormalColor, HoverColor, ActiveColor?],
+    text: [NormalColor, HoverColor, ActiveColor?]
+  },
 ) {
 
   return matchPatternMatrix(
@@ -117,16 +167,16 @@ export function strokePattern (
         '0px': ['*', '*', '*', true],
       },
       borderColor: {
-        [colors.border[1]]:     [],
-        [colors.border[0]]: [true, '*', '*', false],
+        [colors.border[0]]:     [],
+        [colors.border[1]]: [true, '*', '*', false],
         [colors.border[2]]: ['*', true, '*', false],
         [token.colors.disables[1]]: ['*', '*', '*', true],
       },
     },
     text: {
       color: {
-        [colors.text[1]]: [],
-        [colors.text[0]]: [true, '*', '*', false],
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, '*', '*', false],
         [colors.text[2]]: ['*', true, '*', false],
         [token.colors.disables[1]]: ['*', '*', '*', true],
       }

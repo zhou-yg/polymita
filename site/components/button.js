@@ -37,6 +37,7 @@ import { h, useLayout, useLogic } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
+import { action, signal } from "atomic-signal";
 
 // patterns/token.ts
 var colors = {
@@ -64,6 +65,44 @@ var colors = {
 };
 
 // patterns/control-active.tsx
+function useInteractive(props) {
+  const hover = signal(false);
+  const active = signal(false);
+  const mouseOver = action(() => {
+    if (props.disabled)
+      return;
+    hover(() => true);
+  });
+  const mouseLeave = action(() => {
+    if (props.disabled)
+      return;
+    hover(() => false);
+  });
+  const mouseDown = action(() => {
+    if (props.disabled)
+      return;
+    active(() => true);
+  });
+  const mouseUp = action(() => {
+    if (props.disabled)
+      return;
+    active(() => false);
+  });
+  return {
+    states: {
+      hover,
+      active,
+      selected: !!props.selected,
+      disabled: !!props.disabled
+    },
+    events: {
+      onMouseOver: mouseOver,
+      onMouseLeave: mouseLeave,
+      onMouseDown: mouseDown,
+      onMouseUp: mouseUp
+    }
+  };
+}
 function blockPattern(arg, colors2) {
   return matchPatternMatrix(
     [arg.hover(), arg.active(), arg.selected, arg.disabled]
@@ -76,12 +115,17 @@ function blockPattern(arg, colors2) {
         [colors.disables[0]]: ["*", "*", "*", true]
       },
       cursor: {
+        pointer: [],
         "not-allowed": ["*", "*", "*", true]
+      },
+      "user-select": {
+        none: []
       }
     },
     text: {
       color: {
-        [colors2.text]: [],
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
@@ -108,16 +152,16 @@ function strokePattern(arg, colors2) {
         "0px": ["*", "*", "*", true]
       },
       borderColor: {
-        [colors2.border[1]]: [],
-        [colors2.border[0]]: [true, "*", "*", false],
+        [colors2.border[0]]: [],
+        [colors2.border[1]]: [true, "*", "*", false],
         [colors2.border[2]]: ["*", true, "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     },
     text: {
       color: {
-        [colors2.text[1]]: [],
-        [colors2.text[0]]: [true, "*", "*", false],
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
@@ -126,47 +170,18 @@ function strokePattern(arg, colors2) {
 }
 
 // components/button/index.tsx
-import { action, signal } from "atomic-signal";
 var logic = (props) => {
-  const hover = signal(false);
-  const active = signal(false);
-  const mouseOver = action(() => {
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    active(() => false);
-  });
+  const interactive = useInteractive(props);
   return {
-    interactive: {
-      hover,
-      active,
-      selected: true,
-      disabled: !!props.disabled
-    },
-    mouseOver,
-    mouseLeave,
-    mouseDown,
-    mouseUp,
+    interactive,
     count: 0
   };
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  const events = props.disabled ? {} : {
-    onMouseLeave: logicResult.mouseLeave,
-    onMouseOver: logicResult.mouseOver,
-    onMouseDown: logicResult.mouseDown,
-    onMouseUp: logicResult.mouseUp
-  };
   return /* @__PURE__ */ h("buttonBox", __spreadProps(__spreadValues({
     className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
-  }, events), {
+  }, logicResult.interactive.events), {
     "is-container": true,
     "has-border": true
   }), /* @__PURE__ */ h("span", {
@@ -183,42 +198,45 @@ var layout = (props) => {
 var designPattern = (props) => {
   const logicResult = useLogic();
   let pattern;
-  const blockPatternWithInteractive = blockPattern.bind(null, logicResult.interactive);
-  const strokePatternWithInteractive = strokePattern.bind(null, logicResult.interactive);
   switch (props.type) {
     case "primary":
-      pattern = blockPatternWithInteractive(
+      pattern = blockPattern(
+        logicResult.interactive.states,
         {
-          bg: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
-          text: colors.none
+          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
+          text: [colors.none]
+        }
+      );
+      break;
+    case "text":
+      pattern = blockPattern(
+        logicResult.interactive.states,
+        {
+          bg: [colors.none, colors.grays[0], colors.grays[1]],
+          text: [colors.text]
         }
       );
       break;
     case "link":
-      pattern = strokePatternWithInteractive({
-        border: [colors.primaries[0], colors.primaries[1], colors.primaries[2]],
-        text: [colors.primaries[0], colors.primaries[1], colors.primaries[2]]
-      });
-      break;
-    case "text":
-      pattern = blockPatternWithInteractive(
+      pattern = strokePattern(
+        logicResult.interactive.states,
         {
-          bg: [colors.none, colors.grays[0], colors.grays[1]],
-          text: colors.text
+          border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
+          text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]]
         }
       );
       break;
     default:
-      pattern = strokePatternWithInteractive(
+      pattern = strokePattern(
+        logicResult.interactive.states,
         {
           bdw: 1,
-          border: [colors.primaries[1], colors.grays[1], colors.primaries[2]],
-          text: [colors.primaries[1], colors.text, colors.primaries[2]]
+          border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
+          text: [colors.text, colors.primaries[1], colors.primaries[2]]
         }
       );
       break;
   }
-  console.log("pattern: ", props.type, pattern);
   return pattern;
 };
 var styleRules = (props) => {

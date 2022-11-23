@@ -1,4 +1,19 @@
 var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b ||= {})
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -20,6 +35,7 @@ import { h as h2 } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
+import { action, signal } from "atomic-signal";
 
 // patterns/token.ts
 var colors = {
@@ -47,6 +63,44 @@ var colors = {
 };
 
 // patterns/control-active.tsx
+function useInteractive(props) {
+  const hover = signal(false);
+  const active = signal(false);
+  const mouseOver = action(() => {
+    if (props.disabled)
+      return;
+    hover(() => true);
+  });
+  const mouseLeave = action(() => {
+    if (props.disabled)
+      return;
+    hover(() => false);
+  });
+  const mouseDown = action(() => {
+    if (props.disabled)
+      return;
+    active(() => true);
+  });
+  const mouseUp = action(() => {
+    if (props.disabled)
+      return;
+    active(() => false);
+  });
+  return {
+    states: {
+      hover,
+      active,
+      selected: !!props.selected,
+      disabled: !!props.disabled
+    },
+    events: {
+      onMouseOver: mouseOver,
+      onMouseLeave: mouseLeave,
+      onMouseDown: mouseDown,
+      onMouseUp: mouseUp
+    }
+  };
+}
 function blockPattern(arg, colors2) {
   return matchPatternMatrix(
     [arg.hover(), arg.active(), arg.selected, arg.disabled]
@@ -59,12 +113,17 @@ function blockPattern(arg, colors2) {
         [colors.disables[0]]: ["*", "*", "*", true]
       },
       cursor: {
+        pointer: [],
         "not-allowed": ["*", "*", "*", true]
+      },
+      "user-select": {
+        none: []
       }
     },
     text: {
       color: {
-        [colors2.text]: [],
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
@@ -79,20 +138,29 @@ __export(menu_item_exports, {
   logic: () => logic,
   styleRules: () => styleRules
 });
-import { h } from "tarat-renderer";
+import { h, useLogic } from "tarat-renderer";
 var logic = (props) => {
-  return {};
+  const interactive = useInteractive(props);
+  return {
+    interactive
+  };
 };
 var layout = (props) => {
-  return /* @__PURE__ */ h("menuItem", {
+  const logic3 = useLogic();
+  return /* @__PURE__ */ h("menuItem", __spreadValues({
     "is-container": true,
-    className: "block p-2"
-  }, /* @__PURE__ */ h("span", {
+    className: "block p-2 rounded-lg"
+  }, logic3.interactive.events), /* @__PURE__ */ h("span", {
     "is-text": true
   }, props.label));
 };
 var designPattern = (props) => {
-  const pattern = blockPattern;
+  const logic3 = useLogic();
+  const pattern = blockPattern(logic3.interactive.states, {
+    bg: [colors.none, colors.primaries[1], colors.primaries[2]],
+    text: [colors.text, colors.none]
+  });
+  return pattern;
 };
 var styleRules = (props) => {
   return [];
