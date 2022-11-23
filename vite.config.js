@@ -9,23 +9,21 @@ function makePath(relativePath) {
  * @type {import('vite').UserConfig}
  */
 const config = {
-  base: './site',
+  base: './demo-site',
   server: {
     port: 5001,
-    open: 'http://localhost:5001/site/index.html',
+    open: 'http://localhost:5001/demo-site/index.html',
   },
   plugins: [
     tsconfigPaths({
-      root: makePath('./site/'),
+      root: makePath('./demo-site/'),
     })
   ],
   build: {
     rollupOptions: {
-      input: {
-        playground: makePath( './site/playground.html')
-      }
+      input: makePath( './demo-site/index.html')
     },
-    outDir: 'site'
+    outDir: 'doc'
   }
 }
 

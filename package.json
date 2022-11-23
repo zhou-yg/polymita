@@ -10,7 +10,8 @@
     "watch:demo:components": "node scripts/build-demo.mjs",
     "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./site/index.css",
     "pg": "npm run playground",
-    "playground": "vite --host --force"
+    "playground": "vite --host --force",
+    "build:doc": "vite build"
   },
   "repository": {
     "type": "git",

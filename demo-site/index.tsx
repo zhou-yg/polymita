@@ -3,7 +3,7 @@ import MenuDemo from './components/menu'
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import * as MenuModule from '../components/menu/'
+import * as MenuModule from '../components/menu'
 import { RenderToReact } from '../shared/render'
 import { SingleFileModule } from 'tarat-renderer'
 
