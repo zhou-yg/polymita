@@ -544,6 +544,14 @@ video {
           user-select: none;
 }
 
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -578,6 +586,10 @@ video {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.pl-8 {
+  padding-left: 2rem;
 }
 
 .hover\:cursor-pointer:hover {

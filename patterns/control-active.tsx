@@ -59,7 +59,7 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
   const hover = signal(false)
   const active = signal(false)
 
-  const mouseOver = action(() => {
+  const mouseEnter = action(() => {
     if (props.disabled) return
     hover(() => true)
   })
@@ -84,7 +84,7 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
       // disabled: !!props.disabled,
     },
     events: {
-      onMouseOver: mouseOver,
+      onMouseEnter: mouseEnter,
       onMouseLeave: mouseLeave,
       onMouseDown: mouseDown,
       onMouseUp: mouseUp,

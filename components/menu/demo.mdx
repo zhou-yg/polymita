@@ -15,8 +15,27 @@ export const Component = RenderToReact(Module)
     label: 'Menu Item Two',
     key: 'key2',
   },
+]} />
+
+
+
+## 嵌套子菜单
+
+最多支持2层的嵌套子菜单
+
+<Component items={[
   {
-    label: 'Menu Item Three',
-    key: 'key3',
+    label: 'Menu Item One',
+    key: 'key1.1',
+    children: [
+      {
+        label: 'Child Item',
+        key: 'child1',
+      }      
+    ]
+  },
+  {
+    label: 'Menu Item Two',
+    key: 'key2.2',
   },
 ]} />

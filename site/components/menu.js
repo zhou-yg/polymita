@@ -71,7 +71,7 @@ var colors = {
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);
-  const mouseOver = action(() => {
+  const mouseEnter = action(() => {
     if (props.disabled)
       return;
     hover(() => true);
@@ -97,7 +97,7 @@ function useInteractive(props) {
       active
     },
     events: {
-      onMouseOver: mouseOver,
+      onMouseEnter: mouseEnter,
       onMouseLeave: mouseLeave,
       onMouseDown: mouseDown,
       onMouseUp: mouseUp
@@ -178,10 +178,21 @@ var styleRules = (props) => {
 // components/menu/index.tsx
 var logic2 = (props) => {
   const currentKey = signal2();
-  const select = action2((key) => {
-    currentKey(() => key);
+  const select = action2((item) => {
+    currentKey(() => item.key);
+    items((draft) => {
+      draft.forEach((di) => {
+        var _a;
+        di.selected = di.key === item.key;
+        (_a = di.children) == null ? void 0 : _a.forEach((dci) => {
+          dci.selected = dci.key === item.key;
+        });
+      });
+    });
   });
+  const items = signal2(props.items);
   return {
+    items,
     currentKey,
     select
   };
@@ -191,14 +202,29 @@ var layout2 = (props) => {
   const MenuItemFunc = useModule(menu_item_exports);
   return /* @__PURE__ */ h2("menuBox", {
     className: "inline-block border border-slate-300 p-1"
-  }, props.items.map((item) => {
-    const isSelected = logic3.currentKey() === item.key;
-    return /* @__PURE__ */ h2("menuItem", {
-      className: "block my-1",
-      key: item.key,
-      onClick: () => logic3.select(item.key)
-    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected })));
-  }));
+  }, /* @__PURE__ */ h2("ul", {
+    className: "block"
+  }, logic3.items().map((item) => {
+    const isSelected = item.selected;
+    return /* @__PURE__ */ h2("menuItemBox", {
+      key: item.key
+    }, /* @__PURE__ */ h2("div", {
+      className: "flex my-1 items-center justify-center",
+      onClick: () => logic3.select(item)
+    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }))), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
+      className: "block my-1"
+    }, item.children.map((subItem) => {
+      const isSubSelected = subItem.selected;
+      return /* @__PURE__ */ h2("subMenuItem", {
+        className: "block my-1",
+        onClick: () => logic3.select(subItem)
+      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected }), {
+        layout(jsonTree) {
+          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+        }
+      }));
+    })));
+  })));
 };
 var designPattern2 = (props) => {
   const pattern = blockPattern;
@@ -227,7 +253,8 @@ var Component = RenderToReact(menu_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    p: "p",
+    h2: "h2"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
@@ -241,9 +268,22 @@ function _createMdxContent(props) {
       }, {
         label: "Menu Item Two",
         key: "key2"
+      }]
+    }), "\n", _jsx(_components.h2, {
+      children: "\u5D4C\u5957\u5B50\u83DC\u5355"
+    }), "\n", _jsx(_components.p, {
+      children: "\u6700\u591A\u652F\u63012\u5C42\u7684\u5D4C\u5957\u5B50\u83DC\u5355"
+    }), "\n", _jsx(Component, {
+      items: [{
+        label: "Menu Item One",
+        key: "key1.1",
+        children: [{
+          label: "Child Item",
+          key: "child1"
+        }]
       }, {
-        label: "Menu Item Three",
-        key: "key3"
+        label: "Menu Item Two",
+        key: "key2.2"
       }]
     })]
   });

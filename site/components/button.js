@@ -69,7 +69,7 @@ var colors = {
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);
-  const mouseOver = action(() => {
+  const mouseEnter = action(() => {
     if (props.disabled)
       return;
     hover(() => true);
@@ -95,7 +95,7 @@ function useInteractive(props) {
       active
     },
     events: {
-      onMouseOver: mouseOver,
+      onMouseEnter: mouseEnter,
       onMouseLeave: mouseLeave,
       onMouseDown: mouseDown,
       onMouseUp: mouseUp
