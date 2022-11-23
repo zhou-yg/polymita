@@ -24,7 +24,7 @@ export const layout = (props: MenuItemProps) => {
   const logic = useLogic<LogicReturn>()
 
   return (
-    <menuItem is-container className="block p-2 rounded-lg" {...logic.interactive.events}>
+    <menuItem is-container className="block p-2 px-3 rounded-lg" {...logic.interactive.events}>
       <span is-text >
         {props.label}
       </span>
@@ -34,9 +34,13 @@ export const layout = (props: MenuItemProps) => {
 
 export const designPattern = (props: MenuItemProps) => {
   const logic = useLogic<LogicReturn>()
-  const pattern = blockPattern(logic.interactive.states, {
-    bg: [colors.none, colors.primaries[1], colors.primaries[2]],
-    text: [colors.text, colors.none],
+  const pattern = blockPattern({
+    ...logic.interactive.states,
+    selected: !!props.selected,
+    disabled: !!props.disabled,
+  }, {
+    bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
+    text: [colors.text, colors.none, colors.nones[0], colors.nones[1]],
   })
   return pattern
 }

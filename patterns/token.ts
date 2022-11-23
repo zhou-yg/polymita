@@ -19,6 +19,8 @@ export const colors = {
     'rgba(0,0,0,.3)',
   ],
 
+  nones: ['#ffffff', '#fffffe', '#fffefe'],
+
   none: '#fff',
   text: '#434343'
 }

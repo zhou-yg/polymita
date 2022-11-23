@@ -1,4 +1,6 @@
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -14,6 +16,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -30,8 +33,9 @@ __export(menu_exports, {
   logic: () => logic2,
   styleRules: () => styleRules2
 });
+import { action as action2, signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
-import { h as h2 } from "tarat-renderer";
+import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
@@ -58,6 +62,7 @@ var colors = {
     "rgba(0,0,0,.1)",
     "rgba(0,0,0,.3)"
   ],
+  nones: ["#ffffff", "#fffffe", "#fffefe"],
   none: "#fff",
   text: "#434343"
 };
@@ -89,9 +94,7 @@ function useInteractive(props) {
   return {
     states: {
       hover,
-      active,
-      selected: !!props.selected,
-      disabled: !!props.disabled
+      active
     },
     events: {
       onMouseOver: mouseOver,
@@ -110,6 +113,7 @@ function blockPattern(arg, colors2) {
         [colors2.bg[0]]: [],
         [colors2.bg[1]]: [true, "*", "*", false],
         [colors2.bg[2]]: ["*", true, "*", false],
+        [colors2.bg[3]]: ["*", "*", true, false],
         [colors.disables[0]]: ["*", "*", "*", true]
       },
       cursor: {
@@ -124,6 +128,8 @@ function blockPattern(arg, colors2) {
       color: {
         [colors2.text[0]]: [],
         [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
@@ -149,16 +155,19 @@ var layout = (props) => {
   const logic3 = useLogic();
   return /* @__PURE__ */ h("menuItem", __spreadValues({
     "is-container": true,
-    className: "block p-2 rounded-lg"
+    className: "block p-2 px-3 rounded-lg"
   }, logic3.interactive.events), /* @__PURE__ */ h("span", {
     "is-text": true
   }, props.label));
 };
 var designPattern = (props) => {
   const logic3 = useLogic();
-  const pattern = blockPattern(logic3.interactive.states, {
-    bg: [colors.none, colors.primaries[1], colors.primaries[2]],
-    text: [colors.text, colors.none]
+  const pattern = blockPattern(__spreadProps(__spreadValues({}, logic3.interactive.states), {
+    selected: !!props.selected,
+    disabled: !!props.disabled
+  }), {
+    bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
+    text: [colors.text, colors.none, colors.nones[0], colors.nones[1]]
   });
   return pattern;
 };
@@ -168,16 +177,27 @@ var styleRules = (props) => {
 
 // components/menu/index.tsx
 var logic2 = (props) => {
-  return {};
+  const currentKey = signal2();
+  const select = action2((key) => {
+    currentKey(() => key);
+  });
+  return {
+    currentKey,
+    select
+  };
 };
 var layout2 = (props) => {
+  const logic3 = useLogic2();
   const MenuItemFunc = useModule(menu_item_exports);
   return /* @__PURE__ */ h2("menuBox", {
-    className: "inline-block border border-slate-300 p-2"
+    className: "inline-block border border-slate-300 p-1"
   }, props.items.map((item) => {
+    const isSelected = logic3.currentKey() === item.key;
     return /* @__PURE__ */ h2("menuItem", {
-      key: item.key
-    }, MenuItemFunc(item));
+      className: "block my-1",
+      key: item.key,
+      onClick: () => logic3.select(item.key)
+    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected })));
   }));
 };
 var designPattern2 = (props) => {

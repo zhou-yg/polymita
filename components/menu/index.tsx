@@ -1,3 +1,4 @@
+import { action, signal } from 'atomic-signal';
 import { useModule } from 'tarat-renderer';
 import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern } from '../../patterns';
@@ -17,20 +18,28 @@ type LogicReturn = ReturnType<typeof logic>
 
 
 export const logic = (props: MenuProps) => {
-  return {
+  const currentKey = signal<string>()
+  const select = action((key: string) => {
+    currentKey(() => key)
+  })
 
+  return {
+    currentKey,
+    select,
   }
 }
 
 export const layout = (props: MenuProps) => {
-  const MenuItemFunc = useModule(MenuItemModule)
+  const logic = useLogic<LogicReturn>()
+  const MenuItemFunc = useModule<MenuItemModule.MenuItemProps>(MenuItemModule)
 
   return (
-    <menuBox className="inline-block border border-slate-300 p-2">
+    <menuBox className="inline-block border border-slate-300 p-1">
       {props.items.map((item) => {
+        const isSelected = logic.currentKey() === item.key
         return (
-          <menuItem key={item.key} >
-            {MenuItemFunc(item)}
+          <menuItem className="block my-1" key={item.key} onClick={() => logic.select(item.key)}>
+            {MenuItemFunc({...item, selected: isSelected})}
           </menuItem>
         )
       })}

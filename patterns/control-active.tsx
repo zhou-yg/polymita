@@ -80,8 +80,8 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
     states: {
       hover: hover,
       active: active,
-      selected: !!props.selected,
-      disabled: !!props.disabled,
+      // selected: !!props.selected,
+      // disabled: !!props.disabled,
     },
     events: {
       onMouseOver: mouseOver,
@@ -95,6 +95,7 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
 type NormalColor = string
 type HoverColor = string
 type ActiveColor = string
+type SelectedColor = string
 
 export function blockPattern (
   arg: {
@@ -103,7 +104,10 @@ export function blockPattern (
     selected: boolean,
     disabled: boolean,
   },
-  colors: { bg: [NormalColor, HoverColor, ActiveColor?], text: [NormalColor, HoverColor?, ActiveColor?] },
+  colors: {
+    bg: [NormalColor, HoverColor, ActiveColor?, SelectedColor?],
+    text: [NormalColor, HoverColor?, ActiveColor?, SelectedColor?]
+  },
 ) {
 
   return matchPatternMatrix(
@@ -111,9 +115,10 @@ export function blockPattern (
   )({
     container: {
       backgroundColor: {
-        [colors.bg[0]]: [],
-        [colors.bg[1]]: [true, '*', '*', false],
-        [colors.bg[2]]: ['*', true, '*', false],
+        [colors.bg[0]]:             [],
+        [colors.bg[1]]:             [true, '*', '*', false],
+        [colors.bg[2]]:             ['*', true, '*', false],
+        [colors.bg[3]]:             ['*', '*', true, false],
         [token.colors.disables[0]]: ['*', '*', '*', true],
       },
       cursor: {
@@ -128,6 +133,8 @@ export function blockPattern (
       color: {
         [colors.text[0]]: [],
         [colors.text[1]]: [true, '*', '*', false],
+        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text[3]]: ['*', '*', true, false],
         [token.colors.disables[1]]: ['*', '*', '*', true],
       }
     }

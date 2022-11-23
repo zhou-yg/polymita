@@ -517,6 +517,11 @@ video {
   margin: 0.5rem;
 }
 
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -552,6 +557,10 @@ video {
   border-color: rgb(203 213 225 / var(--tw-border-opacity));
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -564,6 +573,11 @@ video {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .hover\:cursor-pointer:hover {

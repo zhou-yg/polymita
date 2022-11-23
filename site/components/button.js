@@ -60,6 +60,7 @@ var colors = {
     "rgba(0,0,0,.1)",
     "rgba(0,0,0,.3)"
   ],
+  nones: ["#ffffff", "#fffffe", "#fffefe"],
   none: "#fff",
   text: "#434343"
 };
@@ -91,9 +92,7 @@ function useInteractive(props) {
   return {
     states: {
       hover,
-      active,
-      selected: !!props.selected,
-      disabled: !!props.disabled
+      active
     },
     events: {
       onMouseOver: mouseOver,
@@ -112,6 +111,7 @@ function blockPattern(arg, colors2) {
         [colors2.bg[0]]: [],
         [colors2.bg[1]]: [true, "*", "*", false],
         [colors2.bg[2]]: ["*", true, "*", false],
+        [colors2.bg[3]]: ["*", "*", true, false],
         [colors.disables[0]]: ["*", "*", "*", true]
       },
       cursor: {
@@ -126,6 +126,8 @@ function blockPattern(arg, colors2) {
       color: {
         [colors2.text[0]]: [],
         [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
@@ -198,10 +200,14 @@ var layout = (props) => {
 var designPattern = (props) => {
   const logicResult = useLogic();
   let pattern;
+  const states = __spreadProps(__spreadValues({}, logicResult.interactive.states), {
+    disabled: !!props.disabled,
+    selected: false
+  });
   switch (props.type) {
     case "primary":
       pattern = blockPattern(
-        logicResult.interactive.states,
+        states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.none]
@@ -210,7 +216,7 @@ var designPattern = (props) => {
       break;
     case "text":
       pattern = blockPattern(
-        logicResult.interactive.states,
+        states,
         {
           bg: [colors.none, colors.grays[0], colors.grays[1]],
           text: [colors.text]
@@ -219,7 +225,7 @@ var designPattern = (props) => {
       break;
     case "link":
       pattern = strokePattern(
-        logicResult.interactive.states,
+        states,
         {
           border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]]
@@ -228,7 +234,7 @@ var designPattern = (props) => {
       break;
     default:
       pattern = strokePattern(
-        logicResult.interactive.states,
+        states,
         {
           bdw: 1,
           border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],

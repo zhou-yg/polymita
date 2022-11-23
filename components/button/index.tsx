@@ -50,9 +50,16 @@ export const designPattern = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
   let pattern: PatternStructure;
+
+  const states = {
+    ...logicResult.interactive.states,
+    disabled: !!props.disabled,
+    selected: false
+  }
+
   switch (props.type) {
     case 'primary':
-      pattern = blockPattern(logicResult.interactive.states,
+      pattern = blockPattern(states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.none],
@@ -60,7 +67,7 @@ export const designPattern = (props: ButtonProps) => {
       )
       break;
     case 'text':
-      pattern = blockPattern(logicResult.interactive.states,
+      pattern = blockPattern(states,
         {
           bg: [colors.none, colors.grays[0], colors.grays[1]],
           text: [colors.text],
@@ -68,7 +75,7 @@ export const designPattern = (props: ButtonProps) => {
       )
       break
     case 'link':
-      pattern = strokePattern(logicResult.interactive.states,
+      pattern = strokePattern(states,
         {
           border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
@@ -77,7 +84,7 @@ export const designPattern = (props: ButtonProps) => {
       break;
 
     default:
-      pattern = strokePattern(logicResult.interactive.states,
+      pattern = strokePattern(states,
         {
           bdw: 1,
           border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
