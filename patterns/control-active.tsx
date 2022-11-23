@@ -1,6 +1,6 @@
-import { matchPatternMatrix } from "tarat-renderer";
+import { matchPatternMatrix } from 'tarat-renderer'
 import { action, signal } from 'atomic-signal'
-import * as token from "./token";
+import * as token from './token'
 
 /**
  * for components:
@@ -55,7 +55,10 @@ import * as token from "./token";
 //     }
 //   })
 // }
-export function useInteractive (props: { disabled?: boolean, selected?: boolean }) {
+export function useInteractive(props: {
+  disabled?: boolean
+  selected?: boolean
+}) {
   const hover = signal(false)
   const active = signal(false)
 
@@ -75,11 +78,11 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
     if (props.disabled) return
     active(() => false)
   })
-  
+
   return {
     states: {
       hover: hover,
-      active: active,
+      active: active
       // selected: !!props.selected,
       // disabled: !!props.disabled,
     },
@@ -87,7 +90,7 @@ export function useInteractive (props: { disabled?: boolean, selected?: boolean 
       onMouseEnter: mouseEnter,
       onMouseLeave: mouseLeave,
       onMouseDown: mouseDown,
-      onMouseUp: mouseUp,
+      onMouseUp: mouseUp
     }
   }
 }
@@ -97,36 +100,38 @@ type HoverColor = string
 type ActiveColor = string
 type SelectedColor = string
 
-export function blockPattern (
+export function blockPattern(
   arg: {
     hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-    active: () => boolean,
-    selected: boolean,
-    disabled: boolean,
+    active: () => boolean
+    selected: boolean
+    disabled: boolean
   },
   colors: {
-    bg: [NormalColor, HoverColor, ActiveColor?, SelectedColor?],
+    bg: [NormalColor, HoverColor, ActiveColor?, SelectedColor?]
     text: [NormalColor, HoverColor?, ActiveColor?, SelectedColor?]
-  },
+  }
 ) {
-
-  return matchPatternMatrix(
-    [arg.hover(), arg.active(), arg.selected, arg.disabled]
-  )({
+  return matchPatternMatrix([
+    arg.hover(),
+    arg.active(),
+    arg.selected,
+    arg.disabled
+  ])({
     container: {
       backgroundColor: {
-        [colors.bg[0]]:             [],
-        [colors.bg[1]]:             [true, '*', '*', false],
-        [colors.bg[2]]:             ['*', true, '*', false],
-        [colors.bg[3]]:             ['*', '*', true, false],
-        [token.colors.disables[0]]: ['*', '*', '*', true],
+        [colors.bg[0]]: [],
+        [colors.bg[1]]: [true, '*', '*', false],
+        [colors.bg[2]]: ['*', true, '*', false],
+        [colors.bg[3]]: ['*', '*', true, false],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
       },
       cursor: {
         pointer: [],
-        'not-allowed': ['*', '*', '*', true],
+        'not-allowed': ['*', '*', '*', true]
       },
       userSelect: {
-        none: [],
+        none: []
       }
     },
     text: {
@@ -135,57 +140,59 @@ export function blockPattern (
         [colors.text[1]]: [true, '*', '*', false],
         [colors.text[2]]: ['*', true, '*', false],
         [colors.text[3]]: ['*', '*', true, false],
-        [token.colors.disables[1]]: ['*', '*', '*', true],
+        [token.colors.disables[1]]: ['*', '*', '*', true]
       }
     }
   })
 }
-export function strokePattern (
+export function strokePattern(
   arg: {
     hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-    active: () => boolean,
-    selected: boolean,
-    disabled: boolean,
+    active: () => boolean
+    selected: boolean
+    disabled: boolean
   },
   colors: {
-    bdw?: number,
-    border: [NormalColor, HoverColor, ActiveColor?],
+    bdw?: number
+    border: [NormalColor, HoverColor, ActiveColor?]
     text: [NormalColor, HoverColor, ActiveColor?]
-  },
+  }
 ) {
-
-  return matchPatternMatrix(
-    [arg.hover(), arg.active(), arg.selected, arg.disabled]
-  )({
+  return matchPatternMatrix([
+    arg.hover(),
+    arg.active(),
+    arg.selected,
+    arg.disabled
+  ])({
     container: {
       backgroundColor: {
-        [token.colors.disables[0]]: ['*', '*', '*', true],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
       },
       cursor: {
-        'not-allowed': ['*', '*', '*', true],
+        'not-allowed': ['*', '*', '*', true]
       }
     },
     border: {
       borderStyle: {
-        solid: [],
+        solid: []
       },
       borderWidth: {
         [`${colors.bdw}px`]: [],
-        '0px': ['*', '*', '*', true],
+        '0px': ['*', '*', '*', true]
       },
       borderColor: {
-        [colors.border[0]]:     [],
+        [colors.border[0]]: [],
         [colors.border[1]]: [true, '*', '*', false],
         [colors.border[2]]: ['*', true, '*', false],
-        [token.colors.disables[1]]: ['*', '*', '*', true],
-      },
+        [token.colors.disables[1]]: ['*', '*', '*', true]
+      }
     },
     text: {
       color: {
         [colors.text[0]]: [],
         [colors.text[1]]: [true, '*', '*', false],
         [colors.text[2]]: ['*', true, '*', false],
-        [token.colors.disables[1]]: ['*', '*', '*', true],
+        [token.colors.disables[1]]: ['*', '*', '*', true]
       }
     }
   })

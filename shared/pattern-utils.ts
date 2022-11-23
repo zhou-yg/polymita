@@ -1,24 +1,24 @@
 type PatternStructureValueMatcher = (number | string | boolean)[]
 
 interface PatternStructure<T extends PatternStructureValueMatcher> {
-  [mainSematic: string]: { 
+  [mainSematic: string]: {
     [propertyKey: string]: {
       [value: string]: T
-    }  
+    }
   }
 }
 
 interface PatternStructureResult {
-  [mainSematic: string]: { 
+  [mainSematic: string]: {
     [propertyKey: string]: string[]
   }
 }
 
-function equal (arr: any[], arr2: any[]) {
+function equal(arr: any[], arr2: any[]) {
   return arr.length === arr2.length && arr.every((v, i) => v === arr2[i])
 }
 
-export function matchMatrix<T extends PatternStructureValueMatcher> (pm: T) {
+export function matchMatrix<T extends PatternStructureValueMatcher>(pm: T) {
   return (ps: PatternStructure<T>) => {
     let result: PatternStructureResult = {}
     for (let mainSemantic in ps) {

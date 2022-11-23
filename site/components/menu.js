@@ -43,25 +43,10 @@ import { action, signal } from "atomic-signal";
 
 // patterns/token.ts
 var colors = {
-  primaries: [
-    "#4096ff",
-    "#1677ff",
-    "#0958d9"
-  ],
-  grays: [
-    "#f0f0f0",
-    "#d9d9d9",
-    "#bfbfbf"
-  ],
-  dangers: [
-    "#ff4d4f",
-    "#f5222d",
-    "#cf1322"
-  ],
-  disables: [
-    "rgba(0,0,0,.1)",
-    "rgba(0,0,0,.3)"
-  ],
+  primaries: ["#4096ff", "#1677ff", "#0958d9"],
+  grays: ["#f0f0f0", "#d9d9d9", "#bfbfbf"],
+  dangers: ["#ff4d4f", "#f5222d", "#cf1322"],
+  disables: ["rgba(0,0,0,.1)", "rgba(0,0,0,.3)"],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
   light: "#fff",
   none: "",
@@ -106,9 +91,12 @@ function useInteractive(props) {
   };
 }
 function blockPattern(arg, colors2) {
-  return matchPatternMatrix(
-    [arg.hover(), arg.active(), arg.selected, arg.disabled]
-  )({
+  return matchPatternMatrix([
+    arg.hover(),
+    arg.active(),
+    arg.selected,
+    arg.disabled
+  ])({
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],
@@ -257,7 +245,11 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    return React.createElement("div", { style: { margin: "20px", display: "inline-block" } }, renderer.render(p));
+    return React.createElement(
+      "div",
+      { style: { margin: "20px", display: "inline-block" } },
+      renderer.render(p)
+    );
   };
 }
 

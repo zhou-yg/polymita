@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
+    "format": "prettier --write --parser typescript \"*/*.ts?(x)\"",
     "watch:demo": "npm run build:demo:tw && npm run watch:demo:components",
     "watch:demo:components": "node scripts/build-demo.mjs",
     "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./site/index.css",
@@ -39,6 +40,7 @@
     "@mdx-js/esbuild": "^2.1.5",
     "@types/react-dom": "^18.0.9",
     "esbuild": "^0.15.14",
+    "prettier": "^2.8.0",
     "react-dom": "^18.2.0",
     "vite": "^3.2.4",
     "vite-tsconfig-paths": "^3.5.2"
