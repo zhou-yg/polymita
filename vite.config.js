@@ -17,12 +17,14 @@ const config = {
   plugins: [
     tsconfigPaths({
       root: makePath('./demo-site/'),
-    })
+    }),
   ],
-  build: {
+  build: {    
     assetsDir: '',
+    minify: false,
     rollupOptions: {
       input: './demo-site/index.html',
+      external: ['react'],
       output: {
         entryFileNames: `[name].js`,
         chunkFileNames: `[name].[ext]`,
