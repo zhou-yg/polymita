@@ -62,14 +62,14 @@ export const designPattern = (props: ButtonProps) => {
       pattern = blockPattern(states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.none],
+          text: [colors.light],
         }
       )
       break;
     case 'text':
       pattern = blockPattern(states,
         {
-          bg: [colors.none, colors.grays[0], colors.grays[1]],
+          bg: [colors.light, colors.grays[0], colors.grays[1]],
           text: [colors.text],
         },
       )

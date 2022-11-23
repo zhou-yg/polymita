@@ -61,7 +61,8 @@ var colors = {
     "rgba(0,0,0,.3)"
   ],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
-  none: "#fff",
+  light: "#fff",
+  none: "",
   text: "#434343"
 };
 
@@ -118,7 +119,7 @@ function blockPattern(arg, colors2) {
         pointer: [],
         "not-allowed": ["*", "*", "*", true]
       },
-      "user-select": {
+      userSelect: {
         none: []
       }
     },
@@ -210,7 +211,7 @@ var designPattern = (props) => {
         states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.none]
+          text: [colors.light]
         }
       );
       break;
@@ -218,7 +219,7 @@ var designPattern = (props) => {
       pattern = blockPattern(
         states,
         {
-          bg: [colors.none, colors.grays[0], colors.grays[1]],
+          bg: [colors.light, colors.grays[0], colors.grays[1]],
           text: [colors.text]
         }
       );
@@ -262,7 +263,7 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    return renderer.render(p);
+    return React.createElement("div", { style: { margin: "20px", display: "inline-block" } }, renderer.render(p));
   };
 }
 

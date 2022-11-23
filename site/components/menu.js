@@ -63,7 +63,8 @@ var colors = {
     "rgba(0,0,0,.3)"
   ],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
-  none: "#fff",
+  light: "#fff",
+  none: "",
   text: "#434343"
 };
 
@@ -120,7 +121,7 @@ function blockPattern(arg, colors2) {
         pointer: [],
         "not-allowed": ["*", "*", "*", true]
       },
-      "user-select": {
+      userSelect: {
         none: []
       }
     },
@@ -167,7 +168,7 @@ var designPattern = (props) => {
     disabled: !!props.disabled
   }), {
     bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
-    text: [colors.text, colors.none, colors.nones[0], colors.nones[1]]
+    text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
   });
   return pattern;
 };
@@ -201,7 +202,7 @@ var layout2 = (props) => {
   const logic3 = useLogic2();
   const MenuItemFunc = useModule(menu_item_exports);
   return /* @__PURE__ */ h2("menuBox", {
-    className: "inline-block border border-slate-300 p-1"
+    className: "inline-block border-r border-slate-300"
   }, /* @__PURE__ */ h2("ul", {
     className: "block"
   }, logic3.items().map((item) => {
@@ -209,14 +210,26 @@ var layout2 = (props) => {
     return /* @__PURE__ */ h2("menuItemBox", {
       key: item.key
     }, /* @__PURE__ */ h2("div", {
-      className: "flex my-1 items-center justify-center",
+      className: "m-1",
       onClick: () => logic3.select(item)
-    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }))), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
-      className: "block my-1"
+    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
+      layout(jsonTree) {
+        var _a, _b;
+        if (item.children) {
+          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex justify-center`;
+          (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("span", {
+            key: "tag",
+            "is-text": true,
+            className: "mx-2"
+          }, ">"));
+        }
+      }
+    })), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
+      className: "block bg-slate-200"
     }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;
       return /* @__PURE__ */ h2("subMenuItem", {
-        className: "block my-1",
+        className: "block p-2",
         onClick: () => logic3.select(subItem)
       }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected }), {
         layout(jsonTree) {
@@ -244,7 +257,7 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    return renderer.render(p);
+    return React.createElement("div", { style: { margin: "20px", display: "inline-block" } }, renderer.render(p));
   };
 }
 

@@ -40,7 +40,7 @@ export const designPattern = (props: MenuItemProps) => {
     disabled: !!props.disabled,
   }, {
     bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
-    text: [colors.text, colors.none, colors.nones[0], colors.nones[1]],
+    text: [colors.text, colors.light, colors.nones[0], colors.nones[1]],
   })
   return pattern
 }

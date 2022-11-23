@@ -125,7 +125,7 @@ export function blockPattern (
         pointer: [],
         'not-allowed': ['*', '*', '*', true],
       },
-      'user-select': {
+      userSelect: {
         none: [],
       }
     },

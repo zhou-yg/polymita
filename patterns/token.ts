@@ -20,7 +20,9 @@ export const colors = {
   ],
 
   nones: ['#ffffff', '#fffffe', '#fffefe'],
+  light: '#fff',
 
-  none: '#fff',
+  none: '',
+
   text: '#434343'
 }

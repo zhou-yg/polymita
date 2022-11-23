@@ -11,6 +11,6 @@ export function RenderToReact (module: SingleFileModule) {
   })
   
   return (p: any) => {
-    return renderer.render(p)
+    return React.createElement('div', { style: { margin: '20px', display: 'inline-block' } }, renderer.render(p))
   }
 }

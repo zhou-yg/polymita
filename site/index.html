@@ -17,6 +17,17 @@
 <body>
 
 <div id="root"/>
+<script>
+  let _error = console.error;
+  console.error = (...args) => {
+    if (
+      args[0].indexOf('is unrecognized in this browser') === -1 &&
+      args[0].indexOf('is using incorrect casing') === -1
+      ) {
+      _error(...args);
+    }
+  };
+</script>
 <script type="module" src="./index.tsx"></script>
 </body>
 </html>

@@ -43,21 +43,28 @@ export const layout = (props: MenuProps) => {
   const MenuItemFunc = useModule<MenuItemModule.MenuItemProps>(MenuItemModule)
 
   return (
-    <menuBox className="inline-block border border-slate-300 p-1">
+    <menuBox className="inline-block border-r border-slate-300">
       <ul className="block">
         {logic.items().map((item) => {
           const isSelected = item.selected
           return (
             <menuItemBox key={item.key}>
-              <div className="flex my-1 items-center justify-center" onClick={() => logic.select(item)} >
-                {MenuItemFunc({...item, selected: isSelected})}
+              <div className="m-1" onClick={() => logic.select(item)} >
+                {MenuItemFunc({...item, selected: isSelected}, {
+                  layout(jsonTree) {
+                    if (item.children) {
+                      jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex justify-center`;
+                      jsonTree.menuItem.insert?.(<span key="tag" is-text className="mx-2" >&gt;</span>)
+                    }
+                  },
+                })}
               </div>
               {item.children && (
-                <subMenuItemBox className="block my-1">
+                <subMenuItemBox className="block bg-slate-200">
                   {item.children.map((subItem) => {
                     const isSubSelected = subItem.selected
                     return (
-                      <subMenuItem className="block my-1" onClick={() => logic.select(subItem)}>
+                      <subMenuItem className="block p-2" onClick={() => logic.select(subItem)}>
                         {MenuItemFunc({...subItem, selected: isSubSelected }, {
                           layout(jsonTree) {
                             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`
