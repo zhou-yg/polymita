@@ -24,6 +24,8 @@
   console.error = (...args) => {
     if (
       args[0] && 
+      args[0].indexOf &&
+      typeof args[0].indexOf === 'function' &&
       args[0].indexOf('is unrecognized in this browser') === -1 &&
       args[0].indexOf('is using incorrect casing') === -1
       ) {
