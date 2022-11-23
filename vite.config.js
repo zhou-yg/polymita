@@ -9,7 +9,7 @@ function makePath(relativePath) {
  * @type {import('vite').UserConfig}
  */
 const config = {
-  base: './demo-site',
+  // base: './demo-site',
   server: {
     port: 5001,
     open: 'http://localhost:5001/demo-site/index.html',
@@ -20,8 +20,14 @@ const config = {
     })
   ],
   build: {
+    assetsDir: '',
     rollupOptions: {
-      input: makePath( './demo-site/index.html')
+      input: './demo-site/index.html',
+      output: {
+        entryFileNames: `[name].js`,
+        chunkFileNames: `[name].[ext]`,
+        assetFileNames: `[name].[ext]`,
+      }
     },
     outDir: 'doc'
   }
