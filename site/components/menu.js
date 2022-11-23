@@ -168,16 +168,18 @@ var styleRules = (props) => {
 var logic2 = (props) => {
   const currentKey = signal2();
   const select = action2((item) => {
+    var _a;
     currentKey(() => item.key);
     items((draft) => {
       draft.forEach((di) => {
-        var _a;
+        var _a2;
         di.selected = di.key === item.key;
-        (_a = di.children) == null ? void 0 : _a.forEach((dci) => {
+        (_a2 = di.children) == null ? void 0 : _a2.forEach((dci) => {
           dci.selected = dci.key === item.key;
         });
       });
     });
+    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
   });
   const items = signal2(props.items);
   return {
@@ -190,7 +192,7 @@ var layout2 = (props) => {
   const logic3 = useLogic2();
   const MenuItemFunc = useModule(menu_item_exports);
   return /* @__PURE__ */ h2("menuBox", {
-    className: "inline-block border-r border-slate-300"
+    className: "block border-r border-slate-300"
   }, /* @__PURE__ */ h2("ul", {
     className: "block"
   }, logic3.items().map((item) => {
@@ -198,14 +200,15 @@ var layout2 = (props) => {
     return /* @__PURE__ */ h2("menuItemBox", {
       key: item.key
     }, /* @__PURE__ */ h2("div", {
-      className: "m-1",
+      className: "p-1",
       onClick: () => logic3.select(item)
     }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
-          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex justify-center`;
-          (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("span", {
+          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
+          jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
+          (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("spanIcon", {
             key: "tag",
             "is-text": true,
             className: "mx-2"
@@ -213,11 +216,11 @@ var layout2 = (props) => {
         }
       }
     })), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
-      className: "block bg-slate-200"
+      className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;
       return /* @__PURE__ */ h2("subMenuItem", {
-        className: "block p-2",
+        className: "block m-1",
         onClick: () => logic3.select(subItem)
       }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected }), {
         layout(jsonTree) {
@@ -237,7 +240,7 @@ var styleRules2 = (props) => {
 // shared/render.ts
 import { createRenderer } from "tarat-renderer";
 import React from "react";
-function RenderToReact(module) {
+function RenderToReactWithWrap(module) {
   const renderer = createRenderer(module, {
     framework: {
       name: "react",
@@ -254,7 +257,7 @@ function RenderToReact(module) {
 }
 
 // components/menu/demo.mdx
-var Component = RenderToReact(menu_exports);
+var Component = RenderToReactWithWrap(menu_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",

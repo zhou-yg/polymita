@@ -246,7 +246,7 @@ var styleRules = (props) => {
 // shared/render.ts
 import { createRenderer } from "tarat-renderer";
 import React from "react";
-function RenderToReact(module) {
+function RenderToReactWithWrap(module) {
   const renderer = createRenderer(module, {
     framework: {
       name: "react",
@@ -263,7 +263,7 @@ function RenderToReact(module) {
 }
 
 // components/button/demo.mdx
-var Component = RenderToReact(button_exports);
+var Component = RenderToReactWithWrap(button_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
