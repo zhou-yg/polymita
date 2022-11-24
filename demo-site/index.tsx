@@ -27,6 +27,8 @@ const DEFAULT_TAB = 'Button'
 function Home() {
   const [tab, setTab] = React.useState(searchParams.get(TAB_KEY) || DEFAULT_TAB)
 
+  React.createElement;
+
   useEffect(() => {
     searchParams.set(TAB_KEY, tab)
     history.replaceState(
@@ -64,18 +66,23 @@ function Home() {
     })
   })
 
+  const leftMenu = null ? null : Menu({
+    items: sideMenu,
+    onClick(item) {
+      setTab(item.key)
+    }
+  })
+  
+  const element = React.createElement('div', null, 13333);
+
   return (
     <div className="flex">
       <div style={{ width: '160px' }}>
-        {Menu({
-          items: sideMenu,
-          onClick(item) {
-            setTab(item.key)
-          }
-        })}
+        {leftMenu}
       </div>
       <div className="flex">
         <div className="p-4">
+          {element}
           <h3 className="component-name">{componentName}</h3>
           <div className="component-mdx">
             <ComponentPreview />

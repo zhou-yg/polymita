@@ -8,10 +8,10 @@
     "format": "prettier --write --parser typescript \"*/*.ts?(x)\"",
     "watch:demo": "npm run build:demo:tw && npm run watch:demo:components",
     "watch:demo:components": "node scripts/build-demo.mjs",
-    "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./site/index.css",
+    "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./demo-site/index.css",
     "pg": "npm run playground",
     "playground": "vite --host --force",
-    "build:doc": "vite build && sh after-build-doc.sh"
+    "build:doc": "vite build"
   },
   "repository": {
     "type": "git",

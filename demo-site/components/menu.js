@@ -197,12 +197,7 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    return /* @__PURE__ */ h2("menuItemBox", {
-      key: item.key
-    }, /* @__PURE__ */ h2("div", {
-      className: "p-1",
-      onClick: () => logic3.select(item)
-    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
+    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -215,7 +210,14 @@ var layout2 = (props) => {
           }, ">"));
         }
       }
-    })), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
+    });
+    console.log("item: ", item, element);
+    return /* @__PURE__ */ h2("menuItemBox", {
+      key: item.key
+    }, /* @__PURE__ */ h2("div", {
+      className: "p-1",
+      onClick: () => logic3.select(item)
+    }, element), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
       className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;

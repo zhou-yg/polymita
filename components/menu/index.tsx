@@ -40,23 +40,31 @@ export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule<MenuItemModule.MenuItemProps>(MenuItemModule)
 
+  // console.log('MenuItemFunc: ', MenuItemFunc, logic.items());
+
   return (
     <menuBox className="block border-r border-slate-300">
       <ul className="block">
         {logic.items().map((item) => {
           const isSelected = item.selected
+          let element = MenuItemFunc({...item, selected: isSelected}, {
+            layout(jsonTree) {
+              if (item.children) {
+                jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
+                jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
+                jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
+              }
+            },
+          });
+          // delete element.props.children
+          // element.props = {}
+          // element = React.createElement('divMyTest');
+
+          console.log('item: ', item, element);
           return (
             <menuItemBox key={item.key}>
               <div className="p-1" onClick={() => logic.select(item)} >
-                {MenuItemFunc({...item, selected: isSelected}, {
-                  layout(jsonTree) {
-                    if (item.children) {
-                      jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
-                      jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-                      jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
-                    }
-                  },
-                })}
+                {element}
               </div>
               {item.children && (
                 <subMenuItemBox className="block p-1 bg-slate-200">

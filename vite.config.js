@@ -9,7 +9,10 @@ function makePath(relativePath) {
  * @type {import('vite').UserConfig}
  */
 const config = {
-  // base: './demo-site',
+  base: './demo-site',
+  define: {
+    // 'process.env.NODE_ENV': '"development"',
+  },
   server: {
     port: 5001,
     open: 'http://localhost:5001/demo-site/index.html',
@@ -20,11 +23,13 @@ const config = {
     }),
   ],
   build: {    
-    assetsDir: '',
+    // assetsDir: '',
     minify: false,
+
+    watch: true,
+    
     rollupOptions: {
       input: './demo-site/index.html',
-      external: ['react'],
       output: {
         entryFileNames: `[name].js`,
         chunkFileNames: `[name].[ext]`,

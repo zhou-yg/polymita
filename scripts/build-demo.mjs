@@ -12,7 +12,7 @@ const __dirname = join(fileURLToPath(import.meta.url), '../')
 
 const componentsDir = join(__dirname, '../components/')
 
-const demoOutputDir = join(__dirname, '../site/components')
+const demoOutputDir = join(__dirname, '../demo-site/components')
 
 const demoEntryFile = 'demo.mdx'
 

@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -41,8 +40,300 @@ import React, { useEffect } from "react";
   }
 })();
 const index = "";
+function getDefaultExportFromCjs(x2) {
+  return x2 && x2.__esModule && Object.prototype.hasOwnProperty.call(x2, "default") ? x2["default"] : x2;
+}
 var jsxRuntime = { exports: {} };
 var reactJsxRuntime_production_min = {};
+var react = { exports: {} };
+var react_production_min = {};
+/**
+ * @license React
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var l$2 = Symbol.for("react.element"), n$2 = Symbol.for("react.portal"), p$3 = Symbol.for("react.fragment"), q$2 = Symbol.for("react.strict_mode"), r$1 = Symbol.for("react.profiler"), t$1 = Symbol.for("react.provider"), u$1 = Symbol.for("react.context"), v$2 = Symbol.for("react.forward_ref"), w$1 = Symbol.for("react.suspense"), x$1 = Symbol.for("react.memo"), y$1 = Symbol.for("react.lazy"), z$2 = Symbol.iterator;
+function A$2(a2) {
+  if (null === a2 || "object" !== typeof a2)
+    return null;
+  a2 = z$2 && a2[z$2] || a2["@@iterator"];
+  return "function" === typeof a2 ? a2 : null;
+}
+var B$2 = { isMounted: function() {
+  return false;
+}, enqueueForceUpdate: function() {
+}, enqueueReplaceState: function() {
+}, enqueueSetState: function() {
+} }, C$2 = Object.assign, D$2 = {};
+function E$2(a2, b2, e2) {
+  this.props = a2;
+  this.context = b2;
+  this.refs = D$2;
+  this.updater = e2 || B$2;
+}
+E$2.prototype.isReactComponent = {};
+E$2.prototype.setState = function(a2, b2) {
+  if ("object" !== typeof a2 && "function" !== typeof a2 && null != a2)
+    throw Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");
+  this.updater.enqueueSetState(this, a2, b2, "setState");
+};
+E$2.prototype.forceUpdate = function(a2) {
+  this.updater.enqueueForceUpdate(this, a2, "forceUpdate");
+};
+function F$1() {
+}
+F$1.prototype = E$2.prototype;
+function G$2(a2, b2, e2) {
+  this.props = a2;
+  this.context = b2;
+  this.refs = D$2;
+  this.updater = e2 || B$2;
+}
+var H$2 = G$2.prototype = new F$1();
+H$2.constructor = G$2;
+C$2(H$2, E$2.prototype);
+H$2.isPureReactComponent = true;
+var I$2 = Array.isArray, J$1 = Object.prototype.hasOwnProperty, K$2 = { current: null }, L$2 = { key: true, ref: true, __self: true, __source: true };
+function M$2(a2, b2, e2) {
+  var d2, c2 = {}, k2 = null, h2 = null;
+  if (null != b2)
+    for (d2 in void 0 !== b2.ref && (h2 = b2.ref), void 0 !== b2.key && (k2 = "" + b2.key), b2)
+      J$1.call(b2, d2) && !L$2.hasOwnProperty(d2) && (c2[d2] = b2[d2]);
+  var g2 = arguments.length - 2;
+  if (1 === g2)
+    c2.children = e2;
+  else if (1 < g2) {
+    for (var f2 = Array(g2), m2 = 0; m2 < g2; m2++)
+      f2[m2] = arguments[m2 + 2];
+    c2.children = f2;
+  }
+  if (a2 && a2.defaultProps)
+    for (d2 in g2 = a2.defaultProps, g2)
+      void 0 === c2[d2] && (c2[d2] = g2[d2]);
+  return { $$typeof: l$2, type: a2, key: k2, ref: h2, props: c2, _owner: K$2.current };
+}
+function N$2(a2, b2) {
+  return { $$typeof: l$2, type: a2.type, key: b2, ref: a2.ref, props: a2.props, _owner: a2._owner };
+}
+function O$2(a2) {
+  return "object" === typeof a2 && null !== a2 && a2.$$typeof === l$2;
+}
+function escape(a2) {
+  var b2 = { "=": "=0", ":": "=2" };
+  return "$" + a2.replace(/[=:]/g, function(a3) {
+    return b2[a3];
+  });
+}
+var P$2 = /\/+/g;
+function Q$2(a2, b2) {
+  return "object" === typeof a2 && null !== a2 && null != a2.key ? escape("" + a2.key) : b2.toString(36);
+}
+function R$2(a2, b2, e2, d2, c2) {
+  var k2 = typeof a2;
+  if ("undefined" === k2 || "boolean" === k2)
+    a2 = null;
+  var h2 = false;
+  if (null === a2)
+    h2 = true;
+  else
+    switch (k2) {
+      case "string":
+      case "number":
+        h2 = true;
+        break;
+      case "object":
+        switch (a2.$$typeof) {
+          case l$2:
+          case n$2:
+            h2 = true;
+        }
+    }
+  if (h2)
+    return h2 = a2, c2 = c2(h2), a2 = "" === d2 ? "." + Q$2(h2, 0) : d2, I$2(c2) ? (e2 = "", null != a2 && (e2 = a2.replace(P$2, "$&/") + "/"), R$2(c2, b2, e2, "", function(a3) {
+      return a3;
+    })) : null != c2 && (O$2(c2) && (c2 = N$2(c2, e2 + (!c2.key || h2 && h2.key === c2.key ? "" : ("" + c2.key).replace(P$2, "$&/") + "/") + a2)), b2.push(c2)), 1;
+  h2 = 0;
+  d2 = "" === d2 ? "." : d2 + ":";
+  if (I$2(a2))
+    for (var g2 = 0; g2 < a2.length; g2++) {
+      k2 = a2[g2];
+      var f2 = d2 + Q$2(k2, g2);
+      h2 += R$2(k2, b2, e2, f2, c2);
+    }
+  else if (f2 = A$2(a2), "function" === typeof f2)
+    for (a2 = f2.call(a2), g2 = 0; !(k2 = a2.next()).done; )
+      k2 = k2.value, f2 = d2 + Q$2(k2, g2++), h2 += R$2(k2, b2, e2, f2, c2);
+  else if ("object" === k2)
+    throw b2 = String(a2), Error("Objects are not valid as a React child (found: " + ("[object Object]" === b2 ? "object with keys {" + Object.keys(a2).join(", ") + "}" : b2) + "). If you meant to render a collection of children, use an array instead.");
+  return h2;
+}
+function S$2(a2, b2, e2) {
+  if (null == a2)
+    return a2;
+  var d2 = [], c2 = 0;
+  R$2(a2, d2, "", "", function(a3) {
+    return b2.call(e2, a3, c2++);
+  });
+  return d2;
+}
+function T$2(a2) {
+  if (-1 === a2._status) {
+    var b2 = a2._result;
+    b2 = b2();
+    b2.then(function(b3) {
+      if (0 === a2._status || -1 === a2._status)
+        a2._status = 1, a2._result = b3;
+    }, function(b3) {
+      if (0 === a2._status || -1 === a2._status)
+        a2._status = 2, a2._result = b3;
+    });
+    -1 === a2._status && (a2._status = 0, a2._result = b2);
+  }
+  if (1 === a2._status)
+    return a2._result.default;
+  throw a2._result;
+}
+var U$2 = { current: null }, V$2 = { transition: null }, W$2 = { ReactCurrentDispatcher: U$2, ReactCurrentBatchConfig: V$2, ReactCurrentOwner: K$2 };
+react_production_min.Children = { map: S$2, forEach: function(a2, b2, e2) {
+  S$2(a2, function() {
+    b2.apply(this, arguments);
+  }, e2);
+}, count: function(a2) {
+  var b2 = 0;
+  S$2(a2, function() {
+    b2++;
+  });
+  return b2;
+}, toArray: function(a2) {
+  return S$2(a2, function(a3) {
+    return a3;
+  }) || [];
+}, only: function(a2) {
+  if (!O$2(a2))
+    throw Error("React.Children.only expected to receive a single React element child.");
+  return a2;
+} };
+react_production_min.Component = E$2;
+react_production_min.Fragment = p$3;
+react_production_min.Profiler = r$1;
+react_production_min.PureComponent = G$2;
+react_production_min.StrictMode = q$2;
+react_production_min.Suspense = w$1;
+react_production_min.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = W$2;
+react_production_min.cloneElement = function(a2, b2, e2) {
+  if (null === a2 || void 0 === a2)
+    throw Error("React.cloneElement(...): The argument must be a React element, but you passed " + a2 + ".");
+  var d2 = C$2({}, a2.props), c2 = a2.key, k2 = a2.ref, h2 = a2._owner;
+  if (null != b2) {
+    void 0 !== b2.ref && (k2 = b2.ref, h2 = K$2.current);
+    void 0 !== b2.key && (c2 = "" + b2.key);
+    if (a2.type && a2.type.defaultProps)
+      var g2 = a2.type.defaultProps;
+    for (f2 in b2)
+      J$1.call(b2, f2) && !L$2.hasOwnProperty(f2) && (d2[f2] = void 0 === b2[f2] && void 0 !== g2 ? g2[f2] : b2[f2]);
+  }
+  var f2 = arguments.length - 2;
+  if (1 === f2)
+    d2.children = e2;
+  else if (1 < f2) {
+    g2 = Array(f2);
+    for (var m2 = 0; m2 < f2; m2++)
+      g2[m2] = arguments[m2 + 2];
+    d2.children = g2;
+  }
+  return { $$typeof: l$2, type: a2.type, key: c2, ref: k2, props: d2, _owner: h2 };
+};
+react_production_min.createContext = function(a2) {
+  a2 = { $$typeof: u$1, _currentValue: a2, _currentValue2: a2, _threadCount: 0, Provider: null, Consumer: null, _defaultValue: null, _globalName: null };
+  a2.Provider = { $$typeof: t$1, _context: a2 };
+  return a2.Consumer = a2;
+};
+react_production_min.createElement = M$2;
+react_production_min.createFactory = function(a2) {
+  var b2 = M$2.bind(null, a2);
+  b2.type = a2;
+  return b2;
+};
+react_production_min.createRef = function() {
+  return { current: null };
+};
+react_production_min.forwardRef = function(a2) {
+  return { $$typeof: v$2, render: a2 };
+};
+react_production_min.isValidElement = O$2;
+react_production_min.lazy = function(a2) {
+  return { $$typeof: y$1, _payload: { _status: -1, _result: a2 }, _init: T$2 };
+};
+react_production_min.memo = function(a2, b2) {
+  return { $$typeof: x$1, type: a2, compare: void 0 === b2 ? null : b2 };
+};
+react_production_min.startTransition = function(a2) {
+  var b2 = V$2.transition;
+  V$2.transition = {};
+  try {
+    a2();
+  } finally {
+    V$2.transition = b2;
+  }
+};
+react_production_min.unstable_act = function() {
+  throw Error("act(...) is not supported in production builds of React.");
+};
+react_production_min.useCallback = function(a2, b2) {
+  return U$2.current.useCallback(a2, b2);
+};
+react_production_min.useContext = function(a2) {
+  return U$2.current.useContext(a2);
+};
+react_production_min.useDebugValue = function() {
+};
+react_production_min.useDeferredValue = function(a2) {
+  return U$2.current.useDeferredValue(a2);
+};
+react_production_min.useEffect = function(a2, b2) {
+  return U$2.current.useEffect(a2, b2);
+};
+react_production_min.useId = function() {
+  return U$2.current.useId();
+};
+react_production_min.useImperativeHandle = function(a2, b2, e2) {
+  return U$2.current.useImperativeHandle(a2, b2, e2);
+};
+react_production_min.useInsertionEffect = function(a2, b2) {
+  return U$2.current.useInsertionEffect(a2, b2);
+};
+react_production_min.useLayoutEffect = function(a2, b2) {
+  return U$2.current.useLayoutEffect(a2, b2);
+};
+react_production_min.useMemo = function(a2, b2) {
+  return U$2.current.useMemo(a2, b2);
+};
+react_production_min.useReducer = function(a2, b2, e2) {
+  return U$2.current.useReducer(a2, b2, e2);
+};
+react_production_min.useRef = function(a2) {
+  return U$2.current.useRef(a2);
+};
+react_production_min.useState = function(a2) {
+  return U$2.current.useState(a2);
+};
+react_production_min.useSyncExternalStore = function(a2, b2, e2) {
+  return U$2.current.useSyncExternalStore(a2, b2, e2);
+};
+react_production_min.useTransition = function() {
+  return U$2.current.useTransition();
+};
+react_production_min.version = "18.2.0";
+(function(module) {
+  {
+    module.exports = react_production_min;
+  }
+})(react);
+const React = /* @__PURE__ */ getDefaultExportFromCjs(react.exports);
 /**
  * @license React
  * react-jsx-runtime.production.min.js
@@ -52,7 +343,7 @@ var reactJsxRuntime_production_min = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var f$1 = React, k$1 = Symbol.for("react.element"), l$1 = Symbol.for("react.fragment"), m$2 = Object.prototype.hasOwnProperty, n$1 = f$1.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, p$2 = { key: true, ref: true, __self: true, __source: true };
+var f$1 = react.exports, k$1 = Symbol.for("react.element"), l$1 = Symbol.for("react.fragment"), m$2 = Object.prototype.hasOwnProperty, n$1 = f$1.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, p$2 = { key: true, ref: true, __self: true, __source: true };
 function q$1(c2, a2, g2) {
   var b2, d2 = {}, e2 = null, h2 = null;
   void 0 !== g2 && (e2 = "" + g2);
@@ -3069,9 +3360,9 @@ function get(obj, path) {
 const driverWeakMap = /* @__PURE__ */ new Map();
 typeof window !== "undefined" && (window.driverWeakMap = driverWeakMap);
 const scopeSymbol = Symbol.for("@NewRendererReactScope");
-function runReactLogic(react, hook, args) {
+function runReactLogic(react2, hook, args) {
   var _a;
-  const { useRef, useEffect: useEffect2, useState } = react;
+  const { useRef, useEffect, useState } = react2;
   const init = useRef(null);
   if (!init.current) {
     const serializedArgs = unstable_serialize(args);
@@ -3112,7 +3403,7 @@ function runReactLogic(react, hook, args) {
       });
     }
   }
-  useEffect2(() => {
+  useEffect(() => {
     function fn2() {
       setHookResult(Object.assign({}, init.current.result));
     }
@@ -3126,7 +3417,7 @@ function runReactLogic(react, hook, args) {
   const [hookResult, setHookResult] = useState(init.current.result);
   return hookResult;
 }
-function filterProps(props) {
+function filterPatternSematicProps(props) {
   if (!props) {
     return props;
   }
@@ -3183,11 +3474,12 @@ function createReactContainer(React2, module) {
     if (!json) {
       return;
     }
+    console.log("isVirtualNode(json): ", isVirtualNode(json), json.$$typeof);
     if (!isVirtualNode(json)) {
       return json;
     }
     let children = json.children;
-    let elementArgs = [json.tag, filterProps(json.props)];
+    let elementArgs = [json.tag, filterPatternSematicProps(json.props)];
     if (Array.isArray(json.children)) {
       children = json.children.map(createElementDepth);
       elementArgs.push(...children);
@@ -3197,6 +3489,7 @@ function createReactContainer(React2, module) {
       }
       elementArgs.push(children);
     }
+    window.React1 = React2;
     return React2.createElement(...elementArgs);
   }
   function render(props, override) {
@@ -3797,12 +4090,7 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    return /* @__PURE__ */ h("menuItemBox", {
-      key: item.key
-    }, /* @__PURE__ */ h("div", {
-      className: "p-1",
-      onClick: () => logic3.select(item)
-    }, MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
+    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -3815,7 +4103,14 @@ var layout2 = (props) => {
           }, ">"));
         }
       }
-    })), item.children && /* @__PURE__ */ h("subMenuItemBox", {
+    });
+    console.log("item: ", item, element);
+    return /* @__PURE__ */ h("menuItemBox", {
+      key: item.key
+    }, /* @__PURE__ */ h("div", {
+      className: "p-1",
+      onClick: () => logic3.select(item)
+    }, element), item.children && /* @__PURE__ */ h("subMenuItemBox", {
       className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;
@@ -4170,7 +4465,7 @@ var scheduler_production_min = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var aa = React, ca = scheduler.exports;
+var aa = react.exports, ca = scheduler.exports;
 function p(a2) {
   for (var b2 = "https://reactjs.org/docs/error-decoder.html?invariant=" + a2, c2 = 1; c2 < arguments.length; c2++)
     b2 += "&args[]=" + encodeURIComponent(arguments[c2]);
@@ -11271,12 +11566,7 @@ const layout = (props) => {
     className: "block"
   }, logic22.items().map((item) => {
     const isSelected = item.selected;
-    return /* @__PURE__ */ h("menuItemBox", {
-      key: item.key
-    }, /* @__PURE__ */ h("div", {
-      className: "p-1",
-      onClick: () => logic22.select(item)
-    }, MenuItemFunc({ ...item, selected: isSelected }, {
+    let element = MenuItemFunc({ ...item, selected: isSelected }, {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -11289,7 +11579,14 @@ const layout = (props) => {
           }, ">"));
         }
       }
-    })), item.children && /* @__PURE__ */ h("subMenuItemBox", {
+    });
+    console.log("item: ", item, element);
+    return /* @__PURE__ */ h("menuItemBox", {
+      key: item.key
+    }, /* @__PURE__ */ h("div", {
+      className: "p-1",
+      onClick: () => logic22.select(item)
+    }, element), item.children && /* @__PURE__ */ h("subMenuItemBox", {
       className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;
@@ -11339,7 +11636,8 @@ const TAB_KEY = "tab";
 const DEFAULT_TAB = "Button";
 function Home() {
   const [tab, setTab] = React.useState(searchParams.get(TAB_KEY) || DEFAULT_TAB);
-  useEffect(() => {
+  React.createElement;
+  react.exports.useEffect(() => {
     searchParams.set(TAB_KEY, tab);
     history.replaceState(
       null,
@@ -11372,20 +11670,22 @@ function Home() {
       }
     });
   });
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "flex"
-  }, /* @__PURE__ */ React.createElement("div", {
-    style: { width: "160px" }
-  }, Menu({
+  const leftMenu = Menu({
     items: sideMenu,
     onClick(item) {
       setTab(item.key);
     }
-  })), /* @__PURE__ */ React.createElement("div", {
+  });
+  const element = React.createElement("div", null, 13333);
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "flex"
+  }, /* @__PURE__ */ React.createElement("div", {
+    style: { width: "160px" }
+  }, leftMenu), /* @__PURE__ */ React.createElement("div", {
     className: "flex"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "p-4"
-  }, /* @__PURE__ */ React.createElement("h3", {
+  }, element, /* @__PURE__ */ React.createElement("h3", {
     className: "component-name"
   }, componentName), /* @__PURE__ */ React.createElement("div", {
     className: "component-mdx"
