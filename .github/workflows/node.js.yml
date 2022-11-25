@@ -7,13 +7,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'doc/en/**.md'
-      - 'scripts/build-doc.js'
+      - 'demo-site/index.tsx'
+      - 'scripts/build-demo.js'
   pull_request:
     branches: [ master ]
     paths:
-      - 'doc/en/**.md'
-      - 'scripts/build-doc.js'
+      - 'demo-site/index.tsx'
+      - 'scripts/build-demo.js'
 
 jobs:
   build:
