@@ -7,12 +7,12 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'demo-site/index.tsx'
+      - 'demo-site/index.*'
       - 'scripts/build-demo.js'
   pull_request:
     branches: [ master ]
     paths:
-      - 'demo-site/index.tsx'
+      - 'demo-site/index.*'
       - 'scripts/build-demo.js'
 
 jobs:
