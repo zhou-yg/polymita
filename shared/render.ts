@@ -10,10 +10,11 @@ export function RenderToReactWithWrap<T = any>(module: SingleFileModule) {
   })
 
   return (p: T) => {
+    renderer.construct(p)
     return React.createElement(
       'div',
       { style: { margin: '20px', display: 'inline-block' } },
-      renderer.render(p)
+      renderer.render()
     )
   }
 }
@@ -25,5 +26,8 @@ export function RenderToReact<T>(module: SingleFileModule) {
     }
   })
 
-  return (p: T) => renderer.render(p)
+  return (p: T) => {
+    renderer.construct(p)
+    return renderer.render()
+  }
 }

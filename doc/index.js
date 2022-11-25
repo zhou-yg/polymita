@@ -2950,6 +2950,18 @@ function signal(v2) {
   }
 }
 const action = inputCompute;
+function __rest(s2, e2) {
+  var t2 = {};
+  for (var p2 in s2)
+    if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
+      t2[p2] = s2[p2];
+  if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i2 = 0, p2 = Object.getOwnPropertySymbols(s2); i2 < p2.length; i2++) {
+      if (e2.indexOf(p2[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i2]))
+        t2[p2[i2]] = s2[p2[i2]];
+    }
+  return t2;
+}
 function getDataType(data) {
   return Object.prototype.toString.call(data).slice(8, -1);
 }
@@ -3474,7 +3486,6 @@ function createReactContainer(React2, module) {
     if (!json) {
       return;
     }
-    console.log("isVirtualNode(json): ", isVirtualNode(json), json.$$typeof);
     if (!isVirtualNode(json)) {
       return json;
     }
@@ -3489,10 +3500,9 @@ function createReactContainer(React2, module) {
       }
       elementArgs.push(children);
     }
-    window.React1 = React2;
     return React2.createElement(...elementArgs);
   }
-  function render(props, override) {
+  function construct(props, override) {
     var _a, _b, _c;
     if (!props) {
       props = {};
@@ -3513,31 +3523,35 @@ function createReactContainer(React2, module) {
       if (patternResult) {
         newJSON = assignPattern(newJSON, patternResult);
       }
-      const root = createElementDepth(newJSON);
       disposeFromModule();
-      return root;
+      return newJSON;
     }
     return null;
   }
-  function genLayout(props) {
+  function render(json) {
+    const root = createElementDepth(json);
+    return root;
+  }
+  function getLayout(props) {
     const { proxyHandler } = getLayoutFromModule(props);
     return proxyHandler === null || proxyHandler === void 0 ? void 0 : proxyHandler.draft;
   }
   return {
     render,
+    construct,
     runLogic: runLogicFromCache,
-    genLayout
+    getLayout
   };
 }
-let globalCurrentRenderer = null;
+let globalCurrentRenderer = [];
 function getCurrentRenderer() {
-  return globalCurrentRenderer;
+  return last(globalCurrentRenderer);
 }
 function pushCurrentRenderer(renderer) {
-  globalCurrentRenderer = renderer;
+  globalCurrentRenderer.push(renderer);
 }
 function popCurrentRenderer() {
-  globalCurrentRenderer = null;
+  globalCurrentRenderer.pop();
 }
 class Renderer {
   constructor(module, renderHost, override) {
@@ -3558,25 +3572,23 @@ class Renderer {
         break;
     }
   }
-  render(props, override) {
-    pushCurrentRenderer(this);
-    let r2;
-    if (this.mounted) {
-      r2 = this.update(props, override);
-    } else {
-      r2 = this.mount(props, override);
+  render() {
+    if (!this.layoutJSON) {
+      return;
     }
+    return this.renderHooksContainer.render(this.layoutJSON);
+  }
+  construct(props, override) {
+    pushCurrentRenderer(this);
+    let r2 = this.mount(props, override);
+    this.layoutJSON = r2;
     popCurrentRenderer();
     return r2;
   }
   mount(props, override) {
     this.mounted = true;
     const mergedOverride = mergeOverrideModules([this.override, override]);
-    return this.renderHooksContainer.render(props, mergedOverride);
-  }
-  update(props, override) {
-    const mergedOverride = mergeOverrideModules([this.override, override]);
-    return this.renderHooksContainer.render(props, mergedOverride);
+    return this.renderHooksContainer.construct(props, mergedOverride);
   }
 }
 function createRenderer(module, renderHost, override) {
@@ -3605,8 +3617,9 @@ function useModule(module, override) {
     throw new Error("useModule must be called in render function");
   }
   const subModuleRenderer = createRenderer(module, renderer.renderHost, override);
-  return (props, override2) => {
-    return subModuleRenderer.render(props, override2);
+  return (props) => {
+    const { override: override2 } = props, rest = __rest(props, ["override"]);
+    return subModuleRenderer.construct(rest, override2);
   };
 }
 function useLayout() {
@@ -3614,7 +3627,7 @@ function useLayout() {
   if (!renderer) {
     throw new Error("useLayout must be called in render function");
   }
-  return renderer.renderHooksContainer.genLayout();
+  return renderer.renderHooksContainer.getLayout();
 }
 var __defProp$1 = Object.defineProperty;
 var __defProps$1 = Object.defineProperties;
@@ -3852,10 +3865,11 @@ function RenderToReactWithWrap$1(module) {
     }
   });
   return (p2) => {
+    renderer.construct(p2);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      renderer.render(p2)
+      renderer.render()
     );
   };
 }
@@ -4090,7 +4104,7 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
+    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected, override: {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -4103,8 +4117,7 @@ var layout2 = (props) => {
           }, ">"));
         }
       }
-    });
-    console.log("item: ", item, element);
+    } }));
     return /* @__PURE__ */ h("menuItemBox", {
       key: item.key
     }, /* @__PURE__ */ h("div", {
@@ -4117,11 +4130,11 @@ var layout2 = (props) => {
       return /* @__PURE__ */ h("subMenuItem", {
         className: "block m-1",
         onClick: () => logic3.select(subItem)
-      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected }), {
+      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
         layout(jsonTree) {
           jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
         }
-      }));
+      } })));
     })));
   })));
 };
@@ -4138,10 +4151,11 @@ function RenderToReactWithWrap(module) {
     }
   });
   return (p2) => {
+    renderer.construct(p2);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      renderer.render(p2)
+      renderer.render()
     );
   };
 }
@@ -11566,7 +11580,7 @@ const layout = (props) => {
     className: "block"
   }, logic22.items().map((item) => {
     const isSelected = item.selected;
-    let element = MenuItemFunc({ ...item, selected: isSelected }, {
+    let element = MenuItemFunc({ ...item, selected: isSelected, override: {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -11579,8 +11593,7 @@ const layout = (props) => {
           }, ">"));
         }
       }
-    });
-    console.log("item: ", item, element);
+    } });
     return /* @__PURE__ */ h("menuItemBox", {
       key: item.key
     }, /* @__PURE__ */ h("div", {
@@ -11593,11 +11606,11 @@ const layout = (props) => {
       return /* @__PURE__ */ h("subMenuItem", {
         className: "block m-1",
         onClick: () => logic22.select(subItem)
-      }, MenuItemFunc({ ...subItem, selected: isSubSelected }, {
+      }, MenuItemFunc({ ...subItem, selected: isSubSelected, override: {
         layout(jsonTree) {
           jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
         }
-      }));
+      } }));
     })));
   })));
 };
@@ -11620,7 +11633,10 @@ function RenderToReact(module) {
       lib: React
     }
   });
-  return (p2) => renderer.render(p2);
+  return (p2) => {
+    renderer.construct(p2);
+    return renderer.render();
+  };
 }
 const Menu = RenderToReact({
   ...MenuModule
@@ -11660,12 +11676,10 @@ function Home() {
       };
     }
   );
-  let componentName = "";
   let ComponentPreview = () => null;
   Object.entries(componentsPlayground).map(([groupName, group]) => {
     Object.entries(group).forEach(([name, component]) => {
       if (name === tab) {
-        componentName = name;
         ComponentPreview = component;
       }
     });
@@ -11676,7 +11690,6 @@ function Home() {
       setTab(item.key);
     }
   });
-  const element = React.createElement("div", null, 13333);
   return /* @__PURE__ */ React.createElement("div", {
     className: "flex"
   }, /* @__PURE__ */ React.createElement("div", {
@@ -11685,11 +11698,7 @@ function Home() {
     className: "flex"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "p-4"
-  }, element, /* @__PURE__ */ React.createElement("h3", {
-    className: "component-name"
-  }, componentName), /* @__PURE__ */ React.createElement("div", {
-    className: "component-mdx"
-  }, /* @__PURE__ */ React.createElement(ComponentPreview, null)))));
+  }, /* @__PURE__ */ React.createElement(ComponentPreview, null))));
 }
 const RRoot = createRoot(document.getElementById("root"));
 RRoot.render(/* @__PURE__ */ React.createElement(Home, null));

@@ -197,7 +197,7 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected }), {
+    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected, override: {
       layout(jsonTree) {
         var _a, _b;
         if (item.children) {
@@ -210,8 +210,7 @@ var layout2 = (props) => {
           }, ">"));
         }
       }
-    });
-    console.log("item: ", item, element);
+    } }));
     return /* @__PURE__ */ h2("menuItemBox", {
       key: item.key
     }, /* @__PURE__ */ h2("div", {
@@ -224,11 +223,11 @@ var layout2 = (props) => {
       return /* @__PURE__ */ h2("subMenuItem", {
         className: "block m-1",
         onClick: () => logic3.select(subItem)
-      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected }), {
+      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
         layout(jsonTree) {
           jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
         }
-      }));
+      } })));
     })));
   })));
 };
@@ -250,10 +249,11 @@ function RenderToReactWithWrap(module) {
     }
   });
   return (p) => {
+    renderer.construct(p);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      renderer.render(p)
+      renderer.render()
     );
   };
 }

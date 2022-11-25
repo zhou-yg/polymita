@@ -73,8 +73,6 @@ function Home() {
     }
   })
   
-  const element = React.createElement('div', null, 13333);
-
   return (
     <div className="flex">
       <div style={{ width: '160px' }}>
@@ -82,11 +80,7 @@ function Home() {
       </div>
       <div className="flex">
         <div className="p-4">
-          {element}
-          <h3 className="component-name">{componentName}</h3>
-          <div className="component-mdx">
-            <ComponentPreview />
-          </div>
+          <ComponentPreview />
         </div>
       </div>
     </div>

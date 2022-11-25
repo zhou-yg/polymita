@@ -254,10 +254,11 @@ function RenderToReactWithWrap(module) {
     }
   });
   return (p) => {
+    renderer.construct(p);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      renderer.render(p)
+      renderer.render()
     );
   };
 }
