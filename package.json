@@ -11,7 +11,7 @@
     "build:demo:tw": "tailwindcss -i ./shared/tailwind-input.css -o ./demo-site/index.css",
     "pg": "npm run playground",
     "playground": "vite --host --force",
-    "build:doc": "vite build"
+    "build:doc": "vite build && sh after-build-doc.sh"
   },
   "repository": {
     "type": "git",

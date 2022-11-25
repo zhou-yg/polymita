@@ -26,7 +26,7 @@ const config = {
     // assetsDir: '',
     minify: false,
 
-    watch: true,
+    // watch: true,
     
     rollupOptions: {
       input: './demo-site/index.html',
