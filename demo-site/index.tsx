@@ -1,5 +1,6 @@
 import ButtonDemo from './components/button'
 import MenuDemo from './components/menu'
+import InputDemo from './components/input'
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 
@@ -14,7 +15,8 @@ const Menu = RenderToReact<MenuModule.MenuProps>({
 const componentsPlayground = {
   all: {
     Button: ButtonDemo,
-    Menu: MenuDemo
+    Menu: MenuDemo,
+    Input: InputDemo,
   }
 }
 

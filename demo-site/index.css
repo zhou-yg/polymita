@@ -556,6 +556,10 @@ video {
   border-width: 1px;
 }
 
+.border-0 {
+  border-width: 0px;
+}
+
 .border-r {
   border-right-width: 1px;
 }
@@ -599,6 +603,11 @@ video {
 
 .pl-8 {
   padding-left: 2rem;
+}
+
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .hover\:cursor-pointer:hover {

@@ -11,3 +11,8 @@ export const colors = {
 
   text: '#434343'
 }
+
+
+export const radius = {
+  normal: '4px'
+}

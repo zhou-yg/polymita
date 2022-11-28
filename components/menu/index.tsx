@@ -13,7 +13,7 @@ export interface MenuProps {
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: MenuProps) => {
-  const currentKey = signal<string>()
+  const currentKey = signal<string>(null)
   const select = action((item: MenuItemProps) => {
     currentKey(() => item.key)
     items(draft => {

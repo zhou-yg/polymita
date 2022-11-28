@@ -22,18 +22,19 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/button/demo.mdx
+// components/input/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
-// components/button/index.tsx
-var button_exports = {};
-__export(button_exports, {
+// components/input/index.tsx
+var input_exports = {};
+__export(input_exports, {
+  config: () => config,
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
   styleRules: () => styleRules
 });
-import { h, useLayout, useLogic } from "tarat-renderer";
+import { h, useLogic } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
@@ -91,40 +92,6 @@ function useInteractive(props) {
     }
   };
 }
-function blockPattern(arg, colors2) {
-  return matchPatternMatrix([
-    arg.hover(),
-    arg.active(),
-    arg.selected,
-    arg.disabled
-  ])({
-    container: {
-      backgroundColor: {
-        [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, "*", "*", false],
-        [colors2.bg[2]]: ["*", true, "*", false],
-        [colors2.bg[3]]: ["*", "*", true, false],
-        [colors.disables[0]]: ["*", "*", "*", true]
-      },
-      cursor: {
-        pointer: [],
-        "not-allowed": ["*", "*", "*", true]
-      },
-      userSelect: {
-        none: []
-      }
-    },
-    text: {
-      color: {
-        [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, "*", "*", false],
-        [colors2.text[2]]: ["*", true, "*", false],
-        [colors2.text[3]]: ["*", "*", true, false],
-        [colors.disables[1]]: ["*", "*", "*", true]
-      }
-    }
-  });
-}
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
   return matchPatternMatrix([
@@ -170,84 +137,49 @@ function strokePattern(arg, colors2) {
   });
 }
 
-// components/button/index.tsx
+// components/input/index.tsx
+import { after, signal as signal2 } from "atomic-signal";
+var config = () => ({});
 var logic = (props) => {
-  const interactive = useInteractive(props);
+  const interactive = useInteractive({
+    disabled: props.disabled
+  });
+  const value = signal2(props.value);
+  after(() => {
+    props.onInput(value());
+  }, [value]);
   return {
     interactive,
-    count: 0
+    value
   };
 };
 var layout = (props) => {
-  const logicResult = useLogic();
-  return /* @__PURE__ */ h("buttonBox", __spreadProps(__spreadValues({
-    className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
-  }, logicResult.interactive.events), {
+  const logic2 = useLogic();
+  return /* @__PURE__ */ h("inputBox", __spreadValues({
+    className: "block"
+  }, logic2.interactive.events), /* @__PURE__ */ h("input", {
+    type: props.type,
     "is-container": true,
-    "has-border": true
-  }), /* @__PURE__ */ h("span", {
-    "is-text": true,
-    className: "block select-none",
-    onClick: (e) => {
-      var _a;
-      if (props.disabled)
-        return;
-      (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-    }
-  }, props.children));
+    "has-border": true,
+    value: logic2.value,
+    className: "block select-none outline-none border-0 px-2 py-1"
+  }));
 };
 var designPattern = (props) => {
-  const logicResult = useLogic();
-  let pattern;
-  const states = __spreadProps(__spreadValues({}, logicResult.interactive.states), {
-    disabled: !!props.disabled,
-    selected: false
-  });
-  switch (props.type) {
-    case "primary":
-      pattern = blockPattern(
-        states,
-        {
-          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.light]
-        }
-      );
-      break;
-    case "text":
-      pattern = blockPattern(
-        states,
-        {
-          bg: [colors.light, colors.grays[0], colors.grays[1]],
-          text: [colors.text]
-        }
-      );
-      break;
-    case "link":
-      pattern = strokePattern(
-        states,
-        {
-          border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]]
-        }
-      );
-      break;
-    default:
-      pattern = strokePattern(
-        states,
-        {
-          bdw: 1,
-          border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
-          text: [colors.text, colors.primaries[1], colors.primaries[2]]
-        }
-      );
-      break;
-  }
-  return pattern;
+  const logic2 = useLogic();
+  const p = strokePattern(
+    __spreadProps(__spreadValues({}, logic2.interactive.states), {
+      selected: false,
+      disabled: props.disabled
+    }),
+    {
+      bdw: 1,
+      border: [colors.grays[0], colors.primaries[1]]
+    }
+  );
+  return p;
 };
 var styleRules = (props) => {
-  const logic2 = useLogic();
-  const layout2 = useLayout();
-  return [];
 };
 
 // shared/render.ts
@@ -276,8 +208,28 @@ function RenderToReact(module) {
   };
 }
 
-// components/button/demo.mdx
-var Component = RenderToReactWithWrap(button_exports);
+// components/input/demo.mdx
+import { useState } from "react";
+var Component = RenderToReactWithWrap(input_exports);
+function InputBox() {
+  const [val, setVal] = useState("v0");
+  return _jsxs("div", {
+    children: [" val: ", val, _jsx("br", {}), _jsx(Component, {
+      value: val,
+      onInput: (v) => setVal(v)
+    })]
+  });
+}
+function InputBox2() {
+  const [val, setVal] = useState("v0");
+  return _jsxs("div", {
+    children: [" number val: ", val, _jsx("br", {}), _jsx(Component, {
+      type: "number",
+      value: val,
+      onInput: (v) => setVal(v)
+    })]
+  });
+}
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -285,42 +237,14 @@ function _createMdxContent(props) {
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
-      children: "Button \u6309\u94AE"
+      children: "Input \u8F93\u5165"
     }), "\n", _jsx(_components.p, {
-      children: "\u6807\u8BB0\u4E86\u4E00\u4E2A\uFF08\u6216\u5C01\u88C5\u4E00\u7EC4\uFF09\u64CD\u4F5C\u547D\u4EE4\uFF0C\u54CD\u5E94\u7528\u6237\u70B9\u51FB\u884C\u4E3A\uFF0C\u89E6\u53D1\u76F8\u5E94\u7684\u4E1A\u52A1\u903B\u8F91"
-    }), "\n", _jsx(Component, {
-      type: "primary",
-      onClick: () => console.log("click on primary"),
-      children: "Primary Button"
-    }), "\n", _jsx(Component, {
-      type: "text",
-      children: "Text Button"
-    }), "\n", _jsx(Component, {
-      children: "Default Button"
-    }), "\n", _jsx(Component, {
-      type: "link",
-      children: "Link Button"
+      children: "\u63A5\u6536\u7528\u6237\u8F93\u5165"
+    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
+      children: "\u6570\u5B57\u6846"
     }), "\n", _jsx(_components.p, {
-      children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "primary",
-      onClick: () => console.log("click on primary"),
-      children: "Primary Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "text",
-      children: "Text Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      children: "Default Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "link",
-      children: "Link Button"
-    }), "\n", _jsx(_components.p, {
-      children: "disabled \u6309\u94AE\u5C55\u793A"
-    })]
+      children: "type=number"
+    }), "\n", _jsx(InputBox2, {})]
   });
 }
 function MDXContent(props = {}) {
@@ -332,5 +256,7 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
+  InputBox,
+  InputBox2,
   demo_default as default
 };

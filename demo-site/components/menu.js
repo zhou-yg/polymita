@@ -166,7 +166,7 @@ var styleRules = (props) => {
 
 // components/menu/index.tsx
 var logic2 = (props) => {
-  const currentKey = signal2();
+  const currentKey = signal2(null);
   const select = action2((item) => {
     var _a;
     currentKey(() => item.key);
@@ -242,6 +242,16 @@ var styleRules2 = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
+  return (p) => {
+    return React.createElement(
+      "div",
+      { style: { margin: "20px", display: "inline-block" } },
+      render(p)
+    );
+  };
+}
+function RenderToReact(module) {
   const renderer = createRenderer(module, {
     framework: {
       name: "react",
@@ -250,11 +260,7 @@ function RenderToReactWithWrap(module) {
   });
   return (p) => {
     renderer.construct(p);
-    return React.createElement(
-      "div",
-      { style: { margin: "20px", display: "inline-block" } },
-      renderer.render()
-    );
+    return renderer.render();
   };
 }
 

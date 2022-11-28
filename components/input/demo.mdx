@@ -1,0 +1,38 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export function InputBox () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div>
+      val: {val} 
+      <br/>
+      <Component value={val} onInput={v => setVal(v)} />
+    </div>
+  )
+}
+
+
+export function InputBox2 () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div>
+      number val: {val} 
+      <br/>
+      <Component type="number" value={val} onInput={v => setVal(v)} />
+    </div>
+  )
+}
+
+# Input 输入
+
+接收用户输入
+
+<InputBox />
+
+数字框
+
+type=number
+
+<InputBox2 />

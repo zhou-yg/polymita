@@ -56,8 +56,7 @@ import * as token from './token'
 //   })
 // }
 export function useInteractive(props: {
-  disabled?: boolean
-  selected?: boolean
+  disabled: boolean
 }) {
   const hover = signal(false)
   const active = signal(false)
@@ -82,9 +81,7 @@ export function useInteractive(props: {
   return {
     states: {
       hover: hover,
-      active: active
-      // selected: !!props.selected,
-      // disabled: !!props.disabled,
+      active: active,
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -155,14 +152,14 @@ export function strokePattern(
   colors: {
     bdw?: number
     border: [NormalColor, HoverColor, ActiveColor?]
-    text: [NormalColor, HoverColor, ActiveColor?]
+    text?: [NormalColor, HoverColor, ActiveColor?]
   }
 ) {
   return matchPatternMatrix([
-    arg.hover(),
-    arg.active(),
-    arg.selected,
-    arg.disabled
+    !!arg.hover(),
+    !!arg.active(),
+    !!arg.selected,
+    !!arg.disabled
   ])({
     container: {
       backgroundColor: {
@@ -170,9 +167,12 @@ export function strokePattern(
       },
       cursor: {
         'not-allowed': ['*', '*', '*', true]
-      }
+      },
     },
     border: {
+      borderRadius: {
+        [token.radius.normal]: []
+      },
       borderStyle: {
         solid: []
       },
@@ -189,9 +189,9 @@ export function strokePattern(
     },
     text: {
       color: {
-        [colors.text[0]]: [],
-        [colors.text[1]]: [true, '*', '*', false],
-        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text?.[0]]: [],
+        [colors.text?.[1]]: [true, '*', '*', false],
+        [colors.text?.[2]]: ['*', true, '*', false],
         [token.colors.disables[1]]: ['*', '*', '*', true]
       }
     }
