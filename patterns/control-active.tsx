@@ -1,5 +1,5 @@
 import { matchPatternMatrix } from 'tarat-renderer'
-import { action, signal } from 'atomic-signal'
+import { action, dispose, signal } from 'atomic-signal'
 import * as token from './token'
 
 export function useInteractive(props: {
@@ -24,12 +24,23 @@ export function useInteractive(props: {
   const mouseUp = action(() => {
     if (props.disabled) return
     active(() => false)
+    focus(() => true)
   })
+  const focusIn = () => {
+    if (props.disabled) return
+    focus(() => false)
+  }
+  document.addEventListener('mouseup', focusIn, true)
+  dispose(() => {
+    document.removeEventListener('mouseup', focusIn)
+  })
+
 
   return {
     states: {
-      hover: hover,
-      active: active,
+      hover,
+      active,
+      focus,
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -48,8 +59,8 @@ type DisabledColor = string
 
 export function blockPattern(
   arg: {
-    hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-    active: () => boolean
+    hover: boolean // '' | 'hover' | 'press' | 'focus' | 'active',
+    active: boolean
     selected: boolean
     disabled: boolean
   },
@@ -59,8 +70,8 @@ export function blockPattern(
   }
 ) {
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -131,8 +142,8 @@ export function blockPattern2(
 
 export function strokePattern(
   arg: {
-    hover: () => boolean // '' | 'hover' | 'press' | 'focus' | 'active',
-    active: () => boolean
+    hover: boolean // '' | 'hover' | 'press' | 'focus' | 'active',
+    active: boolean
     selected: boolean
     disabled: boolean
   },
@@ -142,9 +153,11 @@ export function strokePattern(
     text?: [NormalColor, HoverColor, ActiveColor?]
   }
 ) {
+  console.log('token.alias(colors.border[1]): ', token.alias(colors.border[1]));
+
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -169,7 +182,10 @@ export function strokePattern(
       },
       borderColor: {
         [colors.border[0]]: [],
-        [colors.border[1]]: [true, '*', '*', false],
+        [colors.border[1]]: [
+          [true, '*', '*', false],
+          ['*', '*', true, false]
+        ],
         [colors.border[2]]: ['*', true, '*', false],
         [token.colors.disables[1]]: ['*', '*', '*', true]
       }

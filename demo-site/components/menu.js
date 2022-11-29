@@ -39,7 +39,7 @@ import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
-import { action, signal } from "atomic-signal";
+import { action, dispose, signal } from "atomic-signal";
 
 // patterns/token.ts
 var colors = {
@@ -48,7 +48,7 @@ var colors = {
   dangers: ["#ff4d4f", "#f5222d", "#cf1322"],
   disables: ["rgba(0,0,0,.1)", "rgba(0,0,0,.3)"],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
-  light: "#fff",
+  light: "#ffffff",
   none: "",
   text: "#434343"
 };
@@ -77,11 +77,22 @@ function useInteractive(props) {
     if (props.disabled)
       return;
     active(() => false);
+    focus(() => true);
+  });
+  const focusIn = () => {
+    if (props.disabled)
+      return;
+    focus(() => false);
+  };
+  document.addEventListener("mouseup", focusIn, true);
+  dispose(() => {
+    document.removeEventListener("mouseup", focusIn);
   });
   return {
     states: {
       hover,
-      active
+      active,
+      focus
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -93,8 +104,8 @@ function useInteractive(props) {
 }
 function blockPattern(arg, colors2) {
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -152,10 +163,12 @@ var layout = (props) => {
 };
 var designPattern = (props) => {
   const logic3 = useLogic();
-  const pattern = blockPattern(__spreadProps(__spreadValues({}, logic3.interactive.states), {
+  const pattern = blockPattern({
+    hover: logic3.interactive.states.hover(),
+    active: logic3.interactive.states.active(),
     selected: !!props.selected,
     disabled: !!props.disabled
-  }), {
+  }, {
     bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
     text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
   });
@@ -288,8 +301,6 @@ function _createMdxContent(props) {
       }]
     }), "\n", _jsx(_components.h2, {
       children: "\u5D4C\u5957\u5B50\u83DC\u5355"
-    }), "\n", _jsx(_components.p, {
-      children: "\u6700\u591A\u652F\u63012\u5C42\u7684\u5D4C\u5957\u5B50\u83DC\u5355"
     }), "\n", _jsx(Component, {
       items: [{
         label: "Menu Item One",
@@ -302,6 +313,8 @@ function _createMdxContent(props) {
         label: "Menu Item Two",
         key: "key2.2"
       }]
+    }), "\n", _jsx(_components.p, {
+      children: "\u6700\u591A\u652F\u63012\u5C42\u7684\u5D4C\u5957\u5B50\u83DC\u5355"
     })]
   });
 }

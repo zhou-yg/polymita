@@ -44,7 +44,7 @@ export const layout = (props: ButtonProps) => {
     <inputBox
       className="block"
       {...logic.interactive.events} >
-
+      focus:{String(logic.interactive.states.focus())}
       <input
         type={props.type}
         disabled={props.disabled}
@@ -60,8 +60,9 @@ export const designPattern = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
   const p = strokePattern(
     {
-      ...logic.interactive.states,
-      selected: false,
+      hover: logic.interactive.states.hover(),
+      active: logic.interactive.states.active(),
+      selected: logic.interactive.states.focus(),
       disabled: props.disabled,
     },
     {

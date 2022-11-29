@@ -1,6 +1,4 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -16,7 +14,6 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -38,16 +35,27 @@ import { h, useLogic } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
-import { action, signal } from "atomic-signal";
+import { action, dispose, signal } from "atomic-signal";
 
 // patterns/token.ts
+function alias(rgb) {
+  let rgb2 = rgb.replace(/^#/, "");
+  let dir = -1;
+  if (rgb2 === "ffffff") {
+  }
+  const int = parseInt(rgb2, 16);
+  if (isNaN(int)) {
+    return rgb;
+  }
+  return `#${(int + dir * 1).toString(16)}`;
+}
 var colors = {
   primaries: ["#4096ff", "#1677ff", "#0958d9"],
   grays: ["#f0f0f0", "#d9d9d9", "#bfbfbf"],
   dangers: ["#ff4d4f", "#f5222d", "#cf1322"],
   disables: ["rgba(0,0,0,.1)", "rgba(0,0,0,.3)"],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
-  light: "#fff",
+  light: "#ffffff",
   none: "",
   text: "#434343"
 };
@@ -79,11 +87,22 @@ function useInteractive(props) {
     if (props.disabled)
       return;
     active(() => false);
+    focus(() => true);
+  });
+  const focusIn = () => {
+    if (props.disabled)
+      return;
+    focus(() => false);
+  };
+  document.addEventListener("mouseup", focusIn, true);
+  dispose(() => {
+    document.removeEventListener("mouseup", focusIn);
   });
   return {
     states: {
       hover,
-      active
+      active,
+      focus
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -95,9 +114,10 @@ function useInteractive(props) {
 }
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
+  console.log("token.alias(colors.border[1]): ", alias(colors2.border[1]));
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -122,7 +142,10 @@ function strokePattern(arg, colors2) {
       },
       borderColor: {
         [colors2.border[0]]: [],
-        [colors2.border[1]]: [true, "*", "*", false],
+        [colors2.border[1]]: [
+          [true, "*", "*", false],
+          ["*", "*", true, false]
+        ],
         [colors2.border[2]]: ["*", true, "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
@@ -158,7 +181,7 @@ var layout = (props) => {
   const logic2 = useLogic();
   return /* @__PURE__ */ h("inputBox", __spreadValues({
     className: "block"
-  }, logic2.interactive.events), /* @__PURE__ */ h("input", {
+  }, logic2.interactive.events), "focus:", String(logic2.interactive.states.focus()), /* @__PURE__ */ h("input", {
     type: props.type,
     disabled: props.disabled,
     "is-container": true,
@@ -170,10 +193,12 @@ var layout = (props) => {
 var designPattern = (props) => {
   const logic2 = useLogic();
   const p = strokePattern(
-    __spreadProps(__spreadValues({}, logic2.interactive.states), {
-      selected: false,
+    {
+      hover: logic2.interactive.states.hover(),
+      active: logic2.interactive.states.active(),
+      selected: logic2.interactive.states.focus(),
       disabled: props.disabled
-    }),
+    },
     {
       bdw: 1,
       border: [colors.grays[0], colors.primaries[1]]
@@ -240,17 +265,17 @@ function _createMdxContent(props) {
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
       children: "Input \u8F93\u5165"
-    }), "\n", _jsx(_components.p, {
-      children: "\u63A5\u6536\u7528\u6237\u8F93\u5165"
     }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
+      children: "\u63A5\u6536\u7528\u6237\u8F93\u5165"
+    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
       children: "\u6570\u5B57\u6846"
     }), "\n", _jsx(_components.p, {
       children: "type=number"
-    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
-      children: "\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
     }), "\n", _jsx(Component, {
       disabled: true,
       value: "disabled"
+    }), "\n", _jsx(_components.p, {
+      children: "\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
     })]
   });
 }

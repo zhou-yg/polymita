@@ -56,9 +56,7 @@ export const layout = (props: MenuProps) => {
               }
             },
           }});
-          // delete element.props.children
-          // element.props = {}
-          // element = React.createElement('divMyTest');
+
           return (
             <menuItemBox key={item.key}>
               <div className="p-1" onClick={() => logic.select(item)} >

@@ -35,7 +35,8 @@ export const layout = (props: MenuItemProps) => {
 export const designPattern = (props: MenuItemProps) => {
   const logic = useLogic<LogicReturn>()
   const pattern = blockPattern({
-    ...logic.interactive.states,
+    hover: logic.interactive.states.hover(),
+    active: logic.interactive.states.active(),
     selected: !!props.selected,
     disabled: !!props.disabled,
   }, {

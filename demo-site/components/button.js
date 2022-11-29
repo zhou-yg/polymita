@@ -37,16 +37,27 @@ import { h, useLayout, useLogic } from "tarat-renderer";
 
 // patterns/control-active.tsx
 import { matchPatternMatrix } from "tarat-renderer";
-import { action, signal } from "atomic-signal";
+import { action, dispose, signal } from "atomic-signal";
 
 // patterns/token.ts
+function alias(rgb) {
+  let rgb2 = rgb.replace(/^#/, "");
+  let dir = -1;
+  if (rgb2 === "ffffff") {
+  }
+  const int = parseInt(rgb2, 16);
+  if (isNaN(int)) {
+    return rgb;
+  }
+  return `#${(int + dir * 1).toString(16)}`;
+}
 var colors = {
   primaries: ["#4096ff", "#1677ff", "#0958d9"],
   grays: ["#f0f0f0", "#d9d9d9", "#bfbfbf"],
   dangers: ["#ff4d4f", "#f5222d", "#cf1322"],
   disables: ["rgba(0,0,0,.1)", "rgba(0,0,0,.3)"],
   nones: ["#ffffff", "#fffffe", "#fffefe"],
-  light: "#fff",
+  light: "#ffffff",
   none: "",
   text: "#434343"
 };
@@ -78,11 +89,22 @@ function useInteractive(props) {
     if (props.disabled)
       return;
     active(() => false);
+    focus(() => true);
+  });
+  const focusIn = () => {
+    if (props.disabled)
+      return;
+    focus(() => false);
+  };
+  document.addEventListener("mouseup", focusIn, true);
+  dispose(() => {
+    document.removeEventListener("mouseup", focusIn);
   });
   return {
     states: {
       hover,
-      active
+      active,
+      focus
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -94,8 +116,8 @@ function useInteractive(props) {
 }
 function blockPattern(arg, colors2) {
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -126,11 +148,40 @@ function blockPattern(arg, colors2) {
     }
   });
 }
+function blockPattern2(arg, colors2) {
+  return matchPatternMatrix([
+    !!arg.selected,
+    !!arg.disabled
+  ])({
+    container: {
+      backgroundColor: {
+        [colors2.bg[0]]: [],
+        [colors2.bg[1]]: [true, false],
+        [colors.disables[0]]: ["*", true]
+      },
+      cursor: {
+        pointer: [],
+        "not-allowed": ["*", true]
+      },
+      userSelect: {
+        none: []
+      }
+    },
+    text: {
+      color: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, false],
+        [colors.disables[1]]: ["*", true]
+      }
+    }
+  });
+}
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
+  console.log("token.alias(colors.border[1]): ", alias(colors2.border[1]));
   return matchPatternMatrix([
-    !!arg.hover(),
-    !!arg.active(),
+    !!arg.hover,
+    !!arg.active,
     !!arg.selected,
     !!arg.disabled
   ])({
@@ -155,7 +206,10 @@ function strokePattern(arg, colors2) {
       },
       borderColor: {
         [colors2.border[0]]: [],
-        [colors2.border[1]]: [true, "*", "*", false],
+        [colors2.border[1]]: [
+          [true, "*", "*", false],
+          ["*", "*", true, false]
+        ],
         [colors2.border[2]]: ["*", true, "*", false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
@@ -200,16 +254,26 @@ var layout = (props) => {
 var designPattern = (props) => {
   const logicResult = useLogic();
   let pattern;
-  const states = __spreadProps(__spreadValues({}, logicResult.interactive.states), {
+  let pattern2;
+  const states = {
+    hover: logicResult.interactive.states.hover(),
+    active: logicResult.interactive.states.active(),
     disabled: !!props.disabled,
     selected: false
-  });
+  };
   switch (props.type) {
     case "primary":
       pattern = blockPattern(
         states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
+          text: [colors.light]
+        }
+      );
+      pattern2 = blockPattern2(
+        states,
+        {
+          bg: [colors.primaries[1], colors.primaries[2]],
           text: [colors.light]
         }
       );
@@ -243,7 +307,7 @@ var designPattern = (props) => {
       );
       break;
   }
-  return pattern;
+  return __spreadValues({}, pattern);
 };
 var styleRules = (props) => {
   const logic2 = useLogic();

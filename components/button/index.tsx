@@ -1,5 +1,5 @@
 import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { blockPattern, strokePattern, useInteractive } from '../../patterns'
+import { blockPattern, blockPattern2, strokePattern, useInteractive } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 
@@ -50,9 +50,11 @@ export const designPattern = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
   let pattern: PatternStructure;
+  let pattern2: PatternStructure;
 
   const states = {
-    ...logicResult.interactive.states,
+    hover: logicResult.interactive.states.hover(),
+    active: logicResult.interactive.states.active(),
     disabled: !!props.disabled,
     selected: false
   }
@@ -62,6 +64,12 @@ export const designPattern = (props: ButtonProps) => {
       pattern = blockPattern(states,
         {
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
+          text: [colors.light],
+        }
+      )
+      pattern2 = blockPattern2(states,
+        {
+          bg: [colors.primaries[1], colors.primaries[2]],
           text: [colors.light],
         }
       )
@@ -93,7 +101,9 @@ export const designPattern = (props: ButtonProps) => {
       )
       break;
   }
-  return pattern
+  return {
+    ...pattern
+  }
 }
 
 // css in js
