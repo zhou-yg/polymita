@@ -38,17 +38,6 @@ import { matchPatternMatrix } from "tarat-renderer";
 import { action, dispose, signal } from "atomic-signal";
 
 // patterns/token.ts
-function alias(rgb) {
-  let rgb2 = rgb.replace(/^#/, "");
-  let dir = -1;
-  if (rgb2 === "ffffff") {
-  }
-  const int = parseInt(rgb2, 16);
-  if (isNaN(int)) {
-    return rgb;
-  }
-  return `#${(int + dir * 1).toString(16)}`;
-}
 var colors = {
   primaries: ["#4096ff", "#1677ff", "#0958d9"],
   grays: ["#f0f0f0", "#d9d9d9", "#bfbfbf"],
@@ -114,7 +103,6 @@ function useInteractive(props) {
 }
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
-  console.log("token.alias(colors.border[1]): ", alias(colors2.border[1]));
   return matchPatternMatrix([
     !!arg.hover,
     !!arg.active,

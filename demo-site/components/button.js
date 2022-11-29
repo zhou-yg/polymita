@@ -40,17 +40,6 @@ import { matchPatternMatrix } from "tarat-renderer";
 import { action, dispose, signal } from "atomic-signal";
 
 // patterns/token.ts
-function alias(rgb) {
-  let rgb2 = rgb.replace(/^#/, "");
-  let dir = -1;
-  if (rgb2 === "ffffff") {
-  }
-  const int = parseInt(rgb2, 16);
-  if (isNaN(int)) {
-    return rgb;
-  }
-  return `#${(int + dir * 1).toString(16)}`;
-}
 var colors = {
   primaries: ["#4096ff", "#1677ff", "#0958d9"],
   grays: ["#f0f0f0", "#d9d9d9", "#bfbfbf"],
@@ -178,7 +167,6 @@ function blockPattern2(arg, colors2) {
 }
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
-  console.log("token.alias(colors.border[1]): ", alias(colors2.border[1]));
   return matchPatternMatrix([
     !!arg.hover,
     !!arg.active,
@@ -361,10 +349,10 @@ function _createMdxContent(props) {
       type: "text",
       children: "Text Button"
     }), "\n", _jsx(Component, {
-      children: "Default Button"
-    }), "\n", _jsx(Component, {
       type: "link",
       children: "Link Button"
+    }), "\n", _jsx(Component, {
+      children: "Default Button"
     }), "\n", _jsx(_components.p, {
       children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
     }), "\n", _jsx(Component, {
@@ -378,11 +366,11 @@ function _createMdxContent(props) {
       children: "Text Button"
     }), "\n", _jsx(Component, {
       disabled: true,
-      children: "Default Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
       type: "link",
       children: "Link Button"
+    }), "\n", _jsx(Component, {
+      disabled: true,
+      children: "Default Button"
     }), "\n", _jsx(_components.p, {
       children: "disabled \u6309\u94AE\u5C55\u793A"
     })]

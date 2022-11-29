@@ -101,6 +101,7 @@ export const designPattern = (props: ButtonProps) => {
       )
       break;
   }
+
   return {
     ...pattern
   }

@@ -153,8 +153,6 @@ export function strokePattern(
     text?: [NormalColor, HoverColor, ActiveColor?]
   }
 ) {
-  console.log('token.alias(colors.border[1]): ', token.alias(colors.border[1]));
-
   return matchPatternMatrix([
     !!arg.hover,
     !!arg.active,
