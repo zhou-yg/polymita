@@ -59,6 +59,7 @@ var radius = {
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);
+  const focus = signal(false);
   const mouseEnter = action(() => {
     if (props.disabled)
       return;
@@ -159,6 +160,7 @@ var layout = (props) => {
     className: "block"
   }, logic2.interactive.events), /* @__PURE__ */ h("input", {
     type: props.type,
+    disabled: props.disabled,
     "is-container": true,
     "has-border": true,
     value: logic2.value,
@@ -244,7 +246,12 @@ function _createMdxContent(props) {
       children: "\u6570\u5B57\u6846"
     }), "\n", _jsx(_components.p, {
       children: "type=number"
-    }), "\n", _jsx(InputBox2, {})]
+    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
+      children: "\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
+    }), "\n", _jsx(Component, {
+      disabled: true,
+      value: "disabled"
+    })]
   });
 }
 function MDXContent(props = {}) {

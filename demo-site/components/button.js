@@ -58,6 +58,7 @@ var radius = {
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);
+  const focus = signal(false);
   const mouseEnter = action(() => {
     if (props.disabled)
       return;
@@ -93,10 +94,10 @@ function useInteractive(props) {
 }
 function blockPattern(arg, colors2) {
   return matchPatternMatrix([
-    arg.hover(),
-    arg.active(),
-    arg.selected,
-    arg.disabled
+    !!arg.hover(),
+    !!arg.active(),
+    !!arg.selected,
+    !!arg.disabled
   ])({
     container: {
       backgroundColor: {

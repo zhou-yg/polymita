@@ -44,8 +44,10 @@ export const layout = (props: ButtonProps) => {
     <inputBox
       className="block"
       {...logic.interactive.events} >
+
       <input
         type={props.type}
+        disabled={props.disabled}
         is-container has-border
         value={logic.value}
         className="block select-none outline-none border-0 px-2 py-1"
