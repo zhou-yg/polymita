@@ -21,6 +21,7 @@ export const logic = (props: MenuItemProps) => {
 }
 
 export const layout = (props: MenuItemProps) => {
+  console.log('props: ', props);
   const logic = useLogic<LogicReturn>()
 
   return (

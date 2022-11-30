@@ -1,6 +1,6 @@
+import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { action, signal } from 'atomic-signal';
 import { useModule } from 'tarat-renderer';
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
 import { MenuItemProps } from '../menu-item';
@@ -58,7 +58,7 @@ export const layout = (props: MenuProps) => {
           }});
 
           return (
-            <menuItemBox key={item.key}>
+            <menuItemBox data-name="menu-item-box" key={item.key}>
               <div className="p-1" onClick={() => logic.select(item)} >
                 {element as any}
               </div>

@@ -33,9 +33,9 @@ __export(menu_exports, {
   logic: () => logic2,
   styleRules: () => styleRules2
 });
+import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
 import { action as action2, signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
-import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -153,6 +153,7 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
+  console.log("props: ", props);
   const logic3 = useLogic();
   return /* @__PURE__ */ h("menuItem", __spreadValues({
     "is-container": true,
@@ -226,6 +227,7 @@ var layout2 = (props) => {
       }
     } }));
     return /* @__PURE__ */ h2("menuItemBox", {
+      "data-name": "menu-item-box",
       key: item.key
     }, /* @__PURE__ */ h2("div", {
       className: "p-1",
