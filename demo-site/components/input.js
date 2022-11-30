@@ -169,7 +169,9 @@ var layout = (props) => {
   const logic2 = useLogic();
   return /* @__PURE__ */ h("inputBox", __spreadValues({
     className: "block"
-  }, logic2.interactive.events), "focus:", String(logic2.interactive.states.focus()), /* @__PURE__ */ h("input", {
+  }, logic2.interactive.events), "focus:", String(logic2.interactive.states.focus()), /* @__PURE__ */ h("div", {
+    className: ""
+  }), /* @__PURE__ */ h("input", {
     type: props.type,
     disabled: props.disabled,
     "is-container": true,

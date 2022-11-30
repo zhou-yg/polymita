@@ -45,6 +45,9 @@ export const layout = (props: ButtonProps) => {
       className="block"
       {...logic.interactive.events} >
       focus:{String(logic.interactive.states.focus())}
+      <div className="">
+
+      </div>
       <input
         type={props.type}
         disabled={props.disabled}
