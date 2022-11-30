@@ -37,7 +37,7 @@ import { action as action2, signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
 import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
 
-// patterns/control-active.tsx
+// patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
 import { action, dispose, signal } from "atomic-signal";
 
@@ -53,7 +53,7 @@ var colors = {
   text: "#434343"
 };
 
-// patterns/control-active.tsx
+// patterns/control-active.ts
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);

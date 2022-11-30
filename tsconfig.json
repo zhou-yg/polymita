@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "jsxImportSource": "tarat-renderer",
+    "jsx": "react",
     "jsxFactory": "h",
     "outDir": "dist",
     "sourceMap": true,

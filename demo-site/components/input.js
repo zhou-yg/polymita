@@ -33,7 +33,7 @@ __export(input_exports, {
 });
 import { h, useLogic } from "tarat-renderer";
 
-// patterns/control-active.tsx
+// patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
 import { action, dispose, signal } from "atomic-signal";
 
@@ -52,7 +52,7 @@ var radius = {
   normal: "4px"
 };
 
-// patterns/control-active.tsx
+// patterns/control-active.ts
 function useInteractive(props) {
   const hover = signal(false);
   const active = signal(false);
