@@ -1,6 +1,6 @@
 {
-  "name": "tarat-design",
-  "version": "0.0.1",
+  "name": "polymita",
+  "version": "0.0.2",
   "description": "a infinite extensional component library",
   "main": "dist/index.js",
   "scripts": {
@@ -13,6 +13,14 @@
     "playground": "vite --host --force",
     "build:doc": "vite build && sh after-build-doc.sh"
   },
+  "files": [
+    "index.html",
+    "components",
+    "index.css",
+    "index.js",
+    "package.json",
+    "tsconfig.json"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhou-yg/tarat.design.git"

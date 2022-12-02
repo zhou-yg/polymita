@@ -34,7 +34,7 @@ export const layout = (props: ButtonProps) => {
       className="inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
       {...logicResult.interactive.events}
       is-container
-      has-border
+      has-decoration
     >
       <span is-text className="block select-none" onClick={(e) => {
         if (props.disabled) return

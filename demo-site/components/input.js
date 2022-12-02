@@ -175,7 +175,7 @@ var layout = (props) => {
     type: props.type,
     disabled: props.disabled,
     "is-container": true,
-    "has-border": true,
+    "has-decoration": true,
     value: logic2.value,
     className: "block select-none outline-none border-0 px-2 py-1"
   }));

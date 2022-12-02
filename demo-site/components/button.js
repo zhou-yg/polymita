@@ -227,7 +227,7 @@ var layout = (props) => {
     className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
   }, logicResult.interactive.events), {
     "is-container": true,
-    "has-border": true
+    "has-decoration": true
   }), /* @__PURE__ */ h("span", {
     "is-text": true,
     className: "block select-none",

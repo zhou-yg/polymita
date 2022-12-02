@@ -225,7 +225,7 @@ export function strokePattern2(
         'not-allowed': [true]
       },
     },
-    border: {
+    decoration: {
       borderRadius: {
         [token.radius.normal]: []
       },

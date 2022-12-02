@@ -51,7 +51,7 @@ export const layout = (props: ButtonProps) => {
       <input
         type={props.type}
         disabled={props.disabled}
-        is-container has-border
+        is-container has-decoration
         value={logic.value}
         className="block select-none outline-none border-0 px-2 py-1"
       />
