@@ -1,12 +1,14 @@
 import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
+import { signal } from 'atomic-signal'
+export const signal2 = signal;
 
 # Menu 菜单
 
 为页面和功能提供导航的菜单列表
 
-<Component items={[
+<Component items={signal2([
   {
     label: 'Menu Item One',
     key: 'key1',
@@ -15,7 +17,7 @@ export const Component = RenderToReactWithWrap(Module)
     label: 'Menu Item Two',
     key: 'key2',
   },
-]} />
+])} />
 
 
 

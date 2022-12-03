@@ -1,6 +1,7 @@
 import ButtonDemo from './components/button'
 import MenuDemo from './components/menu'
 import InputDemo from './components/input'
+import ModalDemo from './components/modal'
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
@@ -16,6 +17,7 @@ const componentsPlayground = {
     Button: ButtonDemo,
     Menu: MenuDemo,
     Input: InputDemo,
+    Modal: ModalDemo
   }
 }
 
@@ -70,6 +72,7 @@ function Home() {
   const leftMenu = null ? null : Menu({
     items: sideMenu,
     onClick(item) {
+      console.log('item: ', item);
       setTab(item.key)
     }
   })

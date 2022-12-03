@@ -1,4 +1,4 @@
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, blockPattern2, strokePattern, useInteractive } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
@@ -12,7 +12,7 @@ export interface ButtonProps {
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: ButtonProps) => {
+export const logic = (props: SignalProps<ButtonProps>) => {
   const interactive = useInteractive(props)
   
   return {

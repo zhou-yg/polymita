@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons-svg': ^4.2.1
   '@emotion/css': ^11.10.5
   '@mdx-js/esbuild': ^2.1.5
   '@types/jest': ^29.2.3
@@ -19,6 +20,7 @@ specifiers:
   vite-tsconfig-paths: ^3.5.2
 
 dependencies:
+  '@ant-design/icons-svg': 4.2.1
   '@types/jest': 29.2.3
   '@types/node': 18.11.9
   atomic-signal: 0.0.3_k35zwyycrckt5xfsejji7kbwn4
@@ -47,6 +49,10 @@ packages:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.17
     dev: true
+
+  /@ant-design/icons-svg/4.2.1:
+    resolution: {integrity: sha512-EB0iwlKDGpG93hW8f85CTJTs4SvMX7tt5ceupvhALp1IF44SeUFOMhKUOYqpsoYWQKAOuTRDMqn75rEaKDp0Xw==}
+    dev: false
 
   /@babel/code-frame/7.18.6:
     resolution: {integrity: sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==}

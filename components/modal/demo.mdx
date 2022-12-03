@@ -1,0 +1,20 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export function Box () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div>
+      val: {val} 
+      <br/>
+      <Component value={val} onInput={v => setVal(v)} />
+    </div>
+  )
+}
+
+# Modal 弹框
+
+完全受控
+
+<Box />

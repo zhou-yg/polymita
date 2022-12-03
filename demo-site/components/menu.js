@@ -34,7 +34,7 @@ __export(menu_exports, {
   styleRules: () => styleRules2
 });
 import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
-import { action as action2, signal as signal2 } from "atomic-signal";
+import { after, action as action2, signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
 
 // patterns/control-active.ts
@@ -59,28 +59,33 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     focus(() => false);
   };
@@ -153,7 +158,6 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
-  console.log("props: ", props);
   const logic3 = useLogic();
   return /* @__PURE__ */ h("menuItem", __spreadValues({
     "is-container": true,
@@ -184,19 +188,23 @@ var logic2 = (props) => {
   const currentKey = signal2(null);
   const select = action2((item) => {
     var _a;
-    currentKey(() => item.key);
+    const curKey = item.key;
+    currentKey(() => curKey);
+    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
+  });
+  const items = props.items;
+  after(() => {
+    const curKey = currentKey();
     items((draft) => {
       draft.forEach((di) => {
-        var _a2;
-        di.selected = di.key === item.key;
-        (_a2 = di.children) == null ? void 0 : _a2.forEach((dci) => {
-          dci.selected = dci.key === item.key;
+        var _a;
+        di.selected = di.key === curKey;
+        (_a = di.children) == null ? void 0 : _a.forEach((dci) => {
+          dci.selected = dci.key === curKey;
         });
       });
     });
-    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
-  });
-  const items = signal2(props.items);
+  }, [select]);
   return {
     items,
     currentKey,
@@ -212,20 +220,24 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), { selected: isSelected, override: {
-      layout(jsonTree) {
-        var _a, _b;
-        if (item.children) {
-          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
-          jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-          (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("spanIcon", {
-            key: "tag",
-            "is-text": true,
-            className: "mx-2"
-          }, ">"));
+    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
+      hasItemChildren: !!item.children,
+      selected: isSelected,
+      override: {
+        layout(props2, jsonTree) {
+          var _a, _b;
+          if (props2.hasItemChildren) {
+            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
+            jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
+            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("spanIcon", {
+              key: "tag",
+              "is-text": true,
+              className: "mx-2"
+            }, ">"));
+          }
         }
       }
-    } }));
+    }));
     return /* @__PURE__ */ h2("menuItemBox", {
       "data-name": "menu-item-box",
       key: item.key
@@ -240,7 +252,7 @@ var layout2 = (props) => {
         className: "block m-1",
         onClick: () => logic3.select(subItem)
       }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
-        layout(jsonTree) {
+        layout(props2, jsonTree) {
           jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
         }
       } })));
@@ -281,7 +293,9 @@ function RenderToReact(module) {
 }
 
 // components/menu/demo.mdx
+import { signal as signal3 } from "atomic-signal";
 var Component = RenderToReactWithWrap(menu_exports);
+var signal22 = signal3;
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -294,13 +308,13 @@ function _createMdxContent(props) {
     }), "\n", _jsx(_components.p, {
       children: "\u4E3A\u9875\u9762\u548C\u529F\u80FD\u63D0\u4F9B\u5BFC\u822A\u7684\u83DC\u5355\u5217\u8868"
     }), "\n", _jsx(Component, {
-      items: [{
+      items: signal22([{
         label: "Menu Item One",
         key: "key1"
       }, {
         label: "Menu Item Two",
         key: "key2"
-      }]
+      }])
     }), "\n", _jsx(_components.h2, {
       children: "\u5D4C\u5957\u5B50\u83DC\u5355"
     }), "\n", _jsx(Component, {
@@ -329,5 +343,6 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
-  demo_default as default
+  demo_default as default,
+  signal22 as signal2
 };

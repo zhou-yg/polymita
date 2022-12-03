@@ -1,8 +1,8 @@
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, strokePattern, useInteractive } from '../../patterns'
 import { action, after, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
-import { SignalProps } from 'tarat-renderer'
+import AccountBookFilled from '../../icons/account-book'
 
 export interface ButtonProps {
   disabled?: boolean
@@ -41,6 +41,9 @@ export const layout = (props: ButtonProps) => {
     <inputBox
       className="block"
       {...logic.interactive.events} >
+      {AccountBookFilled({ size: 24, color: 'red' })}
+      {/* <AccountBookFilled /> */}
+      <span className="" _html="" ></span>
       <input
         type={props.type}
         disabled={props.disabled}
@@ -66,6 +69,7 @@ export const designPattern = (props: ButtonProps) => {
       border: [colors.grays[0],colors.primaries[1]],
     }
   )
+
   return p
 }
 

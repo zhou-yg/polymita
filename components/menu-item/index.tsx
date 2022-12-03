@@ -1,9 +1,10 @@
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, useInteractive } from '../../patterns';
 import { colors } from '../../patterns/token';
 
 export interface MenuItemProps {
   children?: MenuItemProps[];
+  hasItemChildren?: boolean;
   label: string;
   key: string;
   disabled?: boolean;
@@ -12,7 +13,7 @@ export interface MenuItemProps {
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: MenuItemProps) => {
+export const logic = (props: SignalProps<MenuItemProps>) => {
   const interactive = useInteractive(props)
 
   return {
@@ -21,7 +22,6 @@ export const logic = (props: MenuItemProps) => {
 }
 
 export const layout = (props: MenuItemProps) => {
-  console.log('props: ', props);
   const logic = useLogic<LogicReturn>()
 
   return (

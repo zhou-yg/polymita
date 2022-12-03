@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/zhou-yg/tarat.design#readme",
   "dependencies": {
+    "@ant-design/icons-svg": "^4.2.1",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
     "atomic-signal": "latest",

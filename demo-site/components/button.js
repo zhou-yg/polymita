@@ -60,28 +60,33 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    if (props.disabled)
+    var _a;
+    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
       return;
     focus(() => false);
   };
@@ -181,7 +186,7 @@ function strokePattern(arg, colors2) {
         "not-allowed": ["*", "*", "*", true]
       }
     },
-    border: {
+    decoration: {
       borderRadius: {
         [radius.normal]: []
       },

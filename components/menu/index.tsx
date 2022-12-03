@@ -1,5 +1,5 @@
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { action, signal } from 'atomic-signal';
+import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { after, action, signal } from 'atomic-signal';
 import { useModule } from 'tarat-renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
@@ -12,22 +12,37 @@ export interface MenuProps {
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: MenuProps) => {
+export const logic = (props: SignalProps<MenuProps>) => {
   const currentKey = signal<string>(null)
   const select = action((item: MenuItemProps) => {
-    currentKey(() => item.key)
-    items(draft => {
-      draft.forEach(di => {
-        di.selected = di.key === item.key
-        di.children?.forEach(dci => {
-          dci.selected = dci.key === item.key
-        })
-      })
-    })
+    const curKey = item.key
+    currentKey(() => curKey)
+    // items(draft => {
+    //   draft.forEach(di => {
+    //     di.selected = di.key === curKey
+    //     di.children?.forEach(dci => {
+    //       dci.selected = dci.key === curKey
+    //     })
+    //   })
+    // })
     props.onClick?.(item)
   })
 
-  const items = signal<(MenuItemProps)[]>(props.items)
+  const items = props.items
+
+  after(() => {
+    const curKey = currentKey()
+
+    items(draft => {
+      draft.forEach(di => {
+        di.selected = di.key === curKey
+        di.children?.forEach(dci => {
+          dci.selected = dci.key === curKey
+        })
+      })
+    })
+    
+  }, [select])
 
   return {
     items,
@@ -36,26 +51,33 @@ export const logic = (props: MenuProps) => {
   }
 }
 
+
+
 export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule<MenuItemModule.MenuItemProps>(MenuItemModule)
 
-  // console.log('MenuItemFunc: ', MenuItemFunc, logic.items());
+  // console.log('MenuItemFunc: ', logic.items());
 
   return (
     <menuBox className="block border-r border-slate-300">
       <ul className="block">
         {logic.items().map((item) => {
           const isSelected = item.selected
-          let element = MenuItemFunc({...item, selected: isSelected, override: {
-            layout(jsonTree) {
-              if (item.children) {
-                jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
-                jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-                jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
-              }
-            },
-          }});
+          let element = MenuItemFunc({
+            ...item,
+            hasItemChildren: !!item.children,
+            selected: isSelected,
+            override: {
+              layout(props, jsonTree) {
+                if (props.hasItemChildren) {
+                  jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
+                  jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
+                  jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
+                }
+              },
+            }
+          });
 
           return (
             <menuItemBox data-name="menu-item-box" key={item.key}>
@@ -69,7 +91,7 @@ export const layout = (props: MenuProps) => {
                     return (
                       <subMenuItem className="block m-1" onClick={() => logic.select(subItem)}>
                         {MenuItemFunc({...subItem, selected: isSubSelected, override: {
-                          layout(jsonTree) {
+                          layout(props, jsonTree) {
                             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`
                           },
                         }})}
