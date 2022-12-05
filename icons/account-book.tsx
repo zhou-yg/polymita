@@ -1,21 +1,37 @@
-import { AccountBookFilled } from '@ant-design/icons-svg'
-
+// for Filled Outlined TwoTone types
+import { AccountBookFilled,AccountBookOutlined,AccountBookTwoTone } from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers';
-import { h } from 'tarat-renderer';
+import { h, createComponent } from 'tarat-renderer';
 
 const AccountBookFilledSVGString = renderIconDefinitionToSVGElement(AccountBookFilled, {
   extraSVGAttrs: { width: '1em', height: '1em', fill: 'currentColor' }
 });
+const AccountBookOutlinedSVGString = renderIconDefinitionToSVGElement(AccountBookOutlined, {
+  extraSVGAttrs: { width: '1em', height: '1em', fill: 'currentColor' }
+});
+const AccountBookTwoToneSVGString = renderIconDefinitionToSVGElement(AccountBookTwoTone, {
+  extraSVGAttrs: { width: '1em', height: '1em', fill: 'currentColor' }
+});
 
-interface IconProps {
-  size?: number;
-  color?: string;
+const styleMap = {
+  filled: AccountBookFilledSVGString,
+  outlined: AccountBookOutlinedSVGString,
+  twoTone: AccountBookTwoToneSVGString
 }
 
-export default (props: IconProps = {}) => {
+interface IconProps {
+  size?: number | string;
+  color?: string;
+  type: 'filled' | 'outlined' | 'twoTone';
+}
+
+const Icon = createComponent((props: IconProps = {}) => {
   const style = {
     fontSize: (props.size || 16) + 'px',
     color: props.color,
   }
-  return h('div', { _html: AccountBookFilledSVGString, style })
-};
+  const html = styleMap[props.type];
+  return h('polymitaIcon', { _html: html, style })
+});
+
+export default Icon
