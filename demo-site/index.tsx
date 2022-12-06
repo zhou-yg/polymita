@@ -2,6 +2,8 @@ import ButtonDemo from './components/button'
 import MenuDemo from './components/menu'
 import InputDemo from './components/input'
 import ModalDemo from './components/modal'
+import IconsDemo from './components/icons'
+
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
@@ -17,7 +19,8 @@ const componentsPlayground = {
     Button: ButtonDemo,
     Menu: MenuDemo,
     Input: InputDemo,
-    Modal: ModalDemo
+    Modal: ModalDemo,
+    Icons: IconsDemo
   }
 }
 

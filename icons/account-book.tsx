@@ -20,18 +20,22 @@ const styleMap = {
 }
 
 interface IconProps {
+  className?: string;
   size?: number | string;
   color?: string;
-  type: 'filled' | 'outlined' | 'twoTone';
+  type?: 'filled' | 'outlined' | 'twoTone';
+  spin?: boolean;
 }
 
-const Icon = createComponent((props: IconProps = {}) => {
+const Icon = createComponent((props: IconProps = { }) => {
   const style = {
     fontSize: (props.size || 16) + 'px',
     color: props.color,
+    display: 'inline-block',
   }
-  const html = styleMap[props.type];
-  return h('polymitaIcon', { _html: html, style })
+  const cls = props.className
+  const html = styleMap[props.type || 'filled'];
+  return h('polymitaIcon', { _html: html, style, className: cls })
 });
 
 export default Icon

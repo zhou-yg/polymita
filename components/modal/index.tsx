@@ -2,8 +2,6 @@ import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSO
 import { blockPattern, strokePattern, useInteractive } from '../../patterns'
 import { action, after, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
-import AccountBookFilled from '../../icons/account-book'
-
 
 export interface ButtonProps {
   disabled?: boolean
@@ -42,8 +40,6 @@ export const layout = (props: ButtonProps) => {
     <inputBox
       className="block"
       {...logic.interactive.events} >
-      {AccountBookFilled({ size: 24, color: 'red', type: 'filled' })}
-      <AccountBookFilled size={24} color="blue" type="outlined" />
       <input
         type={props.type}
         disabled={props.disabled}

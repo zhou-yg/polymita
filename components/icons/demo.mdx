@@ -1,0 +1,18 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export function Box () {
+  return (
+    <div>
+      <Component />
+    </div>
+  )
+}
+
+# Icons 图标
+
+来源于 **@ant-design/icons-svg**
+
+
+<Component />

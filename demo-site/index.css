@@ -538,14 +538,32 @@ video {
   flex: 1 1 0%;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 .select-none {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .rounded-lg {

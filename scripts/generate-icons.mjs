@@ -34,18 +34,22 @@ ${styles.map(postfix => `  ${lowerFirst(postfix)}: ${iconName}${postfix}SVGStrin
 }
 
 interface IconProps {
+  className?: string;
   size?: number | string;
   color?: string;
-  type: ${styles.map(s => `'${lowerFirst(s)}'`).join(' | ')};
+  type?: ${styles.map(s => `'${lowerFirst(s)}'`).join(' | ')};
+  spin?: boolean;
 }
 
-const Icon = createComponent((props: IconProps = {}) => {
+const Icon = createComponent((props: IconProps = { }) => {
   const style = {
     fontSize: (props.size || 16) + 'px',
     color: props.color,
+    display: 'inline-block',
   }
-  const html = styleMap[props.type];
-  return h('polymitaIcon', { _html: html, style })
+  const cls = props.className
+  const html = styleMap[props.type || '${lowerFirst(styles[0])}'];
+  return h('polymitaIcon', { _html: html, style, className: cls })
 });
 
 export default Icon`
