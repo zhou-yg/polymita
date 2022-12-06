@@ -1,14 +1,23 @@
 import * as Module from './index.tsx'
+import * as ButtonModule from '../Button/index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 import { useState } from 'react'
 export const Component = RenderToReactWithWrap(Module)
+export const ButtonComponent = RenderToReactWithWrap(ButtonModule)
 export function Box () {
-  const [val, setVal] = useState('v0')
+
+  const [show, setShow] = useState(false)
+
   return (
     <div>
-      val: {val} 
-      <br/>
-      <Component value={val} onInput={v => setVal(v)} />
+      <ButtonComponent onClick={() => setShow(v => !v)}>show modal</ButtonComponent>
+      
+      {show ? (
+        <Component title="My Modal" onClose={v => setShow(false)} >
+          <p> i am content row 1 </p>
+          <p> i am content row 2 </p>
+        </Component>
+      ) : ''}
     </div>
   )
 }
@@ -17,4 +26,4 @@ export function Box () {
 
 完全受控
 
-<Box />
+<Box></Box>

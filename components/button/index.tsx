@@ -6,7 +6,7 @@ import { colors } from '../../patterns/token'
 export interface ButtonProps {
   children?: string
   type?: 'primary' | 'link' | 'text'
-  onClick: (e: any) => void
+  onClick?: (e: any) => void
   disabled?: boolean
 }
 
