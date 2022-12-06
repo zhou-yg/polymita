@@ -46,11 +46,11 @@ interface IconProps {
   spin?: boolean
 }
 
-const Icon = createComponent((props: IconProps = { }) => {
+const Icon = createComponent((props: IconProps = {}) => {
   const style = {
     fontSize: (props.size || 16) + 'px',
     color: props.color,
-    display: 'inline-block',
+    display: 'inline-block'
   }
   const cls = props.className
   const html = styleMap[props.type || '${lowerFirst(styles[0])}']
