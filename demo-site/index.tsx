@@ -33,7 +33,7 @@ const DEFAULT_TAB = 'Button'
 function Home() {
   const [tab, setTab] = React.useState(searchParams.get(TAB_KEY) || DEFAULT_TAB)
 
-  React.createElement;
+  React.createElement
 
   useEffect(() => {
     searchParams.set(TAB_KEY, tab)
@@ -72,19 +72,19 @@ function Home() {
     })
   })
 
-  const leftMenu = null ? null : Menu({
-    items: sideMenu,
-    onClick(item) {
-      console.log('item: ', item);
-      setTab(item.key)
-    }
-  })
-  
+  const leftMenu = null
+    ? null
+    : Menu({
+        items: sideMenu,
+        onClick(item) {
+          console.log('item: ', item)
+          setTab(item.key)
+        }
+      })
+
   return (
     <div className="flex">
-      <div style={{ width: '160px' }}>
-        {leftMenu}
-      </div>
+      <div style={{ width: '160px' }}>{leftMenu}</div>
       <div className="flex">
         <div className="p-4">
           <ComponentPreview />

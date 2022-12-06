@@ -27,6 +27,4 @@ export function RenderToReact<T>(module: SingleFileModule) {
   }
 }
 
-export function RenderToVue<T = any> (module: SingleFileModule) {
-
-}
+export function RenderToVue<T = any>(module: SingleFileModule) {}

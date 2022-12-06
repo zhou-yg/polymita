@@ -116,15 +116,24 @@ function renderAbstractNodeToSVGElement(node, options) {
 
 // icons/account-book.tsx
 import { h, createComponent } from "tarat-renderer";
-var AccountBookFilledSVGString = renderIconDefinitionToSVGElement(AccountBookFilled_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var AccountBookOutlinedSVGString = renderIconDefinitionToSVGElement(AccountBookOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var AccountBookTwoToneSVGString = renderIconDefinitionToSVGElement(AccountBookTwoTone_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+var AccountBookFilledSVGString = renderIconDefinitionToSVGElement(
+  AccountBookFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var AccountBookOutlinedSVGString = renderIconDefinitionToSVGElement(
+  AccountBookOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var AccountBookTwoToneSVGString = renderIconDefinitionToSVGElement(
+  AccountBookTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap = {
   filled: AccountBookFilledSVGString,
   outlined: AccountBookOutlinedSVGString,
@@ -144,9 +153,12 @@ var account_book_default = Icon;
 
 // icons/loading.tsx
 import { h as h2, createComponent as createComponent2 } from "tarat-renderer";
-var LoadingOutlinedSVGString = renderIconDefinitionToSVGElement(LoadingOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+var LoadingOutlinedSVGString = renderIconDefinitionToSVGElement(
+  LoadingOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap2 = {
   outlined: LoadingOutlinedSVGString
 };
@@ -164,9 +176,12 @@ var loading_default = Icon2;
 
 // icons/loading3-quarters.tsx
 import { h as h3, createComponent as createComponent3 } from "tarat-renderer";
-var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(Loading3QuartersOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
+  Loading3QuartersOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap3 = {
   outlined: Loading3QuartersOutlinedSVGString
 };
@@ -204,15 +219,24 @@ var close_default = Icon4;
 
 // icons/close-circle.tsx
 import { h as h5, createComponent as createComponent5 } from "tarat-renderer";
-var CloseCircleFilledSVGString = renderIconDefinitionToSVGElement(CloseCircleFilled_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var CloseCircleOutlinedSVGString = renderIconDefinitionToSVGElement(CloseCircleOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var CloseCircleTwoToneSVGString = renderIconDefinitionToSVGElement(CloseCircleTwoTone_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+var CloseCircleFilledSVGString = renderIconDefinitionToSVGElement(
+  CloseCircleFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CloseCircleOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CloseCircleOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CloseCircleTwoToneSVGString = renderIconDefinitionToSVGElement(
+  CloseCircleTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap5 = {
   filled: CloseCircleFilledSVGString,
   outlined: CloseCircleOutlinedSVGString,
@@ -232,15 +256,24 @@ var close_circle_default = Icon5;
 
 // icons/close-square.tsx
 import { h as h6, createComponent as createComponent6 } from "tarat-renderer";
-var CloseSquareFilledSVGString = renderIconDefinitionToSVGElement(CloseSquareFilled_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var CloseSquareOutlinedSVGString = renderIconDefinitionToSVGElement(CloseSquareOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
-var CloseSquareTwoToneSVGString = renderIconDefinitionToSVGElement(CloseSquareTwoTone_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+var CloseSquareFilledSVGString = renderIconDefinitionToSVGElement(
+  CloseSquareFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CloseSquareOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CloseSquareOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CloseSquareTwoToneSVGString = renderIconDefinitionToSVGElement(
+  CloseSquareTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap6 = {
   filled: CloseSquareFilledSVGString,
   outlined: CloseSquareOutlinedSVGString,

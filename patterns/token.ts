@@ -1,4 +1,4 @@
-export function alias (rgb: string) {
+export function alias(rgb: string) {
   let rgb2 = rgb.replace(/^#/, '')
   let dir = -1
   if (rgb2 === 'ffffff') {
@@ -24,7 +24,6 @@ export const colors = {
 
   text: '#434343'
 }
-
 
 export const radius = {
   normal: '4px'

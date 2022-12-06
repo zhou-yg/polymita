@@ -224,10 +224,7 @@ function blockPattern(arg, colors2) {
   });
 }
 function blockPattern2(arg, colors2) {
-  return matchPatternMatrix([
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+  return matchPatternMatrix([!!arg.selected, !!arg.disabled])({
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],

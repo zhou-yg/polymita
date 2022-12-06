@@ -2,9 +2,7 @@ import { matchPatternMatrix } from 'tarat-renderer'
 import { action, dispose, signal } from 'atomic-signal'
 import * as token from './token'
 
-export function useInteractive(props: {
-  disabled?: () => boolean
-}) {
+export function useInteractive(props: { disabled?: () => boolean }) {
   const hover = signal(false)
   const active = signal(false)
   const focus = signal(false)
@@ -35,12 +33,11 @@ export function useInteractive(props: {
     document.removeEventListener('mouseup', focusIn)
   })
 
-
   return {
     states: {
       hover,
       active,
-      focus,
+      focus
     },
     events: {
       onMouseEnter: mouseEnter,
@@ -112,10 +109,7 @@ export function blockPattern2(
     text: [NormalColor, SelectedColor?]
   }
 ) {
-  return matchPatternMatrix([
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+  return matchPatternMatrix([!!arg.selected, !!arg.disabled])({
     container: {
       backgroundColor: {
         [colors.bg[0]]: [],
@@ -165,7 +159,7 @@ export function strokePattern(
       },
       cursor: {
         'not-allowed': ['*', '*', '*', true]
-      },
+      }
     },
     decoration: {
       borderRadius: {
@@ -210,20 +204,17 @@ export function strokePattern2(
     text?: [NormalColor, DisabledColor?]
   }
 ) {
-
   const borderDisabledColor = colors.border[1] || token.colors.disables[0]
   const textDisabledColor = colors.text[1] || token.colors.disables[0]
 
-  return matchPatternMatrix([
-    !!arg.disabled
-  ])({
+  return matchPatternMatrix([!!arg.disabled])({
     container: {
       backgroundColor: {
         [token.colors.disables[0]]: [true]
       },
       cursor: {
         'not-allowed': [true]
-      },
+      }
     },
     decoration: {
       borderRadius: {
