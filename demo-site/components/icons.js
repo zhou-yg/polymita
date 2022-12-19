@@ -298,28 +298,52 @@ var layout = (props) => {
   }, /* @__PURE__ */ h7("row", {
     className: "flex gap-2 flex-wrap",
     style: { width: "400px" }
+  }, /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
   }, /* @__PURE__ */ h7(account_book_default, {
     size: 24,
     color: "blue",
     type: "outlined"
-  }), /* @__PURE__ */ h7(loading_default, {
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "AccountBookFilled")), /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h7(loading_default, {
     size: 24,
     color: "black",
     className: "animate-spin"
-  }), /* @__PURE__ */ h7(loading3_quarters_default, {
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "LoadingIcon")), /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h7(loading3_quarters_default, {
     size: 24,
     color: "black",
     className: "animate-spin"
-  }), /* @__PURE__ */ h7(close_default, {
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "Loading3Icon")), /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h7(close_default, {
     size: 24,
     color: "black"
-  }), /* @__PURE__ */ h7(close_circle_default, {
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "CloseIcon")), /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h7(close_square_default, {
     size: 24,
     color: "black"
-  }), /* @__PURE__ */ h7(close_square_default, {
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "CloseSquareIcon")), /* @__PURE__ */ h7("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h7(close_circle_default, {
     size: 24,
     color: "black"
-  })));
+  }), /* @__PURE__ */ h7("p", {
+    className: "mt-1"
+  }, "CloseCircleIcon"))));
 };
 
 // shared/render.ts
@@ -343,7 +367,8 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    renderer.construct(p);
+    const r = renderer.construct(p);
+    console.log("r: ", r);
     return renderer.render();
   };
 }

@@ -148,9 +148,11 @@ __export(menu_item_exports, {
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
+  meta: () => meta,
   styleRules: () => styleRules
 });
 import { h, useLogic } from "tarat-renderer";
+var meta;
 var logic = (props) => {
   const interactive = useInteractive(props);
   return {
@@ -235,6 +237,7 @@ var layout2 = (props) => {
               className: "mx-2"
             }, ">"));
           }
+          return [];
         }
       }
     }));
@@ -287,7 +290,8 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    renderer.construct(p);
+    const r = renderer.construct(p);
+    console.log("r: ", r);
     return renderer.render();
   };
 }

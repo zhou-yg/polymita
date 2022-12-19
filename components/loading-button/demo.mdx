@@ -1,0 +1,8 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# LoadingButton 带loading按钮
+
+<Component type="primary" onClick={() => console.log('click on primary')} >Primary Button</Component>
+

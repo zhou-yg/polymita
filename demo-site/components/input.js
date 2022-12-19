@@ -220,7 +220,8 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    renderer.construct(p);
+    const r = renderer.construct(p);
+    console.log("r: ", r);
     return renderer.render();
   };
 }

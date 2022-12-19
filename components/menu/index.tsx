@@ -55,10 +55,9 @@ export const logic = (props: SignalProps<MenuProps>) => {
 
 export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
-  const MenuItemFunc = useModule<MenuItemModule.MenuItemProps>(MenuItemModule)
+  const MenuItemFunc = useModule(MenuItemModule)
 
   // console.log('MenuItemFunc: ', logic.items());
-
   return (
     <menuBox className="block border-r border-slate-300">
       <ul className="block">
@@ -75,6 +74,7 @@ export const layout = (props: MenuProps) => {
                   jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
                   jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
                 }
+                return []
               },
             }
           });

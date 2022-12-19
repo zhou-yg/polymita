@@ -5,6 +5,7 @@ import { colors } from '../../patterns/token'
 import CloseIcon from '../../icons/close'
 
 import * as ButtonModule from '../button/index'
+import { type } from 'os'
 
 export interface ModalProps {
   children?: string
@@ -20,7 +21,6 @@ type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: SignalProps<ModalProps>) => {
 }
-
 
 // tailwindcss
 export const layout = (props: ModalProps) => {
@@ -51,6 +51,41 @@ export const layout = (props: ModalProps) => {
       </modalBody>
     </modalBox>
   )
+}
+
+interface CloseIconTree {
+}
+interface ButtonTree {
+}
+
+export interface LayoutTree {
+  type: 'modalBox',
+  children: [
+    {
+      type: 'mask'
+    },
+    {
+      type: 'modalBody',
+      children: [
+        {
+          type: 'closeBox',
+          children: [
+            CloseIconTree,
+          ]
+        },
+        {
+          type: 'content',
+        },
+        {
+          type: 'footer',
+          children: [
+            ButtonTree,
+            ButtonTree,
+          ]
+        }
+      ]
+    }
+  ]
 }
 
 export const designPattern = (props: ModalProps) => {

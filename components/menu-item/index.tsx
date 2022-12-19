@@ -2,6 +2,12 @@ import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSO
 import { blockPattern, useInteractive } from '../../patterns';
 import { colors } from '../../patterns/token';
 
+export let meta: {
+  props: MenuItemProps,
+  layoutStruct: MenuItemLayout,
+  patchCommands: []
+}
+
 export interface MenuItemProps {
   children?: MenuItemProps[];
   hasItemChildren?: boolean;
@@ -19,6 +25,15 @@ export const logic = (props: SignalProps<MenuItemProps>) => {
   return {
     interactive,
   }
+}
+
+type MenuItemLayout = {
+  type: 'menuItem',
+  children: [
+    {
+      type: 'span',
+    }
+  ]
 }
 
 export const layout = (props: MenuItemProps) => {

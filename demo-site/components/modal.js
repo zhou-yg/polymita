@@ -112,6 +112,7 @@ __export(Button_exports, {
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
+  meta: () => meta,
   styleRules: () => styleRules
 });
 import { h as h2, useLayout, useLogic } from "tarat-renderer";
@@ -297,6 +298,7 @@ function strokePattern(arg, colors2) {
 }
 
 // components/Button/index.tsx
+var meta;
 var logic = (props) => {
   const interactive = useInteractive(props);
   return {
@@ -306,6 +308,8 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
+  const div = /* @__PURE__ */ h2("div", null, "123");
+  const k = 1;
   return /* @__PURE__ */ h2("buttonBox", __spreadProps(__spreadValues({
     className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
   }, logicResult.interactive.events), {
@@ -380,7 +384,7 @@ var designPattern = (props) => {
   }
   return __spreadValues({}, pattern);
 };
-var styleRules = (props) => {
+var styleRules = (props, draft) => {
   const logic3 = useLogic();
   const layout3 = useLayout();
   return [];
@@ -442,7 +446,8 @@ function RenderToReact(module) {
     }
   });
   return (p) => {
-    renderer.construct(p);
+    const r = renderer.construct(p);
+    console.log("r: ", r);
     return renderer.render();
   };
 }

@@ -136,8 +136,6 @@ type DoCommand<T extends MyObjTree, Cmd extends Command> =
         ? Cmd['child']
         : never
 
-type vEmpty<T> = T extends [infer First, ...infer Rest] ? 123 : never;
-
 type PatchToChildren<T extends MyObjTree['children'], Cmd extends Command> =
   T extends [infer FirstChild, ...infer RestChildren]
     ? FirstChild extends MyObjTree 
@@ -175,19 +173,28 @@ type PatchChildToObj<T extends MyObjTree, Cmd extends Command> =
     : T;
 
 type v3 = PatchChildToObj<MyObj2, MyCmd>
-type c1 = v3['children'][0]['children']
+type c1 = ShowResult<v3>
 
 type v4 = PatchChildToObj<v3, MyCmd2>
-type c2 = v4['children'][0]
+type c2 = ShowResult<v4>
 
 type v5 = PatchChildToObj<v4, MyCmd3>
-type c3 = v5['children']
+type c3 = ShowResult<v5>
 
 type ShowResult<T> =  {
-  [P in keyof T]: T[P]
+  [P in keyof T]: 
+    T[P] extends [infer First, ...infer Rest]
+      ? [ {
+        [P2 in keyof First]: First[P2]
+      }, ...ShowResult<Rest>]
+      : T[P] extends object
+        ? {
+          [P2 in keyof T[P]]: T[P][P2]
+        }
+        : T[P]
 }
 
-type v5s = ShowResult<v3>
+type v5s = ShowResult<v4>
 
 type A1 = { children: ['string'] }
 type A2 = { children: ['string', 'number'] }

@@ -1,7 +1,14 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { ConvertToLayoutTreeDraft, h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, blockPattern2, strokePattern, useInteractive } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
+import { LayoutStructTree } from 'tarat-renderer/src'
+
+export let meta: {
+  props: ButtonProps,
+  layoutStruct: ButtonLayoutStruct
+  patchCommands: []
+}
 
 export interface ButtonProps {
   children?: string
@@ -21,6 +28,14 @@ export const logic = (props: SignalProps<ButtonProps>) => {
   }
 }
 
+export type ButtonLayoutStruct = {
+  type: 'buttonBox',
+  children: [
+    {
+      type: 'span'
+    }
+  ]
+}
 
 // tailwindcss
 export const layout = (props: ButtonProps) => {
@@ -28,6 +43,11 @@ export const layout = (props: ButtonProps) => {
 
   // const v = logicResult.interactive.actionType()
   // console.log('logicResult.interactive.actionType(): ', v, typeof v);
+
+  const div = <div>123</div>
+  type D = typeof div
+  type K = D extends LayoutStructTree ? 1 : 0
+  const k:K = 1 as const
 
   return (
     <buttonBox
@@ -108,7 +128,7 @@ export const designPattern = (props: ButtonProps) => {
 }
 
 // css in js
-export const styleRules = (props: ButtonProps) => {
+export const styleRules = (props: ButtonProps, draft: ConvertToLayoutTreeDraft<ButtonLayoutStruct>) => {
   const logic = useLogic<LogicReturn>()
   const layout = useLayout()
   return [

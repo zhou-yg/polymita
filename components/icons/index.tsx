@@ -16,12 +16,31 @@ export const layout = (props: IconsProps) => {
     <iconsBox
       className="block" >
       <row className="flex gap-2 flex-wrap" style={{ width: '400px' }} >
-      <AccountBookFilled size={24} color="blue" type="outlined" />
-      <LoadingIcon size={24} color="black" className='animate-spin' />
-      <Loading3Icon size={24} color="black" className='animate-spin' />
-      <CloseIcon size={24} color="black" />
-      <CloseCircleIcon size={24} color="black" />
-      <CloseSquareIcon size={24} color="black" />
+        <div className="m-2 flex flex-col align-center items-center">
+          <AccountBookFilled size={24} color="blue" type="outlined" />
+          <p className="mt-1">AccountBookFilled</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <LoadingIcon size={24} color="black" className='animate-spin' />
+          <p className="mt-1">LoadingIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <Loading3Icon size={24} color="black" className='animate-spin' />
+          <p className="mt-1">Loading3Icon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <CloseIcon size={24} color="black" />
+          <p className="mt-1">CloseIcon</p>
+        </div>        
+        <div className="m-2 flex flex-col align-center items-center">
+          <CloseSquareIcon size={24} color="black" />
+          <p className="mt-1">CloseSquareIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <CloseCircleIcon size={24} color="black" />
+          <p className="mt-1">CloseCircleIcon</p>
+        </div>
+
       </row>
     </iconsBox>
   )

@@ -3,6 +3,7 @@ import MenuDemo from './components/menu'
 import InputDemo from './components/input'
 import ModalDemo from './components/modal'
 import IconsDemo from './components/icons'
+import LoadingButtonDemo from './components/loading-button'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -12,15 +13,16 @@ import { SingleFileModule } from 'tarat-renderer'
 
 const Menu = RenderToReact<MenuModule.MenuProps>({
   ...MenuModule
-} as unknown as SingleFileModule)
+} as unknown as SingleFileModule<any, any, any>)
 
 const componentsPlayground = {
   all: {
     Button: ButtonDemo,
+    LoadingButton: LoadingButtonDemo,
     Menu: MenuDemo,
     Input: InputDemo,
     Modal: ModalDemo,
-    Icons: IconsDemo
+    Icons: IconsDemo,
   }
 }
 
@@ -84,7 +86,7 @@ function Home() {
 
   return (
     <div className="flex">
-      <div style={{ width: '160px' }}>{leftMenu}</div>
+      <div style={{ width: '220px' }}>{leftMenu}</div>
       <div className="flex">
         <div className="p-4">
           <ComponentPreview />

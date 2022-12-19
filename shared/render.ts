@@ -1,7 +1,7 @@
 import { createRenderer, SingleFileModule } from 'tarat-renderer'
 import React from 'react'
 
-export function RenderToReactWithWrap<T = any>(module: SingleFileModule) {
+export function RenderToReactWithWrap<T = any>(module: SingleFileModule<any, any, any>) {
   const render = RenderToReact(module)
 
   return (p: T) => {
@@ -13,7 +13,7 @@ export function RenderToReactWithWrap<T = any>(module: SingleFileModule) {
   }
 }
 
-export function RenderToReact<T>(module: SingleFileModule) {
+export function RenderToReact<T>(module: SingleFileModule<any, any, any>) {
   const renderer = createRenderer(module, {
     framework: {
       name: 'react',
@@ -22,9 +22,10 @@ export function RenderToReact<T>(module: SingleFileModule) {
   })
 
   return (p: T) => {
-    renderer.construct(p)
+    const r = renderer.construct(p)
+    console.log('r: ', r);
     return renderer.render()
   }
 }
 
-export function RenderToVue<T = any>(module: SingleFileModule) {}
+export function RenderToVue<T = any>(module: SingleFileModule<any, any, any>) {}
