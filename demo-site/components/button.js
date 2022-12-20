@@ -331,7 +331,6 @@ function RenderToReact(module) {
   });
   return (p) => {
     const r = renderer.construct(p);
-    console.log("r: ", r);
     return renderer.render();
   };
 }

@@ -28,12 +28,12 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/loading-button/index.tsx
 var loading_button_exports = {};
 __export(loading_button_exports, {
-  designPattern: () => designPattern2,
-  layout: () => layout2,
-  logic: () => logic2,
+  designPattern: () => designPattern,
+  layout: () => layout,
+  logic: () => logic,
   meta: () => meta2,
   override: () => override,
-  styleRules: () => styleRules2
+  styleRules: () => styleRules
 });
 
 // components/button/index.tsx
@@ -315,8 +315,8 @@ var designPattern = (props) => {
   return __spreadValues({}, pattern);
 };
 var styleRules = (props, draft) => {
-  const logic3 = useLogic();
-  const layout3 = useLayout();
+  const logic2 = useLogic();
+  const layout2 = useLayout();
   return [];
 };
 
@@ -394,16 +394,16 @@ var Icon = createComponent((props = {}) => {
 var loading3_quarters_default = Icon;
 
 // components/loading-button/index.tsx
-import { h as h3, CommandOP, extendModule } from "tarat-renderer";
-var LoadingButton = extendModule(button_exports, () => ({
-  layout(props, layout3) {
-    layout3.buttonBox.span.props.className += " flex justify-center items-center";
+import { h as h3, CommandOP, overrideModule } from "tarat-renderer";
+var LoadingButton = overrideModule(button_exports, () => ({
+  layout(props, layout2) {
+    layout2.buttonBox.span.props.className += " flex justify-center items-center";
   },
-  patchLayout(props, layout3) {
+  patchLayout(props, layout2) {
     return [
       {
         op: CommandOP.addChild,
-        parent: layout3.buttonBox.span,
+        parent: layout2.buttonBox.span,
         child: /* @__PURE__ */ h3(loading3_quarters_default, {
           size: 16,
           className: "animate-spin align-middle ml-1"
@@ -413,10 +413,6 @@ var LoadingButton = extendModule(button_exports, () => ({
   }
 }));
 var meta2 = LoadingButton.meta;
-var layout2 = LoadingButton.layout;
-var logic2 = LoadingButton.logic;
-var designPattern2 = LoadingButton.designPattern;
-var styleRules2 = LoadingButton.styleRules;
 var override = LoadingButton.override;
 
 // shared/render.ts
@@ -441,7 +437,6 @@ function RenderToReact(module) {
   });
   return (p) => {
     const r = renderer.construct(p);
-    console.log("r: ", r);
     return renderer.render();
   };
 }

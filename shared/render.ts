@@ -23,7 +23,6 @@ export function RenderToReact<T>(module: SingleFileModule<any, any, any>) {
 
   return (p: T) => {
     const r = renderer.construct(p)
-    console.log('r: ', r);
     return renderer.render()
   }
 }
