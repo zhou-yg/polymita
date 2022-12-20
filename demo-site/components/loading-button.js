@@ -28,12 +28,12 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/loading-button/index.tsx
 var loading_button_exports = {};
 __export(loading_button_exports, {
-  designPattern: () => designPattern,
-  layout: () => layout,
-  logic: () => logic,
+  designPattern: () => designPattern2,
+  layout: () => layout2,
+  logic: () => logic2,
   meta: () => meta2,
   override: () => override,
-  styleRules: () => styleRules
+  styleRules: () => styleRules2
 });
 
 // components/button/index.tsx
@@ -315,8 +315,8 @@ var designPattern = (props) => {
   return __spreadValues({}, pattern);
 };
 var styleRules = (props, draft) => {
-  const logic2 = useLogic();
-  const layout2 = useLayout();
+  const logic3 = useLogic();
+  const layout3 = useLayout();
   return [];
 };
 
@@ -395,15 +395,16 @@ var loading3_quarters_default = Icon;
 
 // components/loading-button/index.tsx
 import { h as h3, CommandOP, overrideModule } from "tarat-renderer";
-var LoadingButton = overrideModule(button_exports, () => ({
-  layout(props, layout2) {
-    layout2.buttonBox.span.props.className += " flex justify-center items-center";
+var LoadingButton = overrideModule(button_exports, {
+  layout(props, layout3) {
+    layout3.buttonBox.span.props.className += " flex justify-center items-center";
   },
-  patchLayout(props, layout2) {
+  patchLayout(props, layout3) {
     return [
       {
         op: CommandOP.addChild,
-        parent: layout2.buttonBox.span,
+        condition: !!props.loading,
+        parent: layout3.buttonBox.span,
         child: /* @__PURE__ */ h3(loading3_quarters_default, {
           size: 16,
           className: "animate-spin align-middle ml-1"
@@ -411,9 +412,13 @@ var LoadingButton = overrideModule(button_exports, () => ({
       }
     ];
   }
-}));
+});
 var meta2 = LoadingButton.meta;
 var override = LoadingButton.override;
+var layout2 = LoadingButton.layout;
+var logic2 = LoadingButton.logic;
+var designPattern2 = LoadingButton.designPattern;
+var styleRules2 = LoadingButton.styleRules;
 
 // shared/render.ts
 import { createRenderer } from "tarat-renderer";
@@ -445,15 +450,30 @@ function RenderToReact(module) {
 var Component = RenderToReactWithWrap(loading_button_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
-    h1: "h1"
+    h1: "h1",
+    p: "p"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
-      children: "LoadingButton \u5E26loading\u6309\u94AE"
+      children: "LoadingButton \u6309\u94AE"
+    }), "\n", _jsx(_components.p, {
+      children: "\u5E26loading\u6548\u679C"
     }), "\n", _jsx(Component, {
+      loading: true,
       type: "primary",
       onClick: () => console.log("click on primary"),
       children: "Primary Button"
+    }), "\n", _jsx(Component, {
+      loading: true,
+      type: "text",
+      children: "Text Button"
+    }), "\n", _jsx(_components.p, {
+      children: "\u4E0D\u5E26loading"
+    }), "\n", _jsx(Component, {
+      type: "link",
+      children: "Link Button"
+    }), "\n", _jsx(Component, {
+      children: "Default Button"
     })]
   });
 }

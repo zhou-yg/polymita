@@ -2,7 +2,16 @@ import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
 
-# LoadingButton 带loading按钮
+# LoadingButton 按钮
 
-<Component type="primary" onClick={() => console.log('click on primary')} >Primary Button</Component>
+带loading效果
 
+<Component loading type="primary" onClick={() => console.log('click on primary')} >Primary Button</Component>
+
+<Component loading type="text" >Text Button</Component>
+
+不带loading
+
+<Component type="link" >Link Button</Component>
+
+<Component >Default Button</Component>
