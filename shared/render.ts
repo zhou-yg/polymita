@@ -1,7 +1,9 @@
 import { createRenderer, SingleFileModule } from 'tarat-renderer'
 import React from 'react'
 
-export function RenderToReactWithWrap<T = any>(module: SingleFileModule<any, any, any>) {
+export function RenderToReactWithWrap<T = any>(
+  module: SingleFileModule<any, any, any>
+) {
   const render = RenderToReact(module)
 
   return (p: T) => {

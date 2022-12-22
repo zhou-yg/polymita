@@ -128,10 +128,22 @@ function blockPattern(arg, colors2) {
       },
       userSelect: {
         none: []
+      },
+      border: {
+        [`solid 1px ${colors.disables[0]}`]: ["*", "*", "*", true]
       }
     },
     text: {
       color: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[1]]: ["*", "*", "*", true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
         [colors2.text[0]]: [],
         [colors2.text[1]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],

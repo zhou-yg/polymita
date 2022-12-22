@@ -22,19 +22,31 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/button/demo.mdx
+// components/radio-group/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
-// components/button/index.tsx
-var button_exports = {};
-__export(button_exports, {
+// components/radio-group/index.tsx
+var radio_group_exports = {};
+__export(radio_group_exports, {
+  designPattern: () => designPattern2,
+  layout: () => layout2,
+  logic: () => logic2,
+  meta: () => meta2,
+  styleRules: () => styleRules2
+});
+import { h as h2, useLogic as useLogic2, useModule } from "tarat-renderer";
+import { signal as signal2 } from "atomic-signal";
+
+// components/radio/index.tsx
+var radio_exports = {};
+__export(radio_exports, {
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h, useLayout, useLogic } from "tarat-renderer";
+import { h, useLogic } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -152,38 +164,6 @@ function blockPattern(arg, colors2) {
     }
   });
 }
-function blockPattern2(arg, colors2) {
-  return matchPatternMatrix([!!arg.selected, !!arg.disabled])({
-    container: {
-      backgroundColor: {
-        [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, false],
-        [colors.disables[0]]: ["*", true]
-      },
-      cursor: {
-        pointer: [],
-        "not-allowed": ["*", true]
-      },
-      userSelect: {
-        none: []
-      }
-    },
-    text: {
-      color: {
-        [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, false],
-        [colors.disables[1]]: ["*", true]
-      }
-    },
-    fillText: {
-      backgroundColor: {
-        [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, false],
-        [colors.disables[1]]: ["*", true]
-      }
-    }
-  });
-}
 function strokePattern(arg, colors2) {
   var _a, _b, _c;
   return matchPatternMatrix([
@@ -231,97 +211,101 @@ function strokePattern(arg, colors2) {
   });
 }
 
-// components/button/index.tsx
+// components/radio/index.tsx
 var meta;
 var logic = (props) => {
   const interactive = useInteractive(props);
   return {
-    interactive,
-    count: 0
+    interactive
   };
 };
 var layout = (props) => {
-  const logicResult = useLogic();
-  const div = /* @__PURE__ */ h("div", null, "123");
-  const k = 1;
-  return /* @__PURE__ */ h("buttonBox", __spreadProps(__spreadValues({
-    className: "inline-block px-2 py-1 rounded hover:cursor-pointer"
-  }, logicResult.interactive.events), {
+  const logic3 = useLogic();
+  return /* @__PURE__ */ h("radioContainer", __spreadProps(__spreadValues({
+    className: "relative flex items-center cursor-pointer"
+  }, logic3.interactive.events), {
+    onClick: () => !props.disabled && props.onChange(!props.selected)
+  }), /* @__PURE__ */ h("radioBox", {
+    className: "relative block mr-2 rounded-full ",
+    style: { width: "16px", height: "16px" },
     "is-container": true,
     "has-decoration": true
+  }, /* @__PURE__ */ h("input", {
+    type: "checkbox",
+    readOnly: true,
+    checked: props.selected,
+    className: "opacity-0 absolute w-full h-full"
   }), /* @__PURE__ */ h("span", {
-    "is-text": true,
-    className: "block select-none",
-    onClick: (e) => {
-      var _a;
-      if (props.disabled)
-        return;
-      (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-    }
+    className: "relative z-10 w-full h-full flex items-center justify-center"
+  }, props.selected ? /* @__PURE__ */ h("circle", {
+    "is-fillText": true,
+    className: "block rounded-full",
+    style: { width: "6px", height: "6px" }
+  }) : "")), /* @__PURE__ */ h("checkBoxLabel", {
+    className: "select-none"
   }, props.children));
 };
-var designPattern = (props) => {
+var styleRules = (props, layout3) => {
+  return [];
+};
+var designPattern = (props, layout3) => {
   const logicResult = useLogic();
   let pattern;
-  let pattern2;
   const states = {
     hover: logicResult.interactive.states.hover(),
     active: logicResult.interactive.states.active(),
-    disabled: !!props.disabled,
-    selected: false
+    disabled: props.disabled,
+    selected: props.selected
   };
-  switch (props.type) {
-    case "primary":
-      pattern = blockPattern(
-        states,
-        {
-          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.light]
-        }
-      );
-      pattern2 = blockPattern2(
-        states,
-        {
-          bg: [colors.primaries[1], colors.primaries[2]],
-          text: [colors.light]
-        }
-      );
-      break;
-    case "text":
-      pattern = blockPattern(
-        states,
-        {
-          bg: [colors.light, colors.grays[0], colors.grays[1]],
-          text: [colors.text]
-        }
-      );
-      break;
-    case "link":
-      pattern = strokePattern(
-        states,
-        {
-          border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-          text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]]
-        }
-      );
-      break;
-    default:
-      pattern = strokePattern(
-        states,
-        {
-          bdw: 1,
-          border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
-          text: [colors.text, colors.primaries[1], colors.primaries[2]]
-        }
-      );
-      break;
+  if (states.selected) {
+    pattern = blockPattern(
+      states,
+      {
+        bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
+        text: [colors.light, colors.light, colors.light, colors.light]
+      }
+    );
+  } else {
+    pattern = strokePattern(
+      states,
+      {
+        bdw: 1,
+        border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
+        text: [colors.text, colors.primaries[1], colors.primaries[2]]
+      }
+    );
   }
   return __spreadValues({}, pattern);
 };
-var styleRules = (props, draft) => {
-  const logic2 = useLogic();
-  const layout2 = useLayout();
+
+// components/radio-group/index.tsx
+var meta2;
+var logic2 = (props) => {
+  const value = signal2(props.value());
+  return {
+    value
+  };
+};
+var layout2 = (props) => {
+  const logic3 = useLogic2();
+  const Radio = useModule(radio_exports);
+  const currentValue = logic3.value();
+  return /* @__PURE__ */ h2("radioGroupContainer", null, props.options.map((option, index) => {
+    return /* @__PURE__ */ h2(Radio, {
+      key: option.label,
+      selected: currentValue === option.value,
+      onChange: () => {
+        logic3.value(option.value);
+      }
+    }, option.label);
+  }));
+};
+var styleRules2 = (props, layout3) => {
   return [];
+};
+var designPattern2 = (props, layout3) => {
+  const logic3 = useLogic2();
+  return {};
 };
 
 // shared/render.ts
@@ -350,8 +334,8 @@ function RenderToReact(module) {
   };
 }
 
-// components/button/demo.mdx
-var Component = RenderToReactWithWrap(button_exports);
+// components/radio-group/demo.mdx
+var Component = RenderToReactWithWrap(radio_group_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -359,41 +343,22 @@ function _createMdxContent(props) {
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
-      children: "Button \u6309\u94AE"
+      children: "RadioGroup \u5355\u9009\u6846\u7EC4"
     }), "\n", _jsx(_components.p, {
-      children: "\u6807\u8BB0\u4E86\u4E00\u4E2A\uFF08\u6216\u5C01\u88C5\u4E00\u7EC4\uFF09\u64CD\u4F5C\u547D\u4EE4\uFF0C\u54CD\u5E94\u7528\u6237\u70B9\u51FB\u884C\u4E3A\uFF0C\u89E6\u53D1\u76F8\u5E94\u7684\u4E1A\u52A1\u903B\u8F91"
+      children: "\u591A\u4E2A\u9009\u9879"
     }), "\n", _jsx(Component, {
-      type: "primary",
-      onClick: () => console.log("click on primary"),
-      children: "Primary Button"
-    }), "\n", _jsx(Component, {
-      type: "text",
-      children: "Text Button"
-    }), "\n", _jsx(Component, {
-      type: "link",
-      children: "Link Button"
-    }), "\n", _jsx(Component, {
-      children: "Default Button"
-    }), "\n", _jsx(_components.p, {
-      children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "primary",
-      onClick: () => console.log("click on primary"),
-      children: "Primary Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "text",
-      children: "Text Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      type: "link",
-      children: "Link Button"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      children: "Default Button"
-    }), "\n", _jsx(_components.p, {
-      children: "disabled \u6309\u94AE\u5C55\u793A"
+      name: "char",
+      value: "A",
+      options: [{
+        label: "A",
+        value: "A"
+      }, {
+        label: "B",
+        value: "B"
+      }, {
+        label: "C",
+        value: "C"
+      }]
     })]
   });
 }

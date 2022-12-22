@@ -1,0 +1,16 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# Radio 单选框
+
+完全受控
+
+<Component > 单选项 </Component>
+<Component selected > 单选项 </Component>
+
+禁止样式
+
+<Component disabled > 单选项禁止 </Component>
+
+<Component disabled selected > 单项选选中 </Component>

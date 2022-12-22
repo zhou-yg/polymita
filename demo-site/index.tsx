@@ -4,6 +4,9 @@ import InputDemo from './components/input'
 import ModalDemo from './components/modal'
 import IconsDemo from './components/icons'
 import LoadingButtonDemo from './components/loading-button'
+import CheckboxDemo from './components/checkbox'
+import RadioDemo from './components/radio'
+import RadioGroupDemo from './components/radio-group'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -23,6 +26,9 @@ const componentsPlayground = {
     Input: InputDemo,
     Modal: ModalDemo,
     Icons: IconsDemo,
+    Checkbox: CheckboxDemo,
+    Radio: RadioDemo,
+    RadioGroup: RadioGroupDemo,
   }
 }
 

@@ -1,0 +1,35 @@
+{
+  "tarat component": {
+    "prefix": "ext-cpt",
+    "body": [
+      "import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, CommandOP, overrideModule } from 'tarat-renderer';",
+      "import { after, signal } from 'atomic-signal'",
+      "import * as BaseModule from '/** base module referrence */'",
+      "export interface ${2:${TM_DIRECTORY/^.+[\\/\\\\]+(.)(.*)$/${1:/upcase}$2/}}Props {",
+      "  ",
+      "}",
+      "const NewModule = overrideModule(BaseModule, {",
+      "  layout (props: BaseModule.meta.props & ${2:${TM_DIRECTORY/^.+[\\/\\\\]+(.)(.*)$/${1:/upcase}${2}/}}Props, layout) {",
+      "  },",
+      "  patchLayout(props: BaseModule.meta.props & ${2:${TM_DIRECTORY/^.+[\\/\\\\]+(.)(.*)$/${1:/upcase}$2/}}Props, layout) {",
+      "    return [",
+      "      {",
+      "        type: CommandOP.addChild,",
+      "        condition: true,",
+      "        parent: layout,",
+      "        child: <div>new child</div> as { type: 'div' }",
+      "      }",
+      "    ]",
+      "  }",
+      "}",
+      "",
+      "export const meta = NewModule.meta",
+      "export const override = NewModule.override",
+      "export const layout = NewModule.layout",
+      "export const logic = NewModule.logic",
+      "export const designPattern = NewModule.designPattern",
+      "export const styleRules = NewModule.styleRules"
+    ],
+    "description": "quick create a tarat component"
+  }
+}

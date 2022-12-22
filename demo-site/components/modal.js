@@ -132,9 +132,6 @@ var colors = {
   none: "",
   text: "#434343"
 };
-var radius = {
-  normal: "4px"
-};
 
 // patterns/control-active.ts
 function useInteractive(props) {
@@ -211,10 +208,22 @@ function blockPattern(arg, colors2) {
       },
       userSelect: {
         none: []
+      },
+      border: {
+        [`solid 1px ${colors.disables[0]}`]: ["*", "*", "*", true]
       }
     },
     text: {
       color: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[1]]: ["*", "*", "*", true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
         [colors2.text[0]]: [],
         [colors2.text[1]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],
@@ -246,6 +255,13 @@ function blockPattern2(arg, colors2) {
         [colors2.text[1]]: [true, false],
         [colors.disables[1]]: ["*", true]
       }
+    },
+    fillText: {
+      backgroundColor: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, false],
+        [colors.disables[1]]: ["*", true]
+      }
     }
   });
 }
@@ -266,15 +282,14 @@ function strokePattern(arg, colors2) {
       }
     },
     decoration: {
-      borderRadius: {
-        [radius.normal]: []
-      },
       borderStyle: {
         solid: []
       },
       borderWidth: {
-        [`${colors2.bdw}px`]: [],
-        "0px": ["*", "*", "*", true]
+        [`1px`]: [
+          [],
+          ["*", "*", "*", true]
+        ]
       },
       borderColor: {
         [colors2.border[0]]: [],
@@ -283,7 +298,7 @@ function strokePattern(arg, colors2) {
           ["*", "*", true, false]
         ],
         [colors2.border[2]]: ["*", true, "*", false],
-        [colors.disables[1]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
       }
     },
     text: {
@@ -291,7 +306,7 @@ function strokePattern(arg, colors2) {
         [(_a = colors2.text) == null ? void 0 : _a[0]]: [],
         [(_b = colors2.text) == null ? void 0 : _b[1]]: [true, "*", "*", false],
         [(_c = colors2.text) == null ? void 0 : _c[2]]: ["*", true, "*", false],
-        [colors.disables[1]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
       }
     }
   });
@@ -311,7 +326,7 @@ var layout = (props) => {
   const div = /* @__PURE__ */ h2("div", null, "123");
   const k = 1;
   return /* @__PURE__ */ h2("buttonBox", __spreadProps(__spreadValues({
-    className: "inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
+    className: "inline-block px-2 py-1 rounded hover:cursor-pointer"
   }, logicResult.interactive.events), {
     "is-container": true,
     "has-decoration": true

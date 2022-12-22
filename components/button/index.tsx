@@ -51,7 +51,7 @@ export const layout = (props: ButtonProps) => {
 
   return (
     <buttonBox
-      className="inline-block px-2 py-1 rounded-lg hover:cursor-pointer"
+      className="inline-block px-2 py-1 rounded hover:cursor-pointer"
       {...logicResult.interactive.events}
       is-container
       has-decoration

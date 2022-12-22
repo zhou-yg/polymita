@@ -86,6 +86,9 @@ export function blockPattern(
       },
       userSelect: {
         none: []
+      },
+      border: {
+        [`solid 1px ${token.colors.disables[0]}`]: ['*', '*', '*', true]
       }
     },
     text: {
@@ -96,7 +99,16 @@ export function blockPattern(
         [colors.text[3]]: ['*', '*', true, false],
         [token.colors.disables[1]]: ['*', '*', '*', true]
       }
-    }
+    },
+    fillText: {
+      backgroundColor: {
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, '*', '*', false],
+        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text[3]]: ['*', '*', true, false],
+        [token.colors.disables[1]]: ['*', '*', '*', true]
+      }
+    },
   })
 }
 export function blockPattern2(
@@ -126,6 +138,13 @@ export function blockPattern2(
     },
     text: {
       color: {
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, false],
+        [token.colors.disables[1]]: ['*', true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
         [colors.text[0]]: [],
         [colors.text[1]]: [true, false],
         [token.colors.disables[1]]: ['*', true]
@@ -162,15 +181,16 @@ export function strokePattern(
       }
     },
     decoration: {
-      borderRadius: {
-        [token.radius.normal]: []
-      },
       borderStyle: {
         solid: []
       },
       borderWidth: {
-        [`${colors.bdw}px`]: [],
-        '0px': ['*', '*', '*', true]
+        /** @TODO maybe have a better solution */
+        [`1px`]: [
+          [],
+          ['*', '*', '*', true]
+        ],
+        // '1px': ['*', '*', '*', true]
       },
       borderColor: {
         [colors.border[0]]: [],
@@ -179,7 +199,7 @@ export function strokePattern(
           ['*', '*', true, false]
         ],
         [colors.border[2]]: ['*', true, '*', false],
-        [token.colors.disables[1]]: ['*', '*', '*', true]
+        [token.colors.disables[0]]: ['*', '*', '*', true]
       }
     },
     text: {
@@ -187,7 +207,7 @@ export function strokePattern(
         [colors.text?.[0]]: [],
         [colors.text?.[1]]: [true, '*', '*', false],
         [colors.text?.[2]]: ['*', true, '*', false],
-        [token.colors.disables[1]]: ['*', '*', '*', true]
+        [token.colors.disables[0]]: ['*', '*', '*', true]
       }
     }
   })

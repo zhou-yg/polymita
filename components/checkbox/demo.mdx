@@ -1,0 +1,16 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+
+# Checkbox 多选框
+
+基本使用
+
+<Component > 多选项 </Component>
+
+禁止样式
+
+<Component disabled > 禁止选项 </Component>
+
+<Component disabled selected > 禁止开启 </Component>

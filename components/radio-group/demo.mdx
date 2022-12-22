@@ -1,0 +1,23 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# RadioGroup 单选框组
+
+多个选项
+
+<Component name="char" value="A" options={[
+  {
+    label: "A",
+    value: "A"
+  },
+  {
+    label: "B",
+    value: "B"
+  },
+  {
+    label: "C",
+    value: "C"
+  },
+]} />
+

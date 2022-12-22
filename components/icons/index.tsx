@@ -1,10 +1,14 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { h } from 'tarat-renderer'
 import AccountBookFilled from '../../icons/account-book'
 import LoadingIcon from '../../icons/loading'
 import Loading3Icon from '../../icons/loading3-quarters'
 import CloseIcon from '../../icons/close'
 import CloseCircleIcon from '../../icons/close-circle'
 import CloseSquareIcon from '../../icons/close-square'
+import CheckIcon from '../../icons/check'
+import CheckCircleIcon from '../../icons/check-circle'
+import CheckSquareIcon from '../../icons/check-square'
+
 
 export interface IconsProps {
 }
@@ -39,6 +43,18 @@ export const layout = (props: IconsProps) => {
         <div className="m-2 flex flex-col align-center items-center">
           <CloseCircleIcon size={24} color="black" />
           <p className="mt-1">CloseCircleIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <CheckIcon size={24} color="black" />
+          <p className="mt-1">CheckIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <CheckCircleIcon size={24} color="black" />
+          <p className="mt-1">CheckCircleIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <CheckSquareIcon size={24} color="black" />
+          <p className="mt-1">CheckSquareIcon</p>
         </div>
 
       </row>

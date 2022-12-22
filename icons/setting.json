@@ -2,7 +2,8 @@
   "include": [
     "loading",
     "accountBook",
-    "close"
+    "close",
+    "check"
   ],
   "exclude": [
   ]

@@ -12,7 +12,7 @@ var icons_exports = {};
 __export(icons_exports, {
   layout: () => layout
 });
-import { h as h7 } from "tarat-renderer";
+import { h as h10 } from "tarat-renderer";
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/AccountBookFilled.js
 var AccountBookFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zM648.3 426.8l-87.7 161.1h45.7c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4v29.7h63.4c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4V752c0 5.5-4.5 10-10 10h-41.3c-5.5 0-10-4.5-10-10v-51.8h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h63.1v-29.7h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h45.2l-88-161.1c-2.6-4.8-.9-10.9 4-13.6 1.5-.8 3.1-1.2 4.8-1.2h46c3.8 0 7.2 2.1 8.9 5.5l72.9 144.3 73.2-144.3a10 10 0 018.9-5.5h45c5.5 0 10 4.5 10 10 .1 1.7-.3 3.3-1.1 4.8z" } }] }, "name": "account-book", "theme": "filled" };
@@ -28,6 +28,38 @@ var AccountBookTwoTone = { "icon": function render(primaryColor, secondaryColor)
 }, "name": "account-book", "theme": "twotone" };
 var AccountBookTwoTone_default = AccountBookTwoTone;
 
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckCircleFilled.js
+var CheckCircleFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z" } }] }, "name": "check-circle", "theme": "filled" };
+var CheckCircleFilled_default = CheckCircleFilled;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckCircleOutlined.js
+var CheckCircleOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0051.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z" } }, { "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" } }] }, "name": "check-circle", "theme": "outlined" };
+var CheckCircleOutlined_default = CheckCircleOutlined;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckCircleTwoTone.js
+var CheckCircleTwoTone = { "icon": function render2(primaryColor, secondaryColor) {
+  return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm193.4 225.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.3 0 19.9 5 25.9 13.3l71.2 98.8 157.2-218c6-8.4 15.7-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.4 12.7z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0051.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z", "fill": primaryColor } }] };
+}, "name": "check-circle", "theme": "twotone" };
+var CheckCircleTwoTone_default = CheckCircleTwoTone;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckOutlined.js
+var CheckOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z" } }] }, "name": "check", "theme": "outlined" };
+var CheckOutlined_default = CheckOutlined;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckSquareFilled.js
+var CheckSquareFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM695.5 365.7l-210.6 292a31.8 31.8 0 01-51.7 0L308.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H689c6.5 0 10.3 7.4 6.5 12.7z" } }] }, "name": "check-square", "theme": "filled" };
+var CheckSquareFilled_default = CheckSquareFilled;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckSquareOutlined.js
+var CheckSquareOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M433.1 657.7a31.8 31.8 0 0051.7 0l210.6-292c3.8-5.3 0-12.7-6.5-12.7H642c-10.2 0-19.9 4.9-25.9 13.3L459 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H315c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8z" } }, { "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z" } }] }, "name": "check-square", "theme": "outlined" };
+var CheckSquareOutlined_default = CheckSquareOutlined;
+
+// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckSquareTwoTone.js
+var CheckSquareTwoTone = { "icon": function render3(primaryColor, secondaryColor) {
+  return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M184 840h656V184H184v656zm130-367.8h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H688c6.5 0 10.3 7.4 6.5 12.7l-210.6 292a31.8 31.8 0 01-51.7 0L307.5 484.9c-3.8-5.3 0-12.7 6.5-12.7z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M432.2 657.7a31.8 31.8 0 0051.7 0l210.6-292c3.8-5.3 0-12.7-6.5-12.7h-46.9c-10.3 0-19.9 5-25.9 13.3L458 584.3l-71.2-98.8c-6-8.4-15.7-13.3-25.9-13.3H314c-6.5 0-10.3 7.4-6.5 12.7l124.7 172.8z", "fill": primaryColor } }] };
+}, "name": "check-square", "theme": "twotone" };
+var CheckSquareTwoTone_default = CheckSquareTwoTone;
+
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseCircleFilled.js
 var CloseCircleFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z" } }] }, "name": "close-circle", "theme": "filled" };
 var CloseCircleFilled_default = CloseCircleFilled;
@@ -37,7 +69,7 @@ var CloseCircleOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64
 var CloseCircleOutlined_default = CloseCircleOutlined;
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseCircleTwoTone.js
-var CloseCircleTwoTone = { "icon": function render2(primaryColor, secondaryColor) {
+var CloseCircleTwoTone = { "icon": function render4(primaryColor, secondaryColor) {
   return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm171.8 527.1c1.2 1.5 1.9 3.3 1.9 5.2 0 4.5-3.6 8-8 8l-66-.3-99.3-118.4-99.3 118.5-66.1.3c-4.4 0-8-3.6-8-8 0-1.9.7-3.7 1.9-5.2L471 512.3l-130.1-155a8.32 8.32 0 01-1.9-5.2c0-4.5 3.6-8 8-8l66.1.3 99.3 118.4 99.4-118.5 66-.3c4.4 0 8 3.6 8 8 0 1.9-.6 3.8-1.8 5.2l-130.1 155 129.9 154.9z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M685.8 352c0-4.4-3.6-8-8-8l-66 .3-99.4 118.5-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155-130.1 154.9a8.32 8.32 0 00-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3 99.3-118.5L611.7 680l66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.9 512.2l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z", "fill": primaryColor } }] };
 }, "name": "close-circle", "theme": "twotone" };
 var CloseCircleTwoTone_default = CloseCircleTwoTone;
@@ -55,7 +87,7 @@ var CloseSquareOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64
 var CloseSquareOutlined_default = CloseSquareOutlined;
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseSquareTwoTone.js
-var CloseSquareTwoTone = { "icon": function render3(primaryColor, secondaryColor) {
+var CloseSquareTwoTone = { "icon": function render5(primaryColor, secondaryColor) {
   return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M184 840h656V184H184v656zm163.9-473.9A7.95 7.95 0 01354 353h58.9c4.7 0 9.2 2.1 12.3 5.7L512 462.2l86.8-103.5c3-3.6 7.5-5.7 12.3-5.7H670c6.8 0 10.5 7.9 6.1 13.1L553.8 512l122.3 145.9c4.4 5.2.7 13.1-6.1 13.1h-58.9c-4.7 0-9.2-2.1-12.3-5.7L512 561.8l-86.8 103.5c-3 3.6-7.5 5.7-12.3 5.7H354c-6.8 0-10.5-7.9-6.1-13.1L470.2 512 347.9 366.1z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M354 671h58.9c4.8 0 9.3-2.1 12.3-5.7L512 561.8l86.8 103.5c3.1 3.6 7.6 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.3-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.8 0-9.3 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3.1-3.6-7.6-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 00354 671z", "fill": primaryColor } }] };
 }, "name": "close-square", "theme": "twotone" };
 var CloseSquareTwoTone_default = CloseSquareTwoTone;
@@ -291,71 +323,186 @@ var Icon6 = createComponent6((props = {}) => {
 });
 var close_square_default = Icon6;
 
+// icons/check.tsx
+import { h as h7, createComponent as createComponent7 } from "tarat-renderer";
+var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined_default, {
+  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+});
+var styleMap7 = {
+  outlined: CheckOutlinedSVGString
+};
+var Icon7 = createComponent7((props = {}) => {
+  const style = {
+    fontSize: (props.size || 16) + "px",
+    color: props.color,
+    display: "inline-block"
+  };
+  const cls = props.className;
+  const html = styleMap7[props.type || "outlined"];
+  return h7("polymitaIcon", { _html: html, style, className: cls });
+});
+var check_default = Icon7;
+
+// icons/check-circle.tsx
+import { h as h8, createComponent as createComponent8 } from "tarat-renderer";
+var CheckCircleFilledSVGString = renderIconDefinitionToSVGElement(
+  CheckCircleFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CheckCircleOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CheckCircleOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CheckCircleTwoToneSVGString = renderIconDefinitionToSVGElement(
+  CheckCircleTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap8 = {
+  filled: CheckCircleFilledSVGString,
+  outlined: CheckCircleOutlinedSVGString,
+  twoTone: CheckCircleTwoToneSVGString
+};
+var Icon8 = createComponent8((props = {}) => {
+  const style = {
+    fontSize: (props.size || 16) + "px",
+    color: props.color,
+    display: "inline-block"
+  };
+  const cls = props.className;
+  const html = styleMap8[props.type || "filled"];
+  return h8("polymitaIcon", { _html: html, style, className: cls });
+});
+var check_circle_default = Icon8;
+
+// icons/check-square.tsx
+import { h as h9, createComponent as createComponent9 } from "tarat-renderer";
+var CheckSquareFilledSVGString = renderIconDefinitionToSVGElement(
+  CheckSquareFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CheckSquareOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CheckSquareOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var CheckSquareTwoToneSVGString = renderIconDefinitionToSVGElement(
+  CheckSquareTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap9 = {
+  filled: CheckSquareFilledSVGString,
+  outlined: CheckSquareOutlinedSVGString,
+  twoTone: CheckSquareTwoToneSVGString
+};
+var Icon9 = createComponent9((props = {}) => {
+  const style = {
+    fontSize: (props.size || 16) + "px",
+    color: props.color,
+    display: "inline-block"
+  };
+  const cls = props.className;
+  const html = styleMap9[props.type || "filled"];
+  return h9("polymitaIcon", { _html: html, style, className: cls });
+});
+var check_square_default = Icon9;
+
 // components/icons/index.tsx
 var layout = (props) => {
-  return /* @__PURE__ */ h7("iconsBox", {
+  return /* @__PURE__ */ h10("iconsBox", {
     className: "block"
-  }, /* @__PURE__ */ h7("row", {
+  }, /* @__PURE__ */ h10("row", {
     className: "flex gap-2 flex-wrap",
     style: { width: "400px" }
-  }, /* @__PURE__ */ h7("div", {
+  }, /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(account_book_default, {
+  }, /* @__PURE__ */ h10(account_book_default, {
     size: 24,
     color: "blue",
     type: "outlined"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "AccountBookFilled")), /* @__PURE__ */ h7("div", {
+  }, "AccountBookFilled")), /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(loading_default, {
+  }, /* @__PURE__ */ h10(loading_default, {
     size: 24,
     color: "black",
     className: "animate-spin"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "LoadingIcon")), /* @__PURE__ */ h7("div", {
+  }, "LoadingIcon")), /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(loading3_quarters_default, {
+  }, /* @__PURE__ */ h10(loading3_quarters_default, {
     size: 24,
     color: "black",
     className: "animate-spin"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "Loading3Icon")), /* @__PURE__ */ h7("div", {
+  }, "Loading3Icon")), /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(close_default, {
+  }, /* @__PURE__ */ h10(close_default, {
     size: 24,
     color: "black"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "CloseIcon")), /* @__PURE__ */ h7("div", {
+  }, "CloseIcon")), /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(close_square_default, {
+  }, /* @__PURE__ */ h10(close_square_default, {
     size: 24,
     color: "black"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "CloseSquareIcon")), /* @__PURE__ */ h7("div", {
+  }, "CloseSquareIcon")), /* @__PURE__ */ h10("div", {
     className: "m-2 flex flex-col align-center items-center"
-  }, /* @__PURE__ */ h7(close_circle_default, {
+  }, /* @__PURE__ */ h10(close_circle_default, {
     size: 24,
     color: "black"
-  }), /* @__PURE__ */ h7("p", {
+  }), /* @__PURE__ */ h10("p", {
     className: "mt-1"
-  }, "CloseCircleIcon"))));
+  }, "CloseCircleIcon")), /* @__PURE__ */ h10("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h10(check_default, {
+    size: 24,
+    color: "black"
+  }), /* @__PURE__ */ h10("p", {
+    className: "mt-1"
+  }, "CheckIcon")), /* @__PURE__ */ h10("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h10(check_circle_default, {
+    size: 24,
+    color: "black"
+  }), /* @__PURE__ */ h10("p", {
+    className: "mt-1"
+  }, "CheckCircleIcon")), /* @__PURE__ */ h10("div", {
+    className: "m-2 flex flex-col align-center items-center"
+  }, /* @__PURE__ */ h10(check_square_default, {
+    size: 24,
+    color: "black"
+  }), /* @__PURE__ */ h10("p", {
+    className: "mt-1"
+  }, "CheckSquareIcon"))));
 };
 
 // shared/render.ts
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
-  const render4 = RenderToReact(module);
+  const render6 = RenderToReact(module);
   return (p) => {
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render4(p)
+      render6(p)
     );
   };
 }

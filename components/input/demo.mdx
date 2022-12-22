@@ -5,8 +5,8 @@ export const Component = RenderToReactWithWrap(Module)
 export function InputBox () {
   const [val, setVal] = useState('v0')
   return (
-    <div>
-      val: {val} 
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {val} 
       <br/>
       <Component value={val} onInput={v => setVal(v)} />
     </div>
@@ -17,8 +17,8 @@ export function InputBox () {
 export function InputBox2 () {
   const [val, setVal] = useState('v0')
   return (
-    <div>
-      number val: {val} 
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {val} 
       <br/>
       <Component type="number" value={val} onInput={v => setVal(v)} />
     </div>
@@ -33,11 +33,7 @@ export function InputBox2 () {
 
 <InputBox2 />
 
-数字框
-
-type=number
-
-
+数字框 type=number
 
 <Component disabled value="disabled" />
 
