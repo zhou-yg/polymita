@@ -1,0 +1,26 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# Select 下拉选择器
+
+基本使用
+
+<Component value="A" options={[
+  {
+    value: "A",
+    label: "A",
+  },
+  {
+    value: "B",
+    label: "B",
+  },
+  {
+    value: "C",
+    label: "C"
+  }
+]} > </Component>
+
+禁止样式
+
+<Component disabled > </Component>

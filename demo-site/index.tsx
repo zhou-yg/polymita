@@ -7,6 +7,7 @@ import LoadingButtonDemo from './components/loading-button'
 import CheckboxDemo from './components/checkbox'
 import RadioDemo from './components/radio'
 import RadioGroupDemo from './components/radio-group'
+import SelectDemo from './components/select'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -29,6 +30,7 @@ const componentsPlayground = {
     Checkbox: CheckboxDemo,
     Radio: RadioDemo,
     RadioGroup: RadioGroupDemo,
+    Select: SelectDemo,
   }
 }
 

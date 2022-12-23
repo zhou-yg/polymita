@@ -19,8 +19,20 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/input/demo.mdx
+// components/select/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+
+// components/select/index.tsx
+var select_exports = {};
+__export(select_exports, {
+  designPattern: () => designPattern2,
+  layout: () => layout2,
+  logic: () => logic2,
+  meta: () => meta,
+  styleRules: () => styleRules2
+});
+import { h as h2, useLogic as useLogic2, useModule } from "tarat-renderer";
+import { signal as signal3 } from "atomic-signal";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -169,25 +181,25 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
-  const logic2 = useLogic();
+  const logic3 = useLogic();
   return /* @__PURE__ */ h("inputBox", __spreadValues({
     className: "block"
-  }, logic2.interactive.events), /* @__PURE__ */ h("input", {
+  }, logic3.interactive.events), /* @__PURE__ */ h("input", {
     type: props.type,
     disabled: props.disabled,
     "is-container": true,
     "has-decoration": true,
-    value: logic2.value,
+    value: logic3.value,
     className: "block select-none outline-none border-0 px-2 py-1 rounded"
   }));
 };
 var designPattern = (props) => {
-  const logic2 = useLogic();
+  const logic3 = useLogic();
   const p = strokePattern(
     {
-      hover: logic2.interactive.states.hover(),
-      active: logic2.interactive.states.active(),
-      selected: logic2.interactive.states.focus(),
+      hover: logic3.interactive.states.hover(),
+      active: logic3.interactive.states.active(),
+      selected: logic3.interactive.states.focus(),
       disabled: props.disabled
     },
     {
@@ -198,6 +210,30 @@ var designPattern = (props) => {
   return p;
 };
 var styleRules = (props) => {
+};
+
+// components/select/index.tsx
+var meta;
+var logic2 = (props) => {
+  var _a;
+  const current = signal3((_a = props.value) == null ? void 0 : _a.call(props));
+  return {
+    current
+  };
+};
+var layout2 = (props) => {
+  const logic3 = useLogic2();
+  const Input = useModule(input_exports);
+  return /* @__PURE__ */ h2("selectContainer", {
+    className: "block"
+  }, /* @__PURE__ */ h2(Input, null));
+};
+var styleRules2 = (props, layout3) => {
+  return [];
+};
+var designPattern2 = (props, layout3) => {
+  const logic3 = useLogic2();
+  return {};
 };
 
 // shared/render.ts
@@ -226,36 +262,8 @@ function RenderToReact(module) {
   };
 }
 
-// components/input/demo.mdx
-import { useState } from "react";
-var Component = RenderToReactWithWrap(input_exports);
-function InputBox() {
-  const [val, setVal] = useState("v0");
-  return _jsxs("div", {
-    style: {
-      margin: "10px",
-      color: "#999"
-    },
-    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
-      value: val,
-      onInput: (v) => setVal(v)
-    })]
-  });
-}
-function InputBox2() {
-  const [val, setVal] = useState("v0");
-  return _jsxs("div", {
-    style: {
-      margin: "10px",
-      color: "#999"
-    },
-    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
-      type: "number",
-      value: val,
-      onInput: (v) => setVal(v)
-    })]
-  });
-}
+// components/select/demo.mdx
+var Component = RenderToReactWithWrap(select_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -263,16 +271,25 @@ function _createMdxContent(props) {
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
-      children: "Input \u8F93\u5165"
-    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
-      children: "\u63A5\u6536\u7528\u6237\u8F93\u5165"
-    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
-      children: "\u6570\u5B57\u6846 type=number"
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      value: "disabled"
+      children: "Select \u4E0B\u62C9\u9009\u62E9\u5668"
     }), "\n", _jsx(_components.p, {
-      children: "\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
+      children: "\u57FA\u672C\u4F7F\u7528"
+    }), "\n", _jsx(Component, {
+      value: "A",
+      options: [{
+        value: "A",
+        label: "A"
+      }, {
+        value: "B",
+        label: "B"
+      }, {
+        value: "C",
+        label: "C"
+      }]
+    }), "\n", _jsx(_components.p, {
+      children: "\u7981\u6B62\u6837\u5F0F"
+    }), "\n", _jsx(Component, {
+      disabled: true
     })]
   });
 }
@@ -285,7 +302,5 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
-  InputBox,
-  InputBox2,
   demo_default as default
 };
