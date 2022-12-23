@@ -25,6 +25,20 @@ type LogicReturn = ReturnType<typeof logic>
 export type RadioLayout = {
   type: 'radioContainer',
   children: [
+    {
+      type: 'radioBox',
+      children: [
+        {
+          type: 'input',
+        },
+        {
+          type: 'span',
+        }
+      ]
+    },
+    {
+      type: 'checkBoxLabel',
+    }
   ]
 }
 export const layout = (props: RadioProps) => {
