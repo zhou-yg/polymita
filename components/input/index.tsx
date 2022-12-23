@@ -1,14 +1,14 @@
 import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, strokePattern, useInteractive } from '../../patterns'
-import { action, after, signal } from 'atomic-signal'
+import { action, after, signal, StateSignal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 import { SignalProps } from 'tarat-renderer'
 
 export interface ButtonProps {
   disabled?: boolean
-  value: string | number
-  onInput: (v: string | number) => void
-  type: string
+  value?: string | number
+  onInput?: (v: string | number) => void
+  type?: string
 }
 
 export const config = () => ({
@@ -21,7 +21,11 @@ export const logic = (props: SignalProps<ButtonProps>) => {
   const interactive = useInteractive({
     disabled: props.disabled,
   })
-  const value = signal(props.value())
+  const value = signal(props.value?.())
+
+  after(() => {
+    props.onInput?.(value())
+  }, [value])
 
   return {
     interactive,
@@ -44,9 +48,10 @@ export const layout = (props: ButtonProps) => {
       <input
         type={props.type}
         disabled={props.disabled}
-        is-container has-decoration
+        is-container
+        has-decoration
         value={logic.value}
-        className="block select-none outline-none border-0 px-2 py-1"
+        className="block select-none outline-none border-0 px-2 py-1 rounded"
       />
     </inputBox>
   )
