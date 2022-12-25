@@ -29,6 +29,7 @@ __export(input_exports, {
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
+  meta: () => meta,
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
@@ -147,22 +148,32 @@ function strokePattern(arg, colors2) {
 }
 
 // components/input/index.tsx
-import { after, signal as signal2 } from "atomic-signal";
+import { after } from "atomic-signal";
+var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired
 };
 var config = () => ({});
 var logic = (props) => {
-  var _a;
   const interactive = useInteractive({
     disabled: props.disabled
   });
-  const value = signal2((_a = props.value) == null ? void 0 : _a.call(props));
+  const value = props.value;
   after(() => {
-    var _a2;
-    (_a2 = props.onInput) == null ? void 0 : _a2.call(props, value());
+    var _a;
+    (_a = props.onInput) == null ? void 0 : _a.call(props, value());
   }, [value]);
+  function onFocus() {
+    var _a;
+    (_a = props.onFocus) == null ? void 0 : _a.call(props);
+  }
+  function onBlur() {
+    var _a;
+    (_a = props.onBlur) == null ? void 0 : _a.call(props);
+  }
   return {
+    onFocus,
+    onBlur,
     interactive,
     value
   };
@@ -172,12 +183,16 @@ var layout = (props) => {
   return /* @__PURE__ */ h("inputBox", __spreadValues({
     className: "block"
   }, logic2.interactive.events), /* @__PURE__ */ h("input", {
-    type: props.type,
-    disabled: props.disabled,
     "is-container": true,
     "has-decoration": true,
-    value: logic2.value,
-    className: "block select-none outline-none border-0 px-2 py-1 rounded"
+    "is-text": true,
+    className: "block select-none outline-none border-0 px-2 py-1 rounded",
+    autoFocus: props.focused,
+    onFocus: logic2.onFocus,
+    onBlur: logic2.onBlur,
+    type: props.type,
+    disabled: props.disabled,
+    value: logic2.value
   }));
 };
 var designPattern = (props) => {
@@ -237,7 +252,9 @@ function InputBox() {
     },
     children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
       value: val,
-      onInput: (v) => setVal(v)
+      onInput: (v) => setVal(v),
+      onFocus: () => console.log("focus 1"),
+      onBlur: () => console.log("blur 1")
     })]
   });
 }
@@ -248,10 +265,11 @@ function InputBox2() {
       margin: "10px",
       color: "#999"
     },
-    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
+    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), " focused: true", _jsx("br", {}), _jsx(Component, {
       type: "number",
       value: val,
-      onInput: (v) => setVal(v)
+      onInput: (v) => setVal(v),
+      focused: true
     })]
   });
 }

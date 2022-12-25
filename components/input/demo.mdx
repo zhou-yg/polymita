@@ -8,7 +8,11 @@ export function InputBox () {
     <div style={{ margin: '10px', color: '#999' }}>
       当前值: {val} 
       <br/>
-      <Component value={val} onInput={v => setVal(v)} />
+      <Component
+        value={val} 
+        onInput={v => setVal(v)} 
+        onFocus={() => console.log('focus 1')} 
+        onBlur={() => console.log('blur 1')} />
     </div>
   )
 }
@@ -20,7 +24,9 @@ export function InputBox2 () {
     <div style={{ margin: '10px', color: '#999' }}>
       当前值: {val} 
       <br/>
-      <Component type="number" value={val} onInput={v => setVal(v)} />
+      focused: true
+      <br/>
+      <Component type="number" value={val} onInput={v => setVal(v)} focused />
     </div>
   )
 }

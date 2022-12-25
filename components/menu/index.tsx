@@ -1,14 +1,21 @@
 import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes } from 'tarat-renderer'
-import { after, action, signal, StateSignal } from 'atomic-signal';
+import { after, action, signal, StateSignal, Signal } from 'atomic-signal';
 import { useModule } from 'tarat-renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
 import type { MenuItemProps } from '../menu-item';
 
+export let meta: {
+  props: MenuProps,
+  layoutStruct: MenuLayout,
+  patchCommands: []
+}
+
 export type MenuProps = {
-  items: StateSignal<MenuItemProps[]>;
+  items: Signal<MenuItemProps[]>;
   onClick?: (item: MenuItemProps) => void;
 }
+export type { MenuItemProps } from'../menu-item'
 
 export const propTypes = {
   items: PropTypes.signal.isRequired,
@@ -55,7 +62,38 @@ export const logic = (props: MenuProps) => {
   }
 }
 
-
+type MenuLayout = {
+  type: 'menuBox',
+  children: [
+    {
+      type: 'ul',
+      children: [
+        {
+          type: 'menuItemBox',
+          children: [
+            {
+              type: 'div',
+              children: [
+                typeof MenuItemModule['meta']['layoutStruct']
+              ]
+            },
+            {
+              type: 'subMenuItemBox',
+              children: [
+                {
+                  type: 'subMenuItem',
+                  children: [
+                    typeof MenuItemModule['meta']['layoutStruct']
+                  ]    
+                },
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 
 export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
@@ -63,7 +101,7 @@ export const layout = (props: MenuProps) => {
 
   // console.log('MenuItemFunc: ', logic.items());
   return (
-    <menuBox className="block border-r border-slate-300">
+    <menuBox className="block border-slate-300">
       <ul className="block">
         {logic.items().map((item) => {
           const isSelected = item.selected

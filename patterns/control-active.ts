@@ -97,7 +97,7 @@ export function blockPattern(
         [colors.text[1]]: [true, '*', '*', false],
         [colors.text[2]]: ['*', true, '*', false],
         [colors.text[3]]: ['*', '*', true, false],
-        [token.colors.disables[1]]: ['*', '*', '*', true]
+        [token.colors.disables[0]]: ['*', '*', '*', true]
       }
     },
     fillText: {

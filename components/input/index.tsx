@@ -4,11 +4,20 @@ import { action, after, Signal, signal, StateSignal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 import { SignalProps } from 'tarat-renderer'
 
+export let meta: {
+  props: ButtonProps,
+  layoutStruct: InputLayout,
+  patchCommands: []
+}
+
 export interface ButtonProps {
   disabled?: boolean
-  value?:  Signal< string | number>
+  value:  Signal< string | number>
   onInput?: (v: string | number) => void
   type?: string
+  onFocus?: () => void
+  onBlur?: () => void
+  focused?: boolean
 }
 
 export const propTypes = {
@@ -25,37 +34,55 @@ export const logic = (props: ButtonProps) => {
   const interactive = useInteractive({
     disabled: props.disabled,
   })
-  const value = signal(props.value?.())
+  const value = props.value
 
   after(() => {
     props.onInput?.(value())
   }, [value])
 
+  function onFocus () {
+    props.onFocus?.()
+  }
+  function onBlur () {
+    props.onBlur?.()
+  }
+
   return {
+    onFocus,
+    onBlur,
     interactive,
     value,
   }
 }
 
+type InputLayout = {
+  type: 'inputBox',
+  children: [
+    {
+      type: 'input',
+    }
+  ]
+}
 
 // tailwindcss
 export const layout = (props: ButtonProps) => {
   const logic = useLogic<LogicReturn>()
-
-  // const v = logicResult.interactive.actionType()
-  // console.log('logicResult.interactive.actionType(): ', v, typeof v);
 
   return (
     <inputBox
       className="block"
       {...logic.interactive.events} >
       <input
-        type={props.type}
-        disabled={props.disabled}
         is-container
         has-decoration
-        value={logic.value}
+        is-text
         className="block select-none outline-none border-0 px-2 py-1 rounded"
+        autoFocus={props.focused}
+        onFocus={logic.onFocus}
+        onBlur={logic.onBlur}
+        type={props.type}
+        disabled={props.disabled}
+        value={logic.value}
       />
     </inputBox>
   )

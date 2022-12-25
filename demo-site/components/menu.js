@@ -31,6 +31,7 @@ __export(menu_exports, {
   designPattern: () => designPattern2,
   layout: () => layout2,
   logic: () => logic2,
+  meta: () => meta2,
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
@@ -135,7 +136,7 @@ function blockPattern(arg, colors2) {
         [colors2.text[1]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
-        [colors.disables[1]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
       }
     },
     fillText: {
@@ -194,6 +195,7 @@ var styleRules = (props) => {
 };
 
 // components/menu/index.tsx
+var meta2;
 var propTypes = {
   items: PropTypes.signal.isRequired
 };
@@ -228,7 +230,7 @@ var layout2 = (props) => {
   const logic3 = useLogic2();
   const MenuItemFunc = useModule(menu_item_exports);
   return /* @__PURE__ */ h2("menuBox", {
-    className: "block border-r border-slate-300"
+    className: "block border-slate-300"
   }, /* @__PURE__ */ h2("ul", {
     className: "block"
   }, logic3.items().map((item) => {

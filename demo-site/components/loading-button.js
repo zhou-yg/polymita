@@ -144,7 +144,7 @@ function blockPattern(arg, colors2) {
         [colors2.text[1]]: [true, "*", "*", false],
         [colors2.text[2]]: ["*", true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
-        [colors.disables[1]]: ["*", "*", "*", true]
+        [colors.disables[0]]: ["*", "*", "*", true]
       }
     },
     fillText: {

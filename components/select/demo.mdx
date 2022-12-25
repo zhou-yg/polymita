@@ -1,25 +1,37 @@
+import { useState } from 'react'
 import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
+export function SelectBox1 () {
+  const [val, setVal] = useState('A')
+
+  return (
+    <div style={{ margin: '10px' }}>
+      当前选择值：{val}
+      <br/>
+      <Component value={val} options={[
+        {
+          value: "A",
+          label: "A",
+        },
+        {
+          value: "B",
+          label: "B",
+        },
+        {
+          value: "C",
+          label: "C"
+        }
+      ]} /> 
+    </div>
+  )
+}
 
 # Select 下拉选择器
 
 基本使用
 
-<Component value="A" options={[
-  {
-    value: "A",
-    label: "A",
-  },
-  {
-    value: "B",
-    label: "B",
-  },
-  {
-    value: "C",
-    label: "C"
-  }
-]} > </Component>
+<SelectBox1 />
 
 禁止样式
 
