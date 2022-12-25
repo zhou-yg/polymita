@@ -58,33 +58,28 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     focus(() => false);
   };
@@ -212,7 +207,10 @@ var layout = (props) => {
   return /* @__PURE__ */ h("radioContainer", __spreadProps(__spreadValues({
     className: "relative flex items-center cursor-pointer"
   }, logic2.interactive.events), {
-    onClick: () => !props.disabled && props.onChange(!props.selected)
+    onClick: () => {
+      var _a;
+      return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
+    }
   }), /* @__PURE__ */ h("radioBox", {
     className: "relative block mr-2 rounded-full ",
     style: { width: "16px", height: "16px" },

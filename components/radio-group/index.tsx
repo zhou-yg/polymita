@@ -1,5 +1,5 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule } from 'tarat-renderer';
-import { after, signal } from 'atomic-signal'
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes } from 'tarat-renderer';
+import { Signal, after, signal } from 'atomic-signal'
 import * as RadioModule from '../radio'
 
 export let meta: {
@@ -10,13 +10,17 @@ export let meta: {
 
 export interface RadioGroupProps {
   name?: string
-  value?: any
+  value?: Signal<any>
   onChange?: (value: any) => void
   options: { label: string, value: any }[]
   children?: any
 }
 
-export const logic = (props: SignalProps<RadioGroupProps>) => {
+export const propTypes = {
+  value: PropTypes.signal.isRequired.default(signal(''))
+}
+
+export const logic = (props: RadioGroupProps) => {
   const value = signal(props.value())
 
   return {

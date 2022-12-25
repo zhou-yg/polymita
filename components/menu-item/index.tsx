@@ -8,7 +8,7 @@ export let meta: {
   patchCommands: []
 }
 
-export interface MenuItemProps {
+export type MenuItemProps = {
   children?: MenuItemProps[];
   hasItemChildren?: boolean;
   label: string;
@@ -19,7 +19,7 @@ export interface MenuItemProps {
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<MenuItemProps>) => {
+export const logic = (props: MenuItemProps) => {
   const interactive = useInteractive(props)
 
   return {

@@ -13,9 +13,9 @@ import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
 import { RenderToReact } from '../shared/render'
-import { SingleFileModule } from 'tarat-renderer'
+import { NormalizeProps, SingleFileModule } from 'tarat-renderer'
 
-const Menu = RenderToReact<MenuModule.MenuProps>({
+const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
   ...MenuModule
 } as unknown as SingleFileModule<any, any, any>)
 
@@ -42,8 +42,6 @@ const DEFAULT_TAB = 'Button'
 
 function Home() {
   const [tab, setTab] = React.useState(searchParams.get(TAB_KEY) || DEFAULT_TAB)
-
-  React.createElement
 
   useEffect(() => {
     searchParams.set(TAB_KEY, tab)

@@ -1,4 +1,4 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule } from 'tarat-renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes } from 'tarat-renderer';
 import { after, signal } from 'atomic-signal'
 import * as InputModule from '../input'
 
@@ -10,6 +10,10 @@ export let meta: {
 
 export interface SelectProps {
   value?: string | number
+}
+
+export const propTypes = {
+  value: PropTypes.signal.isRequired.default(signal(''))
 }
 
 export const logic = (props: SignalProps<SelectProps>) => {

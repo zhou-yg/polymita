@@ -10,7 +10,7 @@ export let meta: {
   patchCommands: []
 }
 
-export interface ButtonProps {
+export type ButtonProps = {
   children?: string
   type?: 'primary' | 'link' | 'text'
   onClick?: (e: any) => void
@@ -19,7 +19,7 @@ export interface ButtonProps {
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<ButtonProps>) => {
+export const logic = (props: ButtonProps) => {
   const interactive = useInteractive(props)
   
   return {
@@ -40,14 +40,6 @@ export type ButtonLayoutStruct = {
 // tailwindcss
 export const layout = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
-
-  // const v = logicResult.interactive.actionType()
-  // console.log('logicResult.interactive.actionType(): ', v, typeof v);
-
-  const div = <div>123</div>
-  type D = typeof div
-  type K = D extends LayoutStructTree ? 1 : 0
-  const k:K = 1 as const
 
   return (
     <buttonBox

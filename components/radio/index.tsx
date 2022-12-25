@@ -13,7 +13,7 @@ export interface RadioProps {
   children?: any
 }
 
-export const logic = (props: SignalProps<RadioProps>) => {
+export const logic = (props: RadioProps) => {
   const interactive = useInteractive(props)
 
   return {
@@ -47,7 +47,7 @@ export const layout = (props: RadioProps) => {
     <radioContainer
       className="relative flex items-center cursor-pointer" 
       {...logic.interactive.events}
-      onClick={() => !props.disabled && props.onChange(!props.selected)} >
+      onClick={() => !props.disabled && props.onChange?.(!props.selected)} >
       <radioBox
         className="relative block mr-2 rounded-full "
         style={{ width: '16px', height: '16px' }} 

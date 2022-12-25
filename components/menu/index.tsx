@@ -1,18 +1,22 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { after, action, signal } from 'atomic-signal';
+import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes } from 'tarat-renderer'
+import { after, action, signal, StateSignal } from 'atomic-signal';
 import { useModule } from 'tarat-renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
-import { MenuItemProps } from '../menu-item';
+import type { MenuItemProps } from '../menu-item';
 
-export interface MenuProps {
-  items: MenuItemProps[];
+export type MenuProps = {
+  items: StateSignal<MenuItemProps[]>;
   onClick?: (item: MenuItemProps) => void;
+}
+
+export const propTypes = {
+  items: PropTypes.signal.isRequired,
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<MenuProps>) => {
+export const logic = (props: MenuProps) => {
   const currentKey = signal<string>(null)
   const select = action((item: MenuItemProps) => {
     const curKey = item.key

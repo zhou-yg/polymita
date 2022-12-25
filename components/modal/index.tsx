@@ -19,7 +19,7 @@ export const config = () => ({
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<ModalProps>) => {
+export const logic = (props: ModalProps) => {
 }
 
 // tailwindcss

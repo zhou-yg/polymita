@@ -1,5 +1,5 @@
-import { h, PatternStructure, SignalProps, useLogic } from 'tarat-renderer';
-import { after, signal } from 'atomic-signal';
+import { h, PatternStructure, PropTypes, SignalProps, useLogic } from 'tarat-renderer';
+import { StateSignal, after, signal } from 'atomic-signal';
 import { blockPattern, colors, strokePattern, useInteractive } from '../../patterns';
 import CheckIcon from '../../icons/check'
 
@@ -10,16 +10,22 @@ export let meta: {
 }
 
 export interface CheckboxProps {
-  selected?: boolean
+  selected?: StateSignal<boolean>
   disabled?: boolean
   onChange?: (selected: boolean) => void
   children?: any
 }
 
+
+export const propTypes = {
+  selected: PropTypes.signal.isRequired.default(signal(false))
+}
+
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<CheckboxProps>) => {
-  const selected = signal(props.selected?.() || false)
+export const logic = (props: CheckboxProps) => {
+  const selected = props.selected
+  console.log('selected: ', selected);
   const interactive = useInteractive(props)
 
   after(() => {

@@ -29,9 +29,10 @@ __export(input_exports, {
   designPattern: () => designPattern,
   layout: () => layout,
   logic: () => logic,
+  propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { h, useLogic } from "tarat-renderer";
+import { h, PropTypes, useLogic } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -55,33 +56,28 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     focus(() => false);
   };
@@ -152,6 +148,9 @@ function strokePattern(arg, colors2) {
 
 // components/input/index.tsx
 import { after, signal as signal2 } from "atomic-signal";
+var propTypes = {
+  value: PropTypes.signal.isRequired
+};
 var config = () => ({});
 var logic = (props) => {
   var _a;

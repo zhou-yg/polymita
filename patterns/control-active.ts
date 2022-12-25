@@ -2,30 +2,30 @@ import { matchPatternMatrix } from 'tarat-renderer'
 import { action, dispose, signal } from 'atomic-signal'
 import * as token from './token'
 
-export function useInteractive(props: { disabled?: () => boolean }) {
+export function useInteractive(props: { disabled?: boolean }) {
   const hover = signal(false)
   const active = signal(false)
   const focus = signal(false)
 
   const mouseEnter = action(() => {
-    if (props.disabled?.()) return
+    if (props.disabled) return
     hover(() => true)
   })
   const mouseLeave = action(() => {
-    if (props.disabled?.()) return
+    if (props.disabled) return
     hover(() => false)
   })
   const mouseDown = action(() => {
-    if (props.disabled?.()) return
+    if (props.disabled) return
     active(() => true)
   })
   const mouseUp = action(() => {
-    if (props.disabled?.()) return
+    if (props.disabled) return
     active(() => false)
     focus(() => true)
   })
   const focusIn = () => {
-    if (props.disabled?.()) return
+    if (props.disabled) return
     focus(() => false)
   }
   document.addEventListener('mouseup', focusIn, true)

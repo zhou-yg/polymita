@@ -1,14 +1,18 @@
-import { h, PatternStructure, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { h, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, strokePattern, useInteractive } from '../../patterns'
-import { action, after, signal, StateSignal } from 'atomic-signal'
+import { action, after, Signal, signal, StateSignal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 import { SignalProps } from 'tarat-renderer'
 
 export interface ButtonProps {
   disabled?: boolean
-  value?: string | number
+  value?:  Signal< string | number>
   onInput?: (v: string | number) => void
   type?: string
+}
+
+export const propTypes = {
+  value: PropTypes.signal.isRequired
 }
 
 export const config = () => ({
@@ -17,7 +21,7 @@ export const config = () => ({
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: SignalProps<ButtonProps>) => {
+export const logic = (props: ButtonProps) => {
   const interactive = useInteractive({
     disabled: props.disabled,
   })

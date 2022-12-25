@@ -139,33 +139,28 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     focus(() => false);
   };
@@ -323,8 +318,6 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  const div = /* @__PURE__ */ h2("div", null, "123");
-  const k = 1;
   return /* @__PURE__ */ h2("buttonBox", __spreadProps(__spreadValues({
     className: "inline-block px-2 py-1 rounded hover:cursor-pointer"
   }, logicResult.interactive.events), {

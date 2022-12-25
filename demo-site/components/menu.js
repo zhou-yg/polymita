@@ -31,9 +31,10 @@ __export(menu_exports, {
   designPattern: () => designPattern2,
   layout: () => layout2,
   logic: () => logic2,
+  propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
+import { h as h2, useLogic as useLogic2, PropTypes } from "tarat-renderer";
 import { after, action as action2, signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
 
@@ -59,33 +60,28 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     focus(() => false);
   };
@@ -198,6 +194,9 @@ var styleRules = (props) => {
 };
 
 // components/menu/index.tsx
+var propTypes = {
+  items: PropTypes.signal.isRequired
+};
 var logic2 = (props) => {
   const currentKey = signal2(null);
   const select = action2((item) => {

@@ -32,9 +32,10 @@ __export(radio_group_exports, {
   layout: () => layout2,
   logic: () => logic2,
   meta: () => meta2,
+  propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, useModule } from "tarat-renderer";
+import { h as h2, useLogic as useLogic2, useModule, PropTypes } from "tarat-renderer";
 import { signal as signal2 } from "atomic-signal";
 
 // components/radio/index.tsx
@@ -70,33 +71,28 @@ function useInteractive(props) {
   const active = signal(false);
   const focus = signal(false);
   const mouseEnter = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => true);
   });
   const mouseLeave = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     hover(() => false);
   });
   const mouseDown = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => true);
   });
   const mouseUp = action(() => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     active(() => false);
     focus(() => true);
   });
   const focusIn = () => {
-    var _a;
-    if ((_a = props.disabled) == null ? void 0 : _a.call(props))
+    if (props.disabled)
       return;
     focus(() => false);
   };
@@ -224,7 +220,10 @@ var layout = (props) => {
   return /* @__PURE__ */ h("radioContainer", __spreadProps(__spreadValues({
     className: "relative flex items-center cursor-pointer"
   }, logic3.interactive.events), {
-    onClick: () => !props.disabled && props.onChange(!props.selected)
+    onClick: () => {
+      var _a;
+      return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
+    }
   }), /* @__PURE__ */ h("radioBox", {
     className: "relative block mr-2 rounded-full ",
     style: { width: "16px", height: "16px" },
@@ -280,6 +279,9 @@ var designPattern = (props, layout3) => {
 
 // components/radio-group/index.tsx
 var meta2;
+var propTypes = {
+  value: PropTypes.signal.isRequired.default(signal2(""))
+};
 var logic2 = (props) => {
   const value = signal2(props.value());
   return {
