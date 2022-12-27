@@ -31,13 +31,14 @@ export const logic = (props: SelectProps) => {
     }
   }))
 
-  const selectItem = (function (item: MenuModule.MenuItemProps) {
+  const selectItem = action(function (item: MenuModule.MenuItemProps) {
     console.log('item: ', item);
     // setTimeout(() => {
     //   current(() => item.key)
     //   focused(() => false)
     //   props.onChange?.(item.key)
     // })
+
     current(() => item.key)
     focused(() => false)
     props.onChange?.(item.key)

@@ -29,7 +29,7 @@ import { useState } from "react";
 // components/select/index.tsx
 var select_exports = {};
 __export(select_exports, {
-  designPattern: () => designPattern4,
+  designPattern: () => designPattern3,
   layout: () => layout4,
   logic: () => logic4,
   meta: () => meta4,
@@ -37,7 +37,7 @@ __export(select_exports, {
   styleRules: () => styleRules4
 });
 import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3, useComponentModule } from "tarat-renderer";
-import { after as after3, signal as signal4 } from "atomic-signal";
+import { action as action4, after as after3, signal as signal4 } from "atomic-signal";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -209,6 +209,47 @@ function strokePattern(arg, colors2) {
     }
   });
 }
+function blockPatternMatrix(colors2) {
+  return {
+    container: {
+      backgroundColor: {
+        [colors2.bg[0]]: [],
+        [colors2.bg[1]]: [true, "*", false, false],
+        [colors2.bg[2]]: ["*", true, "*", false],
+        [colors2.bg[3]]: ["*", "*", true, false],
+        [colors.disables[0]]: ["*", "*", "*", true]
+      },
+      cursor: {
+        pointer: [],
+        "not-allowed": ["*", "*", "*", true]
+      },
+      userSelect: {
+        none: []
+      },
+      border: {
+        [`solid 1px ${colors.disables[0]}`]: ["*", "*", "*", true]
+      }
+    },
+    text: {
+      color: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[0]]: ["*", "*", "*", true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[1]]: ["*", "*", "*", true]
+      }
+    }
+  };
+}
 
 // components/input/index.tsx
 import { after } from "atomic-signal";
@@ -280,7 +321,7 @@ var styleRules = (props) => {
 // components/menu/index.tsx
 var menu_exports = {};
 __export(menu_exports, {
-  designPattern: () => designPattern3,
+  designPattern: () => designPattern2,
   layout: () => layout3,
   logic: () => logic3,
   meta: () => meta3,
@@ -294,13 +335,13 @@ import { useModule } from "tarat-renderer";
 // components/menu-item/index.tsx
 var menu_item_exports = {};
 __export(menu_item_exports, {
-  designPattern: () => designPattern2,
+  designPatterns: () => designPatterns,
   layout: () => layout2,
   logic: () => logic2,
   meta: () => meta2,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2 } from "tarat-renderer";
+import { ACTIVE, h as h2, HOVER, useLogic as useLogic2 } from "tarat-renderer";
 var meta2;
 var logic2 = (props) => {
   const interactive = useInteractive(props);
@@ -310,14 +351,18 @@ var logic2 = (props) => {
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
-  return /* @__PURE__ */ h2("menuItem", __spreadValues({
+  return /* @__PURE__ */ h2("menuItem", {
     "is-container": true,
+    selected: props.selected,
+    disabled: props.disabled,
     className: "block p-2 px-3 rounded-lg"
-  }, logic5.interactive.events), /* @__PURE__ */ h2("span", {
-    "is-text": true
+  }, /* @__PURE__ */ h2("span", {
+    "is-text": true,
+    selected: props.selected,
+    disabled: props.disabled
   }, props.label));
 };
-var designPattern2 = (props) => {
+var designPatterns = (props) => {
   const logic5 = useLogic2();
   const pattern = blockPattern({
     hover: logic5.interactive.states.hover(),
@@ -328,7 +373,13 @@ var designPattern2 = (props) => {
     bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
     text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
   });
-  return pattern;
+  return [
+    [HOVER, ACTIVE, "selected", "disabled"],
+    blockPatternMatrix({
+      bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
+      text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
+    })
+  ];
 };
 var styleRules2 = (props) => {
   return [];
@@ -418,7 +469,7 @@ var layout3 = (props) => {
     })));
   })));
 };
-var designPattern3 = (props) => {
+var designPattern2 = (props) => {
   const pattern = blockPattern;
 };
 var styleRules3 = (props) => {
@@ -440,13 +491,13 @@ var logic4 = (props) => {
       selected: current() === option.value
     };
   }));
-  const selectItem = function(item) {
+  const selectItem = action4(function(item) {
     var _a;
     console.log("item: ", item);
     current(() => item.key);
     focused(() => false);
     (_a = props.onChange) == null ? void 0 : _a.call(props, item.key);
-  };
+  });
   after3(() => {
     console.log("current 4: ", current());
   }, [current]);
@@ -485,7 +536,7 @@ var layout4 = (props) => {
 var styleRules4 = (props, layout5) => {
   return [];
 };
-var designPattern4 = (props, layout5) => {
+var designPattern3 = (props, layout5) => {
   const logic5 = useLogic4();
   return {};
 };
@@ -520,6 +571,7 @@ function RenderToReact(module) {
 var Component = RenderToReactWithWrap(select_exports);
 function SelectBox1() {
   const [val, setVal] = useState("A");
+  console.log("3333");
   return _jsxs("div", {
     style: {
       margin: "10px"
@@ -553,7 +605,8 @@ function _createMdxContent(props) {
     }), "\n", _jsx(SelectBox1, {}), "\n", _jsx(_components.p, {
       children: "\u7981\u6B62\u6837\u5F0F"
     }), "\n", _jsx(Component, {
-      disabled: true
+      disabled: true,
+      value: "Disable Select"
     })]
   });
 }

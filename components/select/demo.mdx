@@ -4,7 +4,7 @@ import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
 export function SelectBox1 () {
   const [val, setVal] = useState('A')
-
+  console.log('3333')
   return (
     <div style={{ margin: '10px' }}>
       当前选择值：{val}
@@ -38,4 +38,4 @@ export function SelectBox1 () {
 
 禁止样式
 
-<Component disabled > </Component>
+<Component disabled value="Disable Select"  > </Component>

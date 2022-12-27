@@ -28,7 +28,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/menu/index.tsx
 var menu_exports = {};
 __export(menu_exports, {
-  designPattern: () => designPattern2,
+  designPattern: () => designPattern,
   layout: () => layout2,
   logic: () => logic2,
   meta: () => meta2,
@@ -150,17 +150,58 @@ function blockPattern(arg, colors2) {
     }
   });
 }
+function blockPatternMatrix(colors2) {
+  return {
+    container: {
+      backgroundColor: {
+        [colors2.bg[0]]: [],
+        [colors2.bg[1]]: [true, "*", false, false],
+        [colors2.bg[2]]: ["*", true, "*", false],
+        [colors2.bg[3]]: ["*", "*", true, false],
+        [colors.disables[0]]: ["*", "*", "*", true]
+      },
+      cursor: {
+        pointer: [],
+        "not-allowed": ["*", "*", "*", true]
+      },
+      userSelect: {
+        none: []
+      },
+      border: {
+        [`solid 1px ${colors.disables[0]}`]: ["*", "*", "*", true]
+      }
+    },
+    text: {
+      color: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[0]]: ["*", "*", "*", true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
+        [colors2.text[0]]: [],
+        [colors2.text[1]]: [true, "*", "*", false],
+        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[3]]: ["*", "*", true, false],
+        [colors.disables[1]]: ["*", "*", "*", true]
+      }
+    }
+  };
+}
 
 // components/menu-item/index.tsx
 var menu_item_exports = {};
 __export(menu_item_exports, {
-  designPattern: () => designPattern,
+  designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h, useLogic } from "tarat-renderer";
+import { ACTIVE, h, HOVER, useLogic } from "tarat-renderer";
 var meta;
 var logic = (props) => {
   const interactive = useInteractive(props);
@@ -170,14 +211,18 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ h("menuItem", __spreadValues({
+  return /* @__PURE__ */ h("menuItem", {
     "is-container": true,
+    selected: props.selected,
+    disabled: props.disabled,
     className: "block p-2 px-3 rounded-lg"
-  }, logic3.interactive.events), /* @__PURE__ */ h("span", {
-    "is-text": true
+  }, /* @__PURE__ */ h("span", {
+    "is-text": true,
+    selected: props.selected,
+    disabled: props.disabled
   }, props.label));
 };
-var designPattern = (props) => {
+var designPatterns = (props) => {
   const logic3 = useLogic();
   const pattern = blockPattern({
     hover: logic3.interactive.states.hover(),
@@ -188,7 +233,13 @@ var designPattern = (props) => {
     bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
     text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
   });
-  return pattern;
+  return [
+    [HOVER, ACTIVE, "selected", "disabled"],
+    blockPatternMatrix({
+      bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
+      text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
+    })
+  ];
 };
 var styleRules = (props) => {
   return [];
@@ -278,7 +329,7 @@ var layout2 = (props) => {
     })));
   })));
 };
-var designPattern2 = (props) => {
+var designPattern = (props) => {
   const pattern = blockPattern;
 };
 var styleRules2 = (props) => {

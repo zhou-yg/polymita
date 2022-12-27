@@ -273,7 +273,7 @@ export function blockPatternMatrix (
     container: {
       backgroundColor: {
         [colors.bg[0]]: [],
-        [colors.bg[1]]: [true, '*', '*', false],
+        [colors.bg[1]]: [true, '*', false, false],
         [colors.bg[2]]: ['*', true, '*', false],
         [colors.bg[3]]: ['*', '*', true, false],
         [token.colors.disables[0]]: ['*', '*', '*', true]

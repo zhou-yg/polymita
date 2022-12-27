@@ -88,7 +88,7 @@ function blockPatternMatrix(colors2) {
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, "*", "*", false],
+        [colors2.bg[1]]: [true, "*", false, false],
         [colors2.bg[2]]: ["*", true, "*", false],
         [colors2.bg[3]]: ["*", "*", true, false],
         [colors.disables[0]]: ["*", "*", "*", true]
