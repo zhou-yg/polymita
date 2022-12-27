@@ -9,20 +9,23 @@ export function SelectBox1 () {
     <div style={{ margin: '10px' }}>
       当前选择值：{val}
       <br/>
-      <Component value={val} options={[
-        {
-          value: "A",
-          label: "A",
-        },
-        {
-          value: "B",
-          label: "B",
-        },
-        {
-          value: "C",
-          label: "C"
-        }
-      ]} /> 
+      <Component 
+        value={val} 
+        onChange={v => setVal(v)}
+        options={[
+          {
+            value: "A",
+            label: "A",
+          },
+          {
+            value: "B",
+            label: "B",
+          },
+          {
+            value: "C",
+            label: "C"
+          }
+        ]} /> 
     </div>
   )
 }

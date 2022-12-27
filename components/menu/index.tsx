@@ -99,10 +99,9 @@ export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule(MenuItemModule)
 
-  // console.log('MenuItemFunc: ', logic.items());
   return (
     <menuBox className="block border-slate-300">
-      <ul className="block">
+      <ul className="block" onClick={e => console.log(e)}>
         {logic.items().map((item) => {
           const isSelected = item.selected
           let element = MenuItemFunc({
@@ -123,7 +122,9 @@ export const layout = (props: MenuProps) => {
 
           return (
             <menuItemBox data-name="menu-item-box" key={item.key}>
-              <div className="p-1" onClick={() => logic.select(item)} >
+              <div className="p-1" onMouseDown={() => {
+                logic.select(item)
+              }} >
                 {element as any}
               </div>
               {item.children && (

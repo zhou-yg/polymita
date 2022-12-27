@@ -37,7 +37,7 @@ __export(select_exports, {
   styleRules: () => styleRules4
 });
 import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3, useComponentModule } from "tarat-renderer";
-import { signal as signal4 } from "atomic-signal";
+import { after as after3, signal as signal4 } from "atomic-signal";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -372,7 +372,8 @@ var layout3 = (props) => {
   return /* @__PURE__ */ h3("menuBox", {
     className: "block border-slate-300"
   }, /* @__PURE__ */ h3("ul", {
-    className: "block"
+    className: "block",
+    onClick: (e) => console.log(e)
   }, logic5.items().map((item) => {
     const isSelected = item.selected;
     let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
@@ -399,7 +400,9 @@ var layout3 = (props) => {
       key: item.key
     }, /* @__PURE__ */ h3("div", {
       className: "p-1",
-      onClick: () => logic5.select(item)
+      onMouseDown: () => {
+        logic5.select(item);
+      }
     }, element), item.children && /* @__PURE__ */ h3("subMenuItemBox", {
       className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
@@ -428,7 +431,7 @@ var propTypes3 = {
   value: PropTypes3.signal.isRequired.default(signal4(""))
 };
 var logic4 = (props) => {
-  const current = props.value;
+  const current = signal4(props.value());
   const focused = signal4(false);
   const optionItems = signal4((props.options || []).map((option) => {
     return {
@@ -437,10 +440,16 @@ var logic4 = (props) => {
       selected: current() === option.value
     };
   }));
-  function selectItem(item) {
-    current(item.key);
-    focused(false);
-  }
+  const selectItem = function(item) {
+    var _a;
+    console.log("item: ", item);
+    current(() => item.key);
+    focused(() => false);
+    (_a = props.onChange) == null ? void 0 : _a.call(props, item.key);
+  };
+  after3(() => {
+    console.log("current 4: ", current());
+  }, [current]);
   return {
     optionItems,
     current,
@@ -457,12 +466,14 @@ var layout4 = (props) => {
   } = useLogic4();
   const Input = useModule2(input_exports);
   const Menu = useComponentModule(menu_exports);
+  console.log("current 3:", current());
+  console.log("focused:", focused());
   return /* @__PURE__ */ h4("selectContainer", {
     className: "block relative rounded"
   }, /* @__PURE__ */ h4(Input, {
+    disabled: props.disabled,
     value: current,
-    onFocus: () => focused(true),
-    onBlur: () => focused(false)
+    onFocus: () => focused(true)
   }), optionItems().length > 0 && focused() ? /* @__PURE__ */ h4("optionList", {
     className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
     style: { top: "40px" }
@@ -483,8 +494,8 @@ var designPattern4 = (props, layout5) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
-  const render = RenderToReact(module);
   return (p) => {
+    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
@@ -515,6 +526,7 @@ function SelectBox1() {
     },
     children: [" \u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
       value: val,
+      onChange: (v) => setVal(v),
       options: [{
         value: "A",
         label: "A"

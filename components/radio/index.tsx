@@ -1,6 +1,6 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure } from 'tarat-renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER } from 'tarat-renderer';
 import { after, signal } from 'atomic-signal'
-import { blockPattern, colors, strokePattern, useInteractive } from '../../patterns';
+import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 export let meta: {
   props: RadioProps,
   layoutStruct: RadioLayout
@@ -46,16 +46,21 @@ export const layout = (props: RadioProps) => {
   return (
     <radioContainer
       className="relative flex items-center cursor-pointer" 
-      {...logic.interactive.events}
       onClick={() => !props.disabled && props.onChange?.(!props.selected)} >
       <radioBox
         className="relative block mr-2 rounded-full "
         style={{ width: '16px', height: '16px' }} 
         is-container
-        has-decoration >
+        has-decoration
+        selected={props.selected}
+        disabled={props.disabled} >
         <input type="checkbox" readOnly checked={props.selected} className="opacity-0 absolute w-full h-full" />
         <span className="relative z-10 w-full h-full flex items-center justify-center" >
-          {props.selected ? <circle is-fillText className="block rounded-full" style={{ width: '6px', height: '6px' }} /> : ''}
+          {props.selected
+            ? <circle is-fillText selected={props.selected}
+            disabled={props.disabled} className="block rounded-full" style={{ width: '6px', height: '6px' }} /> 
+            : ''
+          }
         </span>
       </radioBox>
       <checkBoxLabel className="select-none">
@@ -70,33 +75,30 @@ export const styleRules = (props: RadioProps, layout: ConvertToLayoutTreeDraft<R
   ]
 }
 
-export const designPattern = (props: RadioProps, layout: ConvertToLayoutTreeDraft<RadioLayout>) => {
+export const designPatterns = (props: RadioProps) => {
   const logicResult = useLogic<LogicReturn>()
-  let pattern: PatternStructure;
 
-  const states = {
-    hover: logicResult.interactive.states.hover(),
-    active: logicResult.interactive.states.active(),
-    disabled: props.disabled,
-    selected: props.selected
-  }
+  const arr = [HOVER, ACTIVE, 'selected', 'disabled']
+  
+  if (props.selected) {
 
-  if (states.selected) {
-    pattern = blockPattern(states,
-      {
-        bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
-        text: [colors.light, colors.light, colors.light, colors.light],
-      }
-    )
+    return [
+      arr,
+      blockPatternMatrix(
+        {
+          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
+          text: [colors.light, colors.light, colors.light, colors.light],
+        }  
+      )
+    ];
   } else {
-    pattern = strokePattern(states,
-      {
+    return [
+      arr,
+      strokePatternMatrix({
         bdw: 1,
         border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
         text: [colors.text, colors.primaries[1], colors.primaries[2]],
-      },
-    )
+      }),
+    ]
   }
-
-  return {...pattern}
 }

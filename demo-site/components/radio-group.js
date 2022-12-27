@@ -1,22 +1,4 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b ||= {})
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -28,7 +10,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/radio-group/index.tsx
 var radio_group_exports = {};
 __export(radio_group_exports, {
-  designPattern: () => designPattern2,
+  designPattern: () => designPattern,
   layout: () => layout2,
   logic: () => logic2,
   meta: () => meta2,
@@ -41,13 +23,13 @@ import { signal as signal2 } from "atomic-signal";
 // components/radio/index.tsx
 var radio_exports = {};
 __export(radio_exports, {
-  designPattern: () => designPattern,
+  designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h, useLogic } from "tarat-renderer";
+import { h, useLogic, ACTIVE, HOVER } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -114,13 +96,8 @@ function useInteractive(props) {
     }
   };
 }
-function blockPattern(arg, colors2) {
-  return matchPatternMatrix([
-    !!arg.hover,
-    !!arg.active,
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+function blockPatternMatrix(colors2) {
+  return {
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],
@@ -158,16 +135,11 @@ function blockPattern(arg, colors2) {
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
-  });
+  };
 }
-function strokePattern(arg, colors2) {
+function strokePatternMatrix(colors2) {
   var _a, _b, _c;
-  return matchPatternMatrix([
-    !!arg.hover,
-    !!arg.active,
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+  return {
     container: {
       backgroundColor: {
         [colors.disables[0]]: ["*", "*", "*", true]
@@ -204,7 +176,7 @@ function strokePattern(arg, colors2) {
         [colors.disables[0]]: ["*", "*", "*", true]
       }
     }
-  });
+  };
 }
 
 // components/radio/index.tsx
@@ -217,18 +189,19 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ h("radioContainer", __spreadProps(__spreadValues({
-    className: "relative flex items-center cursor-pointer"
-  }, logic3.interactive.events), {
+  return /* @__PURE__ */ h("radioContainer", {
+    className: "relative flex items-center cursor-pointer",
     onClick: () => {
       var _a;
       return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
     }
-  }), /* @__PURE__ */ h("radioBox", {
+  }, /* @__PURE__ */ h("radioBox", {
     className: "relative block mr-2 rounded-full ",
     style: { width: "16px", height: "16px" },
     "is-container": true,
-    "has-decoration": true
+    "has-decoration": true,
+    selected: props.selected,
+    disabled: props.disabled
   }, /* @__PURE__ */ h("input", {
     type: "checkbox",
     readOnly: true,
@@ -238,6 +211,8 @@ var layout = (props) => {
     className: "relative z-10 w-full h-full flex items-center justify-center"
   }, props.selected ? /* @__PURE__ */ h("circle", {
     "is-fillText": true,
+    selected: props.selected,
+    disabled: props.disabled,
     className: "block rounded-full",
     style: { width: "6px", height: "6px" }
   }) : "")), /* @__PURE__ */ h("checkBoxLabel", {
@@ -247,34 +222,29 @@ var layout = (props) => {
 var styleRules = (props, layout3) => {
   return [];
 };
-var designPattern = (props, layout3) => {
+var designPatterns = (props) => {
   const logicResult = useLogic();
-  let pattern;
-  const states = {
-    hover: logicResult.interactive.states.hover(),
-    active: logicResult.interactive.states.active(),
-    disabled: props.disabled,
-    selected: props.selected
-  };
-  if (states.selected) {
-    pattern = blockPattern(
-      states,
-      {
-        bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
-        text: [colors.light, colors.light, colors.light, colors.light]
-      }
-    );
+  const arr = [HOVER, ACTIVE, "selected", "disabled"];
+  if (props.selected) {
+    return [
+      arr,
+      blockPatternMatrix(
+        {
+          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
+          text: [colors.light, colors.light, colors.light, colors.light]
+        }
+      )
+    ];
   } else {
-    pattern = strokePattern(
-      states,
-      {
+    return [
+      arr,
+      strokePatternMatrix({
         bdw: 1,
         border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
         text: [colors.text, colors.primaries[1], colors.primaries[2]]
-      }
-    );
+      })
+    ];
   }
-  return __spreadValues({}, pattern);
 };
 
 // components/radio-group/index.tsx
@@ -305,7 +275,7 @@ var layout2 = (props) => {
 var styleRules2 = (props, layout3) => {
   return [];
 };
-var designPattern2 = (props, layout3) => {
+var designPattern = (props, layout3) => {
   const logic3 = useLogic2();
   return {};
 };
@@ -314,8 +284,8 @@ var designPattern2 = (props, layout3) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
-  const render = RenderToReact(module);
   return (p) => {
+    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

@@ -232,7 +232,8 @@ var layout2 = (props) => {
   return /* @__PURE__ */ h2("menuBox", {
     className: "block border-slate-300"
   }, /* @__PURE__ */ h2("ul", {
-    className: "block"
+    className: "block",
+    onClick: (e) => console.log(e)
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
     let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
@@ -259,7 +260,9 @@ var layout2 = (props) => {
       key: item.key
     }, /* @__PURE__ */ h2("div", {
       className: "p-1",
-      onClick: () => logic3.select(item)
+      onMouseDown: () => {
+        logic3.select(item);
+      }
     }, element), item.children && /* @__PURE__ */ h2("subMenuItemBox", {
       className: "block p-1 bg-slate-200"
     }, item.children.map((subItem) => {
@@ -286,8 +289,8 @@ var styleRules2 = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
-  const render = RenderToReact(module);
   return (p) => {
+    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

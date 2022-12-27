@@ -1,6 +1,6 @@
-import { h, PatternStructure, PropTypes, SignalProps, useLogic } from 'tarat-renderer';
+import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic } from 'tarat-renderer';
 import { StateSignal, after, signal } from 'atomic-signal';
-import { blockPattern, colors, strokePattern, useInteractive } from '../../patterns';
+import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 import CheckIcon from '../../icons/check'
 
 export let meta: {
@@ -18,14 +18,14 @@ export interface CheckboxProps {
 
 
 export const propTypes = {
-  selected: PropTypes.signal.isRequired.default(signal(false))
+  selected: PropTypes.signal.isRequired.default(() => signal(false))
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: CheckboxProps) => {
   const selected = props.selected
-  console.log('selected: ', selected);
+
   const interactive = useInteractive(props)
 
   after(() => {
@@ -69,16 +69,19 @@ export const layout = (props: CheckboxProps) => {
 
   return (
     <checkBoxContainer
-      className="relative flex items-center cursor-pointer" 
-      {...logic.interactive.events}
+      className="relative flex items-center" 
       onClick={logic.toggle} >
        <checkBox
           className="relative block mr-2 rounded "
           style={{ width: '16px', height: '16px' }} 
           is-container
-          has-decoration >
+          has-decoration 
+          selected={logic.selected()}
+          disabled={props.disabled} >
         <input type="checkbox" readOnly checked={logic.selected()} className="opacity-0 absolute w-full h-full" />
-        <span is-text className="relative z-10 w-full h-full flex items-center justify-center" >
+        <span
+          is-text selected={logic.selected()} disabled={props.disabled}
+          className="relative z-10 w-full h-full flex items-center justify-center" >
           {logic.selected() ? <CheckIcon size={12} /> : ''}
         </span>
        </checkBox>
@@ -89,33 +92,30 @@ export const layout = (props: CheckboxProps) => {
   )
 }
 
-export const designPattern = (props: CheckboxProps) => {
+export const designPatterns = (props: CheckboxProps) => {
   const logicResult = useLogic<LogicReturn>()
-  let pattern: PatternStructure;
 
-  const states = {
-    hover: logicResult.interactive.states.hover(),
-    active: logicResult.interactive.states.active(),
-    disabled: !!props.disabled,
-    selected: logicResult.selected()
-  }
+  const arr = [HOVER, ACTIVE, 'selected', 'disabled']
+  
+  if (logicResult.selected()) {
 
-  if (states.selected) {
-    pattern = blockPattern(states,
-      {
-        bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
-        text: [colors.light, colors.light, colors.light, colors.light],
-      }
-    )
+    return [
+      arr,
+      blockPatternMatrix(
+        {
+          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
+          text: [colors.light, colors.light, colors.light, colors.light],
+        }  
+      )
+    ];
   } else {
-    pattern = strokePattern(states,
-      {
+    return [
+      arr,
+      strokePatternMatrix({
         bdw: 1,
         border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
         text: [colors.text, colors.primaries[1], colors.primaries[2]],
-      },
-    )
+      }),
+    ]
   }
-
-  return {...pattern}
 }

@@ -1,5 +1,5 @@
 import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule } from 'tarat-renderer';
-import { Signal, after, signal } from 'atomic-signal'
+import { Signal, action, after, signal } from 'atomic-signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
 
@@ -12,6 +12,8 @@ export let meta: {
 export interface SelectProps {
   value?: Signal<string | number>
   options: { label: string, value: any }[]
+  disabled?: boolean
+  onChange?: (value: string | number) => void
 }
 
 export const propTypes = {
@@ -19,7 +21,7 @@ export const propTypes = {
 }
 
 export const logic = (props: SelectProps) => {
-  const current = props.value
+  const current = signal(props.value())
   const focused = signal(false)
   const optionItems = signal((props.options || []).map((option) => {
     return {
@@ -29,10 +31,21 @@ export const logic = (props: SelectProps) => {
     }
   }))
 
-  function selectItem (item: MenuModule.MenuItemProps) {
-    current(item.key)
-    focused(false)
-  }
+  const selectItem = (function (item: MenuModule.MenuItemProps) {
+    console.log('item: ', item);
+    // setTimeout(() => {
+    //   current(() => item.key)
+    //   focused(() => false)
+    //   props.onChange?.(item.key)
+    // })
+    current(() => item.key)
+    focused(() => false)
+    props.onChange?.(item.key)
+  })
+
+  after(() => {
+    console.log('current 4: ', current());
+  }, [current])
 
   return {
     optionItems,
@@ -60,10 +73,18 @@ export const layout = (props: SelectProps) => {
 
   const Menu = useComponentModule(MenuModule)
 
+  console.log('current 3:', current())
+  console.log('focused:', focused())
+
   return (
     <selectContainer
       className="block relative rounded">
-      <Input value={current} onFocus={() => focused(true)} onBlur={() => focused(false)} />
+      <Input 
+        disabled={props.disabled}
+        value={current} 
+        onFocus={() => focused(true)}
+        // onBlur={() => focused(false)} 
+      />
       {optionItems().length > 0 && focused() ? (
         <optionList className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
           <Menu items={optionItems} onClick={selectItem} />

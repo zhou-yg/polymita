@@ -4,9 +4,9 @@ import React from 'react'
 export function RenderToReactWithWrap<T = any>(
   module: SingleFileModule<any, any, any>
 ) {
-  const render = RenderToReact(module)
-
+  
   return (p: T) => {
+    const render = RenderToReact(module)
     return React.createElement(
       'div',
       { style: { margin: '20px', display: 'inline-block' } },

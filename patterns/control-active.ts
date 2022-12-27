@@ -54,6 +54,7 @@ type ActiveColor = string
 type SelectedColor = string
 type DisabledColor = string
 
+
 export function blockPattern(
   arg: {
     hover: boolean // '' | 'hover' | 'press' | 'focus' | 'active',
@@ -259,4 +260,100 @@ export function strokePattern2(
       }
     }
   })
+}
+
+
+export function blockPatternMatrix (
+  colors: {
+    bg: [NormalColor, HoverColor, ActiveColor?, SelectedColor?]
+    text: [NormalColor, HoverColor?, ActiveColor?, SelectedColor?]
+  }
+) {
+  return {
+    container: {
+      backgroundColor: {
+        [colors.bg[0]]: [],
+        [colors.bg[1]]: [true, '*', '*', false],
+        [colors.bg[2]]: ['*', true, '*', false],
+        [colors.bg[3]]: ['*', '*', true, false],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
+      },
+      cursor: {
+        pointer: [],
+        'not-allowed': ['*', '*', '*', true]
+      },
+      userSelect: {
+        none: []
+      },
+      border: {
+        [`solid 1px ${token.colors.disables[0]}`]: ['*', '*', '*', true]
+      }
+    },
+    text: {
+      color: {
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, '*', '*', false],
+        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text[3]]: ['*', '*', true, false],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
+      }
+    },
+    fillText: {
+      backgroundColor: {
+        [colors.text[0]]: [],
+        [colors.text[1]]: [true, '*', '*', false],
+        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text[3]]: ['*', '*', true, false],
+        [token.colors.disables[1]]: ['*', '*', '*', true]
+      }
+    },
+  }
+}
+export function strokePatternMatrix (
+  colors: {
+    bdw?: number
+    border: [NormalColor, HoverColor, ActiveColor?]
+    text?: [NormalColor, HoverColor, ActiveColor?]
+  }
+) {
+  return {
+    container: {
+      backgroundColor: {
+        [token.colors.disables[0]]: ['*', '*', '*', true]
+      },
+      cursor: {
+        'not-allowed': ['*', '*', '*', true]
+      }
+    },
+    decoration: {
+      borderStyle: {
+        solid: []
+      },
+      borderWidth: {
+        /** @TODO maybe have a better solution */
+        [`1px`]: [
+          [],
+          ['*', '*', '*', true]
+        ],
+        // '1px': ['*', '*', '*', true]
+      },
+      borderColor: {
+        [colors.border[0]]: [],
+        [colors.border[1]]: [
+          [true, '*', '*', false],
+          ['*', '*', true, false]
+        ],
+        [colors.border[2]]: ['*', true, '*', false],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
+      }
+    },
+    text: {
+      color: {
+        [colors.text?.[0]]: [],
+        [colors.text?.[1]]: [true, '*', '*', false],
+        [colors.text?.[2]]: ['*', true, '*', false],
+        [token.colors.disables[0]]: ['*', '*', '*', true]
+      }
+    }
+  }
 }
