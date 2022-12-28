@@ -12,38 +12,25 @@ export let meta: {
 }
 
 export type MenuProps = {
+  current?: Signal<MenuItemProps['key']>
   items: Signal<MenuItemProps[]>;
   onClick?: (item: MenuItemProps) => void;
 }
 export type { MenuItemProps } from'../menu-item'
 
 export const propTypes = {
+  current: PropTypes.signal.isRequired.default(() => signal('')),
   items: PropTypes.signal.isRequired,
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: MenuProps) => {
-  const currentKey = signal<string>(null)
-  const select = action((item: MenuItemProps) => {
+  const currentKey = props.current
+  const select = ((item: MenuItemProps) => {
     const curKey = item.key
     currentKey(() => curKey)
-    // items(draft => {
-    //   draft.forEach(di => {
-    //     di.selected = di.key === curKey
-    //     di.children?.forEach(dci => {
-    //       dci.selected = dci.key === curKey
-    //     })
-    //   })
-    // })
-    props.onClick?.(item)
-  })
-
-  const items = props.items
-
-  after(() => {
-    const curKey = currentKey()
-
+    /** @TODO items是外部传入的，不是这个logic.scope，所以在action里面修改后产生的patches在commit时会丢失 */
     items(draft => {
       draft.forEach(di => {
         di.selected = di.key === curKey
@@ -52,8 +39,24 @@ export const logic = (props: MenuProps) => {
         })
       })
     })
+    props.onClick?.(item)
+  })
+
+  const items = props.items
+
+  // after(() => {
+  //   const curKey = currentKey()
+
+  //   items(draft => {
+  //     draft.forEach(di => {
+  //       di.selected = di.key === curKey
+  //       di.children?.forEach(dci => {
+  //         dci.selected = dci.key === curKey
+  //       })
+  //     })
+  //   })
     
-  }, [select])
+  // }, [select])
 
   return {
     items,

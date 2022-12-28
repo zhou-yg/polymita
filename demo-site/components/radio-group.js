@@ -129,8 +129,8 @@ function blockPatternMatrix(colors2) {
     fillText: {
       backgroundColor: {
         [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, "*", "*", false],
-        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[1]]: [true, false, "*", false],
+        [colors2.text[2]]: [false, true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }

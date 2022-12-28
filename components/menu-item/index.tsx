@@ -1,4 +1,4 @@
-import { ACTIVE, h, HOVER, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { ACTIVE, h, HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, blockPatternMatrix, useInteractive } from '../../patterns';
 import { colors } from '../../patterns/token';
 
@@ -42,9 +42,10 @@ export const layout = (props: MenuItemProps) => {
   return (
     <menuItem 
       is-container
+      is-text
       selected={props.selected} disabled={props.disabled}
       className="block p-2 px-3 rounded-lg" >
-      <span is-text selected={props.selected} disabled={props.disabled} >
+      <span>
         {props.label}
       </span>
     </menuItem>

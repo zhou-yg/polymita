@@ -36,7 +36,7 @@ __export(menu_exports, {
   styleRules: () => styleRules2
 });
 import { h as h2, useLogic as useLogic2, PropTypes } from "tarat-renderer";
-import { after, action as action2, signal as signal2 } from "atomic-signal";
+import { signal as signal2 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
 
 // patterns/control-active.ts
@@ -183,8 +183,8 @@ function blockPatternMatrix(colors2) {
     fillText: {
       backgroundColor: {
         [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, "*", "*", false],
-        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[1]]: [true, false, "*", false],
+        [colors2.text[2]]: [false, true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
@@ -213,14 +213,11 @@ var layout = (props) => {
   const logic3 = useLogic();
   return /* @__PURE__ */ h("menuItem", {
     "is-container": true,
+    "is-text": true,
     selected: props.selected,
     disabled: props.disabled,
     className: "block p-2 px-3 rounded-lg"
-  }, /* @__PURE__ */ h("span", {
-    "is-text": true,
-    selected: props.selected,
-    disabled: props.disabled
-  }, props.label));
+  }, /* @__PURE__ */ h("span", null, props.label));
 };
 var designPatterns = (props) => {
   const logic3 = useLogic();
@@ -248,29 +245,27 @@ var styleRules = (props) => {
 // components/menu/index.tsx
 var meta2;
 var propTypes = {
+  current: PropTypes.signal.isRequired.default(() => signal2("")),
   items: PropTypes.signal.isRequired
 };
 var logic2 = (props) => {
-  const currentKey = signal2(null);
-  const select = action2((item) => {
+  const currentKey = props.current;
+  const select = (item) => {
     var _a;
     const curKey = item.key;
     currentKey(() => curKey);
-    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
-  });
-  const items = props.items;
-  after(() => {
-    const curKey = currentKey();
     items((draft) => {
       draft.forEach((di) => {
-        var _a;
+        var _a2;
         di.selected = di.key === curKey;
-        (_a = di.children) == null ? void 0 : _a.forEach((dci) => {
+        (_a2 = di.children) == null ? void 0 : _a2.forEach((dci) => {
           dci.selected = dci.key === curKey;
         });
       });
     });
-  }, [select]);
+    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
+  };
+  const items = props.items;
   return {
     items,
     currentKey,

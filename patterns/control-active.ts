@@ -1,4 +1,4 @@
-import { matchPatternMatrix } from 'tarat-renderer'
+import { PatternMatrix2, matchPatternMatrix } from 'tarat-renderer'
 import { action, dispose, signal } from 'atomic-signal'
 import * as token from './token'
 
@@ -268,7 +268,7 @@ export function blockPatternMatrix (
     bg: [NormalColor, HoverColor, ActiveColor?, SelectedColor?]
     text: [NormalColor, HoverColor?, ActiveColor?, SelectedColor?]
   }
-) {
+): PatternMatrix2['1'] {
   return {
     container: {
       backgroundColor: {
@@ -301,8 +301,8 @@ export function blockPatternMatrix (
     fillText: {
       backgroundColor: {
         [colors.text[0]]: [],
-        [colors.text[1]]: [true, '*', '*', false],
-        [colors.text[2]]: ['*', true, '*', false],
+        [colors.text[1]]: [true, false, '*', false],
+        [colors.text[2]]: [false, true, '*', false],
         [colors.text[3]]: ['*', '*', true, false],
         [token.colors.disables[1]]: ['*', '*', '*', true]
       }
@@ -315,7 +315,7 @@ export function strokePatternMatrix (
     border: [NormalColor, HoverColor, ActiveColor?]
     text?: [NormalColor, HoverColor, ActiveColor?]
   }
-) {
+): PatternMatrix2['1'] {
   return {
     container: {
       backgroundColor: {

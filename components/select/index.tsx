@@ -10,18 +10,18 @@ export let meta: {
 }
 
 export interface SelectProps {
-  value?: Signal<string | number>
+  value?: Signal<string>
   options: { label: string, value: any }[]
   disabled?: boolean
-  onChange?: (value: string | number) => void
+  onChange?: (value: string) => void
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired.default(signal(''))
+  value: PropTypes.signal.isRequired.default(() => signal(''))
 }
 
 export const logic = (props: SelectProps) => {
-  const current = signal(props.value())
+  const current = props.value
   const focused = signal(false)
   const optionItems = signal((props.options || []).map((option) => {
     return {
@@ -88,7 +88,7 @@ export const layout = (props: SelectProps) => {
       />
       {optionItems().length > 0 && focused() ? (
         <optionList className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
-          <Menu items={optionItems} onClick={selectItem} />
+          <Menu current={current} items={optionItems} onClick={selectItem} />
         </optionList>
       ) : ''}
     </selectContainer>

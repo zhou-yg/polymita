@@ -242,8 +242,8 @@ function blockPatternMatrix(colors2) {
     fillText: {
       backgroundColor: {
         [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, "*", "*", false],
-        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[1]]: [true, false, "*", false],
+        [colors2.text[2]]: [false, true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
@@ -329,7 +329,7 @@ __export(menu_exports, {
   styleRules: () => styleRules3
 });
 import { h as h3, useLogic as useLogic3, PropTypes as PropTypes2 } from "tarat-renderer";
-import { after as after2, action as action3, signal as signal3 } from "atomic-signal";
+import { signal as signal3 } from "atomic-signal";
 import { useModule } from "tarat-renderer";
 
 // components/menu-item/index.tsx
@@ -353,14 +353,11 @@ var layout2 = (props) => {
   const logic5 = useLogic2();
   return /* @__PURE__ */ h2("menuItem", {
     "is-container": true,
+    "is-text": true,
     selected: props.selected,
     disabled: props.disabled,
     className: "block p-2 px-3 rounded-lg"
-  }, /* @__PURE__ */ h2("span", {
-    "is-text": true,
-    selected: props.selected,
-    disabled: props.disabled
-  }, props.label));
+  }, /* @__PURE__ */ h2("span", null, props.label));
 };
 var designPatterns = (props) => {
   const logic5 = useLogic2();
@@ -388,29 +385,27 @@ var styleRules2 = (props) => {
 // components/menu/index.tsx
 var meta3;
 var propTypes2 = {
+  current: PropTypes2.signal.isRequired.default(() => signal3("")),
   items: PropTypes2.signal.isRequired
 };
 var logic3 = (props) => {
-  const currentKey = signal3(null);
-  const select = action3((item) => {
+  const currentKey = props.current;
+  const select = (item) => {
     var _a;
     const curKey = item.key;
     currentKey(() => curKey);
-    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
-  });
-  const items = props.items;
-  after2(() => {
-    const curKey = currentKey();
     items((draft) => {
       draft.forEach((di) => {
-        var _a;
+        var _a2;
         di.selected = di.key === curKey;
-        (_a = di.children) == null ? void 0 : _a.forEach((dci) => {
+        (_a2 = di.children) == null ? void 0 : _a2.forEach((dci) => {
           dci.selected = dci.key === curKey;
         });
       });
     });
-  }, [select]);
+    (_a = props.onClick) == null ? void 0 : _a.call(props, item);
+  };
+  const items = props.items;
   return {
     items,
     currentKey,
@@ -479,10 +474,10 @@ var styleRules3 = (props) => {
 // components/select/index.tsx
 var meta4;
 var propTypes3 = {
-  value: PropTypes3.signal.isRequired.default(signal4(""))
+  value: PropTypes3.signal.isRequired.default(() => signal4(""))
 };
 var logic4 = (props) => {
-  const current = signal4(props.value());
+  const current = props.value;
   const focused = signal4(false);
   const optionItems = signal4((props.options || []).map((option) => {
     return {
@@ -529,6 +524,7 @@ var layout4 = (props) => {
     className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
     style: { top: "40px" }
   }, /* @__PURE__ */ h4(Menu, {
+    current,
     items: optionItems,
     onClick: selectItem
   })) : "");
