@@ -1,22 +1,4 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b ||= {})
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -29,7 +11,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 var modal_exports = {};
 __export(modal_exports, {
   config: () => config,
-  designPattern: () => designPattern2,
+  designPattern: () => designPattern,
   layout: () => layout2,
   logic: () => logic2,
   styleRules: () => styleRules2
@@ -109,13 +91,13 @@ var close_default = Icon;
 // components/Button/index.tsx
 var Button_exports = {};
 __export(Button_exports, {
-  designPattern: () => designPattern,
+  designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h as h2, useLayout, useLogic } from "tarat-renderer";
+import { ACTIVE, h as h2, HOVER, useLayout, useLogic } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -182,17 +164,12 @@ function useInteractive(props) {
     }
   };
 }
-function blockPattern(arg, colors2) {
-  return matchPatternMatrix([
-    !!arg.hover,
-    !!arg.active,
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+function blockPatternMatrix(colors2) {
+  return {
     container: {
       backgroundColor: {
         [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, "*", "*", false],
+        [colors2.bg[1]]: [true, "*", false, false],
         [colors2.bg[2]]: ["*", true, "*", false],
         [colors2.bg[3]]: ["*", "*", true, false],
         [colors.disables[0]]: ["*", "*", "*", true]
@@ -220,54 +197,17 @@ function blockPattern(arg, colors2) {
     fillText: {
       backgroundColor: {
         [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, "*", "*", false],
-        [colors2.text[2]]: ["*", true, "*", false],
+        [colors2.text[1]]: [true, false, "*", false],
+        [colors2.text[2]]: [false, true, "*", false],
         [colors2.text[3]]: ["*", "*", true, false],
         [colors.disables[1]]: ["*", "*", "*", true]
       }
     }
-  });
+  };
 }
-function blockPattern2(arg, colors2) {
-  return matchPatternMatrix([!!arg.selected, !!arg.disabled])({
-    container: {
-      backgroundColor: {
-        [colors2.bg[0]]: [],
-        [colors2.bg[1]]: [true, false],
-        [colors.disables[0]]: ["*", true]
-      },
-      cursor: {
-        pointer: [],
-        "not-allowed": ["*", true]
-      },
-      userSelect: {
-        none: []
-      }
-    },
-    text: {
-      color: {
-        [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, false],
-        [colors.disables[1]]: ["*", true]
-      }
-    },
-    fillText: {
-      backgroundColor: {
-        [colors2.text[0]]: [],
-        [colors2.text[1]]: [true, false],
-        [colors.disables[1]]: ["*", true]
-      }
-    }
-  });
-}
-function strokePattern(arg, colors2) {
+function strokePatternMatrix(colors2) {
   var _a, _b, _c;
-  return matchPatternMatrix([
-    !!arg.hover,
-    !!arg.active,
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+  return {
     container: {
       backgroundColor: {
         [colors.disables[0]]: ["*", "*", "*", true]
@@ -304,7 +244,7 @@ function strokePattern(arg, colors2) {
         [colors.disables[0]]: ["*", "*", "*", true]
       }
     }
-  });
+  };
 }
 
 // components/Button/index.tsx
@@ -318,13 +258,16 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ h2("buttonBox", __spreadProps(__spreadValues({
-    className: "inline-block px-2 py-1 rounded hover:cursor-pointer"
-  }, logicResult.interactive.events), {
+  return /* @__PURE__ */ h2("buttonBox", {
+    className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
     "is-container": true,
-    "has-decoration": true
-  }), /* @__PURE__ */ h2("span", {
+    "has-decoration": true,
+    selected: false,
+    disabled: props.disabled
+  }, /* @__PURE__ */ h2("span", {
     "is-text": true,
+    selected: false,
+    disabled: props.disabled,
     className: "block select-none",
     onClick: (e) => {
       var _a;
@@ -334,63 +277,47 @@ var layout = (props) => {
     }
   }, props.children));
 };
-var designPattern = (props) => {
+var designPatterns = (props) => {
   const logicResult = useLogic();
-  let pattern;
-  let pattern2;
-  const states = {
-    hover: logicResult.interactive.states.hover(),
-    active: logicResult.interactive.states.active(),
-    disabled: !!props.disabled,
-    selected: false
-  };
+  const entry = [HOVER, ACTIVE, "selected", "disabled"];
   switch (props.type) {
     case "primary":
-      pattern = blockPattern(
-        states,
-        {
+      return [
+        entry,
+        blockPatternMatrix({
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.light]
-        }
-      );
-      pattern2 = blockPattern2(
-        states,
-        {
-          bg: [colors.primaries[1], colors.primaries[2]],
-          text: [colors.light]
-        }
-      );
-      break;
+        })
+      ];
     case "text":
-      pattern = blockPattern(
-        states,
-        {
+      return [
+        entry,
+        blockPatternMatrix({
           bg: [colors.light, colors.grays[0], colors.grays[1]],
           text: [colors.text]
-        }
-      );
+        })
+      ];
       break;
     case "link":
-      pattern = strokePattern(
-        states,
-        {
+      return [
+        entry,
+        strokePatternMatrix({
           border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]]
-        }
-      );
+        })
+      ];
       break;
     default:
-      pattern = strokePattern(
-        states,
-        {
+      return [
+        entry,
+        strokePatternMatrix({
           bdw: 1,
           border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
           text: [colors.text, colors.primaries[1], colors.primaries[2]]
-        }
-      );
+        })
+      ];
       break;
   }
-  return __spreadValues({}, pattern);
 };
 var styleRules = (props, draft) => {
   const logic3 = useLogic();
@@ -428,7 +355,7 @@ var layout2 = (props) => {
     type: "primary"
   }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, null, "\u53D6\u6D88"))));
 };
-var designPattern2 = (props) => {
+var designPattern = (props) => {
 };
 var styleRules2 = (props) => {
 };
@@ -437,8 +364,8 @@ var styleRules2 = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
   return (p) => {
-    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

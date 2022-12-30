@@ -36,54 +36,6 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
 function blockPatternMatrix(colors2) {
   return {
     container: {
@@ -244,7 +196,6 @@ var propTypes = {
 };
 var logic = (props) => {
   const selected = props.selected;
-  const interactive = useInteractive(props);
   after(() => {
     console.log("selected:", selected());
   }, [selected]);
@@ -256,7 +207,6 @@ var logic = (props) => {
     (_a = props.onChange) == null ? void 0 : _a.call(props, selected());
   }
   return {
-    interactive,
     selected,
     toggle
   };
@@ -318,8 +268,8 @@ var designPatterns = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
   return (p) => {
-    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

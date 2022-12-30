@@ -335,8 +335,8 @@ var styleRules2 = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
   return (p) => {
-    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

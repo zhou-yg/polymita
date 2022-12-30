@@ -6,6 +6,7 @@ var __export = (target, all) => {
 
 // components/radio-group/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
 
 // components/radio-group/index.tsx
 var radio_group_exports = {};
@@ -48,54 +49,6 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
 function blockPatternMatrix(colors2) {
   return {
     container: {
@@ -182,10 +135,7 @@ function strokePatternMatrix(colors2) {
 // components/radio/index.tsx
 var meta;
 var logic = (props) => {
-  const interactive = useInteractive(props);
-  return {
-    interactive
-  };
+  return {};
 };
 var layout = (props) => {
   const logic3 = useLogic();
@@ -235,26 +185,33 @@ var designPatterns = (props) => {
         }
       )
     ];
-  } else {
-    return [
-      arr,
-      strokePatternMatrix({
-        bdw: 1,
-        border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
-        text: [colors.text, colors.primaries[1], colors.primaries[2]]
-      })
-    ];
   }
+  return [
+    arr,
+    strokePatternMatrix({
+      bdw: 1,
+      border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
+      text: [colors.text, colors.primaries[1], colors.primaries[2]]
+    })
+  ];
 };
 
 // components/radio-group/index.tsx
 var meta2;
 var propTypes = {
-  value: PropTypes.signal.isRequired.default(signal2(""))
+  value: PropTypes.signal.isRequired.default(() => signal2(""))
 };
 var logic2 = (props) => {
-  const value = signal2(props.value());
+  const value = props.value;
+  function changeValue(v) {
+    if (props.onChange) {
+      props.onChange(v);
+    } else {
+      value(v);
+    }
+  }
   return {
+    changeValue,
     value
   };
 };
@@ -267,7 +224,7 @@ var layout2 = (props) => {
       key: option.label,
       selected: currentValue === option.value,
       onChange: () => {
-        logic3.value(option.value);
+        logic3.changeValue(option.value);
       }
     }, option.label);
   }));
@@ -284,8 +241,8 @@ var designPattern = (props, layout3) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
   return (p) => {
-    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
@@ -308,19 +265,16 @@ function RenderToReact(module) {
 
 // components/radio-group/demo.mdx
 var Component = RenderToReactWithWrap(radio_group_exports);
-function _createMdxContent(props) {
-  const _components = Object.assign({
-    h1: "h1",
-    p: "p"
-  }, props.components);
-  return _jsxs(_Fragment, {
-    children: [_jsx(_components.h1, {
-      children: "RadioGroup \u5355\u9009\u6846\u7EC4"
-    }), "\n", _jsx(_components.p, {
-      children: "\u591A\u4E2A\u9009\u9879"
-    }), "\n", _jsx(Component, {
+function ComponentBox() {
+  const [val, setVal] = useState("A");
+  return _jsxs("div", {
+    style: {
+      margin: "10px"
+    },
+    children: [" \u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
       name: "char",
-      value: "A",
+      onChange: (v) => setVal(v),
+      value: val,
       options: [{
         label: "A",
         value: "A"
@@ -334,6 +288,19 @@ function _createMdxContent(props) {
     })]
   });
 }
+function _createMdxContent(props) {
+  const _components = Object.assign({
+    h1: "h1",
+    p: "p"
+  }, props.components);
+  return _jsxs(_Fragment, {
+    children: [_jsx(_components.h1, {
+      children: "RadioGroup \u5355\u9009\u6846\u7EC4"
+    }), "\n", _jsx(_components.p, {
+      children: "\u591A\u4E2A\u9009\u9879"
+    }), "\n", _jsx(ComponentBox, {})]
+  });
+}
 function MDXContent(props = {}) {
   const { wrapper: MDXLayout } = props.components || {};
   return MDXLayout ? _jsx(MDXLayout, Object.assign({}, props, {
@@ -343,5 +310,6 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
+  ComponentBox,
   demo_default as default
 };

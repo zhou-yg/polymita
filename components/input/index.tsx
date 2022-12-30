@@ -1,5 +1,5 @@
-import { h, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { blockPattern, strokePattern, useInteractive } from '../../patterns'
+import { ACTIVE, FOCUS, h, HOVER, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
 import { action, after, Signal, signal, StateSignal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 import { SignalProps } from 'tarat-renderer'
@@ -31,9 +31,6 @@ export const config = () => ({
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: ButtonProps) => {
-  const interactive = useInteractive({
-    disabled: props.disabled,
-  })
   const value = props.value
 
   after(() => {
@@ -50,7 +47,6 @@ export const logic = (props: ButtonProps) => {
   return {
     onFocus,
     onBlur,
-    interactive,
     value,
   }
 }
@@ -70,8 +66,7 @@ export const layout = (props: ButtonProps) => {
 
   return (
     <inputBox
-      className="block"
-      {...logic.interactive.events} >
+      className="block">
       <input
         is-container
         has-decoration
@@ -88,21 +83,15 @@ export const layout = (props: ButtonProps) => {
   )
 }
 
-export const designPattern = (props: ButtonProps) => {
-  const logic = useLogic<LogicReturn>()
-  const p = strokePattern(
-    {
-      hover: logic.interactive.states.hover(),
-      active: logic.interactive.states.active(),
-      selected: logic.interactive.states.focus(),
-      disabled: props.disabled,
-    },
-    {
+export const designPatterns = (props: ButtonProps) => {
+
+  return [
+    [HOVER, ACTIVE, FOCUS, 'disabled'],
+    strokePatternMatrix({
       bdw: 1,
       border: [colors.grays[0],colors.primaries[1]],
-    }
-  )
-  return p
+    })
+  ]
 }
 
 // css in js

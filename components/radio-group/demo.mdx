@@ -1,23 +1,39 @@
+import { useState } from 'react'
 import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
+export function ComponentBox () {
+  const [val, setVal] = useState('A')
+  return (
+    <div style={{ margin: '10px' }}>
+      当前选择值：{val}
+      <br/>
+      <Component
+        name="char"
+        onChange={v => setVal(v)}
+        value={val}
+        options={[
+          {
+            label: "A",
+            value: "A"
+          },
+          {
+            label: "B",
+            value: "B"
+          },
+          {
+            label: "C",
+            value: "C"
+          },
+        ]} />
+
+    </div>
+  )
+}
 
 # RadioGroup 单选框组
 
 多个选项
 
-<Component name="char" value="A" options={[
-  {
-    label: "A",
-    value: "A"
-  },
-  {
-    label: "B",
-    value: "B"
-  },
-  {
-    label: "C",
-    value: "C"
-  },
-]} />
+<ComponentBox />
 

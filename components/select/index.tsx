@@ -13,6 +13,7 @@ export interface SelectProps {
   value?: Signal<string>
   options: { label: string, value: any }[]
   disabled?: boolean
+  
   onChange?: (value: string) => void
 }
 
@@ -73,9 +74,6 @@ export const layout = (props: SelectProps) => {
   const Input = useModule(InputModule)
 
   const Menu = useComponentModule(MenuModule)
-
-  console.log('current 3:', current())
-  console.log('focused:', focused())
 
   return (
     <selectContainer

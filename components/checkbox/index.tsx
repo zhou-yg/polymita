@@ -26,8 +26,6 @@ type LogicReturn = ReturnType<typeof logic>
 export const logic = (props: CheckboxProps) => {
   const selected = props.selected
 
-  const interactive = useInteractive(props)
-
   after(() => {
     console.log('selected:', selected())
   }, [selected])
@@ -39,7 +37,6 @@ export const logic = (props: CheckboxProps) => {
   }
 
   return {
-    interactive,
     selected,
     toggle,
   }

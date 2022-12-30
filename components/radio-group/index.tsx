@@ -17,13 +17,22 @@ export interface RadioGroupProps {
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired.default(signal(''))
+  value: PropTypes.signal.isRequired.default(() => signal(''))
 }
 
 export const logic = (props: RadioGroupProps) => {
-  const value = signal(props.value())
+  const value = props.value
 
+  function changeValue (v: any) {
+    if (props.onChange) {
+      props.onChange(v)
+    } else {
+      value(v)
+    }
+  }
+  
   return {
+    changeValue,
     value
   }
 }
@@ -43,7 +52,7 @@ export const layout = (props: RadioGroupProps) => {
        {props.options.map((option, index) => {
           return (
             <Radio key={option.label} selected={currentValue === option.value} onChange={() => {
-              logic.value(option.value)
+              logic.changeValue(option.value)
             }} >
               {option.label}
             </Radio>

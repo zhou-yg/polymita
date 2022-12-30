@@ -1,19 +1,4 @@
 var __defProp = Object.defineProperty;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b ||= {})
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -26,14 +11,14 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 var input_exports = {};
 __export(input_exports, {
   config: () => config,
-  designPattern: () => designPattern,
+  designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { h, PropTypes, useLogic } from "tarat-renderer";
+import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "tarat-renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -52,62 +37,9 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
-function strokePattern(arg, colors2) {
+function strokePatternMatrix(colors2) {
   var _a, _b, _c;
-  return matchPatternMatrix([
-    !!arg.hover,
-    !!arg.active,
-    !!arg.selected,
-    !!arg.disabled
-  ])({
+  return {
     container: {
       backgroundColor: {
         [colors.disables[0]]: ["*", "*", "*", true]
@@ -144,7 +76,7 @@ function strokePattern(arg, colors2) {
         [colors.disables[0]]: ["*", "*", "*", true]
       }
     }
-  });
+  };
 }
 
 // components/input/index.tsx
@@ -155,9 +87,6 @@ var propTypes = {
 };
 var config = () => ({});
 var logic = (props) => {
-  const interactive = useInteractive({
-    disabled: props.disabled
-  });
   const value = props.value;
   after(() => {
     var _a;
@@ -174,15 +103,14 @@ var logic = (props) => {
   return {
     onFocus,
     onBlur,
-    interactive,
     value
   };
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h("inputBox", __spreadValues({
+  return /* @__PURE__ */ h("inputBox", {
     className: "block"
-  }, logic2.interactive.events), /* @__PURE__ */ h("input", {
+  }, /* @__PURE__ */ h("input", {
     "is-container": true,
     "has-decoration": true,
     "is-text": true,
@@ -195,21 +123,14 @@ var layout = (props) => {
     value: logic2.value
   }));
 };
-var designPattern = (props) => {
-  const logic2 = useLogic();
-  const p = strokePattern(
-    {
-      hover: logic2.interactive.states.hover(),
-      active: logic2.interactive.states.active(),
-      selected: logic2.interactive.states.focus(),
-      disabled: props.disabled
-    },
-    {
+var designPatterns = (props) => {
+  return [
+    [HOVER, ACTIVE, FOCUS, "disabled"],
+    strokePatternMatrix({
       bdw: 1,
       border: [colors.grays[0], colors.primaries[1]]
-    }
-  );
-  return p;
+    })
+  ];
 };
 var styleRules = (props) => {
 };
@@ -218,8 +139,8 @@ var styleRules = (props) => {
 import { createRenderer } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
+  const render = RenderToReact(module);
   return (p) => {
-    const render = RenderToReact(module);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },

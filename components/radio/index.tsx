@@ -1,4 +1,4 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER } from 'tarat-renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER, PatternMatrix2 } from 'tarat-renderer';
 import { after, signal } from 'atomic-signal'
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 export let meta: {
@@ -14,10 +14,7 @@ export interface RadioProps {
 }
 
 export const logic = (props: RadioProps) => {
-  const interactive = useInteractive(props)
-
   return {
-    interactive,
   }
 }
 type LogicReturn = ReturnType<typeof logic>
@@ -75,7 +72,7 @@ export const styleRules = (props: RadioProps, layout: ConvertToLayoutTreeDraft<R
   ]
 }
 
-export const designPatterns = (props: RadioProps) => {
+export const designPatterns = (props: RadioProps): PatternMatrix2 => {
   const logicResult = useLogic<LogicReturn>()
 
   const arr = [HOVER, ACTIVE, 'selected', 'disabled']
@@ -91,14 +88,14 @@ export const designPatterns = (props: RadioProps) => {
         }  
       )
     ];
-  } else {
-    return [
-      arr,
-      strokePatternMatrix({
-        bdw: 1,
-        border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
-        text: [colors.text, colors.primaries[1], colors.primaries[2]],
-      }),
-    ]
   }
+
+  return [
+    arr,
+    strokePatternMatrix({
+      bdw: 1,
+      border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
+      text: [colors.text, colors.primaries[1], colors.primaries[2]],
+    }),
+  ]
 }

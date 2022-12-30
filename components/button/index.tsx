@@ -1,5 +1,5 @@
-import { ConvertToLayoutTreeDraft, h, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
-import { blockPattern, blockPattern2, strokePattern, useInteractive } from '../../patterns'
+import { ACTIVE, ConvertToLayoutTreeDraft, h, HOVER, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { blockPattern, blockPattern2, blockPatternMatrix, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
 import { LayoutStructTree } from 'tarat-renderer/src'
@@ -44,78 +44,70 @@ export const layout = (props: ButtonProps) => {
   return (
     <buttonBox
       className="inline-block px-2 py-1 rounded hover:cursor-pointer"
-      {...logicResult.interactive.events}
       is-container
       has-decoration
+      selected={false}
+      disabled={props.disabled}
     >
-      <span is-text className="block select-none" onClick={(e) => {
-        if (props.disabled) return
-        props.onClick?.(e)
-      }}>
+      <span 
+        is-text
+        selected={false}
+        disabled={props.disabled}
+        className="block select-none"
+        onClick={(e) => {
+          if (props.disabled) return
+          props.onClick?.(e)
+        }}
+      >
          {props.children}
       </span>
     </buttonBox>
   )
 }
 
-export const designPattern = (props: ButtonProps) => {
+export const designPatterns = (props: ButtonProps) => {
   const logicResult = useLogic<LogicReturn>()
 
-  let pattern: PatternStructure;
-  let pattern2: PatternStructure;
-
-  const states = {
-    hover: logicResult.interactive.states.hover(),
-    active: logicResult.interactive.states.active(),
-    disabled: !!props.disabled,
-    selected: false
-  }
+  const entry = [HOVER, ACTIVE, 'selected', 'disabled'];
 
   switch (props.type) {
     case 'primary':
-      pattern = blockPattern(states,
-        {
+      return [
+        entry,
+        blockPatternMatrix({
           bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.light],
-        }
-      )
-      pattern2 = blockPattern2(states,
-        {
-          bg: [colors.primaries[1], colors.primaries[2]],
-          text: [colors.light],
-        }
-      )
-      break;
+        })
+      ]
     case 'text':
-      pattern = blockPattern(states,
-        {
+      return [
+        entry,
+        blockPatternMatrix({
           bg: [colors.light, colors.grays[0], colors.grays[1]],
           text: [colors.text],
-        },
-      )
+        })
+      ]
       break
     case 'link':
-      pattern = strokePattern(states,
-        {
+      return [
+        entry,
+        strokePatternMatrix({
           border: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
           text: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
-        }
-      )
+        })
+      ]
       break;
 
     default:
-      pattern = strokePattern(states,
-        {
+      return [
+        entry,
+        strokePatternMatrix({
           bdw: 1,
           border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
           text: [colors.text, colors.primaries[1], colors.primaries[2]],
-        },
-      )
+        })
+      ]
       break;
-  }
-
-  return {
-    ...pattern
   }
 }
 
