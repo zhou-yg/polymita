@@ -192,22 +192,22 @@ var check_default = Icon;
 // components/checkbox/index.tsx
 var meta;
 var propTypes = {
-  selected: PropTypes.signal.isRequired.default(() => signal2(false))
+  value: PropTypes.signal.isRequired.default(() => signal2(false))
 };
 var logic = (props) => {
-  const selected = props.selected;
+  const value = props.value;
   after(() => {
-    console.log("selected:", selected());
-  }, [selected]);
+    console.log("value:", value());
+  }, [value]);
   function toggle() {
     var _a;
     if (props.disabled)
       return;
-    selected(!selected());
-    (_a = props.onChange) == null ? void 0 : _a.call(props, selected());
+    value((v) => !v);
+    (_a = props.onChange) == null ? void 0 : _a.call(props, value());
   }
   return {
-    selected,
+    value,
     toggle
   };
 };
@@ -221,19 +221,19 @@ var layout = (props) => {
     style: { width: "16px", height: "16px" },
     "is-container": true,
     "has-decoration": true,
-    selected: logic2.selected(),
+    selected: logic2.value(),
     disabled: props.disabled
   }, /* @__PURE__ */ h2("input", {
     type: "checkbox",
     readOnly: true,
-    checked: logic2.selected(),
+    checked: logic2.value(),
     className: "opacity-0 absolute w-full h-full"
   }), /* @__PURE__ */ h2("span", {
     "is-text": true,
-    selected: logic2.selected(),
+    selected: logic2.value(),
     disabled: props.disabled,
     className: "relative z-10 w-full h-full flex items-center justify-center"
-  }, logic2.selected() ? /* @__PURE__ */ h2(check_default, {
+  }, logic2.value() ? /* @__PURE__ */ h2(check_default, {
     size: 12
   }) : "")), /* @__PURE__ */ h2("checkBoxLabel", {
     className: "select-none"
@@ -242,7 +242,7 @@ var layout = (props) => {
 var designPatterns = (props) => {
   const logicResult = useLogic();
   const arr = [HOVER, ACTIVE, "selected", "disabled"];
-  if (logicResult.selected()) {
+  if (logicResult.value()) {
     return [
       arr,
       blockPatternMatrix(
@@ -265,7 +265,7 @@ var designPatterns = (props) => {
 };
 
 // shared/render.ts
-import { createRenderer } from "tarat-renderer";
+import { createRSRender } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -278,7 +278,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRenderer(module, {
+  const renderer = createRSRender(module, {
     framework: {
       name: "react",
       lib: React
@@ -311,7 +311,7 @@ function _createMdxContent(props) {
       children: " \u7981\u6B62\u9009\u9879 "
     }), "\n", _jsx(Component, {
       disabled: true,
-      selected: true,
+      value: true,
       children: " \u7981\u6B62\u5F00\u542F "
     })]
   });

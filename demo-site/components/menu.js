@@ -56,54 +56,6 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
 function blockPattern(arg, colors2) {
   return matchPatternMatrix([
     !!arg.hover,
@@ -204,10 +156,7 @@ __export(menu_item_exports, {
 import { ACTIVE, h, HOVER, useLogic } from "tarat-renderer";
 var meta;
 var logic = (props) => {
-  const interactive = useInteractive(props);
-  return {
-    interactive
-  };
+  return {};
 };
 var layout = (props) => {
   const logic3 = useLogic();
@@ -221,15 +170,6 @@ var layout = (props) => {
 };
 var designPatterns = (props) => {
   const logic3 = useLogic();
-  const pattern = blockPattern({
-    hover: logic3.interactive.states.hover(),
-    active: logic3.interactive.states.active(),
-    selected: !!props.selected,
-    disabled: !!props.disabled
-  }, {
-    bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
-    text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
-  });
   return [
     [HOVER, ACTIVE, "selected", "disabled"],
     blockPatternMatrix({
@@ -278,8 +218,7 @@ var layout2 = (props) => {
   return /* @__PURE__ */ h2("menuBox", {
     className: "block border-slate-300"
   }, /* @__PURE__ */ h2("ul", {
-    className: "block",
-    onClick: (e) => console.log(e)
+    className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
     let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
@@ -332,7 +271,7 @@ var styleRules2 = (props) => {
 };
 
 // shared/render.ts
-import { createRenderer } from "tarat-renderer";
+import { createRSRender } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -345,7 +284,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRenderer(module, {
+  const renderer = createRSRender(module, {
     framework: {
       name: "react",
       lib: React

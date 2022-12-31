@@ -33,7 +33,7 @@ export const logic = (props: SelectProps) => {
   }))
 
   const selectItem = action(function (item: MenuModule.MenuItemProps) {
-    console.log('item: ', item);
+    // console.log('item: ', item);
     // setTimeout(() => {
     //   current(() => item.key)
     //   focused(() => false)
@@ -46,7 +46,7 @@ export const logic = (props: SelectProps) => {
   })
 
   after(() => {
-    console.log('current 4: ', current());
+    // console.log('current 4: ', current());
   }, [current])
 
   return {
@@ -82,13 +82,13 @@ export const layout = (props: SelectProps) => {
         disabled={props.disabled}
         value={current} 
         onFocus={() => focused(true)}
-        // onBlur={() => focused(false)} 
+        onBlur={() => focused(false)} 
       />
-      {optionItems().length > 0 && focused() ? (
-        <optionList className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
-          <Menu current={current} items={optionItems} onClick={selectItem} />
-        </optionList>
-      ) : ''}
+      <optionList
+        if={optionItems().length > 0 && focused()}
+        className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
+        <Menu current={current} items={optionItems} onClick={selectItem} />
+      </optionList>
     </selectContainer>
   )
 }

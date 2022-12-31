@@ -69,54 +69,6 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
 function blockPattern(arg, colors2) {
   return matchPatternMatrix([
     !!arg.hover,
@@ -328,10 +280,7 @@ __export(menu_item_exports, {
 import { ACTIVE as ACTIVE2, h as h2, HOVER as HOVER2, useLogic as useLogic2 } from "tarat-renderer";
 var meta2;
 var logic2 = (props) => {
-  const interactive = useInteractive(props);
-  return {
-    interactive
-  };
+  return {};
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
@@ -345,15 +294,6 @@ var layout2 = (props) => {
 };
 var designPatterns2 = (props) => {
   const logic5 = useLogic2();
-  const pattern = blockPattern({
-    hover: logic5.interactive.states.hover(),
-    active: logic5.interactive.states.active(),
-    selected: !!props.selected,
-    disabled: !!props.disabled
-  }, {
-    bg: [colors.none, colors.grays[1], colors.primaries[2], colors.primaries[1]],
-    text: [colors.text, colors.light, colors.nones[0], colors.nones[1]]
-  });
   return [
     [HOVER2, ACTIVE2, "selected", "disabled"],
     blockPatternMatrix({
@@ -402,8 +342,7 @@ var layout3 = (props) => {
   return /* @__PURE__ */ h3("menuBox", {
     className: "block border-slate-300"
   }, /* @__PURE__ */ h3("ul", {
-    className: "block",
-    onClick: (e) => console.log(e)
+    className: "block"
   }, logic5.items().map((item) => {
     const isSelected = item.selected;
     let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
@@ -472,13 +411,11 @@ var logic4 = (props) => {
   }));
   const selectItem = action4(function(item) {
     var _a;
-    console.log("item: ", item);
     current(() => item.key);
     focused(() => false);
     (_a = props.onChange) == null ? void 0 : _a.call(props, item.key);
   });
   after3(() => {
-    console.log("current 4: ", current());
   }, [current]);
   return {
     optionItems,
@@ -501,15 +438,17 @@ var layout4 = (props) => {
   }, /* @__PURE__ */ h4(Input, {
     disabled: props.disabled,
     value: current,
-    onFocus: () => focused(true)
-  }), optionItems().length > 0 && focused() ? /* @__PURE__ */ h4("optionList", {
+    onFocus: () => focused(true),
+    onBlur: () => focused(false)
+  }), /* @__PURE__ */ h4("optionList", {
+    if: optionItems().length > 0 && focused(),
     className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
     style: { top: "40px" }
   }, /* @__PURE__ */ h4(Menu, {
     current,
     items: optionItems,
     onClick: selectItem
-  })) : "");
+  })));
 };
 var styleRules4 = (props, layout5) => {
   return [];
@@ -520,7 +459,7 @@ var designPattern2 = (props, layout5) => {
 };
 
 // shared/render.ts
-import { createRenderer } from "tarat-renderer";
+import { createRSRender } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -533,7 +472,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRenderer(module, {
+  const renderer = createRSRender(module, {
     framework: {
       name: "react",
       lib: React

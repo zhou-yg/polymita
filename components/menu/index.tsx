@@ -101,10 +101,10 @@ type MenuLayout = {
 export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule(MenuItemModule)
-
+  
   return (
     <menuBox className="block border-slate-300">
-      <ul className="block" onClick={e => console.log(e)}>
+      <ul className="block" >
         {logic.items().map((item) => {
           const isSelected = item.selected
           let element = MenuItemFunc({

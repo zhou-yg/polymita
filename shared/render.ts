@@ -1,4 +1,4 @@
-import { createRenderer, SingleFileModule } from 'tarat-renderer'
+import { createRSRender, SingleFileModule } from 'tarat-renderer'
 import React from 'react'
 
 export function RenderToReactWithWrap<T = any>(
@@ -15,13 +15,13 @@ export function RenderToReactWithWrap<T = any>(
 }
 
 export function RenderToReact<T>(module: SingleFileModule<any, any, any>) {
-  const renderer = createRenderer(module, {
+  
+  const renderer = createRSRender(module, {
     framework: {
       name: 'react',
       lib: React
     }
   })
-
   return (p: T) => {
     const r = renderer.construct(p)
     return renderer.render()

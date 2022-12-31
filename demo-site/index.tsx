@@ -8,6 +8,7 @@ import CheckboxDemo from './components/checkbox'
 import RadioDemo from './components/radio'
 import RadioGroupDemo from './components/radio-group'
 import SelectDemo from './components/select'
+import SwitchDemo from './components/switch'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -31,6 +32,7 @@ const componentsPlayground = {
     Radio: RadioDemo,
     RadioGroup: RadioGroupDemo,
     Select: SelectDemo,
+    Switch: SwitchDemo,
   }
 }
 

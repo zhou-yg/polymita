@@ -116,54 +116,6 @@ var colors = {
 };
 
 // patterns/control-active.ts
-function useInteractive(props) {
-  const hover = signal(false);
-  const active = signal(false);
-  const focus = signal(false);
-  const mouseEnter = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => true);
-  });
-  const mouseLeave = action(() => {
-    if (props.disabled)
-      return;
-    hover(() => false);
-  });
-  const mouseDown = action(() => {
-    if (props.disabled)
-      return;
-    active(() => true);
-  });
-  const mouseUp = action(() => {
-    if (props.disabled)
-      return;
-    active(() => false);
-    focus(() => true);
-  });
-  const focusIn = () => {
-    if (props.disabled)
-      return;
-    focus(() => false);
-  };
-  document.addEventListener("mouseup", focusIn, true);
-  dispose(() => {
-    document.removeEventListener("mouseup", focusIn);
-  });
-  return {
-    states: {
-      hover,
-      active,
-      focus
-    },
-    events: {
-      onMouseEnter: mouseEnter,
-      onMouseLeave: mouseLeave,
-      onMouseDown: mouseDown,
-      onMouseUp: mouseUp
-    }
-  };
-}
 function blockPatternMatrix(colors2) {
   return {
     container: {
@@ -250,9 +202,7 @@ function strokePatternMatrix(colors2) {
 // components/Button/index.tsx
 var meta;
 var logic = (props) => {
-  const interactive = useInteractive(props);
   return {
-    interactive,
     count: 0
   };
 };
@@ -361,7 +311,7 @@ var styleRules2 = (props) => {
 };
 
 // shared/render.ts
-import { createRenderer } from "tarat-renderer";
+import { createRSRender } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -374,7 +324,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRenderer(module, {
+  const renderer = createRSRender(module, {
     framework: {
       name: "react",
       lib: React

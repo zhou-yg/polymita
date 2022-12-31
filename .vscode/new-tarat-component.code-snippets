@@ -2,8 +2,8 @@
   "tarat component": {
     "prefix": "new-cpt",
     "body": [
-      "import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft } from 'tarat-renderer';",
-      "import { after, signal } from 'atomic-signal'",
+      "import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft } from 'tarat-renderer';",
+      "import { after, Signal, signal } from 'atomic-signal'",
       "",
       "export let meta: {",
       "  props: ${2:${TM_DIRECTORY/^.+[\\/\\\\]+(.)(.*)$/${1:/upcase}$2/}}Props,",
@@ -12,7 +12,9 @@
       "}",
       "",
       "export interface ${2:${TM_DIRECTORY/^.+[\\/\\\\]+(.)(.*)$/${1:/upcase}$2/}}Props {",
-      "  ",
+      "}",
+      "",
+      "export const propTypes = {",
       "}",
       "",
       "export const logic = (props: SignalProps<$2Props>) => {",

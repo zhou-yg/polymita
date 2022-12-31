@@ -1,0 +1,15 @@
+import { useState } from 'react'
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# Switch 开关
+
+基本用法
+
+<Component id="switch" />
+
+附带内容
+
+<Component id="switch" checkedContent="OK" uncheckedContent="Not Good" />
+

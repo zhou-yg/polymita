@@ -20,10 +20,8 @@ export type ButtonProps = {
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: ButtonProps) => {
-  const interactive = useInteractive(props)
   
   return {
-    interactive,
     count: 0
   }
 }

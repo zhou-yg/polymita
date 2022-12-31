@@ -1,4 +1,4 @@
-import { ACTIVE, FOCUS, h, HOVER, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
 import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
 import { action, after, Signal, signal, StateSignal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
@@ -83,7 +83,7 @@ export const layout = (props: ButtonProps) => {
   )
 }
 
-export const designPatterns = (props: ButtonProps) => {
+export const designPatterns = (props: ButtonProps): PatternMatrix2 => {
 
   return [
     [HOVER, ACTIVE, FOCUS, 'disabled'],

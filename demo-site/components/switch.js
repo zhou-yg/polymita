@@ -4,19 +4,28 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/radio/demo.mdx
+// components/switch/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
 
-// components/radio/index.tsx
-var radio_exports = {};
-__export(radio_exports, {
+// components/switch/index.tsx
+var switch_exports = {};
+__export(switch_exports, {
   designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
   meta: () => meta,
+  propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { h, useLogic, ACTIVE, HOVER } from "tarat-renderer";
+import {
+  h,
+  PropTypes,
+  useLogic,
+  ACTIVE,
+  HOVER
+} from "tarat-renderer";
+import { signal as signal2 } from "atomic-signal";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "tarat-renderer";
@@ -76,109 +85,90 @@ function blockPatternMatrix(colors2) {
     }
   };
 }
-function strokePatternMatrix(colors2) {
-  var _a, _b, _c;
-  return {
-    container: {
-      backgroundColor: {
-        [colors.disables[0]]: ["*", "*", "*", true]
-      },
-      cursor: {
-        "not-allowed": ["*", "*", "*", true]
-      }
-    },
-    decoration: {
-      borderStyle: {
-        solid: []
-      },
-      borderWidth: {
-        [`1px`]: [
-          [],
-          ["*", "*", "*", true]
-        ]
-      },
-      borderColor: {
-        [colors2.border[0]]: [],
-        [colors2.border[1]]: [
-          [true, "*", "*", false],
-          ["*", "*", true, false]
-        ],
-        [colors2.border[2]]: ["*", true, "*", false],
-        [colors.disables[0]]: ["*", "*", "*", true]
-      }
-    },
-    text: {
-      color: {
-        [(_a = colors2.text) == null ? void 0 : _a[0]]: [],
-        [(_b = colors2.text) == null ? void 0 : _b[1]]: [true, "*", "*", false],
-        [(_c = colors2.text) == null ? void 0 : _c[2]]: ["*", true, "*", false],
-        [colors.disables[0]]: ["*", "*", "*", true]
-      }
-    }
-  };
-}
 
-// components/radio/index.tsx
+// components/switch/index.tsx
 var meta;
+var propTypes = {
+  value: PropTypes.signal.isRequired.default(() => signal2(false))
+};
 var logic = (props) => {
   return {};
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h("radioContainer", {
-    className: "relative flex items-center cursor-pointer",
-    onClick: () => {
-      var _a;
-      return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
-    }
-  }, /* @__PURE__ */ h("radioBox", {
-    className: "relative block mr-2 rounded-full ",
-    style: { width: "16px", height: "16px" },
+  const value = props.value();
+  return /* @__PURE__ */ h("switchContainer", {
     "is-container": true,
-    "has-decoration": true,
-    selected: props.selected,
-    disabled: props.disabled
-  }, /* @__PURE__ */ h("input", {
-    type: "checkbox",
-    readOnly: true,
-    checked: props.selected,
-    className: "opacity-0 absolute w-full h-full"
-  }), /* @__PURE__ */ h("span", {
-    className: "relative z-10 w-full h-full flex items-center justify-center"
-  }, props.selected ? /* @__PURE__ */ h("circle", {
+    className: "inline-block relative overflow-hidden",
+    style: { minWidth: "44px", height: "22px", lineHeight: "22px", borderRadius: "11px" },
+    onClick: () => {
+      props.value((d) => {
+        console.log("d: ", d);
+        return !d;
+      });
+    }
+  }, /* @__PURE__ */ h("switchHandle", {
     "is-fillText": true,
-    selected: props.selected,
-    disabled: props.disabled,
-    className: "block rounded-full",
-    style: { width: "6px", height: "6px" }
-  }) : "")), /* @__PURE__ */ h("checkBoxLabel", {
-    className: "select-none"
-  }, props.children));
+    style: { width: "18px", height: "18px", top: "2px", insetInlineStart: "2px" },
+    className: "rounded-full absolute"
+  }), /* @__PURE__ */ h("contentBox", {
+    className: "block h-full pointer-events-none"
+  }, /* @__PURE__ */ h("checkedContent", {
+    className: "block h-full",
+    style: {
+      marginInlineStart: "9px",
+      marginInlineEnd: "24px"
+    },
+    "is-text": true
+  }, props.checkedContent), /* @__PURE__ */ h("uncheckedContent", {
+    className: "block h-full",
+    style: {
+      marginTop: "-22px",
+      marginInlineStart: "24px",
+      marginInlineEnd: "9px"
+    },
+    "is-text": true
+  }, props.uncheckedContent)));
 };
 var styleRules = (props, layout2) => {
-  return [];
-};
-var designPatterns = (props) => {
-  const logicResult = useLogic();
-  const arr = [HOVER, ACTIVE, "selected", "disabled"];
-  if (props.selected) {
-    return [
-      arr,
-      blockPatternMatrix(
-        {
-          bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2], colors.primaries[0]],
-          text: [colors.light, colors.light, colors.light, colors.light]
-        }
-      )
-    ];
-  }
   return [
-    arr,
-    strokePatternMatrix({
-      bdw: 1,
-      border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
-      text: [colors.text, colors.primaries[1], colors.primaries[2]]
-    })
+    {
+      target: layout2.switchContainer.switchHandle,
+      condition: props.value(),
+      style: {
+        insetInlineStart: `calc(100% - 20px)`
+      }
+    },
+    {
+      target: layout2.switchContainer.contentBox.uncheckedContent,
+      condition: props.value(),
+      style: {
+        visibility: "hidden"
+      }
+    },
+    {
+      target: layout2.switchContainer.contentBox.checkedContent,
+      condition: !props.value(),
+      style: {
+        visibility: "hidden"
+      }
+    }
+  ];
+};
+var designPatterns = (props, layout2) => {
+  const logic2 = useLogic();
+  const entry = [HOVER, ACTIVE, "selected", "disabled"];
+  return [
+    entry,
+    blockPatternMatrix(
+      props.value() ? {
+        bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
+        text: [colors.light]
+      } : {
+        bg: [colors.grays[1], colors.grays[0], colors.grays[2]],
+        text: [colors.light]
+      }
+    )
   ];
 };
 
@@ -208,8 +198,8 @@ function RenderToReact(module) {
   };
 }
 
-// components/radio/demo.mdx
-var Component = RenderToReactWithWrap(radio_exports);
+// components/switch/demo.mdx
+var Component = RenderToReactWithWrap(switch_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -217,23 +207,17 @@ function _createMdxContent(props) {
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
-      children: "Radio \u5355\u9009\u6846"
+      children: "Switch \u5F00\u5173"
     }), "\n", _jsx(_components.p, {
-      children: "\u5B8C\u5168\u53D7\u63A7"
+      children: "\u57FA\u672C\u7528\u6CD5"
     }), "\n", _jsx(Component, {
-      children: " \u5355\u9009\u9879 "
-    }), "\n", "\n", "\n", _jsx(Component, {
-      selected: true,
-      children: " \u5355\u9009\u9879 "
+      id: "switch"
     }), "\n", _jsx(_components.p, {
-      children: "\u7981\u6B62\u6837\u5F0F"
+      children: "\u9644\u5E26\u5185\u5BB9"
     }), "\n", _jsx(Component, {
-      disabled: true,
-      children: " \u5355\u9009\u9879\u7981\u6B62 "
-    }), "\n", _jsx(Component, {
-      disabled: true,
-      selected: true,
-      children: " \u5355\u9879\u9009\u9009\u4E2D "
+      id: "switch",
+      checkedContent: "OK",
+      uncheckedContent: "Not Good"
     })]
   });
 }

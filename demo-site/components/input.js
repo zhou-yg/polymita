@@ -136,7 +136,7 @@ var styleRules = (props) => {
 };
 
 // shared/render.ts
-import { createRenderer } from "tarat-renderer";
+import { createRSRender } from "tarat-renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -149,7 +149,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRenderer(module, {
+  const renderer = createRSRender(module, {
     framework: {
       name: "react",
       lib: React

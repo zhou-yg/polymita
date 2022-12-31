@@ -10,34 +10,34 @@ export let meta: {
 }
 
 export interface CheckboxProps {
-  selected?: StateSignal<boolean>
+  value?: StateSignal<boolean>
   disabled?: boolean
-  onChange?: (selected: boolean) => void
+  onChange?: (value: boolean) => void
   children?: any
 }
 
 
 export const propTypes = {
-  selected: PropTypes.signal.isRequired.default(() => signal(false))
+  value: PropTypes.signal.isRequired.default(() => signal(false))
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: CheckboxProps) => {
-  const selected = props.selected
+  const value = props.value
 
   after(() => {
-    console.log('selected:', selected())
-  }, [selected])
+    console.log('value:', value())
+  }, [value])
 
   function toggle () {
     if (props.disabled) return
-    selected(!selected())
-    props.onChange?.(selected())
+    value(v => !v)
+    props.onChange?.(value())
   }
 
   return {
-    selected,
+    value,
     toggle,
   }
 }
@@ -73,13 +73,13 @@ export const layout = (props: CheckboxProps) => {
           style={{ width: '16px', height: '16px' }} 
           is-container
           has-decoration 
-          selected={logic.selected()}
+          selected={logic.value()}
           disabled={props.disabled} >
-        <input type="checkbox" readOnly checked={logic.selected()} className="opacity-0 absolute w-full h-full" />
+        <input type="checkbox" readOnly checked={logic.value()} className="opacity-0 absolute w-full h-full" />
         <span
-          is-text selected={logic.selected()} disabled={props.disabled}
+          is-text selected={logic.value()} disabled={props.disabled}
           className="relative z-10 w-full h-full flex items-center justify-center" >
-          {logic.selected() ? <CheckIcon size={12} /> : ''}
+          {logic.value() ? <CheckIcon size={12} /> : ''}
         </span>
        </checkBox>
        <checkBoxLabel className="select-none">
@@ -94,7 +94,7 @@ export const designPatterns = (props: CheckboxProps) => {
 
   const arr = [HOVER, ACTIVE, 'selected', 'disabled']
   
-  if (logicResult.selected()) {
+  if (logicResult.value()) {
 
     return [
       arr,
