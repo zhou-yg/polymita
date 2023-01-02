@@ -51,7 +51,7 @@ export const logic = (props: ButtonProps) => {
   }
 }
 
-type InputLayout = {
+export type InputLayout = {
   type: 'inputBox',
   children: [
     {

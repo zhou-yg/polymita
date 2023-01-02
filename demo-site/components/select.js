@@ -18,8 +18,8 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+  for (var name2 in all)
+    __defProp(target, name2, { get: all[name2], enumerable: true });
 };
 
 // components/select/demo.mdx
@@ -33,6 +33,7 @@ __export(select_exports, {
   layout: () => layout4,
   logic: () => logic4,
   meta: () => meta4,
+  name: () => name,
   propTypes: () => propTypes3,
   styleRules: () => styleRules4
 });
@@ -395,6 +396,7 @@ var styleRules3 = (props) => {
 };
 
 // components/select/index.tsx
+var name = "Select";
 var meta4;
 var propTypes3 = {
   value: PropTypes3.signal.isRequired.default(() => signal4(""))
@@ -451,6 +453,7 @@ var layout4 = (props) => {
   })));
 };
 var styleRules4 = (props, layout5) => {
+  layout5.selectContainer.Input.inputBox.input;
   return [];
 };
 var designPattern2 = (props, layout5) => {

@@ -1,7 +1,9 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule } from 'tarat-renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule, UseComponent } from 'tarat-renderer';
 import { Signal, action, after, signal } from 'atomic-signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
+
+export const name = 'Select' as const
 
 export let meta: {
   props: SelectProps,
@@ -61,6 +63,7 @@ type LogicReturn = ReturnType<typeof logic>
 export type SelectLayout = {
   type: 'selectContainer',
   children: [
+    UseComponent<'Input', InputModule.InputLayout>
   ]
 }
 
@@ -94,6 +97,7 @@ export const layout = (props: SelectProps) => {
 }
 
 export const styleRules = (props: SelectProps, layout: ConvertToLayoutTreeDraft<SelectLayout>) => {
+  layout.selectContainer.Input.inputBox.input
   return [
   ]
 }
