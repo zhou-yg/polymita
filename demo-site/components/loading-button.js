@@ -11,6 +11,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 var loading_button_exports = {};
 __export(loading_button_exports, {
   designPattern: () => designPattern,
+  designPatterns: () => designPatterns2,
   layout: () => layout2,
   logic: () => logic2,
   meta: () => meta2,
@@ -303,6 +304,7 @@ var override = LoadingButton.override;
 var layout2 = LoadingButton.layout;
 var logic2 = LoadingButton.logic;
 var designPattern = LoadingButton.designPattern;
+var designPatterns2 = LoadingButton.designPatterns;
 var styleRules2 = LoadingButton.styleRules;
 
 // shared/render.ts

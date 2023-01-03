@@ -32,4 +32,5 @@ export const override = LoadingButton.override
 export const layout = LoadingButton.layout
 export const logic = LoadingButton.logic
 export const designPattern = LoadingButton.designPattern
+export const designPatterns = LoadingButton.designPatterns
 export const styleRules = LoadingButton.styleRules

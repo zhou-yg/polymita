@@ -37,7 +37,7 @@ __export(select_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3, useComponentModule } from "tarat-renderer";
+import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3 } from "tarat-renderer";
 import { action as action4, after as after3, signal as signal4 } from "atomic-signal";
 
 // components/input/index.tsx
@@ -434,7 +434,7 @@ var layout4 = (props) => {
     focused
   } = useLogic4();
   const Input = useModule2(input_exports);
-  const Menu = useComponentModule(menu_exports);
+  const Menu = useModule2(menu_exports);
   return /* @__PURE__ */ h4("selectContainer", {
     className: "block relative rounded"
   }, /* @__PURE__ */ h4(Input, {

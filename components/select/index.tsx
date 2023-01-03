@@ -76,7 +76,7 @@ export const layout = (props: SelectProps) => {
   } = useLogic<LogicReturn>()
   const Input = useModule(InputModule)
 
-  const Menu = useComponentModule(MenuModule)
+  const Menu = useModule(MenuModule)
 
   return (
     <selectContainer
