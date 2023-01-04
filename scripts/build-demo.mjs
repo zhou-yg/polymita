@@ -2,7 +2,7 @@ import esbuild from 'esbuild'
 
 import mdx from '@mdx-js/esbuild'
 
-import { existsSync, fstat, readdir, readdirSync, writeFileSync } from 'fs'
+import { existsSync, fstat, readdir, readdirSync, watchFile, writeFileSync } from 'fs'
 
 import { join } from 'path'
 // get dirname in mjs
@@ -11,24 +11,37 @@ import { spawn } from 'child_process'
 const __dirname = join(fileURLToPath(import.meta.url), '../')
 
 const componentsDir = join(__dirname, '../components/')
-
 const demoOutputDir = join(__dirname, '../demo-site/components')
-
 const demoEntryFile = 'demo.mdx'
 
-console.log('__dirname: ', __dirname);
-console.log('componentsDir: ', componentsDir);
 
-const files = readdirSync(componentsDir).map((file) => {
+const componentFiles = readdirSync(componentsDir).map((file) => {
   const filePath = join(componentsDir, file)
   const demoFilePath = join(filePath, demoEntryFile)
   const demoOutputPath = join(demoOutputDir, `${file}.js`)
 
   return {
-    file,
-    filePath,
-    demoFilePath,
-    demoOutputPath,
+    inputFilePath: demoFilePath,
+    outputPath: demoOutputPath,
+  }
+})
+
+const docDir = join(__dirname, '../docs')
+const docOutputDir = join(__dirname, '../demo-site/docs')
+
+console.log('__dirname: ', __dirname);
+console.log('docDir: ', docDir);
+console.log('componentsDir: ', componentsDir);
+console.log('demoOutputDir: ', demoOutputDir);
+console.log('docOutputDir: ', docOutputDir);
+
+const docFiles = readdirSync(docDir).map((file) => {
+  const filePath = join(docDir, file)
+  const outputPath = join(docOutputDir, `${file.replace('.mdx', '')}.js`)
+
+  return {
+    inputFilePath: filePath,
+    outputPath,
   }
 })
 
@@ -39,24 +52,33 @@ function buildTw () {
   })
 }
 
+const demoIndex = join(__dirname, '../demo-site/index.tsx')
+
+watchFile(demoIndex, (s1, s2) => {
+  buildTw()
+})
+
+const files = [
+  ...docFiles,
+  ...componentFiles,
+]
 /**
  * compile mdx to site components
  */
 const arr =  files.map(({
-  filePath,
-  demoFilePath,
-  demoOutputPath,
+  inputFilePath,
+  outputPath,
 }) => {
 
-  if (!existsSync(demoFilePath)) {
+  if (!existsSync(inputFilePath)) {
     return
   }
 
   return esbuild
     .build({
-      entryPoints: [demoFilePath],
+      entryPoints: [inputFilePath],
       bundle: true,
-      outfile: demoOutputPath,
+      outfile: outputPath,
       format: 'esm',
       watch: {
         onRebuild (error, result) {
@@ -93,4 +115,4 @@ export { export_default as default }
   `);
 })
 
-console.log(1)
+console.log('start watching...')

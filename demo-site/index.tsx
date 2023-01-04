@@ -10,30 +10,46 @@ import RadioGroupDemo from './components/radio-group'
 import SelectDemo from './components/select'
 import SwitchDemo from './components/switch'
 
+import GetStarted from './docs/get-started'
+import Overview from './docs/overview'
+
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
+import * as ButtonModule from '../components/button'
 import { RenderToReact } from '../shared/render'
 import { NormalizeProps, SingleFileModule } from 'tarat-renderer'
 
 const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
   ...MenuModule
-} as unknown as SingleFileModule<any, any, any>)
+} as unknown as SingleFileModule<any, any, any, any>)
+const Button = RenderToReact<NormalizeProps<ButtonModule.ButtonProps>>({
+  ...ButtonModule
+} as unknown as SingleFileModule<any, any, any, any>)
+
+const docsPlayground = [
+  {
+    name: 'Overview',
+    component: Overview,
+  },
+  {
+    name: 'Get Started',
+    component: GetStarted,
+  }
+]
 
 const componentsPlayground = {
-  all: {
-    Button: ButtonDemo,
-    LoadingButton: LoadingButtonDemo,
-    Menu: MenuDemo,
-    Input: InputDemo,
-    Modal: ModalDemo,
-    Icons: IconsDemo,
-    Checkbox: CheckboxDemo,
-    Radio: RadioDemo,
-    RadioGroup: RadioGroupDemo,
-    Select: SelectDemo,
-    Switch: SwitchDemo,
-  }
+  Button: ButtonDemo,
+  LoadingButton: LoadingButtonDemo,
+  Menu: MenuDemo,
+  Input: InputDemo,
+  Modal: ModalDemo,
+  Icons: IconsDemo,
+  Checkbox: CheckboxDemo,
+  Radio: RadioDemo,
+  RadioGroup: RadioGroupDemo,
+  Select: SelectDemo,
+  Switch: SwitchDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)
@@ -54,48 +70,65 @@ function Home() {
     )
   }, [tab])
 
-  const sideMenu = Object.entries(componentsPlayground).map(
-    ([groupName, components]) => {
-      return {
-        label: groupName,
-        key: groupName,
-        children: Object.entries(components).map(([name, component]) => {
-          return {
-            label: name,
-            key: name,
-            selected: tab === name
-          }
-        })
-      }
-    }
-  )
 
   let componentName = ''
   let ComponentPreview = () => null
 
-  Object.entries(componentsPlayground).map(([groupName, group]) => {
-    Object.entries(group).forEach(([name, component]) => {
-      if (name === tab) {
-        componentName = name
-        ComponentPreview = component
-      }
-    })
+  const docSideItems = docsPlayground.map(({ name, component }) => {
+    const current = name === tab
+    if (current) {
+      componentName = name
+      ComponentPreview = component
+    }
+    return {
+      label: name,
+      key: name,
+      selected: current
+    }
   })
 
-  const leftMenu = null
-    ? null
-    : Menu({
-        items: sideMenu,
-        onClick(item) {
-          console.log('item: ', item)
-          setTab(item.key)
-        }
-      })
+  const sideMenuItems =  Object.entries(componentsPlayground).map(([name, component]) => {
+    const current = name === tab
+    if (current) {
+      componentName = name
+      ComponentPreview = component
+    }
+    return {
+      label: name,
+      key: name,
+      selected: current
+    }
+  })
+
+  const docMenu = (
+    <Menu
+      items={docSideItems}
+      onClick={(item) => {
+        setTab(item.key)
+      }}
+      />
+  )
+
+  const leftMenu = (
+    <Menu
+      items={sideMenuItems}
+      onClick={(item) => {
+        setTab(item.key)
+      }}
+    />
+  )
 
   return (
     <div className="flex">
-      <div style={{ width: '220px' }}>{leftMenu}</div>
-      <div className="flex">
+      <div style={{ width: '220px' }} 
+        className="border-r p-4 fixed top-0 left-0 h-full" >
+        <h2 className="text-2xl font-bold pb-4 mb-4 border-b border-solid" >Polymita</h2>
+        <p className="text-slate-400 mt-2" >Introduction</p>
+        {docMenu}
+        <p className="text-slate-400 mt-2" >Components</p>
+        {leftMenu}
+      </div>
+      <div className="flex" style={{ marginLeft: '220px' }}>
         <div className="p-4">
           <ComponentPreview />
         </div>

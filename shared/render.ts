@@ -2,7 +2,7 @@ import { createRSRender, SingleFileModule } from 'tarat-renderer'
 import React from 'react'
 
 export function RenderToReactWithWrap<T = any>(
-  module: SingleFileModule<any, any, any>
+  module: SingleFileModule<any, any, any, any>
 ) {  
   const render = RenderToReact(module)
   return (p: T) => {
@@ -14,7 +14,7 @@ export function RenderToReactWithWrap<T = any>(
   }
 }
 
-export function RenderToReact<T>(module: SingleFileModule<any, any, any>) {
+export function RenderToReact<T>(module: SingleFileModule<any, any, any, any>) {
   
   const renderer = createRSRender(module, {
     framework: {
@@ -28,4 +28,4 @@ export function RenderToReact<T>(module: SingleFileModule<any, any, any>) {
   }
 }
 
-export function RenderToVue<T = any>(module: SingleFileModule<any, any, any>) {}
+export function RenderToVue<T = any>(module: SingleFileModule<any, any, any, any>) {}
