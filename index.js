@@ -40,6 +40,7 @@
   }
 })();
 const index = "";
+const markdown = "";
 function getDefaultExportFromCjs(x2) {
   return x2 && x2.__esModule && Object.prototype.hasOwnProperty.call(x2, "default") ? x2["default"] : x2;
 }
@@ -5491,7 +5492,10 @@ var Component$a = RenderToReactWithWrap$a(button_exports$1);
 function _createMdxContent$c(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    p: "p",
+    h2: "h2",
+    pre: "pre",
+    code: "code"
   }, props.components);
   return jsxRuntime.exports.jsxs(jsxRuntime.exports.Fragment, {
     children: [jsxRuntime.exports.jsx(_components.h1, {
@@ -5511,7 +5515,7 @@ function _createMdxContent$c(props) {
     }), "\n", jsxRuntime.exports.jsx(Component$a, {
       children: "Default Button"
     }), "\n", jsxRuntime.exports.jsx(_components.p, {
-      children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
+      children: "disabled \u6309\u94AE\u5C55\u793A"
     }), "\n", jsxRuntime.exports.jsx(Component$a, {
       disabled: true,
       type: "primary",
@@ -5528,8 +5532,13 @@ function _createMdxContent$c(props) {
     }), "\n", jsxRuntime.exports.jsx(Component$a, {
       disabled: true,
       children: "Default Button"
-    }), "\n", jsxRuntime.exports.jsx(_components.p, {
-      children: "disabled \u6309\u94AE\u5C55\u793A"
+    }), "\n", jsxRuntime.exports.jsx(_components.h2, {
+      children: "\u4EE3\u7801\u793A\u4F8B"
+    }), "\n", jsxRuntime.exports.jsx(_components.pre, {
+      children: jsxRuntime.exports.jsx(_components.code, {
+        className: "language-javascript",
+        children: "import ButtonModule from 'polymita/button'\n\nconst Button = renderToReact(ButtonModule)\n\nexport default () => {\n  return (\n    <div>\n      <Button>Primary Button</Button>\n    </div>\n  )\n}\n"
+      })
     })]
   });
 }
@@ -16261,10 +16270,10 @@ function Home() {
   }, "Introduction"), docMenu, /* @__PURE__ */ React.createElement("p", {
     className: "text-slate-400 mt-2"
   }, "Components"), leftMenu), /* @__PURE__ */ React.createElement("div", {
-    className: "flex",
+    className: "flex-1",
     style: { marginLeft: "220px" }
   }, /* @__PURE__ */ React.createElement("div", {
-    className: "p-4"
+    className: "p-4 markdown-body"
   }, /* @__PURE__ */ React.createElement(ComponentPreview, null))));
 }
 const RRoot = createRoot(document.getElementById("root"));
