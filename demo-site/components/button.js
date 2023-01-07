@@ -225,7 +225,10 @@ var Component = RenderToReactWithWrap(button_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    p: "p",
+    h2: "h2",
+    pre: "pre",
+    code: "code"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
@@ -245,7 +248,7 @@ function _createMdxContent(props) {
     }), "\n", _jsx(Component, {
       children: "Default Button"
     }), "\n", _jsx(_components.p, {
-      children: "\u57FA\u672C\u7684\u6309\u94AE\u5C55\u793A"
+      children: "disabled \u6309\u94AE\u5C55\u793A"
     }), "\n", _jsx(Component, {
       disabled: true,
       type: "primary",
@@ -262,8 +265,13 @@ function _createMdxContent(props) {
     }), "\n", _jsx(Component, {
       disabled: true,
       children: "Default Button"
-    }), "\n", _jsx(_components.p, {
-      children: "disabled \u6309\u94AE\u5C55\u793A"
+    }), "\n", _jsx(_components.h2, {
+      children: "\u4EE3\u7801\u793A\u4F8B"
+    }), "\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-javascript",
+        children: "import ButtonModule from 'polymita/button'\n\nconst Button = renderToReact(ButtonModule)\n\nexport default () => {\n  return (\n    <div>\n      <Button>Primary Button</Button>\n    </div>\n  )\n}\n"
+      })
     })]
   });
 }

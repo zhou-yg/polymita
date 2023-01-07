@@ -128,8 +128,8 @@ function Home() {
         <p className="text-slate-400 mt-2" >Components</p>
         {leftMenu}
       </div>
-      <div className="flex" style={{ marginLeft: '220px' }}>
-        <div className="p-4">
+      <div className="flex-1" style={{ marginLeft: '220px' }}>
+        <div className="p-4 markdown-body">
           <ComponentPreview />
         </div>
       </div>
