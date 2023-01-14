@@ -1,8 +1,11 @@
-import { ACTIVE, ConvertToLayoutTreeDraft, h, HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import {
+  LayoutStructTree, ACTIVE, ConvertToLayoutTreeDraft, h,
+  HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic,
+  VirtualLayoutJSON
+} from 'tarat-renderer'
 import { blockPattern, blockPattern2, blockPatternMatrix, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
 import { action, signal } from 'atomic-signal'
 import { colors } from '../../patterns/token'
-import { LayoutStructTree } from 'tarat-renderer/src'
 
 export let meta: {
   props: ButtonProps,
