@@ -18,12 +18,16 @@ const componentEntryFile = 'index.tsx'
 const iconsDir = join(__dirname, '../icons/')
 const iconOutputDir = join(__dirname, '../dist/icons/')
 
+const notComponents = ['icons']
+
 const filesToRemove = [
   join(componentOutputDir, 'components'),
   join(componentOutputDir, 'patterns'),
 ]
 
-const componentFiles = readdirSync(componentsDir).map((file) => {
+const componentFiles = readdirSync(componentsDir).filter(file => {
+  return !notComponents.includes(file)
+}).map((file) => {
   const filePath = join(componentsDir, file)
   const inputFilePath = join(filePath, componentEntryFile)
   const outputPath = join(componentOutputDir, `${file}.js`)
