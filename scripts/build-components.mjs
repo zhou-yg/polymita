@@ -5,7 +5,7 @@ import { dtsPlugin } from 'esbuild-plugin-d.ts'
 
 import { createReadStream, createWriteStream, existsSync, readdirSync } from 'fs'
 
-import { join } from 'path'
+import { join, resolve } from 'path'
 // get dirname in mjs
 import { fileURLToPath } from 'url'
 import { spawn } from 'child_process'
@@ -15,6 +15,14 @@ const componentsDir = join(__dirname, '../components/')
 const componentOutputDir = join(__dirname, '../dist/')
 const componentEntryFile = 'index.tsx'
 
+const iconsDir = join(__dirname, '../icons/')
+const iconOutputDir = join(__dirname, '../dist/icons/')
+
+const filesToRemove = [
+  join(componentOutputDir, 'components'),
+  join(componentOutputDir, 'patterns'),
+]
+
 const componentFiles = readdirSync(componentsDir).map((file) => {
   const filePath = join(componentsDir, file)
   const inputFilePath = join(filePath, componentEntryFile)
@@ -22,6 +30,17 @@ const componentFiles = readdirSync(componentsDir).map((file) => {
 
   return {
     inputFilePath,
+    outputPath,
+  }
+})
+const iconFiles = readdirSync(iconsDir)
+.filter(f => /\.tsx/.test(f))
+.map((file) => {
+  const filePath = join(iconsDir, file)
+  const outputPath = join(iconOutputDir, `${file.replace(/\.tsx/, '')}.js`)
+
+  return {
+    inputFilePath: filePath,
     outputPath,
   }
 })
@@ -40,26 +59,39 @@ const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.jso
   stdio: [process.stdin, process.stdout, process.stderr]
 })
 
-tsc.on('close', () => {
-  moveDTS()
+tsc.on('close', async () => {
+  await Promise.all(moveDTS())
   const cost2 = Date.now() - st
   console.log(`build components done, cost ${cost2 / 1000}s`)
+
+  filesToRemove.forEach((path) => {
+    rimraf.sync(path)
+  })
 })
 
 
 function moveDTS () {
   const distComponents = join(componentOutputDir, './components')
-  readdirSync(distComponents).forEach((name) => {
+  return readdirSync(distComponents).map((name) => {
     const dtsPath = join(distComponents, name, 'index.d.ts')
     if (existsSync(dtsPath)) {
       const targetPath = join(componentOutputDir, `${name}.d.ts`)
-      createReadStream(dtsPath).pipe(createWriteStream(targetPath))
+      return new Promise((resolve) => {
+        const ws = createWriteStream(targetPath)
+        createReadStream(dtsPath).pipe(ws)
+        ws.on('finish', () => {
+          resolve()
+        })
+      })
     }
   })
 }
 
 function buildComponents ()  {
-  const buildArr = componentFiles.map(({
+  const buildArr = [
+    ...componentFiles,
+    ...iconFiles,
+  ].map(({
     inputFilePath,
     outputPath,
   }) => {
