@@ -1,4 +1,4 @@
-# tarat.design
+# Polymita
 
 a infinite extensional component library
 
