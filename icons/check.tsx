@@ -1,7 +1,7 @@
 // for Outlined types
 import { CheckOutlined } from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers'
-import { h, createComponent } from 'tarat-renderer'
+import { h, createComponent } from '@polymita/renderer'
 
 const CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined, {
   extraSVGAttrs: { width: '1em', height: '1em', fill: 'currentColor' }

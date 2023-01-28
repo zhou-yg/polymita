@@ -25,7 +25,7 @@ import {
 ${styles.map(postfix => `  ${iconName}${postfix}`).join(',\n')}
 } from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers'
-import { h, createComponent } from 'tarat-renderer'
+import { h, createComponent } from '@polymita/renderer'
 
 ${styles.map(postfix => `const ${iconName}${postfix}SVGString = renderIconDefinitionToSVGElement(
   ${iconName}${postfix},

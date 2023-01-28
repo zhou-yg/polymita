@@ -1,4 +1,4 @@
-import { createRSRender, SingleFileModule } from 'tarat-renderer'
+import { createRSRender, SingleFileModule } from '@polymita/renderer'
 import React from 'react'
 
 export function RenderToReactWithWrap<T = any>(

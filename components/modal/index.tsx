@@ -1,6 +1,6 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, useModule, VirtualLayoutJSON } from 'tarat-renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, useModule, VirtualLayoutJSON } from '@polymita/renderer'
 import { blockPattern, strokePattern, useInteractive } from '../../patterns'
-import { action, after, signal } from 'atomic-signal'
+import { action, after, signal } from '@polymita/signal'
 import { colors } from '../../patterns/token'
 import CloseIcon from '../../icons/close'
 

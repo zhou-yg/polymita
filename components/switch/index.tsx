@@ -6,8 +6,8 @@ import {
   ConvertToLayoutTreeDraft,
   ACTIVE,
   HOVER
-} from 'tarat-renderer'
-import { Signal, after, signal } from 'atomic-signal'
+} from '@polymita/renderer'
+import { Signal, after, signal } from '@polymita/signal'
 import { blockPatternMatrix, colors } from '../../patterns'
 
 export let meta: {

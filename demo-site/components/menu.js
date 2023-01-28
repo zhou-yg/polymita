@@ -35,13 +35,13 @@ __export(menu_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, PropTypes } from "tarat-renderer";
-import { signal as signal2 } from "atomic-signal";
-import { useModule } from "tarat-renderer";
+import { h as h2, useLogic as useLogic2, PropTypes } from "@polymita/renderer";
+import { signal as signal2 } from "@polymita/signal";
+import { useModule } from "@polymita/renderer";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -153,7 +153,7 @@ __export(menu_item_exports, {
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { ACTIVE, h, HOVER, useLogic } from "tarat-renderer";
+import { ACTIVE, h, HOVER, useLogic } from "@polymita/renderer";
 var meta;
 var logic = (props) => {
   return {};
@@ -271,7 +271,7 @@ var styleRules2 = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -297,7 +297,7 @@ function RenderToReact(module) {
 }
 
 // components/menu/demo.mdx
-import { signal as signal3 } from "atomic-signal";
+import { signal as signal3 } from "@polymita/signal";
 var Component = RenderToReactWithWrap(menu_exports);
 var signal22 = signal3;
 function _createMdxContent(props) {

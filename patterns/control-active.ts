@@ -1,5 +1,5 @@
-import { PatternMatrix2, matchPatternMatrix } from 'tarat-renderer'
-import { action, dispose, signal } from 'atomic-signal'
+import { PatternMatrix2, matchPatternMatrix } from '@polymita/renderer'
+import { action, dispose, signal } from '@polymita/signal'
 import * as token from './token'
 
 export function useInteractive(props: { disabled?: boolean }) {

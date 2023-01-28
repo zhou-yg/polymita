@@ -1,8 +1,8 @@
-import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from '@polymita/renderer'
 import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
-import { action, after, Signal, signal, StateSignal } from 'atomic-signal'
+import { action, after, Signal, signal, StateSignal } from '@polymita/signal'
 import { colors } from '../../patterns/token'
-import { SignalProps } from 'tarat-renderer'
+import { SignalProps } from '@polymita/renderer'
 
 export let meta: {
   props: ButtonProps,

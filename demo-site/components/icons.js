@@ -12,7 +12,7 @@ var icons_exports = {};
 __export(icons_exports, {
   layout: () => layout
 });
-import { h as h10 } from "tarat-renderer";
+import { h as h10 } from "@polymita/renderer";
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/AccountBookFilled.js
 var AccountBookFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zM648.3 426.8l-87.7 161.1h45.7c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4v29.7h63.4c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4V752c0 5.5-4.5 10-10 10h-41.3c-5.5 0-10-4.5-10-10v-51.8h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h63.1v-29.7h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h45.2l-88-161.1c-2.6-4.8-.9-10.9 4-13.6 1.5-.8 3.1-1.2 4.8-1.2h46c3.8 0 7.2 2.1 8.9 5.5l72.9 144.3 73.2-144.3a10 10 0 018.9-5.5h45c5.5 0 10 4.5 10 10 .1 1.7-.3 3.3-1.1 4.8z" } }] }, "name": "account-book", "theme": "filled" };
@@ -147,7 +147,7 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/account-book.tsx
-import { h, createComponent } from "tarat-renderer";
+import { h, createComponent } from "@polymita/renderer";
 var AccountBookFilledSVGString = renderIconDefinitionToSVGElement(
   AccountBookFilled_default,
   {
@@ -184,7 +184,7 @@ var Icon = createComponent((props = {}) => {
 var account_book_default = Icon;
 
 // icons/loading.tsx
-import { h as h2, createComponent as createComponent2 } from "tarat-renderer";
+import { h as h2, createComponent as createComponent2 } from "@polymita/renderer";
 var LoadingOutlinedSVGString = renderIconDefinitionToSVGElement(
   LoadingOutlined_default,
   {
@@ -207,7 +207,7 @@ var Icon2 = createComponent2((props = {}) => {
 var loading_default = Icon2;
 
 // icons/loading3-quarters.tsx
-import { h as h3, createComponent as createComponent3 } from "tarat-renderer";
+import { h as h3, createComponent as createComponent3 } from "@polymita/renderer";
 var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
   Loading3QuartersOutlined_default,
   {
@@ -230,7 +230,7 @@ var Icon3 = createComponent3((props = {}) => {
 var loading3_quarters_default = Icon3;
 
 // icons/close.tsx
-import { h as h4, createComponent as createComponent4 } from "tarat-renderer";
+import { h as h4, createComponent as createComponent4 } from "@polymita/renderer";
 var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(CloseOutlined_default, {
   extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
 });
@@ -250,7 +250,7 @@ var Icon4 = createComponent4((props = {}) => {
 var close_default = Icon4;
 
 // icons/close-circle.tsx
-import { h as h5, createComponent as createComponent5 } from "tarat-renderer";
+import { h as h5, createComponent as createComponent5 } from "@polymita/renderer";
 var CloseCircleFilledSVGString = renderIconDefinitionToSVGElement(
   CloseCircleFilled_default,
   {
@@ -287,7 +287,7 @@ var Icon5 = createComponent5((props = {}) => {
 var close_circle_default = Icon5;
 
 // icons/close-square.tsx
-import { h as h6, createComponent as createComponent6 } from "tarat-renderer";
+import { h as h6, createComponent as createComponent6 } from "@polymita/renderer";
 var CloseSquareFilledSVGString = renderIconDefinitionToSVGElement(
   CloseSquareFilled_default,
   {
@@ -324,7 +324,7 @@ var Icon6 = createComponent6((props = {}) => {
 var close_square_default = Icon6;
 
 // icons/check.tsx
-import { h as h7, createComponent as createComponent7 } from "tarat-renderer";
+import { h as h7, createComponent as createComponent7 } from "@polymita/renderer";
 var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined_default, {
   extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
 });
@@ -344,7 +344,7 @@ var Icon7 = createComponent7((props = {}) => {
 var check_default = Icon7;
 
 // icons/check-circle.tsx
-import { h as h8, createComponent as createComponent8 } from "tarat-renderer";
+import { h as h8, createComponent as createComponent8 } from "@polymita/renderer";
 var CheckCircleFilledSVGString = renderIconDefinitionToSVGElement(
   CheckCircleFilled_default,
   {
@@ -381,7 +381,7 @@ var Icon8 = createComponent8((props = {}) => {
 var check_circle_default = Icon8;
 
 // icons/check-square.tsx
-import { h as h9, createComponent as createComponent9 } from "tarat-renderer";
+import { h as h9, createComponent as createComponent9 } from "@polymita/renderer";
 var CheckSquareFilledSVGString = renderIconDefinitionToSVGElement(
   CheckSquareFilled_default,
   {
@@ -494,7 +494,7 @@ var layout = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render6 = RenderToReact(module);

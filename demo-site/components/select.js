@@ -37,8 +37,8 @@ __export(select_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3 } from "tarat-renderer";
-import { action as action4, after as after3, signal as signal4 } from "atomic-signal";
+import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3 } from "@polymita/renderer";
+import { action as action4, after as after3, signal as signal4 } from "@polymita/signal";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -51,11 +51,11 @@ __export(input_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "tarat-renderer";
+import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -200,7 +200,7 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/input/index.tsx
-import { after } from "atomic-signal";
+import { after } from "@polymita/signal";
 var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired
@@ -265,9 +265,9 @@ __export(menu_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules3
 });
-import { h as h3, useLogic as useLogic3, PropTypes as PropTypes2 } from "tarat-renderer";
-import { signal as signal3 } from "atomic-signal";
-import { useModule } from "tarat-renderer";
+import { h as h3, useLogic as useLogic3, PropTypes as PropTypes2 } from "@polymita/renderer";
+import { signal as signal3 } from "@polymita/signal";
+import { useModule } from "@polymita/renderer";
 
 // components/menu-item/index.tsx
 var menu_item_exports = {};
@@ -278,7 +278,7 @@ __export(menu_item_exports, {
   meta: () => meta2,
   styleRules: () => styleRules2
 });
-import { ACTIVE as ACTIVE2, h as h2, HOVER as HOVER2, useLogic as useLogic2 } from "tarat-renderer";
+import { ACTIVE as ACTIVE2, h as h2, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
 var meta2;
 var logic2 = (props) => {
   return {};
@@ -462,7 +462,7 @@ var designPattern2 = (props, layout5) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

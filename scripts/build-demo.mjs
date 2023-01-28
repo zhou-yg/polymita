@@ -93,7 +93,7 @@ const arr =  files.map(({
         mdx()
       ],
       // tsconfig: '',
-      external: ['react', 'tarat-renderer', 'atomic-signal']
+      external: ['react', '@polymita/renderer', '@polymita/signal']
     })
 })
 

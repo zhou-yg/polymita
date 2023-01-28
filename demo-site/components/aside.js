@@ -19,7 +19,7 @@ __export(aside_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { h, useLogic } from "tarat-renderer";
+import { h, useLogic } from "@polymita/renderer";
 var name = "Aside";
 var meta;
 var propTypes = {};
@@ -39,7 +39,7 @@ var designPattern = (props, layout2) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

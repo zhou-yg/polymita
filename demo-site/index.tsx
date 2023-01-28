@@ -18,7 +18,7 @@ import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
 import * as ButtonModule from '../components/button'
 import { RenderToReact } from '../shared/render'
-import { NormalizeProps, SingleFileModule } from 'tarat-renderer'
+import { NormalizeProps, SingleFileModule } from '@polymita/renderer'
 
 const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
   ...MenuModule

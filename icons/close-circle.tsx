@@ -5,7 +5,7 @@ import {
   CloseCircleTwoTone
 } from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers'
-import { h, createComponent } from 'tarat-renderer'
+import { h, createComponent } from '@polymita/renderer'
 
 const CloseCircleFilledSVGString = renderIconDefinitionToSVGElement(
   CloseCircleFilled,

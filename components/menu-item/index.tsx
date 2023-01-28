@@ -1,4 +1,4 @@
-import { ACTIVE, h, HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from 'tarat-renderer'
+import { ACTIVE, h, HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic, VirtualLayoutJSON } from '@polymita/renderer'
 import { blockPattern, blockPatternMatrix, useInteractive } from '../../patterns';
 import { colors } from '../../patterns/token';
 

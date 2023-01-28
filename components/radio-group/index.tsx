@@ -1,5 +1,5 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes } from 'tarat-renderer';
-import { Signal, after, signal } from 'atomic-signal'
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes } from '@polymita/renderer';
+import { Signal, after, signal } from '@polymita/signal'
 import * as RadioModule from '../radio'
 
 export let meta: {

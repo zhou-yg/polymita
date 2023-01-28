@@ -50,12 +50,12 @@
   "homepage": "https://github.com/zhou-yg/tarat.design#readme",
   "dependencies": {
     "@ant-design/icons-svg": "^4.2.1",
+    "@polymita/renderer": "^0.0.2",
+    "@polymita/signal": "^0.0.2",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
-    "atomic-signal": "^0.0.12",
     "react": "^18.2.0",
-    "tailwindcss": "^3.2.4",
-    "tarat-renderer": "^0.0.19"
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@emotion/css": "^11.10.5",

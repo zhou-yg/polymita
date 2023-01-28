@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "jsxImportSource": "tarat-renderer",
+    "jsxImportSource": "@polymita/renderer",
     "jsxFactory": "h",
     "outDir": "dist",
     "sourceMap": true,

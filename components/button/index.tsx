@@ -2,9 +2,9 @@ import {
   LayoutStructTree, ACTIVE, ConvertToLayoutTreeDraft, h,
   HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic,
   VirtualLayoutJSON
-} from 'tarat-renderer'
+} from '@polymita/renderer'
 import { blockPattern, blockPattern2, blockPatternMatrix, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
-import { action, signal } from 'atomic-signal'
+import { action, signal } from '@polymita/signal'
 import { colors } from '../../patterns/token'
 
 export let meta: {

@@ -34,11 +34,11 @@ import {
   HOVER,
   useLayout,
   useLogic
-} from "tarat-renderer";
+} from "@polymita/renderer";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -263,7 +263,7 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/loading3-quarters.tsx
-import { h as h2, createComponent } from "tarat-renderer";
+import { h as h2, createComponent } from "@polymita/renderer";
 var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
   Loading3QuartersOutlined_default,
   {
@@ -286,7 +286,7 @@ var Icon = createComponent((props = {}) => {
 var loading3_quarters_default = Icon;
 
 // components/loading-button/index.tsx
-import { h as h3, CommandOP, overrideModule } from "tarat-renderer";
+import { h as h3, CommandOP, overrideModule } from "@polymita/renderer";
 var LoadingButton = overrideModule(button_exports, {
   layout(props, layout3) {
     layout3.buttonBox.span.props.className += " flex justify-center items-center";
@@ -314,7 +314,7 @@ var designPatterns2 = LoadingButton.designPatterns;
 var styleRules2 = LoadingButton.styleRules;
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

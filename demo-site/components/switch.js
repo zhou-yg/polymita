@@ -24,12 +24,12 @@ import {
   useLogic,
   ACTIVE,
   HOVER
-} from "tarat-renderer";
-import { signal as signal2 } from "atomic-signal";
+} from "@polymita/renderer";
+import { signal as signal2 } from "@polymita/signal";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -173,7 +173,7 @@ var designPatterns = (props, layout2) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

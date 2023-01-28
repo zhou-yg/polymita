@@ -1,5 +1,5 @@
-import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic } from 'tarat-renderer';
-import { StateSignal, after, signal } from 'atomic-signal';
+import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic } from '@polymita/renderer';
+import { StateSignal, after, signal } from '@polymita/signal';
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 import CheckIcon from '../../icons/check'
 

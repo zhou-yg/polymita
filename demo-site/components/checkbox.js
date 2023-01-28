@@ -16,12 +16,12 @@ __export(checkbox_exports, {
   meta: () => meta,
   propTypes: () => propTypes
 });
-import { ACTIVE, h as h2, HOVER, PropTypes, useLogic } from "tarat-renderer";
-import { after, signal as signal2 } from "atomic-signal";
+import { ACTIVE, h as h2, HOVER, PropTypes, useLogic } from "@polymita/renderer";
+import { after, signal as signal2 } from "@polymita/signal";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -170,7 +170,7 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/check.tsx
-import { h, createComponent } from "tarat-renderer";
+import { h, createComponent } from "@polymita/renderer";
 var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined_default, {
   extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
 });
@@ -265,7 +265,7 @@ var designPatterns = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

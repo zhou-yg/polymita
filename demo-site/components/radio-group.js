@@ -18,8 +18,8 @@ __export(radio_group_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, useModule, PropTypes } from "tarat-renderer";
-import { signal as signal2 } from "atomic-signal";
+import { h as h2, useLogic as useLogic2, useModule, PropTypes } from "@polymita/renderer";
+import { signal as signal2 } from "@polymita/signal";
 
 // components/radio/index.tsx
 var radio_exports = {};
@@ -30,11 +30,11 @@ __export(radio_exports, {
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h, useLogic, ACTIVE, HOVER } from "tarat-renderer";
+import { h, useLogic, ACTIVE, HOVER } from "@polymita/renderer";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -238,7 +238,7 @@ var designPattern = (props, layout3) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

@@ -18,11 +18,11 @@ __export(input_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "tarat-renderer";
+import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
-import { matchPatternMatrix } from "tarat-renderer";
-import { action, dispose, signal } from "atomic-signal";
+import { matchPatternMatrix } from "@polymita/renderer";
+import { action, dispose, signal } from "@polymita/signal";
 
 // patterns/token.ts
 var colors = {
@@ -80,7 +80,7 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/input/index.tsx
-import { after } from "atomic-signal";
+import { after } from "@polymita/signal";
 var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired
@@ -136,7 +136,7 @@ var styleRules = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "tarat-renderer";
+import { createRSRender } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);

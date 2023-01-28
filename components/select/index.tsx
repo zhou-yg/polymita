@@ -1,5 +1,5 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule, UseComponent } from 'tarat-renderer';
-import { Signal, action, after, signal } from 'atomic-signal'
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule, UseComponent } from '@polymita/renderer';
+import { Signal, action, after, signal } from '@polymita/signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
 

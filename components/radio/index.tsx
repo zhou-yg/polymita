@@ -1,5 +1,5 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER, PatternMatrix2 } from 'tarat-renderer';
-import { after, signal } from 'atomic-signal'
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER, PatternMatrix2 } from '@polymita/renderer';
+import { after, signal } from '@polymita/signal'
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 export let meta: {
   props: RadioProps,

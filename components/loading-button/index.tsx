@@ -1,6 +1,6 @@
 import * as ButtonModule from '../button/index'
 import Loading3Icon from '../../icons/loading3-quarters'
-import { h, CommandOP, overrideModule } from 'tarat-renderer'
+import { h, CommandOP, overrideModule } from '@polymita/renderer'
 
 type BMT = typeof ButtonModule
 type BMTKeys = keyof BMT
