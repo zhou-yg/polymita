@@ -50,7 +50,7 @@
   "homepage": "https://github.com/zhou-yg/tarat.design#readme",
   "dependencies": {
     "@ant-design/icons-svg": "^4.2.1",
-    "@polymita/renderer": "^0.0.2",
+    "@polymita/renderer": "^0.0.4",
     "@polymita/signal": "^0.0.2",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",

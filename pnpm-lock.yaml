@@ -4,7 +4,7 @@ specifiers:
   '@ant-design/icons-svg': ^4.2.1
   '@emotion/css': ^11.10.5
   '@mdx-js/esbuild': ^2.1.5
-  '@polymita/renderer': ^0.0.2
+  '@polymita/renderer': ^0.0.4
   '@polymita/signal': ^0.0.2
   '@types/jest': ^29.2.3
   '@types/node': ^18.11.9
@@ -24,7 +24,7 @@ specifiers:
 
 dependencies:
   '@ant-design/icons-svg': 4.2.1
-  '@polymita/renderer': 0.0.2_typescript@4.9.4
+  '@polymita/renderer': 0.0.4_typescript@4.9.4
   '@polymita/signal': 0.0.2_typescript@4.9.4
   '@types/jest': 29.2.3
   '@types/node': 18.11.9
@@ -337,27 +337,14 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@polymita/renderer/0.0.2_typescript@4.9.4:
-    resolution: {integrity: sha512-O8foSFe6gwe1ehPuIP9d4LDgCm+EwfcAoppVDTfsEjZVFLBn+kpvNPafBtETZc1ySWlWo78+iMDBVFXT5yNHag==}
+  /@polymita/renderer/0.0.4_typescript@4.9.4:
+    resolution: {integrity: sha512-RLNY8Ef5ZanWwAZ+GUNs9TO9HoLF8Lp8HjQCnlQt9Rmjr/4CG0pAdY2WHjEOJfcr5AbCdqGRawrmvV8X0DFdEQ==}
     dependencies:
       '@emotion/css': 11.10.5
-      '@polymita/signal': 0.0.1_typescript@4.9.4
+      '@polymita/signal': 0.0.2_typescript@4.9.4
       csstype: 3.1.1
     transitivePeerDependencies:
       - '@babel/core'
-      - rollup
-      - typescript
-    dev: false
-
-  /@polymita/signal/0.0.1_typescript@4.9.4:
-    resolution: {integrity: sha512-MIo8SptVOPZ3BlQ3vYqWp2i4HNDtA/sCcFveVS2JVHc9rt7VxM0405Qi1HokPxY6vRvqIgpJgLgqLvgoM3e3Dw==}
-    dependencies:
-      '@jest/test-sequencer': 28.1.3
-      eventemitter3: 4.0.7
-      immer: 9.0.18
-      rollup-plugin-dts: 4.2.3_typescript@4.9.4
-      tslib: 2.4.1
-    transitivePeerDependencies:
       - rollup
       - typescript
     dev: false

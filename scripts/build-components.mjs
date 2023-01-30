@@ -21,7 +21,7 @@ const iconOutputDir = join(__dirname, '../dist/icons/')
 const notComponents = ['icons']
 
 const filesToRemove = [
-  join(componentOutputDir, 'components'),
+  join(componentOutputDir, 'icons'),
   join(componentOutputDir, 'patterns'),
 ]
 
@@ -53,7 +53,7 @@ rimraf.sync(componentOutputDir)
 
 const st = Date.now()
 
-await Promise.all(buildComponents())
+await buildComponents()
 
 const cost = Date.now() - st
 console.log(`build components done, cost ${cost / 1000}s`)
@@ -64,7 +64,6 @@ const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.jso
 })
 
 tsc.on('close', async () => {
-  await Promise.all(moveDTS())
   const cost2 = Date.now() - st
   console.log(`build components done, cost ${cost2 / 1000}s`)
 
@@ -92,29 +91,29 @@ function moveDTS () {
 }
 
 function buildComponents ()  {
-  const buildArr = [
+
+  const entryPoints = [
     ...componentFiles,
     ...iconFiles,
   ].map(({
     inputFilePath,
     outputPath,
-  }) => {
-  
-    if (!existsSync(inputFilePath)) {
-      return
-    }
-  
-    return esbuild
+  }) => inputFilePath)
+
+  return esbuild
       .build({
-        entryPoints: [inputFilePath],
-        bundle: false,
-        outfile: outputPath,
+        entryPoints: entryPoints,
+        bundle: true,
+        outdir: componentOutputDir,
         format: 'esm',
+        chunkNames: '[name]-[hash]',
         plugins: [
           // dtsPlugin()
         ],
+        splitting: true,
+        external: [
+          '@polymita/renderer',
+          '@polymita/signal'
+        ]
       })
-  })
-
-  return buildArr
 }

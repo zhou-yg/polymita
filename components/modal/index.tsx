@@ -1,11 +1,7 @@
 import { h, PatternStructure, SignalProps, useLayout, useLogic, useModule, VirtualLayoutJSON } from '@polymita/renderer'
-import { blockPattern, strokePattern, useInteractive } from '../../patterns'
-import { action, after, signal } from '@polymita/signal'
-import { colors } from '../../patterns/token'
 import CloseIcon from '../../icons/close'
 
 import * as ButtonModule from '../button/index'
-import { type } from 'os'
 
 export interface ModalProps {
   children?: string
