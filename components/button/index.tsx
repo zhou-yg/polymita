@@ -3,8 +3,7 @@ import {
   HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic,
   VirtualLayoutJSON
 } from '@polymita/renderer'
-import { blockPattern, blockPattern2, blockPatternMatrix, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
-import { action, signal } from '@polymita/signal'
+import { blockPatternMatrix, strokePatternMatrix } from '../../patterns'
 import { colors } from '../../patterns/token'
 
 export let meta: {

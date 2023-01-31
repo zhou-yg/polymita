@@ -221,7 +221,7 @@ var layout2 = (props) => {
     className: "block"
   }, logic3.items().map((item) => {
     const isSelected = item.selected;
-    let element = MenuItemFunc(__spreadProps(__spreadValues({}, item), {
+    let element = /* @__PURE__ */ h2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
       override: {
@@ -239,7 +239,7 @@ var layout2 = (props) => {
           return [];
         }
       }
-    }));
+    })));
     return /* @__PURE__ */ h2("menuItemBox", {
       "data-name": "menu-item-box",
       key: item.key
@@ -255,11 +255,14 @@ var layout2 = (props) => {
       return /* @__PURE__ */ h2("subMenuItem", {
         className: "block m-1",
         onClick: () => logic3.select(subItem)
-      }, MenuItemFunc(__spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
-        layout(props2, jsonTree) {
-          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+      }, /* @__PURE__ */ h2(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), {
+        selected: isSubSelected,
+        override: {
+          layout(props2, jsonTree) {
+            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+          }
         }
-      } })));
+      })));
     })));
   })));
 };

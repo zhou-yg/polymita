@@ -16,15 +16,14 @@ import Overview from './docs/overview'
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as MenuModule from '../components/menu'
-import * as ButtonModule from '../components/button'
 import { RenderToReact } from '../shared/render'
 import { NormalizeProps, SingleFileModule } from '@polymita/renderer'
 
+// test for Button
+// import Button from '../react/components/button'
+
 const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
   ...MenuModule
-} as unknown as SingleFileModule<any, any, any, any>)
-const Button = RenderToReact<NormalizeProps<ButtonModule.ButtonProps>>({
-  ...ButtonModule
 } as unknown as SingleFileModule<any, any, any, any>)
 
 const docsPlayground = [

@@ -107,7 +107,7 @@ export const layout = (props: MenuProps) => {
       <ul className="block" >
         {logic.items().map((item) => {
           const isSelected = item.selected
-          let element = MenuItemFunc({
+          let element = <MenuItemFunc {...{
             ...item,
             hasItemChildren: !!item.children,
             selected: isSelected,
@@ -121,7 +121,7 @@ export const layout = (props: MenuProps) => {
                 return []
               },
             }
-          });
+          }} />;
 
           return (
             <menuItemBox data-name="menu-item-box" key={item.key}>
@@ -136,11 +136,11 @@ export const layout = (props: MenuProps) => {
                     const isSubSelected = subItem.selected
                     return (
                       <subMenuItem className="block m-1" onClick={() => logic.select(subItem)}>
-                        {MenuItemFunc({...subItem, selected: isSubSelected, override: {
+                        <MenuItemFunc {...subItem} selected={isSubSelected} override= {{
                           layout(props, jsonTree) {
                             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`
                           },
-                        }})}
+                        }} />
                       </subMenuItem>
                     )
                   })}
