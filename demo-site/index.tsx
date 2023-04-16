@@ -2,6 +2,7 @@ import ButtonDemo from './components/button'
 import MenuDemo from './components/menu'
 import InputDemo from './components/input'
 import ModalDemo from './components/modal'
+import ModalTestDemo from './components/modal-test'
 import IconsDemo from './components/icons'
 import LoadingButtonDemo from './components/loading-button'
 import CheckboxDemo from './components/checkbox'
@@ -43,6 +44,7 @@ const componentsPlayground = {
   Menu: MenuDemo,
   Input: InputDemo,
   Modal: ModalDemo,
+  ModalTest: ModalTestDemo,
   Icons: IconsDemo,
   Checkbox: CheckboxDemo,
   Radio: RadioDemo,

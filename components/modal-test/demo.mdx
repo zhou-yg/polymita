@@ -1,0 +1,21 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export function Box () {
+
+  return (
+    <div>
+      <Component title="My Modal" onClose={v => setShow(false)} >
+        <p> i am content row 1 </p>
+        <p> i am content row 2 </p>
+      </Component>
+    </div>
+  )
+}
+
+# 内嵌 弹框
+
+内嵌
+
+<Box></Box>
