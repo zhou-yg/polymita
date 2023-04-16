@@ -13,11 +13,11 @@ export let meta: {
 export interface ButtonProps {
   disabled?: boolean
   value:  Signal< string | number>
-  onInput?: (v: string | number) => void
   type?: string
+  focused?: boolean
+  onInput?: (v: string | number) => void
   onFocus?: () => void
   onBlur?: () => void
-  focused?: boolean
 }
 
 export const propTypes = {

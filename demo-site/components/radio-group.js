@@ -139,35 +139,39 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ h("radioContainer", {
-    className: "relative flex items-center cursor-pointer",
-    onClick: () => {
-      var _a;
-      return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
-    }
-  }, /* @__PURE__ */ h("radioBox", {
-    className: "relative block mr-2 rounded-full ",
-    style: { width: "16px", height: "16px" },
-    "is-container": true,
-    "has-decoration": true,
-    selected: props.selected,
-    disabled: props.disabled
-  }, /* @__PURE__ */ h("input", {
-    type: "checkbox",
-    readOnly: true,
-    checked: props.selected,
-    className: "opacity-0 absolute w-full h-full"
-  }), /* @__PURE__ */ h("span", {
-    className: "relative z-10 w-full h-full flex items-center justify-center"
-  }, props.selected ? /* @__PURE__ */ h("circle", {
-    "is-fillText": true,
-    selected: props.selected,
-    disabled: props.disabled,
-    className: "block rounded-full",
-    style: { width: "6px", height: "6px" }
-  }) : "")), /* @__PURE__ */ h("checkBoxLabel", {
-    className: "select-none"
-  }, props.children));
+  return /* @__PURE__ */ h(
+    "radioContainer",
+    {
+      className: "relative flex items-center cursor-pointer",
+      onClick: () => {
+        var _a;
+        return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
+      }
+    },
+    /* @__PURE__ */ h(
+      "radioBox",
+      {
+        className: "relative block mr-2 rounded-full ",
+        style: { width: "16px", height: "16px" },
+        "is-container": true,
+        "has-decoration": true,
+        selected: props.selected,
+        disabled: props.disabled
+      },
+      /* @__PURE__ */ h("input", { type: "checkbox", readOnly: true, checked: props.selected, className: "opacity-0 absolute w-full h-full" }),
+      /* @__PURE__ */ h("span", { className: "relative z-10 w-full h-full flex items-center justify-center" }, props.selected ? /* @__PURE__ */ h(
+        "circle",
+        {
+          "is-fillText": true,
+          selected: props.selected,
+          disabled: props.disabled,
+          className: "block rounded-full",
+          style: { width: "6px", height: "6px" }
+        }
+      ) : "")
+    ),
+    /* @__PURE__ */ h("checkBoxLabel", { className: "select-none" }, props.children)
+  );
 };
 var styleRules = (props, layout3) => {
   return [];
@@ -220,13 +224,9 @@ var layout2 = (props) => {
   const Radio = useModule(radio_exports);
   const currentValue = logic3.value();
   return /* @__PURE__ */ h2("radioGroupContainer", null, props.options.map((option, index) => {
-    return /* @__PURE__ */ h2(Radio, {
-      key: option.label,
-      selected: currentValue === option.value,
-      onChange: () => {
-        logic3.changeValue(option.value);
-      }
-    }, option.label);
+    return /* @__PURE__ */ h2(Radio, { key: option.label, selected: currentValue === option.value, onChange: () => {
+      logic3.changeValue(option.value);
+    } }, option.label);
   }));
 };
 var styleRules2 = (props, layout3) => {
@@ -238,7 +238,7 @@ var designPattern = (props, layout3) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -251,7 +251,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -271,7 +271,7 @@ function ComponentBox() {
     style: {
       margin: "10px"
     },
-    children: [" \u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
+    children: ["\u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
       name: "char",
       onChange: (v) => setVal(v),
       value: val,

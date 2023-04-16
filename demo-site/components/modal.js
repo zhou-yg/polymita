@@ -214,24 +214,32 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ h2("buttonBox", {
-    className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
-    "is-container": true,
-    "has-decoration": true,
-    selected: false,
-    disabled: props.disabled
-  }, /* @__PURE__ */ h2("span", {
-    "is-text": true,
-    selected: false,
-    disabled: props.disabled,
-    className: "block select-none",
-    onClick: (e) => {
-      var _a;
-      if (props.disabled)
-        return;
-      (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-    }
-  }, props.children));
+  return /* @__PURE__ */ h2(
+    "buttonBox",
+    {
+      className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
+      "is-container": true,
+      "has-decoration": true,
+      selected: false,
+      disabled: props.disabled
+    },
+    /* @__PURE__ */ h2(
+      "span",
+      {
+        "is-text": true,
+        selected: false,
+        disabled: props.disabled,
+        className: "block select-none",
+        onClick: (e) => {
+          var _a;
+          if (props.disabled)
+            return;
+          (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+        }
+      },
+      props.children
+    )
+  );
 };
 var designPatterns = (props) => {
   const logicResult = useLogic();
@@ -288,28 +296,23 @@ var logic2 = (props) => {
 var layout2 = (props) => {
   const logic3 = useLogic2();
   const Button = useModule(Button_exports);
-  return /* @__PURE__ */ h3("modalBox", {
-    className: "block fixed left-0 top-0 w-full h-full"
-  }, /* @__PURE__ */ h3("mask", {
-    className: "fixed w-full h-full opacity-70 bg-black"
-  }), /* @__PURE__ */ h3("modalBody", {
-    className: "block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-    style: { width: "520px" }
-  }, /* @__PURE__ */ h3("closeBox", {
-    className: "block absolute top-4 right-4 cursor-pointer",
-    onClick: props.onClose
-  }, /* @__PURE__ */ h3(close_default, {
-    color: "rgba(0,0,0,.45)"
-  })), /* @__PURE__ */ h3("content", {
-    className: "block p-6",
-    style: { minHeight: "40px" }
-  }, props.title ? /* @__PURE__ */ h3("contentTitle", {
-    className: "block mb-4 font-medium"
-  }, props.title) : "", props.children), /* @__PURE__ */ h3("footer", {
-    className: "flex gap-2 p-6 flex-row-reverse"
-  }, /* @__PURE__ */ h3(Button, {
-    type: "primary"
-  }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, null, "\u53D6\u6D88"))));
+  return /* @__PURE__ */ h3(
+    "modalBox",
+    {
+      className: "block fixed left-0 top-0 w-full h-full"
+    },
+    /* @__PURE__ */ h3("mask", { className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
+    /* @__PURE__ */ h3(
+      "modalBody",
+      {
+        className: "block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+        style: { width: "520px" }
+      },
+      /* @__PURE__ */ h3("closeBox", { className: "block absolute top-4 right-4 cursor-pointer", onClick: props.onClose }, /* @__PURE__ */ h3(close_default, { color: "rgba(0,0,0,.45)" })),
+      /* @__PURE__ */ h3("content", { className: "block p-4", style: { minHeight: "40px" } }, props.title ? /* @__PURE__ */ h3("contentTitle", { className: "block mb-4 font-medium" }, props.title) : "", props.children),
+      /* @__PURE__ */ h3("footer", { className: "flex gap-2 p-4 flex-row-reverse" }, /* @__PURE__ */ h3(Button, { type: "primary" }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, null, "\u53D6\u6D88"))
+    )
+  );
 };
 var designPattern = (props) => {
 };
@@ -317,7 +320,7 @@ var styleRules2 = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -330,7 +333,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React

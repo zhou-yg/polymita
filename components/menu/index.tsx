@@ -102,6 +102,7 @@ export const layout = (props: MenuProps) => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule(MenuItemModule)
   
+  console.log('logic.items: ', logic.items);
   return (
     <menuBox className="block border-slate-300">
       <ul className="block" >

@@ -39,7 +39,7 @@ var designPattern = (props, layout2) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -52,7 +52,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React

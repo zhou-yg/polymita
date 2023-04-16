@@ -27,7 +27,7 @@ export const layout = (props: ModalProps) => {
   return (
     <modalBox
       className="block fixed left-0 top-0 w-full h-full" >
-      <mask className="fixed w-full h-full opacity-70 bg-black"></mask>
+      <mask className="fixed top-0 left-0 w-full h-full opacity-70 bg-black"></mask>
       <modalBody
         className="block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{ width: '520px'  }} >
@@ -35,12 +35,12 @@ export const layout = (props: ModalProps) => {
           <CloseIcon color="rgba(0,0,0,.45)" />
         </closeBox>
 
-        <content className="block p-6" style={{ minHeight: '40px' }} >
+        <content className="block p-4" style={{ minHeight: '40px' }} >
           {props.title ? <contentTitle className="block mb-4 font-medium">{props.title}</contentTitle> : ''}
           {props.children}
         </content>
 
-        <footer className="flex gap-2 p-6 flex-row-reverse" >
+        <footer className="flex gap-2 p-4 flex-row-reverse" >
           <Button type="primary">确定</Button>
           <Button>取消</Button>
         </footer>

@@ -5155,7 +5155,7 @@ function pushCurrentRenderer(renderer) {
 function popCurrentRenderer() {
   globalCurrentRenderer.pop();
 }
-const createRSRender = createRenderer;
+const createRSRenderer = createRenderer;
 function createRenderer(module, renderHost, override2) {
   const renderer = createRenderer2({
     module,
@@ -5477,7 +5477,7 @@ function RenderToReactWithWrap$a(module) {
   };
 }
 function RenderToReact$b(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -5763,7 +5763,7 @@ function RenderToReactWithWrap$9(module) {
   };
 }
 function RenderToReact$a(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -5951,7 +5951,7 @@ function RenderToReactWithWrap$8(module) {
   };
 }
 function RenderToReact$9(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -6311,7 +6311,7 @@ function RenderToReactWithWrap$7(module) {
   };
 }
 function RenderToReact$8(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -6791,7 +6791,7 @@ function RenderToReactWithWrap$6(module) {
   };
 }
 function RenderToReact$7(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -7114,7 +7114,7 @@ function RenderToReactWithWrap$5(module) {
   };
 }
 function RenderToReact$6(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -7414,7 +7414,7 @@ function RenderToReactWithWrap$4(module) {
   };
 }
 function RenderToReact$5(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -7635,7 +7635,7 @@ function RenderToReactWithWrap$3(module) {
   };
 }
 function RenderToReact$4(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -7907,7 +7907,7 @@ function RenderToReactWithWrap$2(module) {
   };
 }
 function RenderToReact$3(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -8354,7 +8354,7 @@ function RenderToReactWithWrap$1(module) {
   };
 }
 function RenderToReact$2(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -8573,7 +8573,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact$1(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -16170,7 +16170,7 @@ const ButtonModule = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
   styleRules
 }, Symbol.toStringTag, { value: "Module" }));
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React

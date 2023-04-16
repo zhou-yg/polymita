@@ -228,20 +228,27 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic5 = useLogic();
-  return /* @__PURE__ */ h("inputBox", {
-    className: "block"
-  }, /* @__PURE__ */ h("input", {
-    "is-container": true,
-    "has-decoration": true,
-    "is-text": true,
-    className: "block select-none outline-none border-0 px-2 py-1 rounded",
-    autoFocus: props.focused,
-    onFocus: logic5.onFocus,
-    onBlur: logic5.onBlur,
-    type: props.type,
-    disabled: props.disabled,
-    value: logic5.value
-  }));
+  return /* @__PURE__ */ h(
+    "inputBox",
+    {
+      className: "block"
+    },
+    /* @__PURE__ */ h(
+      "input",
+      {
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: logic5.onFocus,
+        onBlur: logic5.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value: logic5.value
+      }
+    )
+  );
 };
 var designPatterns = (props) => {
   return [
@@ -285,13 +292,17 @@ var logic2 = (props) => {
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
-  return /* @__PURE__ */ h2("menuItem", {
-    "is-container": true,
-    "is-text": true,
-    selected: props.selected,
-    disabled: props.disabled,
-    className: "block p-2 px-3 rounded-lg"
-  }, /* @__PURE__ */ h2("span", null, props.label));
+  return /* @__PURE__ */ h2(
+    "menuItem",
+    {
+      "is-container": true,
+      "is-text": true,
+      selected: props.selected,
+      disabled: props.disabled,
+      className: "block p-2 px-3 rounded-lg"
+    },
+    /* @__PURE__ */ h2("span", null, props.label)
+  );
 };
 var designPatterns2 = (props) => {
   const logic5 = useLogic2();
@@ -340,11 +351,8 @@ var logic3 = (props) => {
 var layout3 = (props) => {
   const logic5 = useLogic3();
   const MenuItemFunc = useModule(menu_item_exports);
-  return /* @__PURE__ */ h3("menuBox", {
-    className: "block border-slate-300"
-  }, /* @__PURE__ */ h3("ul", {
-    className: "block"
-  }, logic5.items().map((item) => {
+  console.log("logic.items: ", logic5.items);
+  return /* @__PURE__ */ h3("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h3("ul", { className: "block" }, logic5.items().map((item) => {
     const isSelected = item.selected;
     let element = /* @__PURE__ */ h3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
@@ -355,39 +363,21 @@ var layout3 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h3("spanIcon", {
-              key: "tag",
-              "is-text": true,
-              className: "mx-2"
-            }, ">"));
+            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h3("spanIcon", { key: "tag", "is-text": true, className: "mx-2" }, ">"));
           }
           return [];
         }
       }
     })));
-    return /* @__PURE__ */ h3("menuItemBox", {
-      "data-name": "menu-item-box",
-      key: item.key
-    }, /* @__PURE__ */ h3("div", {
-      className: "p-1",
-      onMouseDown: () => {
-        logic5.select(item);
-      }
-    }, element), item.children && /* @__PURE__ */ h3("subMenuItemBox", {
-      className: "block p-1 bg-slate-200"
-    }, item.children.map((subItem) => {
+    return /* @__PURE__ */ h3("menuItemBox", { "data-name": "menu-item-box", key: item.key }, /* @__PURE__ */ h3("div", { className: "p-1", onMouseDown: () => {
+      logic5.select(item);
+    } }, element), item.children && /* @__PURE__ */ h3("subMenuItemBox", { className: "block p-1 bg-slate-200" }, item.children.map((subItem) => {
       const isSubSelected = subItem.selected;
-      return /* @__PURE__ */ h3("subMenuItem", {
-        className: "block m-1",
-        onClick: () => logic5.select(subItem)
-      }, /* @__PURE__ */ h3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), {
-        selected: isSubSelected,
-        override: {
-          layout(props2, jsonTree) {
-            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
-          }
+      return /* @__PURE__ */ h3("subMenuItem", { className: "block m-1", onClick: () => logic5.select(subItem) }, /* @__PURE__ */ h3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
+        layout(props2, jsonTree) {
+          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
         }
-      })));
+      } })));
     })));
   })));
 };
@@ -438,22 +428,30 @@ var layout4 = (props) => {
   } = useLogic4();
   const Input = useModule2(input_exports);
   const Menu = useModule2(menu_exports);
-  return /* @__PURE__ */ h4("selectContainer", {
-    className: "block relative rounded"
-  }, /* @__PURE__ */ h4(Input, {
-    disabled: props.disabled,
-    value: current,
-    onFocus: () => focused(true),
-    onBlur: () => focused(false)
-  }), /* @__PURE__ */ h4("optionList", {
-    if: optionItems().length > 0 && focused(),
-    className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
-    style: { top: "40px" }
-  }, /* @__PURE__ */ h4(Menu, {
-    current,
-    items: optionItems,
-    onClick: selectItem
-  })));
+  return /* @__PURE__ */ h4(
+    "selectContainer",
+    {
+      className: "block relative rounded"
+    },
+    /* @__PURE__ */ h4(
+      Input,
+      {
+        disabled: props.disabled,
+        value: current,
+        onFocus: () => focused(true),
+        onBlur: () => focused(false)
+      }
+    ),
+    /* @__PURE__ */ h4(
+      "optionList",
+      {
+        if: optionItems().length > 0 && focused(),
+        className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
+        style: { top: "40px" }
+      },
+      /* @__PURE__ */ h4(Menu, { current, items: optionItems, onClick: selectItem })
+    )
+  );
 };
 var styleRules4 = (props, layout5) => {
   layout5.selectContainer.Input.inputBox.input;
@@ -465,7 +463,7 @@ var designPattern2 = (props, layout5) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -478,7 +476,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -498,7 +496,7 @@ function SelectBox1() {
     style: {
       margin: "10px"
     },
-    children: [" \u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
+    children: ["\u5F53\u524D\u9009\u62E9\u503C\uFF1A", val, _jsx("br", {}), _jsx(Component, {
       value: val,
       onChange: (v) => setVal(v),
       options: [{

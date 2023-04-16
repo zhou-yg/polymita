@@ -97,38 +97,52 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const value = props.value();
-  return /* @__PURE__ */ h("switchContainer", {
-    "is-container": true,
-    className: "inline-block relative overflow-hidden",
-    style: { minWidth: "44px", height: "22px", lineHeight: "22px", borderRadius: "11px" },
-    onClick: () => {
-      props.value((d) => {
-        console.log("d: ", d);
-        return !d;
-      });
-    }
-  }, /* @__PURE__ */ h("switchHandle", {
-    "is-fillText": true,
-    style: { width: "18px", height: "18px", top: "2px", insetInlineStart: "2px" },
-    className: "rounded-full absolute"
-  }), /* @__PURE__ */ h("contentBox", {
-    className: "block h-full pointer-events-none"
-  }, /* @__PURE__ */ h("checkedContent", {
-    className: "block h-full",
-    style: {
-      marginInlineStart: "9px",
-      marginInlineEnd: "24px"
+  return /* @__PURE__ */ h(
+    "switchContainer",
+    {
+      "is-container": true,
+      className: "inline-block relative overflow-hidden",
+      style: { minWidth: "44px", height: "22px", lineHeight: "22px", borderRadius: "11px" },
+      onClick: () => {
+        props.value((d) => {
+          console.log("d: ", d);
+          return !d;
+        });
+      }
     },
-    "is-text": true
-  }, props.checkedContent), /* @__PURE__ */ h("uncheckedContent", {
-    className: "block h-full",
-    style: {
-      marginTop: "-22px",
-      marginInlineStart: "24px",
-      marginInlineEnd: "9px"
-    },
-    "is-text": true
-  }, props.uncheckedContent)));
+    /* @__PURE__ */ h(
+      "switchHandle",
+      {
+        "is-fillText": true,
+        style: { width: "18px", height: "18px", top: "2px", insetInlineStart: "2px" },
+        className: "rounded-full absolute"
+      }
+    ),
+    /* @__PURE__ */ h("contentBox", { className: "block h-full pointer-events-none" }, /* @__PURE__ */ h(
+      "checkedContent",
+      {
+        className: "block h-full",
+        style: {
+          marginInlineStart: "9px",
+          marginInlineEnd: "24px"
+        },
+        "is-text": true
+      },
+      props.checkedContent
+    ), /* @__PURE__ */ h(
+      "uncheckedContent",
+      {
+        className: "block h-full",
+        style: {
+          marginTop: "-22px",
+          marginInlineStart: "24px",
+          marginInlineEnd: "9px"
+        },
+        "is-text": true
+      },
+      props.uncheckedContent
+    ))
+  );
 };
 var styleRules = (props, layout2) => {
   return [
@@ -173,7 +187,7 @@ var designPatterns = (props, layout2) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -186,7 +200,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React

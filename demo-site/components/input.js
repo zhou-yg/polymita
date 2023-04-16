@@ -108,20 +108,27 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h("inputBox", {
-    className: "block"
-  }, /* @__PURE__ */ h("input", {
-    "is-container": true,
-    "has-decoration": true,
-    "is-text": true,
-    className: "block select-none outline-none border-0 px-2 py-1 rounded",
-    autoFocus: props.focused,
-    onFocus: logic2.onFocus,
-    onBlur: logic2.onBlur,
-    type: props.type,
-    disabled: props.disabled,
-    value: logic2.value
-  }));
+  return /* @__PURE__ */ h(
+    "inputBox",
+    {
+      className: "block"
+    },
+    /* @__PURE__ */ h(
+      "input",
+      {
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: logic2.onFocus,
+        onBlur: logic2.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value: logic2.value
+      }
+    )
+  );
 };
 var designPatterns = (props) => {
   return [
@@ -136,7 +143,7 @@ var styleRules = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -149,7 +156,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -171,7 +178,7 @@ function InputBox() {
       margin: "10px",
       color: "#999"
     },
-    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
+    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), _jsx(Component, {
       value: val,
       onInput: (v) => setVal(v),
       onFocus: () => console.log("focus 1"),
@@ -186,7 +193,7 @@ function InputBox2() {
       margin: "10px",
       color: "#999"
     },
-    children: [" \u5F53\u524D\u503C: ", val, _jsx("br", {}), " focused: true", _jsx("br", {}), _jsx(Component, {
+    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), "focused: true", _jsx("br", {}), _jsx(Component, {
       type: "number",
       value: val,
       onInput: (v) => setVal(v),

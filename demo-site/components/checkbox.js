@@ -213,31 +213,36 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h2("checkBoxContainer", {
-    className: "relative flex items-center",
-    onClick: logic2.toggle
-  }, /* @__PURE__ */ h2("checkBox", {
-    className: "relative block mr-2 rounded ",
-    style: { width: "16px", height: "16px" },
-    "is-container": true,
-    "has-decoration": true,
-    selected: logic2.value(),
-    disabled: props.disabled
-  }, /* @__PURE__ */ h2("input", {
-    type: "checkbox",
-    readOnly: true,
-    checked: logic2.value(),
-    className: "opacity-0 absolute w-full h-full"
-  }), /* @__PURE__ */ h2("span", {
-    "is-text": true,
-    selected: logic2.value(),
-    disabled: props.disabled,
-    className: "relative z-10 w-full h-full flex items-center justify-center"
-  }, logic2.value() ? /* @__PURE__ */ h2(check_default, {
-    size: 12
-  }) : "")), /* @__PURE__ */ h2("checkBoxLabel", {
-    className: "select-none"
-  }, props.children));
+  return /* @__PURE__ */ h2(
+    "checkBoxContainer",
+    {
+      className: "relative flex items-center",
+      onClick: logic2.toggle
+    },
+    /* @__PURE__ */ h2(
+      "checkBox",
+      {
+        className: "relative block mr-2 rounded ",
+        style: { width: "16px", height: "16px" },
+        "is-container": true,
+        "has-decoration": true,
+        selected: logic2.value(),
+        disabled: props.disabled
+      },
+      /* @__PURE__ */ h2("input", { type: "checkbox", readOnly: true, checked: logic2.value(), className: "opacity-0 absolute w-full h-full" }),
+      /* @__PURE__ */ h2(
+        "span",
+        {
+          "is-text": true,
+          selected: logic2.value(),
+          disabled: props.disabled,
+          className: "relative z-10 w-full h-full flex items-center justify-center"
+        },
+        logic2.value() ? /* @__PURE__ */ h2(check_default, { size: 12 }) : ""
+      )
+    ),
+    /* @__PURE__ */ h2("checkBoxLabel", { className: "select-none" }, props.children)
+  );
 };
 var designPatterns = (props) => {
   const logicResult = useLogic();
@@ -265,7 +270,7 @@ var designPatterns = (props) => {
 };
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -278,7 +283,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React

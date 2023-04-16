@@ -145,24 +145,32 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ h("buttonBox", {
-    className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
-    "is-container": true,
-    "has-decoration": true,
-    selected: false,
-    disabled: props.disabled
-  }, /* @__PURE__ */ h("span", {
-    "is-text": true,
-    selected: false,
-    disabled: props.disabled,
-    className: "block select-none",
-    onClick: (e) => {
-      var _a;
-      if (props.disabled)
-        return;
-      (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-    }
-  }, props.children));
+  return /* @__PURE__ */ h(
+    "buttonBox",
+    {
+      className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
+      "is-container": true,
+      "has-decoration": true,
+      selected: false,
+      disabled: props.disabled
+    },
+    /* @__PURE__ */ h(
+      "span",
+      {
+        "is-text": true,
+        selected: false,
+        disabled: props.disabled,
+        className: "block select-none",
+        onClick: (e) => {
+          var _a;
+          if (props.disabled)
+            return;
+          (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+        }
+      },
+      props.children
+    )
+  );
 };
 var designPatterns = (props) => {
   const logicResult = useLogic();
@@ -297,10 +305,7 @@ var LoadingButton = overrideModule(button_exports, {
         op: CommandOP.addChild,
         condition: !!props.loading,
         parent: layout3.buttonBox.span,
-        child: /* @__PURE__ */ h3(loading3_quarters_default, {
-          size: 16,
-          className: "animate-spin align-middle ml-1"
-        })
+        child: /* @__PURE__ */ h3(loading3_quarters_default, { size: 16, className: "animate-spin align-middle ml-1" })
       }
     ];
   }
@@ -314,7 +319,7 @@ var designPatterns2 = LoadingButton.designPatterns;
 var styleRules2 = LoadingButton.styleRules;
 
 // shared/render.ts
-import { createRSRender } from "@polymita/renderer";
+import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -327,7 +332,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRender(module, {
+  const renderer = createRSRenderer(module, {
     framework: {
       name: "react",
       lib: React
