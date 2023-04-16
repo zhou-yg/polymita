@@ -1,6 +1,6 @@
 {
   "name": "polymita",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "a infinite extensional component library",
   "exports": {
     "./*": "./dist/components/*"
