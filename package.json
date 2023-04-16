@@ -1,6 +1,6 @@
 {
   "name": "polymita",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "a infinite extensional component library",
   "exports": {
     "./*": "./dist"
@@ -26,6 +26,7 @@
     "gen:icons": "node scripts/generate-icons.mjs"
   },
   "files": [
+    "dist",
     "index.html",
     "components",
     "index.css",
