@@ -1,4 +1,4 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, useComponentModule, UseComponent } from '@polymita/renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, VirtualLayoutJSON, UseComponent } from '@polymita/renderer';
 import { Signal, action, after, signal } from '@polymita/signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
@@ -67,7 +67,7 @@ export type SelectLayout = {
   ]
 }
 
-export const layout = (props: SelectProps) => {
+export const layout = (props: SelectProps): VirtualLayoutJSON => {
   const {
     optionItems,
     current,

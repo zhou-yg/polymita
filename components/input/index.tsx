@@ -61,7 +61,7 @@ export type InputLayout = {
 }
 
 // tailwindcss
-export const layout = (props: ButtonProps) => {
+export const layout = (props: ButtonProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   return (

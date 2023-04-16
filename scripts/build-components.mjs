@@ -65,7 +65,7 @@ const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.jso
 
 tsc.on('close', async () => {
   const cost2 = Date.now() - st
-  console.log(`build components done, cost ${cost2 / 1000}s`)
+  console.log(`generate d.ts done, cost ${cost2 / 1000}s`)
 
   filesToRemove.forEach((path) => {
     rimraf.sync(path)

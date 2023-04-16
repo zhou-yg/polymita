@@ -19,9 +19,7 @@ export const logic = (props: ModalProps) => {
 }
 
 // tailwindcss
-export const layout = (props: ModalProps) => {
-  const logic = useLogic<LogicReturn>()
-
+export const layout = (props: ModalProps): VirtualLayoutJSON => {
   const Button = useModule(ButtonModule)
 
   return (

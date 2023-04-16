@@ -38,7 +38,7 @@ export type ButtonLayoutStruct = {
 }
 
 // tailwindcss
-export const layout = (props: ButtonProps) => {
+export const layout = (props: ButtonProps): VirtualLayoutJSON => {
   const logicResult = useLogic<LogicReturn>()
 
   return (

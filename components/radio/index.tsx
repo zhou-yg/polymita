@@ -1,4 +1,4 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER, PatternMatrix2 } from '@polymita/renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PatternStructure, ACTIVE, HOVER, PatternMatrix2, VirtualLayoutJSON } from '@polymita/renderer';
 import { after, signal } from '@polymita/signal'
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 export let meta: {
@@ -38,7 +38,7 @@ export type RadioLayout = {
     }
   ]
 }
-export const layout = (props: RadioProps) => {
+export const layout = (props: RadioProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
   return (
     <radioContainer

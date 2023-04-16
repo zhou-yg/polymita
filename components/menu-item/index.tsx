@@ -33,7 +33,7 @@ type MenuItemLayout = {
   ]
 }
 
-export const layout = (props: MenuItemProps) => {
+export const layout = (props: MenuItemProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   return (

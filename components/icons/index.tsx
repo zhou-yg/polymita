@@ -1,4 +1,4 @@
-import { h, useModule } from '@polymita/renderer'
+import { h, useModule, VirtualLayoutJSON } from '@polymita/renderer'
 import AccountBookFilled from '../../icons/account-book'
 import LoadingIcon from '../../icons/loading'
 import Loading3Icon from '../../icons/loading3-quarters'
@@ -14,7 +14,7 @@ export interface IconsProps {
 }
 
 // tailwindcss
-export const layout = (props: IconsProps) => {
+export const layout = (props: IconsProps): VirtualLayoutJSON => {
 
   return (
     <iconsBox

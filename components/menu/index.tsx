@@ -1,9 +1,11 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes } from '@polymita/renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes, VirtualLayoutJSON } from '@polymita/renderer'
 import { after, action, signal, StateSignal, Signal } from '@polymita/signal';
 import { useModule } from '@polymita/renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
 import type { MenuItemProps } from '../menu-item';
+
+type vv = typeof MenuItemModule.layout
 
 export let meta: {
   props: MenuProps,
@@ -98,7 +100,7 @@ type MenuLayout = {
   ]
 }
 
-export const layout = (props: MenuProps) => {
+export const layout = (props: MenuProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
   const MenuItemFunc = useModule(MenuItemModule)
   

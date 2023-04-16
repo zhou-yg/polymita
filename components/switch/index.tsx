@@ -5,7 +5,8 @@ import {
   useLogic,
   ConvertToLayoutTreeDraft,
   ACTIVE,
-  HOVER
+  HOVER,
+  VirtualLayoutJSON
 } from '@polymita/renderer'
 import { Signal, after, signal } from '@polymita/signal'
 import { blockPatternMatrix, colors } from '../../patterns'
@@ -44,7 +45,7 @@ export type SwitchLayout = {
     }
   ]
 }
-export const layout = (props: SwitchProps) => {
+export const layout = (props: SwitchProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   const value = props.value()

@@ -1,4 +1,4 @@
-import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic } from '@polymita/renderer';
+import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic, VirtualLayoutJSON } from '@polymita/renderer';
 import { StateSignal, after, signal } from '@polymita/signal';
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 import CheckIcon from '../../icons/check'
@@ -61,7 +61,7 @@ export type CheckboxLayout = {
     }
   ]
 }
-export const layout = (props: CheckboxProps) => {
+export const layout = (props: CheckboxProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   return (
