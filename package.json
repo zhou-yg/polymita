@@ -1,14 +1,14 @@
 {
   "name": "polymita",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a infinite extensional component library",
   "exports": {
-    "./*": "./dist"
+    "./*": "./dist/components/*"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*"
+        "./dist/components/*/index.d.ts"
       ]
     }
   },
