@@ -2,16 +2,6 @@
   "name": "polymita",
   "version": "0.0.8",
   "description": "a infinite extensional component library",
-  "exports": {
-    "./*": "./dist/components/*"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/components/*/index.d.ts"
-      ]
-    }
-  },
   "scripts": {
     "release": "bump --commit \"release: version v%s\" && npm run build && npm publish --no-git-checks",
     "test": "jest",
