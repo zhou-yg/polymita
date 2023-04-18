@@ -1,6 +1,6 @@
 {
   "name": "polymita",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "a infinite extensional component library",
   "scripts": {
     "release": "bump --commit \"release: version v%s\" && npm run build && npm publish --no-git-checks",

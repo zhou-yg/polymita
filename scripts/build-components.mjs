@@ -58,19 +58,26 @@ await buildComponents()
 const cost = Date.now() - st
 console.log(`build components done, cost ${cost / 1000}s`)
 
-const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json'], {
-  cwd: join(__dirname, '../'),
-  stdio: [process.stdin, process.stdout, process.stderr]
-})
+buildTSC();
 
-tsc.on('close', async () => {
-  const cost2 = Date.now() - st
-  console.log(`generate d.ts done, cost ${cost2 / 1000}s`)
+buildCSS();
 
-  filesToRemove.forEach((path) => {
-    rimraf.sync(path)
+function buildTSC () {
+  const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json'], {
+    cwd: join(__dirname, '../'),
+    stdio: [process.stdin, process.stdout, process.stderr]
   })
-})
+  
+  tsc.on('close', async () => {
+    const cost2 = Date.now() - st
+    console.log(`generate d.ts done, cost ${cost2 / 1000}s`)
+  
+    filesToRemove.forEach((path) => {
+      rimraf.sync(path)
+    })
+  })
+}
+
 
 
 function moveDTS () {
@@ -89,6 +96,23 @@ function moveDTS () {
     }
   })
 }
+
+function buildCSS () {
+  const tailwind = spawn(
+    'tailwindcss',
+    ['-i', './shared/tailwind-input.css', '-o', './dist/components/index.css'], 
+    {
+      cwd: join(__dirname, '../'),
+      stdio: [process.stdin, process.stdout, process.stderr]  
+    }
+  );
+  tailwind.on('close', () => {
+    const cost2 = Date.now() - st
+    console.log(`generate index.css done, cost ${cost2 / 1000}s`)
+
+  });
+}
+
 
 function buildComponents ()  {
 

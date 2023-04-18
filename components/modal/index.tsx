@@ -45,6 +45,7 @@ export const layout = (props: ModalProps): VirtualLayoutJSON => {
           <Button type="primary" onClick={(e) => props.onOk?.(e)}>确定</Button>
           <Button onClick={(e) => {
             props.onCancel?.(e)
+            props.onClose?.(e)
           }}>取消</Button>
         </footer>
       </modalBody>
