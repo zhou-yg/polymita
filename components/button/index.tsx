@@ -48,16 +48,16 @@ export const layout = (props: ButtonProps): VirtualLayoutJSON => {
       has-decoration
       selected={false}
       disabled={props.disabled}
+      onClick={(e) => {
+        if (props.disabled) return
+        props.onClick?.(e)
+      }}
     >
       <span 
         is-text
         selected={false}
         disabled={props.disabled}
         className="block select-none"
-        onClick={(e) => {
-          if (props.disabled) return
-          props.onClick?.(e)
-        }}
       >
          {props.children}
       </span>
