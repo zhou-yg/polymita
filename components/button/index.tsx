@@ -46,6 +46,7 @@ export const layout = (props: ButtonProps): VirtualLayoutJSON => {
       className="inline-block px-2 py-1 rounded hover:cursor-pointer"
       is-container
       has-decoration
+      is-text
       selected={false}
       disabled={props.disabled}
       onClick={(e) => {
@@ -54,9 +55,6 @@ export const layout = (props: ButtonProps): VirtualLayoutJSON => {
       }}
     >
       <span 
-        is-text
-        selected={false}
-        disabled={props.disabled}
         className="block select-none"
       >
          {props.children}
@@ -105,7 +103,7 @@ export const designPatterns = (props: ButtonProps): PatternMatrix2 => {
           bdw: 1,
           border: [colors.grays[1], colors.primaries[1], colors.primaries[2]],
           text: [colors.text, colors.primaries[1], colors.primaries[2]],
-        })
+        }),
       ]
       break;
   }

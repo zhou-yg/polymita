@@ -220,22 +220,20 @@ var layout = (props) => {
       className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
       "is-container": true,
       "has-decoration": true,
+      "is-text": true,
       selected: false,
-      disabled: props.disabled
+      disabled: props.disabled,
+      onClick: (e) => {
+        var _a;
+        if (props.disabled)
+          return;
+        (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+      }
     },
     /* @__PURE__ */ h2(
       "span",
       {
-        "is-text": true,
-        selected: false,
-        disabled: props.disabled,
-        className: "block select-none",
-        onClick: (e) => {
-          var _a;
-          if (props.disabled)
-            return;
-          (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-        }
+        className: "block select-none"
       },
       props.children
     )
@@ -314,8 +312,9 @@ var layout2 = (props) => {
         var _a;
         return (_a = props.onOk) == null ? void 0 : _a.call(props, e);
       } }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, { onClick: (e) => {
-        var _a;
+        var _a, _b;
         (_a = props.onCancel) == null ? void 0 : _a.call(props, e);
+        (_b = props.onClose) == null ? void 0 : _b.call(props, e);
       } }, "\u53D6\u6D88"))
     )
   );
