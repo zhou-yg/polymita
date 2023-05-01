@@ -1,10 +1,10 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, useModule, VirtualLayoutJSON } from '@polymita/renderer'
+import { createFunctionComponent, h, VirtualLayoutJSON } from '@polymita/renderer'
 import CloseIcon from '../../icons/close'
 
 import * as ButtonModule from '../button/index'
 
 export interface ModalProps {
-  children?: string
+  children?: string | JSX.Element | VirtualLayoutJSON
   title?: string
   onClose?: (e: any) => void
   onCancel?: (e: any) => void
@@ -21,9 +21,9 @@ export const logic = (props: ModalProps) => {
   return {}
 }
 
+const Button = createFunctionComponent(ButtonModule)
 // tailwindcss
 export const layout = (props: ModalProps): VirtualLayoutJSON => {
-  const Button = useModule(ButtonModule)
 
   return (
     <modalBox

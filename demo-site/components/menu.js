@@ -37,7 +37,7 @@ __export(menu_exports, {
 });
 import { h as h2, useLogic as useLogic2, PropTypes } from "@polymita/renderer";
 import { signal as signal2 } from "@polymita/signal";
-import { useModule } from "@polymita/renderer";
+import { createFunctionComponent } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -216,10 +216,9 @@ var logic2 = (props) => {
     select
   };
 };
+var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  const MenuItemFunc = useModule(menu_item_exports);
-  console.log("logic.items: ", logic3.items);
   return /* @__PURE__ */ h2("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h2("ul", { className: "block" }, logic3.items().map((item) => {
     const isSelected = item.selected;
     let element = /* @__PURE__ */ h2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
@@ -262,10 +261,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }

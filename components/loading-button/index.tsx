@@ -1,6 +1,6 @@
 import * as ButtonModule from '../button/index'
 import Loading3Icon from '../../icons/loading3-quarters'
-import { h, CommandOP, overrideModule } from '@polymita/renderer'
+import { h, CommandOP, extendModule } from '@polymita/renderer'
 
 type BMT = typeof ButtonModule
 type BMTKeys = keyof BMT
@@ -9,7 +9,7 @@ export interface LoadingButtonProps {
   loading?: boolean
 }
 
-const LoadingButton = overrideModule(ButtonModule, {
+const LoadingButton = extendModule(ButtonModule, () => ({
   layout(props: ButtonModule.ButtonProps & LoadingButtonProps, layout) {
     layout.buttonBox.span.props.className += ' flex justify-center items-center'
   },
@@ -25,7 +25,7 @@ const LoadingButton = overrideModule(ButtonModule, {
       }
     ] as const
   }
-})
+}))
 
 export const meta = LoadingButton.meta
 export const override = LoadingButton.override

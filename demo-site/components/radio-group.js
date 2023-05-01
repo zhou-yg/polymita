@@ -18,7 +18,7 @@ __export(radio_group_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, useModule, PropTypes } from "@polymita/renderer";
+import { h as h2, useLogic as useLogic2, PropTypes, createFunctionComponent } from "@polymita/renderer";
 import { signal as signal2 } from "@polymita/signal";
 
 // components/radio/index.tsx
@@ -219,9 +219,9 @@ var logic2 = (props) => {
     value
   };
 };
+var Radio = createFunctionComponent(radio_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  const Radio = useModule(radio_exports);
   const currentValue = logic3.value();
   return /* @__PURE__ */ h2("radioGroupContainer", null, props.options.map((option, index) => {
     return /* @__PURE__ */ h2(Radio, { key: option.label, selected: currentValue === option.value, onChange: () => {
@@ -243,10 +243,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }

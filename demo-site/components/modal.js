@@ -16,7 +16,7 @@ __export(modal_exports, {
   logic: () => logic2,
   styleRules: () => styleRules2
 });
-import { h as h3, useModule } from "@polymita/renderer";
+import { createFunctionComponent as createFunctionComponent2, h as h3 } from "@polymita/renderer";
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseOutlined.js
 var CloseOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z" } }] }, "name": "close", "theme": "outlined" };
@@ -69,22 +69,27 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/close.tsx
-import { h, createComponent } from "@polymita/renderer";
-var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(CloseOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+import { h, createFunctionComponent } from "@polymita/renderer";
+var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CloseOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap = {
   outlined: CloseOutlinedSVGString
 };
-var Icon = createComponent((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap[props.type || "outlined"];
-  return h("polymitaIcon", { _html: html, style, className: cls });
+var Icon = createFunctionComponent({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap[props.type || "outlined"];
+    return h("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var close_default = Icon;
 
@@ -292,8 +297,8 @@ var config = () => ({});
 var logic2 = (props) => {
   return {};
 };
+var Button = createFunctionComponent2(Button_exports);
 var layout2 = (props) => {
-  const Button = useModule(Button_exports);
   return /* @__PURE__ */ h3(
     "modalBox",
     {
@@ -330,10 +335,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }

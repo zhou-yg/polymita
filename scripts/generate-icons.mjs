@@ -25,7 +25,7 @@ import {
 ${styles.map(postfix => `  ${iconName}${postfix}`).join(',\n')}
 } from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers'
-import { h, createComponent } from '@polymita/renderer'
+import { h, createFunctionComponent } from '@polymita/renderer'
 
 ${styles.map(postfix => `const ${iconName}${postfix}SVGString = renderIconDefinitionToSVGElement(
   ${iconName}${postfix},
@@ -46,15 +46,17 @@ interface IconProps {
   spin?: boolean
 }
 
-const Icon = createComponent((props: IconProps = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + 'px',
-    color: props.color,
-    display: 'inline-block'
+const Icon = createFunctionComponent({
+  layout: (props: IconProps = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + 'px',
+      color: props.color,
+      display: 'inline-block'
+    }
+    const cls = props.className
+    const html = styleMap[props.type || '${lowerFirst(styles[0])}']
+    return h('polymitaIcon', { _html: html, style, className: cls })
   }
-  const cls = props.className
-  const html = styleMap[props.type || '${lowerFirst(styles[0])}']
-  return h('polymitaIcon', { _html: html, style, className: cls })
 })
 
 export default Icon

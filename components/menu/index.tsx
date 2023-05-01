@@ -1,6 +1,6 @@
 import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes, VirtualLayoutJSON } from '@polymita/renderer'
 import { after, action, signal, StateSignal, Signal } from '@polymita/signal';
-import { useModule } from '@polymita/renderer';
+import { createFunctionComponent } from '@polymita/renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
 import type { MenuItemProps } from '../menu-item';
@@ -100,11 +100,11 @@ type MenuLayout = {
   ]
 }
 
+const MenuItemFunc = createFunctionComponent(MenuItemModule)
+
 export const layout = (props: MenuProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
-  const MenuItemFunc = useModule(MenuItemModule)
   
-  console.log('logic.items: ', logic.items);
   return (
     <menuBox className="block border-slate-300">
       <ul className="block" >

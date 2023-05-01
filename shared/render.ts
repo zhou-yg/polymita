@@ -6,10 +6,12 @@ export function RenderToReactWithWrap<T = any>(
 ) {  
   const render = RenderToReact(module)
   return (p: T) => {
+    const content = render(p);
+    console.log('content: ', content);
     return React.createElement(
       'div',
       { style: { margin: '20px', display: 'inline-block' } },
-      render(p)
+      content,
     )
   }
 }
@@ -24,8 +26,9 @@ export function RenderToReact<T>(module: SingleFileModule<T, any, any, any>) {
   })
   return (p: T) => {
     const r = renderer.construct(p)
-    return renderer.render()
+    return renderer.render() // JSX.Element
   }
 }
 
 export function RenderToVue<T = any>(module: SingleFileModule<any, any, any, any>) {}
+

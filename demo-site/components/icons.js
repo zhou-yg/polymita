@@ -147,7 +147,7 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/account-book.tsx
-import { h, createComponent } from "@polymita/renderer";
+import { h, createFunctionComponent } from "@polymita/renderer";
 var AccountBookFilledSVGString = renderIconDefinitionToSVGElement(
   AccountBookFilled_default,
   {
@@ -171,20 +171,22 @@ var styleMap = {
   outlined: AccountBookOutlinedSVGString,
   twoTone: AccountBookTwoToneSVGString
 };
-var Icon = createComponent((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap[props.type || "filled"];
-  return h("polymitaIcon", { _html: html, style, className: cls });
+var Icon = createFunctionComponent({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap[props.type || "filled"];
+    return h("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var account_book_default = Icon;
 
 // icons/loading.tsx
-import { h as h2, createComponent as createComponent2 } from "@polymita/renderer";
+import { h as h2, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 var LoadingOutlinedSVGString = renderIconDefinitionToSVGElement(
   LoadingOutlined_default,
   {
@@ -194,20 +196,22 @@ var LoadingOutlinedSVGString = renderIconDefinitionToSVGElement(
 var styleMap2 = {
   outlined: LoadingOutlinedSVGString
 };
-var Icon2 = createComponent2((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap2[props.type || "outlined"];
-  return h2("polymitaIcon", { _html: html, style, className: cls });
+var Icon2 = createFunctionComponent2({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap2[props.type || "outlined"];
+    return h2("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var loading_default = Icon2;
 
 // icons/loading3-quarters.tsx
-import { h as h3, createComponent as createComponent3 } from "@polymita/renderer";
+import { h as h3, createFunctionComponent as createFunctionComponent3 } from "@polymita/renderer";
 var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
   Loading3QuartersOutlined_default,
   {
@@ -217,40 +221,47 @@ var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
 var styleMap3 = {
   outlined: Loading3QuartersOutlinedSVGString
 };
-var Icon3 = createComponent3((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap3[props.type || "outlined"];
-  return h3("polymitaIcon", { _html: html, style, className: cls });
+var Icon3 = createFunctionComponent3({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap3[props.type || "outlined"];
+    return h3("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var loading3_quarters_default = Icon3;
 
 // icons/close.tsx
-import { h as h4, createComponent as createComponent4 } from "@polymita/renderer";
-var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(CloseOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+import { h as h4, createFunctionComponent as createFunctionComponent4 } from "@polymita/renderer";
+var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CloseOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap4 = {
   outlined: CloseOutlinedSVGString
 };
-var Icon4 = createComponent4((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap4[props.type || "outlined"];
-  return h4("polymitaIcon", { _html: html, style, className: cls });
+var Icon4 = createFunctionComponent4({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap4[props.type || "outlined"];
+    return h4("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var close_default = Icon4;
 
 // icons/close-circle.tsx
-import { h as h5, createComponent as createComponent5 } from "@polymita/renderer";
+import { h as h5, createFunctionComponent as createFunctionComponent5 } from "@polymita/renderer";
 var CloseCircleFilledSVGString = renderIconDefinitionToSVGElement(
   CloseCircleFilled_default,
   {
@@ -274,20 +285,22 @@ var styleMap5 = {
   outlined: CloseCircleOutlinedSVGString,
   twoTone: CloseCircleTwoToneSVGString
 };
-var Icon5 = createComponent5((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap5[props.type || "filled"];
-  return h5("polymitaIcon", { _html: html, style, className: cls });
+var Icon5 = createFunctionComponent5({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap5[props.type || "filled"];
+    return h5("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var close_circle_default = Icon5;
 
 // icons/close-square.tsx
-import { h as h6, createComponent as createComponent6 } from "@polymita/renderer";
+import { h as h6, createFunctionComponent as createFunctionComponent6 } from "@polymita/renderer";
 var CloseSquareFilledSVGString = renderIconDefinitionToSVGElement(
   CloseSquareFilled_default,
   {
@@ -311,40 +324,47 @@ var styleMap6 = {
   outlined: CloseSquareOutlinedSVGString,
   twoTone: CloseSquareTwoToneSVGString
 };
-var Icon6 = createComponent6((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap6[props.type || "filled"];
-  return h6("polymitaIcon", { _html: html, style, className: cls });
+var Icon6 = createFunctionComponent6({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap6[props.type || "filled"];
+    return h6("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var close_square_default = Icon6;
 
 // icons/check.tsx
-import { h as h7, createComponent as createComponent7 } from "@polymita/renderer";
-var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+import { h as h7, createFunctionComponent as createFunctionComponent7 } from "@polymita/renderer";
+var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CheckOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap7 = {
   outlined: CheckOutlinedSVGString
 };
-var Icon7 = createComponent7((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap7[props.type || "outlined"];
-  return h7("polymitaIcon", { _html: html, style, className: cls });
+var Icon7 = createFunctionComponent7({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap7[props.type || "outlined"];
+    return h7("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var check_default = Icon7;
 
 // icons/check-circle.tsx
-import { h as h8, createComponent as createComponent8 } from "@polymita/renderer";
+import { h as h8, createFunctionComponent as createFunctionComponent8 } from "@polymita/renderer";
 var CheckCircleFilledSVGString = renderIconDefinitionToSVGElement(
   CheckCircleFilled_default,
   {
@@ -368,20 +388,22 @@ var styleMap8 = {
   outlined: CheckCircleOutlinedSVGString,
   twoTone: CheckCircleTwoToneSVGString
 };
-var Icon8 = createComponent8((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap8[props.type || "filled"];
-  return h8("polymitaIcon", { _html: html, style, className: cls });
+var Icon8 = createFunctionComponent8({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap8[props.type || "filled"];
+    return h8("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var check_circle_default = Icon8;
 
 // icons/check-square.tsx
-import { h as h9, createComponent as createComponent9 } from "@polymita/renderer";
+import { h as h9, createFunctionComponent as createFunctionComponent9 } from "@polymita/renderer";
 var CheckSquareFilledSVGString = renderIconDefinitionToSVGElement(
   CheckSquareFilled_default,
   {
@@ -405,15 +427,17 @@ var styleMap9 = {
   outlined: CheckSquareOutlinedSVGString,
   twoTone: CheckSquareTwoToneSVGString
 };
-var Icon9 = createComponent9((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap9[props.type || "filled"];
-  return h9("polymitaIcon", { _html: html, style, className: cls });
+var Icon9 = createFunctionComponent9({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap9[props.type || "filled"];
+    return h9("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var check_square_default = Icon9;
 
@@ -434,10 +458,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render6 = RenderToReact(module);
   return (p) => {
+    const content = render6(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render6(p)
+      content
     );
   };
 }

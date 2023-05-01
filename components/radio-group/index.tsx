@@ -1,4 +1,4 @@
-import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, useModule, PropTypes, VirtualLayoutJSON } from '@polymita/renderer';
+import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PropTypes, VirtualLayoutJSON, createFunctionComponent } from '@polymita/renderer';
 import { Signal, after, signal } from '@polymita/signal'
 import * as RadioModule from '../radio'
 
@@ -43,9 +43,9 @@ export type RadioGroupLayout = {
   children: [
   ]
 }
+const Radio = createFunctionComponent(RadioModule)
 export const layout = (props: RadioGroupProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
-  const Radio = useModule(RadioModule)
   const currentValue = logic.value()
   return (
     <radioGroupContainer>

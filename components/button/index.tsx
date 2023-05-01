@@ -13,7 +13,7 @@ export let meta: {
 }
 
 export type ButtonProps = {
-  children?: string
+  children?: any;
   type?: 'primary' | 'link' | 'text'
   onClick?: (e: any) => void
   disabled?: boolean

@@ -269,7 +269,7 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/loading3-quarters.tsx
-import { h as h2, createComponent } from "@polymita/renderer";
+import { h as h2, createFunctionComponent } from "@polymita/renderer";
 var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
   Loading3QuartersOutlined_default,
   {
@@ -279,21 +279,23 @@ var Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
 var styleMap = {
   outlined: Loading3QuartersOutlinedSVGString
 };
-var Icon = createComponent((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap[props.type || "outlined"];
-  return h2("polymitaIcon", { _html: html, style, className: cls });
+var Icon = createFunctionComponent({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap[props.type || "outlined"];
+    return h2("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var loading3_quarters_default = Icon;
 
 // components/loading-button/index.tsx
-import { h as h3, CommandOP, overrideModule } from "@polymita/renderer";
-var LoadingButton = overrideModule(button_exports, {
+import { h as h3, CommandOP, extendModule } from "@polymita/renderer";
+var LoadingButton = extendModule(button_exports, () => ({
   layout(props, layout3) {
     layout3.buttonBox.span.props.className += " flex justify-center items-center";
   },
@@ -307,7 +309,7 @@ var LoadingButton = overrideModule(button_exports, {
       }
     ];
   }
-});
+}));
 var meta2 = LoadingButton.meta;
 var override = LoadingButton.override;
 var layout2 = LoadingButton.layout;
@@ -322,10 +324,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }

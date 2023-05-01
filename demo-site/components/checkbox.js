@@ -170,22 +170,27 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/check.tsx
-import { h, createComponent } from "@polymita/renderer";
-var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(CheckOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+import { h, createFunctionComponent } from "@polymita/renderer";
+var CheckOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CheckOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap = {
   outlined: CheckOutlinedSVGString
 };
-var Icon = createComponent((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap[props.type || "outlined"];
-  return h("polymitaIcon", { _html: html, style, className: cls });
+var Icon = createFunctionComponent({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap[props.type || "outlined"];
+    return h("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var check_default = Icon;
 
@@ -275,10 +280,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }

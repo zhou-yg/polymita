@@ -1,4 +1,4 @@
-import { h, useModule, VirtualLayoutJSON } from '@polymita/renderer'
+import { h, VirtualLayoutJSON } from '@polymita/renderer'
 import AccountBookFilled from '../../icons/account-book'
 import LoadingIcon from '../../icons/loading'
 import Loading3Icon from '../../icons/loading3-quarters'

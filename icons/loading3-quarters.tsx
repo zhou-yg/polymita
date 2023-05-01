@@ -1,7 +1,9 @@
 // for Outlined types
-import { Loading3QuartersOutlined } from '@ant-design/icons-svg'
+import {
+  Loading3QuartersOutlined
+} from '@ant-design/icons-svg'
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons-svg/es/helpers'
-import { h, createComponent } from '@polymita/renderer'
+import { h, createFunctionComponent } from '@polymita/renderer'
 
 const Loading3QuartersOutlinedSVGString = renderIconDefinitionToSVGElement(
   Loading3QuartersOutlined,
@@ -22,15 +24,17 @@ interface IconProps {
   spin?: boolean
 }
 
-const Icon = createComponent((props: IconProps = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + 'px',
-    color: props.color,
-    display: 'inline-block'
+const Icon = createFunctionComponent({
+  layout: (props: IconProps = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + 'px',
+      color: props.color,
+      display: 'inline-block'
+    }
+    const cls = props.className
+    const html = styleMap[props.type || 'outlined']
+    return h('polymitaIcon', { _html: html, style, className: cls })
   }
-  const cls = props.className
-  const html = styleMap[props.type || 'outlined']
-  return h('polymitaIcon', { _html: html, style, className: cls })
 })
 
 export default Icon

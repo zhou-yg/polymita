@@ -10,14 +10,14 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 // components/modal-test/index.tsx
 var modal_test_exports = {};
 __export(modal_test_exports, {
-  config: () => config2,
+  config: () => config3,
   designPattern: () => designPattern2,
-  layout: () => layout3,
-  logic: () => logic3,
-  styleRules: () => styleRules3
+  layout: () => layout4,
+  logic: () => logic4,
+  styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic3, useModule as useModule2 } from "@polymita/renderer";
-import { signal as signal2 } from "@polymita/signal";
+import { createFunctionComponent as createFunctionComponent3, h as h5, useLogic as useLogic3 } from "@polymita/renderer";
+import { signal as signal3 } from "@polymita/signal";
 
 // components/button/index.tsx
 var button_exports = {};
@@ -213,8 +213,8 @@ var designPatterns = (props) => {
   }
 };
 var styleRules = (props, draft) => {
-  const logic4 = useLogic();
-  const layout4 = useLayout();
+  const logic5 = useLogic();
+  const layout5 = useLayout();
   return [];
 };
 
@@ -227,7 +227,7 @@ __export(modal_exports, {
   logic: () => logic2,
   styleRules: () => styleRules2
 });
-import { h as h3, useModule } from "@polymita/renderer";
+import { createFunctionComponent as createFunctionComponent2, h as h3 } from "@polymita/renderer";
 
 // node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseOutlined.js
 var CloseOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z" } }] }, "name": "close", "theme": "outlined" };
@@ -280,22 +280,27 @@ function renderAbstractNodeToSVGElement(node, options) {
 }
 
 // icons/close.tsx
-import { h as h2, createComponent } from "@polymita/renderer";
-var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(CloseOutlined_default, {
-  extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
-});
+import { h as h2, createFunctionComponent } from "@polymita/renderer";
+var CloseOutlinedSVGString = renderIconDefinitionToSVGElement(
+  CloseOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
 var styleMap = {
   outlined: CloseOutlinedSVGString
 };
-var Icon = createComponent((props = {}) => {
-  const style = {
-    fontSize: (props.size || 16) + "px",
-    color: props.color,
-    display: "inline-block"
-  };
-  const cls = props.className;
-  const html = styleMap[props.type || "outlined"];
-  return h2("polymitaIcon", { _html: html, style, className: cls });
+var Icon = createFunctionComponent({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap[props.type || "outlined"];
+    return h2("polymitaIcon", { _html: html, style, className: cls });
+  }
 });
 var close_default = Icon;
 
@@ -304,8 +309,8 @@ var config = () => ({});
 var logic2 = (props) => {
   return {};
 };
+var Button = createFunctionComponent2(button_exports);
 var layout2 = (props) => {
-  const Button = useModule(button_exports);
   return /* @__PURE__ */ h3(
     "modalBox",
     {
@@ -336,26 +341,103 @@ var designPattern = (props) => {
 var styleRules2 = (props) => {
 };
 
-// components/modal-test/index.tsx
+// components/input/index.tsx
+var input_exports = {};
+__export(input_exports, {
+  config: () => config2,
+  designPatterns: () => designPatterns2,
+  layout: () => layout3,
+  logic: () => logic3,
+  meta: () => meta2,
+  propTypes: () => propTypes,
+  styleRules: () => styleRules3
+});
+import { ACTIVE as ACTIVE2, FOCUS, h as h4, HOVER as HOVER2, PropTypes, useLogic as useLogic2 } from "@polymita/renderer";
+import { after } from "@polymita/signal";
+var meta2;
+var propTypes = {
+  value: PropTypes.signal.isRequired
+};
 var config2 = () => ({});
 var logic3 = (props) => {
-  const visible = signal2(false);
+  const value = props.value;
+  after(() => {
+    var _a;
+    (_a = props.onInput) == null ? void 0 : _a.call(props, value());
+  }, [value]);
+  function onFocus() {
+    var _a;
+    (_a = props.onFocus) == null ? void 0 : _a.call(props);
+  }
+  function onBlur() {
+    var _a;
+    (_a = props.onBlur) == null ? void 0 : _a.call(props);
+  }
   return {
-    visible
+    onFocus,
+    onBlur,
+    value
   };
 };
 var layout3 = (props) => {
-  const { visible } = useLogic3();
-  const Button = useModule2(button_exports);
-  const Modal = useModule2(modal_exports);
-  console.log("visible: ", visible());
-  return /* @__PURE__ */ h4("div", null, /* @__PURE__ */ h4(Button, { onClick: () => {
+  const logic5 = useLogic2();
+  return /* @__PURE__ */ h4(
+    "inputBox",
+    {
+      className: "block"
+    },
+    /* @__PURE__ */ h4(
+      "input",
+      {
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: logic5.onFocus,
+        onBlur: logic5.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value: logic5.value
+      }
+    )
+  );
+};
+var designPatterns2 = (props) => {
+  return [
+    [HOVER2, ACTIVE2, FOCUS, "disabled"],
+    strokePatternMatrix({
+      bdw: 1,
+      border: [colors.grays[0], colors.primaries[1]]
+    })
+  ];
+};
+var styleRules3 = (props) => {
+};
+
+// components/modal-test/index.tsx
+var config3 = () => ({});
+var logic4 = (props) => {
+  const visible = signal3(false);
+  const name = signal3("-");
+  return {
+    visible,
+    name
+  };
+};
+var Button2 = createFunctionComponent3(button_exports);
+var Modal = createFunctionComponent3(modal_exports);
+var Input = createFunctionComponent3(input_exports);
+var layout4 = (props) => {
+  const { visible, name } = useLogic3();
+  console.log("visible: ", visible(), name());
+  return /* @__PURE__ */ h5("modalTest", null, /* @__PURE__ */ h5(Button2, { onClick: () => {
     visible(true);
-  } }, "\u663E\u793A"), visible() ? /* @__PURE__ */ h4(Modal, { title: "\u6807\u9898", onClose: () => visible(false) }, props.children) : "");
+  } }, "\u663E\u793A ", name()), /* @__PURE__ */ h5("input", { value: name }), /* @__PURE__ */ h5(Input, { value: name }), visible() ? /* @__PURE__ */ h5(Modal, { title: "\u6807\u9898", onClose: () => visible(false) }, /* @__PURE__ */ h5("p", null, "name:", /* @__PURE__ */ h5(Input, { key: "name", value: name }))) : "");
 };
 var designPattern2 = (props) => {
 };
-var styleRules3 = (props) => {
+var styleRules4 = (props) => {
 };
 
 // shared/render.ts
@@ -364,10 +446,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }
@@ -388,8 +472,19 @@ function RenderToReact(module) {
 import { useState } from "react";
 var Component = RenderToReactWithWrap(modal_test_exports);
 function Box() {
-  return _jsx("div", {
-    children: _jsxs(Component, {
+  const [s, setS] = useState(0);
+  return _jsxs("div", {
+    children: [_jsxs("div", {
+      children: [_jsxs("result-s", {
+        children: ["r: ", s]
+      }), _jsx("p", {
+        children: _jsx("input", {
+          className: "border",
+          value: s,
+          onChange: (e) => setS(e.target.value)
+        })
+      })]
+    }), _jsxs(Component, {
       title: "My Modal",
       onClose: (v) => setShow(false),
       children: [_jsx("p", {
@@ -397,7 +492,7 @@ function Box() {
       }), _jsx("p", {
         children: " i am content row 2 "
       })]
-    })
+    })]
   });
 }
 function _createMdxContent(props) {

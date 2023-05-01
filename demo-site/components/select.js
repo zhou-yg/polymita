@@ -37,7 +37,7 @@ __export(select_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic4, useModule as useModule2, PropTypes as PropTypes3 } from "@polymita/renderer";
+import { h as h4, useLogic as useLogic4, PropTypes as PropTypes3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 import { action as action4, after as after3, signal as signal4 } from "@polymita/signal";
 
 // components/input/index.tsx
@@ -274,7 +274,7 @@ __export(menu_exports, {
 });
 import { h as h3, useLogic as useLogic3, PropTypes as PropTypes2 } from "@polymita/renderer";
 import { signal as signal3 } from "@polymita/signal";
-import { useModule } from "@polymita/renderer";
+import { createFunctionComponent } from "@polymita/renderer";
 
 // components/menu-item/index.tsx
 var menu_item_exports = {};
@@ -348,10 +348,9 @@ var logic3 = (props) => {
     select
   };
 };
+var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout3 = (props) => {
   const logic5 = useLogic3();
-  const MenuItemFunc = useModule(menu_item_exports);
-  console.log("logic.items: ", logic5.items);
   return /* @__PURE__ */ h3("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h3("ul", { className: "block" }, logic5.items().map((item) => {
     const isSelected = item.selected;
     let element = /* @__PURE__ */ h3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
@@ -419,6 +418,8 @@ var logic4 = (props) => {
     focused
   };
 };
+var Input = createFunctionComponent2(input_exports);
+var Menu = createFunctionComponent2(menu_exports);
 var layout4 = (props) => {
   const {
     optionItems,
@@ -426,8 +427,6 @@ var layout4 = (props) => {
     selectItem,
     focused
   } = useLogic4();
-  const Input = useModule2(input_exports);
-  const Menu = useModule2(menu_exports);
   return /* @__PURE__ */ h4(
     "selectContainer",
     {
@@ -468,10 +467,12 @@ import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
+    const content = render(p);
+    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", display: "inline-block" } },
-      render(p)
+      content
     );
   };
 }
