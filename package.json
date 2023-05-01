@@ -1,9 +1,9 @@
 {
   "name": "polymita",
-  "version": "0.0.14",
+  "version": "0.1.0",
   "description": "a infinite extensional component library",
   "scripts": {
-    "release": "bump --commit \"release: version v%s\" && npm run build && npm publish --no-git-checks",
+    "release": "bump --commit \"release: version v%s\" && npm publish --no-git-checks",
     "test": "jest",
     "build": "node scripts/build-components.mjs",
     "format": "prettier --write --parser typescript \"*/*.ts?(x)\"",
@@ -13,7 +13,8 @@
     "pg": "npm run playground",
     "playground": "vite --host --force",
     "build:doc": "vite build && sh after-build-doc.sh",
-    "gen:icons": "node scripts/generate-icons.mjs"
+    "gen:icons": "node scripts/generate-icons.mjs",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist",
