@@ -137,7 +137,8 @@ function buildComponents ()  {
         splitting: true,
         external: [
           '@polymita/renderer',
-          '@polymita/signal'
+          '@polymita/signal-model',
+          '@polymita/signal',
         ]
       })
 }

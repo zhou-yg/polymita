@@ -28,7 +28,7 @@ export const layout = (props: ModalProps): VirtualLayoutJSON => {
   return (
     <modalBox
       className="block fixed left-0 top-0 w-full h-full" >
-      <mask onClick={props.onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black"></mask>
+      <modalMask onClick={props.onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black"></modalMask>
       <modalBody
         className="block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{ width: '520px'  }} >

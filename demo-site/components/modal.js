@@ -304,7 +304,7 @@ var layout2 = (props) => {
     {
       className: "block fixed left-0 top-0 w-full h-full"
     },
-    /* @__PURE__ */ h3("mask", { onClick: props.onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
+    /* @__PURE__ */ h3("modalMask", { onClick: props.onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
     /* @__PURE__ */ h3(
       "modalBody",
       {
