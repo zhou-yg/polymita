@@ -1,9 +1,9 @@
 {
   "name": "polymita",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "a infinite extensional component library",
   "scripts": {
-    "release": "bump --commit \"release: version v%s\" && npm publish --no-git-checks",
+    "release": "bump --commit \"release: version v%s\" && npm run build",
     "test": "jest",
     "build": "node scripts/build-components.mjs",
     "format": "prettier --write --parser typescript \"*/*.ts?(x)\"",
@@ -14,7 +14,7 @@
     "playground": "vite --host --force",
     "build:doc": "vite build && sh after-build-doc.sh",
     "gen:icons": "node scripts/generate-icons.mjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run release"
   },
   "files": [
     "dist",
@@ -44,7 +44,7 @@
   "peerDependencies": {
     "@polymita/renderer": "^2.0.4",
     "@polymita/signal": "^0.0.24",
-    "@polymita/signal-model": "^0.0.25"    
+    "@polymita/signal-model": "^0.0.25"
   },
   "dependencies": {
     "@ant-design/icons-svg": "^4.2.1",
