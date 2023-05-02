@@ -71,7 +71,7 @@ export const layout = (props: ButtonProps): VirtualLayoutJSON => {
         is-container
         has-decoration
         is-text
-        className="block select-none outline-none border-0 px-2 py-1 rounded"
+        className="block w-full select-none outline-none border-0 px-2 py-1 rounded"
         autoFocus={props.focused}
         onFocus={logic.onFocus}
         onBlur={logic.onBlur}

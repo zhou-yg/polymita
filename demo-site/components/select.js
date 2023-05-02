@@ -239,7 +239,7 @@ var layout = (props) => {
         "is-container": true,
         "has-decoration": true,
         "is-text": true,
-        className: "block select-none outline-none border-0 px-2 py-1 rounded",
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
         autoFocus: props.focused,
         onFocus: logic5.onFocus,
         onBlur: logic5.onBlur,
