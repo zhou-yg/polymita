@@ -10,6 +10,7 @@ import RadioDemo from './components/radio'
 import RadioGroupDemo from './components/radio-group'
 import SelectDemo from './components/select'
 import SwitchDemo from './components/switch'
+import ListDemo from './components/list'
 
 import GetStarted from './docs/get-started'
 import Overview from './docs/overview'
@@ -51,6 +52,7 @@ const componentsPlayground = {
   RadioGroup: RadioGroupDemo,
   Select: SelectDemo,
   Switch: SwitchDemo,
+  List: ListDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)

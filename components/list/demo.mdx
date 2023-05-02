@@ -1,0 +1,47 @@
+import * as Module from './index.tsx'
+import { RenderToReact } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReact(Module)
+export function InputBox () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      <Component 
+        list={[{ name: 'AAA' }, { name: 'BBBBB' }, { name: 'CC' }]}
+        render={(item, i) => {
+          return (
+            <div >{i+1}.{item.name}</div>
+          )
+        }}
+      />
+    </div>
+  )
+}
+
+
+export function InputBox2 () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      <Component 
+        list={[{ name: 'AAA' }, { name: 'BBBBB' }, { name: 'CC' }]}
+        extra={<div>extra</div>}
+        render={(item, i) => {
+          return (
+            <div >{i+1}.{item.name}</div>
+          )
+        }}
+      />
+    </div>
+  )
+}
+
+# List 列表
+
+<InputBox />
+
+普通列表
+
+<InputBox2 />
+
+带extra 的列表

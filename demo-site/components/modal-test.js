@@ -327,7 +327,7 @@ var layout2 = (props) => {
       /* @__PURE__ */ h3("modalContent", { className: "block p-4", style: { minHeight: "40px" } }, props.title ? /* @__PURE__ */ h3("contentTitle", { className: "block mb-4 font-medium" }, props.title) : "", props.children),
       /* @__PURE__ */ h3("footer", { className: "flex gap-2 p-4 flex-row-reverse" }, /* @__PURE__ */ h3(Button, { type: "primary", onClick: (e) => {
         var _a;
-        return (_a = props.onOk) == null ? void 0 : _a.call(props, e);
+        (_a = props.onOk) == null ? void 0 : _a.call(props, e);
       } }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, { onClick: (e) => {
         var _a, _b;
         (_a = props.onCancel) == null ? void 0 : _a.call(props, e);
