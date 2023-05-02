@@ -36,10 +36,10 @@ export const layout = (props: ModalProps): VirtualLayoutJSON => {
           <CloseIcon color="rgba(0,0,0,.45)" />
         </closeBox>
 
-        <content className="block p-4" style={{ minHeight: '40px' }} >
+        <modalContent className="block p-4" style={{ minHeight: '40px' }} >
           {props.title ? <contentTitle className="block mb-4 font-medium">{props.title}</contentTitle> : ''}
           {props.children}
-        </content>
+        </modalContent>
 
         <footer className="flex gap-2 p-4 flex-row-reverse" >
           <Button type="primary" onClick={(e) => props.onOk?.(e)}>确定</Button>
