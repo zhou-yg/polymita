@@ -1,7 +1,9 @@
 import * as TestModule from './index-test.tsx'
+import * as FormModule from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 import { useState } from 'react'
 export const Component = RenderToReactWithWrap(TestModule)
+export const FormComponent = RenderToReactWithWrap(FormModule)
 export function TestCase () {
   const [val, setVal] = useState('v0')
   return (
@@ -13,9 +15,31 @@ export function TestCase () {
 
 
 export function TestCase2 () {
-  const [val, setVal] = useState('v0')
+  const [values, setValues] = useState({
+    first: '',
+    second: '',
+  });
   return (
     <div style={{ margin: '10px'  }}>
+      <div>
+      {JSON.stringify(values)}
+      </div>
+      <FormComponent
+        onChange={v => {
+          console.log('v:', v);
+          setValues(pre => Object.assign({}, pre, v))
+        }}
+        form={[
+          {
+            name: 'first',
+            value: values.first
+          },
+          {
+            name: 'second',
+            value: values.second
+          },
+        ]}
+      />
     </div>
   )
 }
@@ -25,3 +49,7 @@ export function TestCase2 () {
 普通 Form Input 表单
 
 <TestCase />
+
+单独使用 Form 组件
+
+<TestCase2 />

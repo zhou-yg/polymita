@@ -18,40 +18,23 @@ __export(index_test_exports, {
   propTypes: () => propTypes4,
   styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic4, createComposeComponent, createFunctionComponent } from "@polymita/renderer";
+import { h as h4, useLogic as useLogic4, createComposeComponent as createComposeComponent2, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 import { signal as signal3 } from "@polymita/signal";
 
 // components/form/index.tsx
 var form_exports = {};
 __export(form_exports, {
   designPattern: () => designPattern2,
-  layout: () => layout2,
-  logic: () => logic2,
-  meta: () => meta2,
+  layout: () => layout3,
+  logic: () => logic3,
+  meta: () => meta3,
   name: () => name2,
-  propTypes: () => propTypes2,
-  styleRules: () => styleRules2
+  propTypes: () => propTypes3,
+  styleRules: () => styleRules3
 });
-import { h as h2, useLogic as useLogic2 } from "@polymita/renderer";
+import { h as h3, useLogic as useLogic3, createFunctionComponent, createComposeComponent } from "@polymita/renderer";
 
-// shared/nodes.ts
-function traverseNode(node, callback) {
-  var _a;
-  if (Array.isArray(node)) {
-    node.forEach((child) => {
-      traverseNode(child, callback);
-    });
-  } else {
-    callback(node);
-    (_a = node == null ? void 0 : node.children) == null ? void 0 : _a.forEach((child) => {
-      if (typeof child === "object" && "type" in child) {
-        traverseNode(child, callback);
-      }
-    });
-  }
-}
-
-// components/form-item/index.tsx
+// components/form/form-item.tsx
 var form_item_exports = {};
 __export(form_item_exports, {
   designPattern: () => designPattern,
@@ -81,45 +64,18 @@ var designPattern = (props, layout5) => {
   return {};
 };
 
-// components/form/index.tsx
-var name2 = "Form";
-var meta2;
-var propTypes2 = {};
-var logic2 = (props) => {
-  return {};
-};
-var layout2 = (props) => {
-  const { form } = props;
-  console.log("form: ", form);
-  traverseNode(form, (node) => {
-    var _a, _b;
-    if (typeof node.type === "function" && node.type.name === name) {
-      node.props.labelWidth = (_a = props.layout) == null ? void 0 : _a.labelWidth;
-      node.props.contentWidth = (_b = props.layout) == null ? void 0 : _b.contentWidth;
-    }
-  });
-  return /* @__PURE__ */ h2("formContainer", { className: "block" }, form);
-};
-var styleRules2 = (props, layout5) => {
-  return [];
-};
-var designPattern2 = (props, layout5) => {
-  const logic5 = useLogic2();
-  return {};
-};
-
 // components/input/index.tsx
 var input_exports = {};
 __export(input_exports, {
   config: () => config,
   designPatterns: () => designPatterns,
-  layout: () => layout3,
-  logic: () => logic3,
-  meta: () => meta3,
-  propTypes: () => propTypes3,
-  styleRules: () => styleRules3
+  layout: () => layout2,
+  logic: () => logic2,
+  meta: () => meta2,
+  propTypes: () => propTypes2,
+  styleRules: () => styleRules2
 });
-import { ACTIVE, FOCUS, h as h3, HOVER, PropTypes as PropTypes3, useLogic as useLogic3 } from "@polymita/renderer";
+import { ACTIVE, FOCUS, h as h2, HOVER, PropTypes as PropTypes2, useLogic as useLogic2 } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -182,12 +138,12 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 import { after } from "@polymita/signal";
-var meta3;
-var propTypes3 = {
-  value: PropTypes3.signal.isRequired
+var meta2;
+var propTypes2 = {
+  value: PropTypes2.signal.isRequired
 };
 var config = () => ({});
-var logic3 = (props) => {
+var logic2 = (props) => {
   const value = props.value;
   after(() => {
     var _a;
@@ -207,14 +163,14 @@ var logic3 = (props) => {
     value
   };
 };
-var layout3 = (props) => {
-  const logic5 = useLogic3();
-  return /* @__PURE__ */ h3(
+var layout2 = (props) => {
+  const logic5 = useLogic2();
+  return /* @__PURE__ */ h2(
     "inputBox",
     {
       className: "block"
     },
-    /* @__PURE__ */ h3(
+    /* @__PURE__ */ h2(
       "input",
       {
         "is-container": true,
@@ -240,7 +196,42 @@ var designPatterns = (props) => {
     })
   ];
 };
-var styleRules3 = (props) => {
+var styleRules2 = (props) => {
+};
+
+// components/form/index.tsx
+var name2 = "Form";
+var meta3;
+var propTypes3 = {};
+var logic3 = (props) => {
+  return {};
+};
+function generateForm(form, onChange) {
+  return form.map((item, index) => {
+    let targetItem = null;
+    switch (item.type) {
+      case "input":
+      default:
+        targetItem = /* @__PURE__ */ h3(InputCpt, { value: item.value, onInput: (v) => {
+          item.name && (onChange == null ? void 0 : onChange({ [item.name]: v }));
+        } });
+    }
+    return /* @__PURE__ */ h3(FormItemCpt, { key: item.name + item.label + item.type, label: item.label || item.name }, targetItem);
+  });
+}
+var FormItemCpt = createComposeComponent(form_item_exports);
+var InputCpt = createFunctionComponent(input_exports);
+var layout3 = (props) => {
+  const { form } = props;
+  const targetForm = form ? generateForm(form, props.onChange) : "";
+  return /* @__PURE__ */ h3("formContainer", { className: "block" }, targetForm);
+};
+var styleRules3 = (props, layout5) => {
+  return [];
+};
+var designPattern2 = (props, layout5) => {
+  const logic5 = useLogic3();
+  return {};
 };
 
 // components/form/index-test.tsx
@@ -255,16 +246,25 @@ var logic4 = (props) => {
     password
   };
 };
-var FormCpt = createFunctionComponent(form_exports);
-var FormItemCpt = createComposeComponent(form_item_exports);
-var InputCpt = createFunctionComponent(input_exports);
+var FormCpt = createFunctionComponent2(form_exports);
+var FormItemCpt2 = createComposeComponent2(form_item_exports);
+var InputCpt2 = createFunctionComponent2(input_exports);
 var layout4 = (props) => {
   const logic5 = useLogic4();
   return /* @__PURE__ */ h4("formTestContainer", null, /* @__PURE__ */ h4("formResult", null, "name: ", logic5.name(), " ", /* @__PURE__ */ h4("br", null), "password: ", logic5.password()), /* @__PURE__ */ h4("br", null), /* @__PURE__ */ h4("br", null), /* @__PURE__ */ h4(
     FormCpt,
     {
       layout: { labelWidth: "6em" },
-      form: /* @__PURE__ */ h4("div", null, /* @__PURE__ */ h4(FormItemCpt, { label: "name" }, /* @__PURE__ */ h4(InputCpt, { value: logic5.name })), /* @__PURE__ */ h4(FormItemCpt, { label: "password" }, /* @__PURE__ */ h4(InputCpt, { value: logic5.password })))
+      form: [
+        {
+          label: "name",
+          value: logic5.name
+        },
+        {
+          label: "password",
+          value: logic5.password
+        }
+      ]
     }
   ));
 };
@@ -307,6 +307,7 @@ function RenderToReact(module) {
 // components/form/demo.mdx
 import { useState } from "react";
 var Component = RenderToReactWithWrap(index_test_exports);
+var FormComponent = RenderToReactWithWrap(form_exports);
 function TestCase() {
   const [val, setVal] = useState("v0");
   return _jsx("div", {
@@ -317,11 +318,29 @@ function TestCase() {
   });
 }
 function TestCase2() {
-  const [val, setVal] = useState("v0");
-  return _jsx("div", {
+  const [values, setValues] = useState({
+    first: "",
+    second: ""
+  });
+  return _jsxs("div", {
     style: {
       margin: "10px"
-    }
+    },
+    children: [_jsx("div", {
+      children: JSON.stringify(values)
+    }), _jsx(FormComponent, {
+      onChange: (v) => {
+        console.log("v:", v);
+        setValues((pre) => Object.assign({}, pre, v));
+      },
+      form: [{
+        name: "first",
+        value: values.first
+      }, {
+        name: "second",
+        value: values.second
+      }]
+    })]
   });
 }
 function _createMdxContent(props) {
@@ -334,7 +353,9 @@ function _createMdxContent(props) {
       children: "Form \u8868\u5355"
     }), "\n", _jsx(_components.p, {
       children: "\u666E\u901A Form Input \u8868\u5355"
-    }), "\n", _jsx(TestCase, {})]
+    }), "\n", _jsx(TestCase, {}), "\n", _jsx(_components.p, {
+      children: "\u5355\u72EC\u4F7F\u7528 Form \u7EC4\u4EF6"
+    }), "\n", _jsx(TestCase2, {})]
   });
 }
 function MDXContent(props = {}) {
@@ -346,6 +367,7 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
+  FormComponent,
   TestCase,
   TestCase2,
   demo_default as default

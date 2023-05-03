@@ -1,7 +1,7 @@
-import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
+import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, createFunctionComponent, createComposeComponent } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
-import { traverseNode } from '../../shared/nodes';
-import * as FormItem from '../form-item'
+import * as FormItemModule from './form-item'
+import * as InputModule from '../input'
 
 export const name = 'Form' as const
 export let meta: {
@@ -15,7 +15,21 @@ export interface FormProps {
     labelWidth?: number | string
     contentWidth?: number | string
   }
-  form?: VirtualLayoutJSON | VirtualLayoutJSON[]
+  // form?: VirtualLayoutJSON | VirtualLayoutJSON[]
+  form?: FormConfig[]
+  values?: Record<string, any>
+  onChange?: (values: Record<string, any>) => void
+  onSubmit?: (values: Record<string, any>) => void
+}
+
+export interface FormConfig {
+  type?: 'input' | 'select' | 'radio' | 'checkbox' | 'switch' | 'date' | 'time' | 'datetime' | 'textarea'
+  dataType?: 'string' | 'number' | 'date' | 'time' | 'datetime'
+  options?: { label?: string, value?: string | number }[]
+  value?: Signal<string | number>
+  label?: string
+  name?: string
+  children?: FormConfig[]
 }
 
 export const propTypes = {
@@ -32,20 +46,37 @@ export type FormLayout = {
   children: [
   ]
 }
+
+function generateForm (form: FormConfig[], onChange: FormProps['onChange'])  {
+  return form.map((item, index) => {
+    let targetItem = null
+    switch (item.type) {
+      case 'input':
+      default:
+        targetItem = <InputCpt value={item.value} onInput={(v) => {
+          item.name && onChange?.({ [item.name]: v })
+        }} />
+    }
+
+    return (
+      <FormItemCpt key={item.name + item.label + item.type} label={item.label || item.name} >
+        {targetItem}
+      </FormItemCpt>
+    )
+  })
+}
+
+const FormItemCpt = createComposeComponent(FormItemModule)
+const InputCpt = createFunctionComponent(InputModule)
+
 export const layout = (props: FormProps): VirtualLayoutJSON => {
   const { form } = props
 
-  console.log('form: ', form);
-  traverseNode(form, (node: any) => {
-    if (typeof node.type === 'function' && node.type.name === FormItem.name) {
-      node.props.labelWidth = props.layout?.labelWidth
-      node.props.contentWidth = props.layout?.contentWidth
-    }
-  })
+  const targetForm = form ? generateForm(form, props.onChange) : ''
 
   return (
     <formContainer className="block">
-      {form}
+      {targetForm}
     </formContainer>
   )
 }
