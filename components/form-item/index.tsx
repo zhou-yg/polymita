@@ -30,7 +30,7 @@ export type FormItemLayout = {
   children: [
   ]
 }
-export const layout = (props: FormItemProps) => {
+export const layout = (props: FormItemProps): VirtualLayoutJSON => {
   const { name, label } = props;
   return (
     <formItemContainer className="flex items-center mb-4">

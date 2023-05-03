@@ -32,7 +32,7 @@ export type FormLayout = {
   children: [
   ]
 }
-export const layout = (props: FormProps) => {
+export const layout = (props: FormProps): VirtualLayoutJSON => {
   const { form } = props
 
   console.log('form: ', form);
