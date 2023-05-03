@@ -5,7 +5,7 @@ export const Component = RenderToReact(Module)
 export function InputBox () {
   const [val, setVal] = useState('v0')
   return (
-    <div style={{ margin: '10px', color: '#999' }}>
+    <div style={{ margin: '10px' }}>
       <Component 
         list={[{ name: 'AAA' }, { name: 'BBBBB' }, { name: 'CC' }]}
         render={(item, i) => {
@@ -22,7 +22,7 @@ export function InputBox () {
 export function InputBox2 () {
   const [val, setVal] = useState('v0')
   return (
-    <div style={{ margin: '10px', color: '#999' }}>
+    <div style={{ margin: '10px' }}>
       <Component 
         list={[{ name: 'AAA' }, { name: 'BBBBB' }, { name: 'CC' }]}
         extra={<div>extra</div>}
@@ -38,10 +38,10 @@ export function InputBox2 () {
 
 # List 列表
 
-<InputBox />
-
 普通列表
 
-<InputBox2 />
+<InputBox />
 
 带extra 的列表
+
+<InputBox2 />

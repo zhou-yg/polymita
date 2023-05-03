@@ -29,7 +29,7 @@ export type ListLayout = {
   children: [
   ]
 }
-export const layout = <T,>(props: ListProps<T>) => {
+export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   const ds = props.list();

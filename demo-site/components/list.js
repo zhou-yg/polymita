@@ -68,8 +68,7 @@ function InputBox() {
   const [val, setVal] = useState("v0");
   return _jsx("div", {
     style: {
-      margin: "10px",
-      color: "#999"
+      margin: "10px"
     },
     children: _jsx(Component, {
       list: [{
@@ -91,8 +90,7 @@ function InputBox2() {
   const [val, setVal] = useState("v0");
   return _jsx("div", {
     style: {
-      margin: "10px",
-      color: "#999"
+      margin: "10px"
     },
     children: _jsx(Component, {
       list: [{
@@ -121,11 +119,11 @@ function _createMdxContent(props) {
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
       children: "List \u5217\u8868"
-    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
+    }), "\n", _jsx(_components.p, {
       children: "\u666E\u901A\u5217\u8868"
-    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
+    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
       children: "\u5E26extra \u7684\u5217\u8868"
-    })]
+    }), "\n", _jsx(InputBox2, {})]
   });
 }
 function MDXContent(props = {}) {
