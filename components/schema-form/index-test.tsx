@@ -1,6 +1,6 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, createComposeComponent, createFunctionComponent } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
-import * as Form from '../form'
+import * as Form from '.'
 import * as FormItem from './form-item'
 import * as Input from '../input'
 

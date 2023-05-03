@@ -11,7 +11,7 @@ import RadioGroupDemo from './components/radio-group'
 import SelectDemo from './components/select'
 import SwitchDemo from './components/switch'
 import ListDemo from './components/list'
-import FormDemo from './components/form'
+import SchemaFormDemo from './components/schema-form'
 
 import GetStarted from './docs/get-started'
 import Overview from './docs/overview'
@@ -54,7 +54,7 @@ const componentsPlayground = {
   Select: SelectDemo,
   Switch: SwitchDemo,
   List: ListDemo,
-  Form: FormDemo,
+  SchemaForm: SchemaFormDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)
