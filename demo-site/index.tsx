@@ -11,6 +11,7 @@ import RadioGroupDemo from './components/radio-group'
 import SelectDemo from './components/select'
 import SwitchDemo from './components/switch'
 import ListDemo from './components/list'
+import FormDemo from './components/form'
 
 import GetStarted from './docs/get-started'
 import Overview from './docs/overview'
@@ -53,6 +54,7 @@ const componentsPlayground = {
   Select: SelectDemo,
   Switch: SwitchDemo,
   List: ListDemo,
+  Form: FormDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)
@@ -124,7 +126,7 @@ function Home() {
   return (
     <div className="flex">
       <div style={{ width: '220px' }} 
-        className="border-r p-4 fixed top-0 left-0 h-full" >
+        className="border-r p-4 fixed top-0 left-0 h-full overflow-auto" >
         <h2 className="text-2xl font-bold pb-4 mb-4 border-b border-solid" >Polymita</h2>
         <p className="text-slate-400 mt-2" >Introduction</p>
         {docMenu}

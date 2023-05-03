@@ -1,5 +1,7 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
+import { traverseNode } from '../../shared/nodes';
+import * as FormItem from '../form-item'
 
 export const name = 'Form' as const
 export let meta: {
@@ -10,10 +12,10 @@ export let meta: {
 
 export interface FormProps {
   layout?: {
-    labelWidth?: number
-    contentWidth?: number
+    labelWidth?: number | string
+    contentWidth?: number | string
   }
-  children?: VirtualLayoutJSON[]
+  form?: VirtualLayoutJSON | VirtualLayoutJSON[]
 }
 
 export const propTypes = {
@@ -31,11 +33,19 @@ export type FormLayout = {
   ]
 }
 export const layout = (props: FormProps) => {
-  const logic = useLogic<LogicReturn>()
+  const { form } = props
+
+  console.log('form: ', form);
+  traverseNode(form, (node: any) => {
+    if (typeof node.type === 'function' && node.type.name === FormItem.name) {
+      node.props.labelWidth = props.layout?.labelWidth
+      node.props.contentWidth = props.layout?.contentWidth
+    }
+  })
 
   return (
-    <formContainer>
-       
+    <formContainer className="block">
+      {form}
     </formContainer>
   )
 }

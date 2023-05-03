@@ -1,4 +1,4 @@
-import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft } from '@polymita/renderer';
+import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
 
 export const name = 'FormItem' as const
@@ -10,6 +10,10 @@ export let meta: {
 
 export interface FormItemProps {
   labelWidth?: number
+  contentWidth?: number
+  name?: string
+  label?: string
+  children?: VirtualLayoutJSON | VirtualLayoutJSON[]
 }
 
 export const propTypes = {
@@ -27,10 +31,16 @@ export type FormItemLayout = {
   ]
 }
 export const layout = (props: FormItemProps) => {
-  const logic = useLogic<LogicReturn>()
+  const { name, label } = props;
   return (
-    <formItemContainer>
-       
+    <formItemContainer className="flex items-center mb-4">
+      <formItemLabel className="flex-none text-right mr-2" style={{ width: props.labelWidth }} >
+        {label}
+        {label ? <formItemLabelColon className="m-1" >:</formItemLabelColon> : null}
+      </formItemLabel>
+      <formItemContent className="flex-1" style={{ width: props.contentWidth }}>
+        {props.children}
+      </formItemContent>
     </formItemContainer>
   )
 }

@@ -693,6 +693,10 @@ video {
   gap: 0.5rem;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -782,6 +786,10 @@ video {
 
 .pl-8 {
   padding-left: 2rem;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .align-middle {

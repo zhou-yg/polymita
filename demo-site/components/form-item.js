@@ -26,8 +26,8 @@ var logic = (props) => {
   return {};
 };
 var layout = (props) => {
-  const logic2 = useLogic();
-  return /* @__PURE__ */ h("formItemContainer", null);
+  const { name: name2, label } = props;
+  return /* @__PURE__ */ h("formItemContainer", { className: "flex items-center mb-4" }, /* @__PURE__ */ h("formItemLabel", { className: "flex-none text-right mr-2", style: { width: props.labelWidth } }, label, label ? /* @__PURE__ */ h("formItemLabelColon", { className: "m-1" }, ":") : null), /* @__PURE__ */ h("formItemContent", { className: "flex-1", style: { width: props.contentWidth } }, props.children));
 };
 var styleRules = (props, layout2) => {
   return [];
