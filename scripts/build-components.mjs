@@ -1,9 +1,6 @@
 import rimraf from 'rimraf'
 import esbuild from 'esbuild'
-
-import { dtsPlugin } from 'esbuild-plugin-d.ts'
-
-import { createReadStream, createWriteStream, existsSync, readdirSync } from 'fs'
+import { writeFileSync, existsSync, readdirSync, readFileSync } from 'fs'
 
 import { join, resolve } from 'path'
 // get dirname in mjs
@@ -53,17 +50,45 @@ rimraf.sync(componentOutputDir)
 
 const st = Date.now()
 
-await buildComponents()
+buildComponents().then(() => {
+  const cost = Date.now() - st
+  console.log(`build components done, cost ${cost / 1000}s`)
+  
+  buildTSC('cjs');
+  buildTSC('esm');
+  
+  buildCSS();
+  
+  updatePKGExports()
+})
 
-const cost = Date.now() - st
-console.log(`build components done, cost ${cost / 1000}s`)
 
-buildTSC();
+function updatePKGExports () {
+  const pkgPath = join(__dirname, '../package.json')
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
+  const exports = {}
+  const files = [
+    ...readdirSync(join(componentOutputDir, 'cjs/components')),
+  ]
+  files.forEach((file) => {
+    if (file === 'icons') {
+      return
+    }
+    exports[`./${file}`] = {
+      import: `./dist/esm/components/${file}/index.js`,
+      require: `./dist/cjs/components/${file}/index.js`,
+      types: `./dist/esm/components/${file}/index.d.ts`,
+    }
+  })
+  pkg.exports = exports
 
-buildCSS();
+  const pkgStr = JSON.stringify(pkg, null, 2)
+  writeFileSync(pkgPath, pkgStr) 
+}
 
-function buildTSC () {
-  const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json'], {
+
+function buildTSC (format) {
+  const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json', '--outDir', `dist/${format}`], {
     cwd: join(__dirname, '../'),
     stdio: [process.stdin, process.stdout, process.stderr]
   })
@@ -78,29 +103,10 @@ function buildTSC () {
   })
 }
 
-
-
-function moveDTS () {
-  const distComponents = join(componentOutputDir, './components')
-  return readdirSync(distComponents).map((name) => {
-    const dtsPath = join(distComponents, name, 'index.d.ts')
-    if (existsSync(dtsPath)) {
-      const targetPath = join(componentOutputDir, `${name}.d.ts`)
-      return new Promise((resolve) => {
-        const ws = createWriteStream(targetPath)
-        createReadStream(dtsPath).pipe(ws)
-        ws.on('finish', () => {
-          resolve()
-        })
-      })
-    }
-  })
-}
-
 function buildCSS () {
   const tailwind = spawn(
     'tailwindcss',
-    ['-i', './shared/tailwind-input.css', '-o', './dist/components/index.css'], 
+    ['-i', './shared/tailwind-input.css', '-o', './dist/index.css'], 
     {
       cwd: join(__dirname, '../'),
       stdio: [process.stdin, process.stdout, process.stderr]  
@@ -114,7 +120,7 @@ function buildCSS () {
 }
 
 
-function buildComponents ()  {
+async function buildComponents ()  {
 
   const entryPoints = [
     ...componentFiles,
@@ -124,21 +130,23 @@ function buildComponents ()  {
     outputPath,
   }) => inputFilePath)
 
-  return esbuild
+  for (const format of ['esm', 'cjs']) {
+    await esbuild
       .build({
         entryPoints: entryPoints,
         bundle: true,
-        outdir: componentOutputDir,
-        format: 'esm',
+        outdir: join(componentOutputDir, format),
+        format,
         chunkNames: '[name]-[hash]',
         plugins: [
           // dtsPlugin()
         ],
-        splitting: true,
+        splitting: format === 'esm',
         external: [
           '@polymita/renderer',
           '@polymita/signal-model',
           '@polymita/signal',
         ]
       })
+  }
 }
