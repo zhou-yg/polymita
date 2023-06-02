@@ -1,6 +1,7 @@
 import rimraf from 'rimraf'
 import esbuild from 'esbuild'
 import { writeFileSync, existsSync, readdirSync, readFileSync } from 'fs'
+import { execSync } from 'child_process'
 
 import { join, resolve } from 'path'
 // get dirname in mjs
@@ -59,9 +60,18 @@ buildComponents().then(() => {
   
   buildCSS();
   
-  updatePKGExports()
+  // updatePKGExports()
+
+  // moveDirs('cjs')
+  // moveDirs('esm')
 })
 
+function moveDirs (format) {
+  const distDir = join(componentOutputDir, format)
+  execSync('mv icons components/', {
+    cwd: distDir
+  })
+}
 
 function updatePKGExports () {
   const pkgPath = join(__dirname, '../package.json')
