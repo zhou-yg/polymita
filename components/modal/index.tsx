@@ -4,7 +4,7 @@ import CloseIcon from '../../icons/close'
 import * as ButtonModule from '../button/index'
 
 export interface ModalProps {
-  children?: string | JSX.Element | VirtualLayoutJSON
+  children?: any
   title?: string
   onClose?: (e: any) => void
   onCancel?: (e: any) => void

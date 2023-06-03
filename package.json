@@ -16,6 +16,26 @@
     "gen:icons": "node scripts/generate-icons.mjs",
     "prepublishOnly": "npm run release"
   },
+  "exports": {
+    "./icons/*": {
+      "import": "./dist/esm/icons/*.js",
+      "require": "./dist/cjs/icons/*.js"
+    },
+    "./components/*": {
+      "import": "./dist/esm/components/*/index.js",
+      "require": "./dist/cjs/components/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "./components/*": [
+        "dist/esm/components/*/index.d.ts"
+      ],
+      "./icons/*": [
+        "dist/esm/*.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist",
     "index.html",
