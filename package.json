@@ -24,6 +24,10 @@
     "./components/*": {
       "import": "./dist/esm/components/*/index.js",
       "require": "./dist/cjs/components/*/index.js"
+    },
+    "./index.css": {
+      "import": "./dist/index.css",
+      "require": "./dist/index.css"
     }
   },
   "typesVersions": {
