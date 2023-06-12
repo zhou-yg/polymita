@@ -59,7 +59,8 @@ buildComponents().then(() => {
   buildTSC('esm');
   
   buildCSS();
-  
+
+  // 下面暂时不用的代码
   // updatePKGExports()
 
   // moveDirs('cjs')
@@ -100,7 +101,7 @@ function updatePKGExports () {
 function buildTSC (format) {
   const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json', '--outDir', `dist/${format}`], {
     cwd: join(__dirname, '../'),
-    stdio: [process.stdin, process.stdout, process.stderr]
+    stdio: 'inherit'
   })
   
   tsc.on('close', async () => {
@@ -119,13 +120,11 @@ function buildCSS () {
     ['-i', './shared/tailwind-input.css', '-o', './dist/index.css'], 
     {
       cwd: join(__dirname, '../'),
-      stdio: [process.stdin, process.stdout, process.stderr]  
     }
   );
   tailwind.on('close', () => {
     const cost2 = Date.now() - st
     console.log(`generate index.css done, cost ${cost2 / 1000}s`)
-
   });
 }
 
