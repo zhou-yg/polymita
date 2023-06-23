@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "@polymita/renderer",
-    "target": "es2016",
+    "target": "es2015",
     "useDefineForClassFields": false,
     "module": "esnext",
     "moduleResolution": "node",
