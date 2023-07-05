@@ -1,0 +1,29 @@
+import * as Module from './index.tsx'
+import * as ButtonModule from '../Button/index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export const ButtonComponent = RenderToReactWithWrap(ButtonModule)
+export function Box () {
+
+  const [show, setShow] = useState(false)
+
+  return (
+    <div>
+      <ButtonComponent onClick={() => setShow(v => !v)}>show modal</ButtonComponent>
+      
+      {show ? (
+        <Component title="My Drawer" onClose={v => setShow(false)} >
+          <p> i am content row 1 </p>
+          <p> i am content row 2 </p>
+        </Component>
+      ) : ''}
+    </div>
+  )
+}
+
+# Drawer 抽屉
+
+完全受控
+
+<Box></Box>

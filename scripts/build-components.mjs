@@ -1,6 +1,6 @@
 import rimraf from 'rimraf'
 import esbuild from 'esbuild'
-import { writeFileSync, existsSync, readdirSync, readFileSync } from 'fs'
+import { writeFileSync, existsSync, readdirSync, readFileSync, lstatSync } from 'fs'
 import { execSync } from 'child_process'
 
 import { join, resolve } from 'path'
@@ -18,13 +18,15 @@ const iconOutputDir = join(__dirname, '../dist/icons/')
 
 const notComponents = ['icons']
 
+const componentsTsConfig = join(__dirname, '../components/tsconfig.json')
+
 const filesToRemove = [
   join(componentOutputDir, 'icons'),
   join(componentOutputDir, 'patterns'),
 ]
 
 const componentFiles = readdirSync(componentsDir).filter(file => {
-  return !notComponents.includes(file)
+  return !notComponents.includes(file) && lstatSync(join(componentsDir, file)).isDirectory()
 }).map((file) => {
   const filePath = join(componentsDir, file)
   const inputFilePath = join(filePath, componentEntryFile)
@@ -97,9 +99,9 @@ function updatePKGExports () {
   writeFileSync(pkgPath, pkgStr) 
 }
 
-
 function buildTSC (format) {
-  const tsc = spawn('npx', ['tsc', '--project', './scripts/components.tsconfig.json', '--outDir', `dist/${format}`], {
+  const tsc = spawn('npx', ['tsc', '--project', componentsTsConfig, '--outDir', `dist/${format}`], {
+    
     cwd: join(__dirname, '../'),
     stdio: 'inherit'
   })
