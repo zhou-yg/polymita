@@ -18,7 +18,7 @@ __export(input_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, HOVER, PropTypes, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -81,6 +81,7 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 import { after } from "@polymita/signal";
+import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired
@@ -108,26 +109,26 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ jsx(
     "inputBox",
     {
-      className: "block"
-    },
-    /* @__PURE__ */ h(
-      "input",
-      {
-        "is-container": true,
-        "has-decoration": true,
-        "is-text": true,
-        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-        autoFocus: props.focused,
-        onFocus: logic2.onFocus,
-        onBlur: logic2.onBlur,
-        type: props.type,
-        disabled: props.disabled,
-        value: logic2.value
-      }
-    )
+      className: "block",
+      children: /* @__PURE__ */ jsx(
+        "input",
+        {
+          "is-container": true,
+          "has-decoration": true,
+          "is-text": true,
+          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+          autoFocus: props.focused,
+          onFocus: logic2.onFocus,
+          onBlur: logic2.onBlur,
+          type: props.type,
+          disabled: props.disabled,
+          value: logic2.value
+        }
+      )
+    }
   );
 };
 var designPatterns = (props) => {

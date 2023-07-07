@@ -35,7 +35,7 @@ __export(menu_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, PropTypes } from "@polymita/renderer";
+import { useLogic as useLogic2, PropTypes } from "@polymita/renderer";
 import { signal as signal2 } from "@polymita/signal";
 import { createFunctionComponent } from "@polymita/renderer";
 
@@ -153,23 +153,24 @@ __export(menu_item_exports, {
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { ACTIVE, h, HOVER, useLogic } from "@polymita/renderer";
+import { ACTIVE, HOVER, useLogic } from "@polymita/renderer";
+import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var logic = (props) => {
   return {};
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ jsx(
     "menuItem",
     {
       "is-container": true,
       "is-text": true,
       selected: props.selected,
       disabled: props.disabled,
-      className: "block p-2 px-3 rounded-lg"
-    },
-    /* @__PURE__ */ h("span", null, props.label)
+      className: "block p-2 px-3 rounded-lg",
+      children: /* @__PURE__ */ jsx("span", { children: props.label })
+    }
   );
 };
 var designPatterns = (props) => {
@@ -187,6 +188,7 @@ var styleRules = (props) => {
 };
 
 // components/menu/index.tsx
+import { jsx as jsx2, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes = {
   current: PropTypes.signal.isRequired.default(() => signal2("")),
@@ -219,9 +221,9 @@ var logic2 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  return /* @__PURE__ */ h2("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h2("ul", { className: "block" }, logic3.items().map((item) => {
+  return /* @__PURE__ */ jsx2("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx2("ul", { className: "block", children: logic3.items().map((item) => {
     const isSelected = item.selected;
-    let element = /* @__PURE__ */ h2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
+    let element = /* @__PURE__ */ jsx2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
       override: {
@@ -230,23 +232,26 @@ var layout2 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h2("spanIcon", { key: "tag", "is-text": true, className: "mx-2" }, ">"));
+            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx2("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
           }
           return [];
         }
       }
     })));
-    return /* @__PURE__ */ h2("menuItemBox", { "data-name": "menu-item-box", key: item.key }, /* @__PURE__ */ h2("div", { className: "p-1", onMouseDown: () => {
-      logic3.select(item);
-    } }, element), item.children && /* @__PURE__ */ h2("subMenuItemBox", { className: "block p-1 bg-slate-200" }, item.children.map((subItem) => {
-      const isSubSelected = subItem.selected;
-      return /* @__PURE__ */ h2("subMenuItem", { className: "block m-1", onClick: () => logic3.select(subItem) }, /* @__PURE__ */ h2(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
-        layout(props2, jsonTree) {
-          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
-        }
-      } })));
-    })));
-  })));
+    return /* @__PURE__ */ jsxs("menuItemBox", { "data-name": "menu-item-box", children: [
+      /* @__PURE__ */ jsx2("div", { className: "p-1", onMouseDown: () => {
+        logic3.select(item);
+      }, children: element }),
+      item.children && /* @__PURE__ */ jsx2("subMenuItemBox", { className: "block p-1 bg-slate-200", children: item.children.map((subItem) => {
+        const isSubSelected = subItem.selected;
+        return /* @__PURE__ */ jsx2("subMenuItem", { className: "block m-1", onClick: () => logic3.select(subItem), children: /* @__PURE__ */ jsx2(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
+          layout(props2, jsonTree) {
+            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+          }
+        } })) });
+      }) })
+    ] }, item.key);
+  }) }) });
 };
 var designPattern = (props) => {
   const pattern = blockPattern;

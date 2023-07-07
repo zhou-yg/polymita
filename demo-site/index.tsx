@@ -18,12 +18,9 @@ import Overview from './docs/overview'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import * as MenuModule from '../components/menu'
+import * as MenuModule from '../dist/esm/components/menu'
 import { RenderToReact } from '../shared/render'
 import { NormalizeProps, SingleFileModule } from '@polymita/renderer'
-
-// test for Button
-// import Button from '../react/components/button'
 
 const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
   ...MenuModule
@@ -63,7 +60,7 @@ const TAB_KEY = 'tab'
 
 const DEFAULT_TAB = 'Button'
 
-function Home() {
+const Home: React.FC = () => {
   const [tab, setTab] = React.useState(searchParams.get(TAB_KEY) || DEFAULT_TAB)
 
   useEffect(() => {
@@ -144,4 +141,3 @@ function Home() {
 
 const RRoot = createRoot(document.getElementById('root'))
 RRoot.render(<Home />)
-

@@ -18,7 +18,6 @@ __export(button_exports, {
 });
 import {
   ACTIVE,
-  h,
   HOVER,
   useLayout,
   useLogic
@@ -125,6 +124,7 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/button/index.tsx
+import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var logic = (props) => {
   return {
@@ -133,7 +133,7 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ jsx(
     "buttonBox",
     {
       className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
@@ -147,15 +147,15 @@ var layout = (props) => {
         if (props.disabled)
           return;
         (_a = props.onClick) == null ? void 0 : _a.call(props, e);
-      }
-    },
-    /* @__PURE__ */ h(
-      "span",
-      {
-        className: "block select-none"
       },
-      props.children
-    )
+      children: /* @__PURE__ */ jsx(
+        "span",
+        {
+          className: "block select-none",
+          children: props.children
+        }
+      )
+    }
   );
 };
 var designPatterns = (props) => {

@@ -18,7 +18,8 @@ __export(list_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { h, PropTypes, useLogic } from "@polymita/renderer";
+import { PropTypes, useLogic } from "@polymita/renderer";
+import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var name = "List";
 var meta;
 var propTypes = {
@@ -30,12 +31,15 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const ds = props.list();
-  return /* @__PURE__ */ h("listContainer", { className: "block" }, ds.map((item, index) => {
+  return /* @__PURE__ */ jsx("listContainer", { className: "block", children: ds.map((item, index) => {
     var _a, _b, _c;
     const r = props.render(item, index);
     const key = (_c = (_b = (_a = item == null ? void 0 : item.id) != null ? _a : item == null ? void 0 : item.key) != null ? _b : item == null ? void 0 : item.name) != null ? _c : JSON.stringify(item);
-    return /* @__PURE__ */ h("listItem", { className: "flex p-2 border-b items-center", key }, /* @__PURE__ */ h("listContent", { className: "flex-1" }, r), /* @__PURE__ */ h("listExtra", { className: "flex-none ml-2" }, props.extra));
-  }));
+    return /* @__PURE__ */ jsxs("listItem", { className: "flex p-2 border-b items-center", children: [
+      /* @__PURE__ */ jsx("listContent", { className: "flex-1", children: r }),
+      /* @__PURE__ */ jsx("listExtra", { className: "flex-none ml-2", children: props.extra })
+    ] }, key);
+  }) });
 };
 var styleRules = (props, layout2) => {
   return [];

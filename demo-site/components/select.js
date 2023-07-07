@@ -37,7 +37,7 @@ __export(select_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules4
 });
-import { h as h4, useLogic as useLogic4, PropTypes as PropTypes3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
+import { useLogic as useLogic4, PropTypes as PropTypes3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 import { action as action4, after as after3, signal as signal4 } from "@polymita/signal";
 
 // components/input/index.tsx
@@ -51,7 +51,7 @@ __export(input_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, h, HOVER, PropTypes, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, HOVER, PropTypes, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -201,6 +201,7 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 import { after } from "@polymita/signal";
+import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired
@@ -228,26 +229,26 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic5 = useLogic();
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ jsx(
     "inputBox",
     {
-      className: "block"
-    },
-    /* @__PURE__ */ h(
-      "input",
-      {
-        "is-container": true,
-        "has-decoration": true,
-        "is-text": true,
-        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-        autoFocus: props.focused,
-        onFocus: logic5.onFocus,
-        onBlur: logic5.onBlur,
-        type: props.type,
-        disabled: props.disabled,
-        value: logic5.value
-      }
-    )
+      className: "block",
+      children: /* @__PURE__ */ jsx(
+        "input",
+        {
+          "is-container": true,
+          "has-decoration": true,
+          "is-text": true,
+          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+          autoFocus: props.focused,
+          onFocus: logic5.onFocus,
+          onBlur: logic5.onBlur,
+          type: props.type,
+          disabled: props.disabled,
+          value: logic5.value
+        }
+      )
+    }
   );
 };
 var designPatterns = (props) => {
@@ -272,7 +273,7 @@ __export(menu_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules3
 });
-import { h as h3, useLogic as useLogic3, PropTypes as PropTypes2 } from "@polymita/renderer";
+import { useLogic as useLogic3, PropTypes as PropTypes2 } from "@polymita/renderer";
 import { signal as signal3 } from "@polymita/signal";
 import { createFunctionComponent } from "@polymita/renderer";
 
@@ -285,23 +286,24 @@ __export(menu_item_exports, {
   meta: () => meta2,
   styleRules: () => styleRules2
 });
-import { ACTIVE as ACTIVE2, h as h2, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
+import { ACTIVE as ACTIVE2, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
+import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var logic2 = (props) => {
   return {};
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
-  return /* @__PURE__ */ h2(
+  return /* @__PURE__ */ jsx2(
     "menuItem",
     {
       "is-container": true,
       "is-text": true,
       selected: props.selected,
       disabled: props.disabled,
-      className: "block p-2 px-3 rounded-lg"
-    },
-    /* @__PURE__ */ h2("span", null, props.label)
+      className: "block p-2 px-3 rounded-lg",
+      children: /* @__PURE__ */ jsx2("span", { children: props.label })
+    }
   );
 };
 var designPatterns2 = (props) => {
@@ -319,6 +321,7 @@ var styleRules2 = (props) => {
 };
 
 // components/menu/index.tsx
+import { jsx as jsx3, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta3;
 var propTypes2 = {
   current: PropTypes2.signal.isRequired.default(() => signal3("")),
@@ -351,9 +354,9 @@ var logic3 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout3 = (props) => {
   const logic5 = useLogic3();
-  return /* @__PURE__ */ h3("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h3("ul", { className: "block" }, logic5.items().map((item) => {
+  return /* @__PURE__ */ jsx3("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx3("ul", { className: "block", children: logic5.items().map((item) => {
     const isSelected = item.selected;
-    let element = /* @__PURE__ */ h3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
+    let element = /* @__PURE__ */ jsx3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
       override: {
@@ -362,23 +365,26 @@ var layout3 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h3("spanIcon", { key: "tag", "is-text": true, className: "mx-2" }, ">"));
+            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx3("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
           }
           return [];
         }
       }
     })));
-    return /* @__PURE__ */ h3("menuItemBox", { "data-name": "menu-item-box", key: item.key }, /* @__PURE__ */ h3("div", { className: "p-1", onMouseDown: () => {
-      logic5.select(item);
-    } }, element), item.children && /* @__PURE__ */ h3("subMenuItemBox", { className: "block p-1 bg-slate-200" }, item.children.map((subItem) => {
-      const isSubSelected = subItem.selected;
-      return /* @__PURE__ */ h3("subMenuItem", { className: "block m-1", onClick: () => logic5.select(subItem) }, /* @__PURE__ */ h3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
-        layout(props2, jsonTree) {
-          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
-        }
-      } })));
-    })));
-  })));
+    return /* @__PURE__ */ jsxs("menuItemBox", { "data-name": "menu-item-box", children: [
+      /* @__PURE__ */ jsx3("div", { className: "p-1", onMouseDown: () => {
+        logic5.select(item);
+      }, children: element }),
+      item.children && /* @__PURE__ */ jsx3("subMenuItemBox", { className: "block p-1 bg-slate-200", children: item.children.map((subItem) => {
+        const isSubSelected = subItem.selected;
+        return /* @__PURE__ */ jsx3("subMenuItem", { className: "block m-1", onClick: () => logic5.select(subItem), children: /* @__PURE__ */ jsx3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
+          layout(props2, jsonTree) {
+            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+          }
+        } })) });
+      }) })
+    ] }, item.key);
+  }) }) });
 };
 var designPattern = (props) => {
   const pattern = blockPattern;
@@ -388,6 +394,7 @@ var styleRules3 = (props) => {
 };
 
 // components/select/index.tsx
+import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name = "Select";
 var meta4;
 var propTypes3 = {
@@ -427,29 +434,31 @@ var layout4 = (props) => {
     selectItem,
     focused
   } = useLogic4();
-  return /* @__PURE__ */ h4(
+  return /* @__PURE__ */ jsxs2(
     "selectContainer",
     {
-      className: "block relative rounded"
-    },
-    /* @__PURE__ */ h4(
-      Input,
-      {
-        disabled: props.disabled,
-        value: current,
-        onFocus: () => focused(true),
-        onBlur: () => focused(false)
-      }
-    ),
-    /* @__PURE__ */ h4(
-      "optionList",
-      {
-        if: optionItems().length > 0 && focused(),
-        className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
-        style: { top: "40px" }
-      },
-      /* @__PURE__ */ h4(Menu, { current, items: optionItems, onClick: selectItem })
-    )
+      className: "block relative rounded",
+      children: [
+        /* @__PURE__ */ jsx4(
+          Input,
+          {
+            disabled: props.disabled,
+            value: current,
+            onFocus: () => focused(true),
+            onBlur: () => focused(false)
+          }
+        ),
+        /* @__PURE__ */ jsx4(
+          "optionList",
+          {
+            if: optionItems().length > 0 && focused(),
+            className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
+            style: { top: "40px" },
+            children: /* @__PURE__ */ jsx4(Menu, { current, items: optionItems, onClick: selectItem })
+          }
+        )
+      ]
+    }
   );
 };
 var styleRules4 = (props, layout5) => {

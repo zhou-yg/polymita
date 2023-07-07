@@ -16,7 +16,7 @@ __export(checkbox_exports, {
   meta: () => meta,
   propTypes: () => propTypes
 });
-import { ACTIVE, h as h2, HOVER, PropTypes, useLogic } from "@polymita/renderer";
+import { ACTIVE, HOVER, PropTypes, useLogic } from "@polymita/renderer";
 import { after, signal as signal2 } from "@polymita/signal";
 
 // patterns/control-active.ts
@@ -119,11 +119,11 @@ function strokePatternMatrix(colors2) {
   };
 }
 
-// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckOutlined.js
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CheckOutlined.js
 var CheckOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z" } }] }, "name": "check", "theme": "outlined" };
 var CheckOutlined_default = CheckOutlined;
 
-// node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/helpers.js
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/helpers.js
 var __assign = function() {
   __assign = Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -195,6 +195,7 @@ var Icon = createFunctionComponent({
 var check_default = Icon;
 
 // components/checkbox/index.tsx
+import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {
   value: PropTypes.signal.isRequired.default(() => signal2(false))
@@ -218,35 +219,39 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ h2(
+  return /* @__PURE__ */ jsxs(
     "checkBoxContainer",
     {
       className: "relative flex items-center",
-      onClick: logic2.toggle
-    },
-    /* @__PURE__ */ h2(
-      "checkBox",
-      {
-        className: "relative block mr-2 rounded ",
-        style: { width: "16px", height: "16px" },
-        "is-container": true,
-        "has-decoration": true,
-        selected: logic2.value(),
-        disabled: props.disabled
-      },
-      /* @__PURE__ */ h2("input", { type: "checkbox", readOnly: true, checked: logic2.value(), className: "opacity-0 absolute w-full h-full" }),
-      /* @__PURE__ */ h2(
-        "span",
-        {
-          "is-text": true,
-          selected: logic2.value(),
-          disabled: props.disabled,
-          className: "relative z-10 w-full h-full flex items-center justify-center"
-        },
-        logic2.value() ? /* @__PURE__ */ h2(check_default, { size: 12 }) : ""
-      )
-    ),
-    /* @__PURE__ */ h2("checkBoxLabel", { className: "select-none" }, props.children)
+      onClick: logic2.toggle,
+      children: [
+        /* @__PURE__ */ jsxs(
+          "checkBox",
+          {
+            className: "relative block mr-2 rounded ",
+            style: { width: "16px", height: "16px" },
+            "is-container": true,
+            "has-decoration": true,
+            selected: logic2.value(),
+            disabled: props.disabled,
+            children: [
+              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: logic2.value(), className: "opacity-0 absolute w-full h-full" }),
+              /* @__PURE__ */ jsx(
+                "span",
+                {
+                  "is-text": true,
+                  selected: logic2.value(),
+                  disabled: props.disabled,
+                  className: "relative z-10 w-full h-full flex items-center justify-center",
+                  children: logic2.value() ? /* @__PURE__ */ jsx(check_default, { size: 12 }) : ""
+                }
+              )
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx("checkBoxLabel", { className: "select-none", children: props.children })
+      ]
+    }
   );
 };
 var designPatterns = (props) => {

@@ -9,6 +9,9 @@ export let meta: {
 }
 
 export interface DrawerProps {
+  title?: string
+  width?: number
+  children?: any
 }
 
 export const propTypes = {
@@ -26,9 +29,16 @@ export type DrawerLayout = {
   ]
 }
 export const layout = (props: DrawerProps) => {
-  const logic = useLogic<LogicReturn>()
+  const { title, width = 600, children } = props
+  const logic = useLogic<LogicReturn>() 
   return (
-    <drawerContainer>
+    <drawerContainer className="block fixed top-0 right-0 h-full" style={{ width: `${width}px` }}>
+      <drawerHeader className="flex items-center p-4 border-bottom" >
+        {title}
+      </drawerHeader>
+      <drawerBody className="overflow-auto">
+        {children}
+      </drawerBody>
     </drawerContainer>
   )
 }

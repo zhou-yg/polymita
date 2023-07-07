@@ -92,7 +92,6 @@ const arr =  files.map(({
       plugins: [
         mdx()
       ],
-      // tsconfig: '',
       external: ['react', '@polymita/renderer', '@polymita/signal']
     })
 })

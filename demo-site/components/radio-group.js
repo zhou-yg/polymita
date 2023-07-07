@@ -18,7 +18,7 @@ __export(radio_group_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { h as h2, useLogic as useLogic2, PropTypes, createFunctionComponent } from "@polymita/renderer";
+import { useLogic as useLogic2, PropTypes, createFunctionComponent } from "@polymita/renderer";
 import { signal as signal2 } from "@polymita/signal";
 
 // components/radio/index.tsx
@@ -30,7 +30,7 @@ __export(radio_exports, {
   meta: () => meta,
   styleRules: () => styleRules
 });
-import { h, useLogic, ACTIVE, HOVER } from "@polymita/renderer";
+import { useLogic, ACTIVE, HOVER } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -133,44 +133,49 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/radio/index.tsx
+import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta;
 var logic = (props) => {
   return {};
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ jsxs(
     "radioContainer",
     {
       className: "relative flex items-center cursor-pointer",
       onClick: () => {
         var _a;
         return !props.disabled && ((_a = props.onChange) == null ? void 0 : _a.call(props, !props.selected));
-      }
-    },
-    /* @__PURE__ */ h(
-      "radioBox",
-      {
-        className: "relative block mr-2 rounded-full ",
-        style: { width: "16px", height: "16px" },
-        "is-container": true,
-        "has-decoration": true,
-        selected: props.selected,
-        disabled: props.disabled
       },
-      /* @__PURE__ */ h("input", { type: "checkbox", readOnly: true, checked: props.selected, className: "opacity-0 absolute w-full h-full" }),
-      /* @__PURE__ */ h("span", { className: "relative z-10 w-full h-full flex items-center justify-center" }, props.selected ? /* @__PURE__ */ h(
-        "circle",
-        {
-          "is-fillText": true,
-          selected: props.selected,
-          disabled: props.disabled,
-          className: "block rounded-full",
-          style: { width: "6px", height: "6px" }
-        }
-      ) : "")
-    ),
-    /* @__PURE__ */ h("checkBoxLabel", { className: "select-none" }, props.children)
+      children: [
+        /* @__PURE__ */ jsxs(
+          "radioBox",
+          {
+            className: "relative block mr-2 rounded-full ",
+            style: { width: "16px", height: "16px" },
+            "is-container": true,
+            "has-decoration": true,
+            selected: props.selected,
+            disabled: props.disabled,
+            children: [
+              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: props.selected, className: "opacity-0 absolute w-full h-full" }),
+              /* @__PURE__ */ jsx("span", { className: "relative z-10 w-full h-full flex items-center justify-center", children: props.selected ? /* @__PURE__ */ jsx(
+                "circle",
+                {
+                  "is-fillText": true,
+                  selected: props.selected,
+                  disabled: props.disabled,
+                  className: "block rounded-full",
+                  style: { width: "6px", height: "6px" }
+                }
+              ) : "" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx("checkBoxLabel", { className: "select-none", children: props.children })
+      ]
+    }
   );
 };
 var styleRules = (props, layout3) => {
@@ -201,6 +206,7 @@ var designPatterns = (props) => {
 };
 
 // components/radio-group/index.tsx
+import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes = {
   value: PropTypes.signal.isRequired.default(() => signal2(""))
@@ -223,11 +229,11 @@ var Radio = createFunctionComponent(radio_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
   const currentValue = logic3.value();
-  return /* @__PURE__ */ h2("radioGroupContainer", null, props.options.map((option, index) => {
-    return /* @__PURE__ */ h2(Radio, { key: option.label, selected: currentValue === option.value, onChange: () => {
+  return /* @__PURE__ */ jsx2("radioGroupContainer", { children: props.options.map((option, index) => {
+    return /* @__PURE__ */ jsx2(Radio, { selected: currentValue === option.value, onChange: () => {
       logic3.changeValue(option.value);
-    } }, option.label);
-  }));
+    }, children: option.label }, option.label);
+  }) });
 };
 var styleRules2 = (props, layout3) => {
   return [];
