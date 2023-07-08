@@ -1,5 +1,6 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
+import CloseIcon from '../../icons/close'
 
 export const name = 'Drawer' as const
 export let meta: {
@@ -12,6 +13,7 @@ export interface DrawerProps {
   title?: string
   width?: number
   children?: any
+  onClose?: () => void
 }
 
 export const propTypes = {
@@ -29,16 +31,23 @@ export type DrawerLayout = {
   ]
 }
 export const layout = (props: DrawerProps) => {
-  const { title, width = 600, children } = props
+  const { title, width = 600, children, onClose } = props
   const logic = useLogic<LogicReturn>() 
   return (
-    <drawerContainer className="block fixed top-0 right-0 h-full" style={{ width: `${width}px` }}>
-      <drawerHeader className="flex items-center p-4 border-bottom" >
-        {title}
-      </drawerHeader>
-      <drawerBody className="overflow-auto">
-        {children}
-      </drawerBody>
+    <drawerContainer className="block fixed left-0 top-0 w-full h-full" >
+      <drawerMask onClick={onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black" />
+      <drawerBox className="block fixed top-0 right-0 h-full z-10 bg-white" style={{ width: `${width}px` }}>
+        <drawerHeader className="flex items-center p-4 border-b" >
+          {title}
+
+          <closeBox className="block absolute top-4 right-4 cursor-pointer" onClick={props.onClose} >
+            <CloseIcon color="rgba(0,0,0,.45)" />
+          </closeBox>
+        </drawerHeader>
+        <drawerBody className="block overflow-auto p-4">
+          {children}
+        </drawerBody>
+      </drawerBox>
     </drawerContainer>
   )
 }

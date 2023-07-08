@@ -10,7 +10,7 @@ export function Box () {
 
   return (
     <div>
-      <ButtonComponent onClick={() => setShow(v => !v)}>show modal</ButtonComponent>
+      <ButtonComponent onClick={() => setShow(v => !v)}>show drawer</ButtonComponent>
       
       {show ? (
         <Component title="My Drawer" onClose={v => setShow(false)} >
