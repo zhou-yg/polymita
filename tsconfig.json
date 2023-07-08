@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxImportSource": "@polymita/renderer",
-    "jsxFactory": "h",
     "outDir": "dist",
     "sourceMap": true,
     "target": "es2015",
