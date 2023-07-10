@@ -100,7 +100,7 @@ function updatePKGExports () {
 }
 
 function buildTSC (format) {
-  const tsc = spawn('npx', ['tsc', '--project', componentsTsConfig, '--outDir', `dist/${format}`], {
+  const tsc = spawn('npx', ['tsc', '--declaration', '--project', componentsTsConfig, '--outDir', `dist/${format}`], {
     
     cwd: join(__dirname, '../'),
     stdio: 'inherit'
