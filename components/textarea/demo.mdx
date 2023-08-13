@@ -1,0 +1,46 @@
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+import { useState } from 'react'
+export const Component = RenderToReactWithWrap(Module)
+export function InputBox () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {val} 
+      <br/>
+      <Component
+        value={val} 
+        onInput={v => setVal(v)} 
+        onFocus={() => console.log('focus 1')} 
+        onBlur={() => console.log('blur 1')} />
+    </div>
+  )
+}
+
+
+export function InputBox2 () {
+  const [val, setVal] = useState('v0')
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {val} 
+      <br/>
+      focused: true
+      <br/>
+      <Component type="number" value={val} onInput={v => setVal(v)} focused />
+    </div>
+  )
+}
+
+# Input 输入
+
+<InputBox />
+
+接收用户输入
+
+<InputBox2 />
+
+数字框 type=number
+
+<Component disabled value="disabled" />
+
+不可以的输入框

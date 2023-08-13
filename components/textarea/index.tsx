@@ -5,17 +5,16 @@ import { colors } from '../../patterns/token'
 import { SignalProps } from '@polymita/renderer'
 
 export let meta: {
-  props: InputProps,
+  props: TextareaProps,
   layoutStruct: InputLayout,
   patchCommands: []
 }
 
-export interface InputProps {
+export interface TextareaProps {
   placeholder?: string
   disabled?: boolean
   value:  Signal< string | number>
-  type?: string
-  focused?: boolean
+  rows?: number
   onInput?: (v: string | number) => void
   onFocus?: () => void
   onBlur?: () => void
@@ -31,7 +30,7 @@ export const config = () => ({
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: InputProps) => {
+export const logic = (props: TextareaProps) => {
   const value = props.value
 
   after(() => {
@@ -62,30 +61,31 @@ export type InputLayout = {
 }
 
 // tailwindcss
-export const layout = (props: InputProps): VirtualLayoutJSON => {
+export const layout = (props: TextareaProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   return (
     <inputBox
       className="block">
-      <input
+      <textarea
         placeholder={props.placeholder}
         is-container
         has-decoration
         is-text
         className="block w-full select-none outline-none border-0 px-2 py-1 rounded"
-        autoFocus={props.focused}
         onFocus={logic.onFocus}
         onBlur={logic.onBlur}
-        type={props.type}
+        rows={props.rows}
         disabled={props.disabled}
         value={logic.value}
-      />
+      >
+        {logic.value()}
+      </textarea>
     </inputBox>
   )
 }
 
-export const designPatterns = (props: InputProps): PatternMatrix2 => {
+export const designPatterns = (props: TextareaProps): PatternMatrix2 => {
 
   return [
     [HOVER, ACTIVE, FOCUS, 'disabled'],
@@ -97,5 +97,5 @@ export const designPatterns = (props: InputProps): PatternMatrix2 => {
 }
 
 // css in js
-export const styleRules = (props: InputProps) => {
+export const styleRules = (props: TextareaProps) => {
 }

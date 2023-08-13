@@ -4,12 +4,12 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/input/demo.mdx
+// components/textarea/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
-// components/input/index.tsx
-var input_exports = {};
-__export(input_exports, {
+// components/textarea/index.tsx
+var textarea_exports = {};
+__export(textarea_exports, {
   config: () => config,
   designPatterns: () => designPatterns,
   layout: () => layout,
@@ -79,7 +79,7 @@ function strokePatternMatrix(colors2) {
   };
 }
 
-// components/input/index.tsx
+// components/textarea/index.tsx
 import { after } from "@polymita/signal";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
@@ -114,19 +114,19 @@ var layout = (props) => {
     {
       className: "block",
       children: /* @__PURE__ */ jsx(
-        "input",
+        "textarea",
         {
           placeholder: props.placeholder,
           "is-container": true,
           "has-decoration": true,
           "is-text": true,
           className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          autoFocus: props.focused,
           onFocus: logic2.onFocus,
           onBlur: logic2.onBlur,
-          type: props.type,
+          rows: props.rows,
           disabled: props.disabled,
-          value: logic2.value
+          value: logic2.value,
+          children: logic2.value()
         }
       )
     }
@@ -172,9 +172,9 @@ function RenderToReact(module) {
   };
 }
 
-// components/input/demo.mdx
+// components/textarea/demo.mdx
 import { useState } from "react";
-var Component = RenderToReactWithWrap(input_exports);
+var Component = RenderToReactWithWrap(textarea_exports);
 function InputBox() {
   const [val, setVal] = useState("v0");
   return _jsxs("div", {

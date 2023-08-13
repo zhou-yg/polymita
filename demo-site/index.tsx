@@ -13,6 +13,7 @@ import SwitchDemo from './components/switch'
 import ListDemo from './components/list'
 import SchemaFormDemo from './components/schema-form'
 import DrawerDemo from './components/drawer'
+import TextareaDemo from './components/textarea'
 
 import GetStarted from './docs/get-started'
 import Overview from './docs/overview'
@@ -43,6 +44,7 @@ const componentsPlayground = {
   LoadingButton: LoadingButtonDemo,
   Menu: MenuDemo,
   Input: InputDemo,
+  Textarea: TextareaDemo,
   Drawer: DrawerDemo,
   Modal: ModalDemo,
   ModalTest: ModalTestDemo,

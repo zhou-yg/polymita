@@ -180,6 +180,7 @@ var layout2 = (props) => {
       children: /* @__PURE__ */ jsx2(
         "input",
         {
+          placeholder: props.placeholder,
           "is-container": true,
           "has-decoration": true,
           "is-text": true,

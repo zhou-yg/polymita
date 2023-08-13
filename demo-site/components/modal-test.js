@@ -400,6 +400,7 @@ var layout3 = (props) => {
       children: /* @__PURE__ */ jsx3(
         "input",
         {
+          placeholder: props.placeholder,
           "is-container": true,
           "has-decoration": true,
           "is-text": true,

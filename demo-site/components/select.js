@@ -236,6 +236,7 @@ var layout = (props) => {
       children: /* @__PURE__ */ jsx(
         "input",
         {
+          placeholder: props.placeholder,
           "is-container": true,
           "has-decoration": true,
           "is-text": true,
