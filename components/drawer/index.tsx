@@ -15,7 +15,7 @@ export interface DrawerProps {
   children?: any
   onClose?: () => void
   closable?: boolean
-  extra?: VirtualLayoutJSON
+  extra?: VirtualLayoutJSON | VirtualLayoutJSON[]
 }
 
 export const propTypes = {
