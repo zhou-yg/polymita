@@ -3,14 +3,49 @@ import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
 export function SelectBox1 () {
-  const [val, setVal] = useState('A')
+  const [val, setVal] = useState('A');
   return (
     <div style={{ margin: '10px' }}>
       当前选择值：{val}
       <br/>
       <Component 
-        value={val} 
-        onChange={v => setVal(v)}
+        value={val}
+        onChange={(v) => setVal(v)}
+        options={[
+          {
+            value: "A",
+            label: "A",
+          },
+          {
+            value: "B",
+            label: "B",
+          },
+          {
+            value: "C",
+            label: "C"
+          }
+        ]} /> 
+    </div>
+  )
+}
+
+export function SelectBoxValuePath () {
+  const [val, setVal] = useState({
+    payload: {
+      section: 'A'
+    }
+  });
+  return (
+    <div style={{ margin: '10px' }}>
+      当前选择值 val.payload.section：{val.payload.section}
+      <br/>
+      <Component 
+        value={val}
+        onChange={(v) => {
+          console.log('v: ', v);
+          setVal(v)
+        }}
+        value-path="payload.section"
         options={[
           {
             value: "A",
@@ -31,10 +66,14 @@ export function SelectBox1 () {
 
 # Select 下拉选择器
 
-基本使用
+### 1.基本使用
 
 <SelectBox1 />
 
-禁止样式
+### 2.禁止样式
 
 <Component disabled value="Disable Select"  > </Component>
+
+### 3.携带 ValuePath
+
+<SelectBoxValuePath />

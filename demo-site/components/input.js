@@ -108,6 +108,7 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
+  console.log("[input] props: ", props);
   const logic2 = useLogic();
   return /* @__PURE__ */ jsx(
     "inputBox",
@@ -126,7 +127,8 @@ var layout = (props) => {
           onBlur: logic2.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic2.value
+          value: logic2.value,
+          "value-path": props["value-path"]
         }
       )
     }
@@ -205,24 +207,47 @@ function InputBox2() {
     })]
   });
 }
+function InputBoxWithPath() {
+  const [val, setVal] = useState({
+    payload: {
+      name: "name"
+    }
+  });
+  return _jsxs("div", {
+    style: {
+      margin: "10px",
+      color: "#999"
+    },
+    children: ['\u5F53\u524D\u503C val.payload.name = "', val.payload.name, '"', _jsx("br", {}), _jsx(Component, {
+      "value-path": ["payload", "name"],
+      value: val,
+      onInput: (v) => {
+        console.log("v: ", v);
+        setVal(v);
+      }
+    })]
+  });
+}
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    h3: "h3"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
       children: "Input \u8F93\u5165"
-    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.p, {
-      children: "\u63A5\u6536\u7528\u6237\u8F93\u5165"
-    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.p, {
-      children: "\u6570\u5B57\u6846 type=number"
+    }), "\n", _jsx(_components.h3, {
+      children: "1.\u63A5\u6536\u7528\u6237\u8F93\u5165"
+    }), "\n", _jsx(InputBox, {}), "\n", _jsx(_components.h3, {
+      children: "2.\u6570\u5B57\u6846 type=number"
+    }), "\n", _jsx(InputBox2, {}), "\n", _jsx(_components.h3, {
+      children: "3.\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
     }), "\n", _jsx(Component, {
       disabled: true,
       value: "disabled"
-    }), "\n", _jsx(_components.p, {
-      children: "\u4E0D\u53EF\u4EE5\u7684\u8F93\u5165\u6846"
-    })]
+    }), "\n", _jsx(_components.h3, {
+      children: "4.\u643A\u5E26value-path\u7684\u8F93\u5165\u6846"
+    }), "\n", _jsx(InputBoxWithPath, {})]
   });
 }
 function MDXContent(props = {}) {
@@ -236,5 +261,6 @@ export {
   Component,
   InputBox,
   InputBox2,
+  InputBoxWithPath,
   demo_default as default
 };

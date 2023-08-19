@@ -145,7 +145,16 @@ var layout = (props) => {
             selected: props.selected,
             disabled: props.disabled,
             children: [
-              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: props.selected, className: "opacity-0 absolute w-full h-full" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "checkbox",
+                  readOnly: true,
+                  className: "opacity-0 absolute w-full h-full",
+                  checked: props.selected,
+                  "checked-path": props["checked-path"]
+                }
+              ),
               /* @__PURE__ */ jsx("span", { className: "relative z-10 w-full h-full flex items-center justify-center", children: props.selected ? /* @__PURE__ */ jsx(
                 "circle",
                 {
@@ -224,20 +233,20 @@ var Component = RenderToReactWithWrap(radio_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    h3: "h3"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
       children: "Radio \u5355\u9009\u6846"
-    }), "\n", _jsx(_components.p, {
-      children: "\u5B8C\u5168\u53D7\u63A7"
+    }), "\n", _jsx(_components.h3, {
+      children: "1.\u5B8C\u5168\u53D7\u63A7"
     }), "\n", _jsx(Component, {
       children: " \u5355\u9009\u9879 "
     }), "\n", _jsx(Component, {
       selected: true,
       children: " \u5355\u9009\u9879 "
-    }), "\n", _jsx(_components.p, {
-      children: "\u7981\u6B62\u6837\u5F0F"
+    }), "\n", _jsx(_components.h3, {
+      children: "2.\u7981\u6B62\u6837\u5F0F"
     }), "\n", _jsx(Component, {
       disabled: true,
       children: " \u5355\u9009\u9879\u7981\u6B62 "

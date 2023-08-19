@@ -199,7 +199,6 @@ var logic2 = (props) => {
   const select = (item) => {
     var _a;
     const curKey = item.key;
-    currentKey(() => curKey);
     items((draft) => {
       draft.forEach((di) => {
         var _a2;
@@ -221,8 +220,8 @@ var logic2 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  return /* @__PURE__ */ jsx2("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx2("ul", { className: "block", children: logic3.items().map((item) => {
-    const isSelected = item.selected;
+  return /* @__PURE__ */ jsx2("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx2("ul", { className: "block", style: { margin: 0, padding: 0 }, children: logic3.items().map((item) => {
+    const isSelected = item.key === logic3.currentKey();
     let element = /* @__PURE__ */ jsx2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,

@@ -8,7 +8,7 @@ import {
   HOVER,
   VirtualLayoutJSON
 } from '@polymita/renderer'
-import { Signal, after, signal } from '@polymita/signal'
+import { Signal, after, get, set, signal } from '@polymita/signal'
 import { blockPatternMatrix, colors } from '../../patterns'
 
 export let meta: {
@@ -21,6 +21,7 @@ export interface SwitchProps {
   value: Signal<boolean>
   checkedContent?: string
   uncheckedContent?: string
+  'value-path'?: string | string[]
 }
 
 export const propTypes = {
@@ -49,6 +50,7 @@ export const layout = (props: SwitchProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   const value = props.value()
+  const valuePath = props['value-path']
 
   return (
     <switchContainer 
@@ -56,9 +58,14 @@ export const layout = (props: SwitchProps): VirtualLayoutJSON => {
       className="inline-block relative overflow-hidden" 
       style={{ minWidth: '44px', height: '22px', lineHeight: '22px', borderRadius: '11px' }}
       onClick={() => {
-        props.value(d => {
-          console.log('d: ', d);
-          return !d
+        props.value(draft => {
+          const oldValue = get(draft, valuePath)
+          const newValue = !oldValue
+          if (valuePath) {
+            set(draft, valuePath, newValue)
+          } else {
+            return newValue
+          }
         })
       }}>
       <switchHandle is-fillText 

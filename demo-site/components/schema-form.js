@@ -172,6 +172,7 @@ var logic2 = (props) => {
   };
 };
 var layout2 = (props) => {
+  console.log("[input] props: ", props);
   const logic5 = useLogic2();
   return /* @__PURE__ */ jsx2(
     "inputBox",
@@ -190,7 +191,8 @@ var layout2 = (props) => {
           onBlur: logic5.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic5.value
+          value: logic5.value,
+          "value-path": props["value-path"]
         }
       )
     }

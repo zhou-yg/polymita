@@ -11,6 +11,7 @@ export interface RadioProps {
   disabled?: boolean
   onChange?: (selected: boolean) => void
   children?: any
+  'checked-path'?: string | string[]
 }
 
 export const logic = (props: RadioProps) => {
@@ -51,7 +52,9 @@ export const layout = (props: RadioProps): VirtualLayoutJSON => {
         has-decoration
         selected={props.selected}
         disabled={props.disabled} >
-        <input type="checkbox" readOnly checked={props.selected} className="opacity-0 absolute w-full h-full" />
+        <input 
+          type="checkbox" readOnly className="opacity-0 absolute w-full h-full" 
+          checked={props.selected} checked-path={props['checked-path']} />
         <span className="relative z-10 w-full h-full flex items-center justify-center" >
           {props.selected
             ? <circle is-fillText selected={props.selected}

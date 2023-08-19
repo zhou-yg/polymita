@@ -24,7 +24,7 @@ import {
   ACTIVE,
   HOVER
 } from "@polymita/renderer";
-import { signal as signal2 } from "@polymita/signal";
+import { get, set, signal as signal2 } from "@polymita/signal";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -97,6 +97,7 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const value = props.value();
+  const valuePath = props["value-path"];
   return /* @__PURE__ */ jsxs(
     "switchContainer",
     {
@@ -104,9 +105,14 @@ var layout = (props) => {
       className: "inline-block relative overflow-hidden",
       style: { minWidth: "44px", height: "22px", lineHeight: "22px", borderRadius: "11px" },
       onClick: () => {
-        props.value((d) => {
-          console.log("d: ", d);
-          return !d;
+        props.value((draft) => {
+          const oldValue = get(draft, valuePath);
+          const newValue = !oldValue;
+          if (valuePath) {
+            set(draft, valuePath, newValue);
+          } else {
+            return newValue;
+          }
         });
       },
       children: [

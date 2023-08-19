@@ -1,5 +1,5 @@
 import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PropTypes, VirtualLayoutJSON, UseComponent, createFunctionComponent } from '@polymita/renderer';
-import { Signal, action, after, signal } from '@polymita/signal'
+import { Signal, action, after, computed, get, set, signal } from '@polymita/signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
 
@@ -17,6 +17,7 @@ export interface SelectProps {
   disabled?: boolean
   
   onChange?: (value: string) => void
+  'value-path'?: string | string[]
 }
 
 export const propTypes = {
@@ -35,23 +36,26 @@ export const logic = (props: SelectProps) => {
   }))
 
   const selectItem = action(function (item: MenuModule.MenuItemProps) {
-    // console.log('item: ', item);
-    // setTimeout(() => {
-    //   current(() => item.key)
-    //   focused(() => false)
-    //   props.onChange?.(item.key)
-    // })
 
-    current(() => item.key)
+    current((draft) => {
+      const valuePath = props['value-path']
+      // item.key
+      if (valuePath) {
+        set(draft, valuePath, item.key)
+      } else {
+        return item.key
+      }
+    })
     focused(() => false)
-    props.onChange?.(item.key)
+    props.onChange?.(current())
   })
 
-  after(() => {
-    // console.log('current 4: ', current());
-  }, [current])
+  const currentKey = computed(() => {
+    return get(current(), props['value-path'])
+  })
 
   return {
+    currentKey,
     optionItems,
     current,
     selectItem,
@@ -76,6 +80,7 @@ export const layout = (props: SelectProps): VirtualLayoutJSON => {
     current,
     selectItem,
     focused,
+    currentKey,
   } = useLogic<LogicReturn>()
 
   return (
@@ -86,11 +91,12 @@ export const layout = (props: SelectProps): VirtualLayoutJSON => {
         value={current} 
         onFocus={() => focused(true)}
         onBlur={() => focused(false)} 
+        value-path={props['value-path']}
       />
       <optionList
         if={optionItems().length > 0 && focused()}
         className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
-        <Menu current={current} items={optionItems} onClick={selectItem} />
+        <Menu current={currentKey()} items={optionItems} onClick={selectItem} />
       </optionList>
     </selectContainer>
   )

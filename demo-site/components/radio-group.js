@@ -159,7 +159,16 @@ var layout = (props) => {
             selected: props.selected,
             disabled: props.disabled,
             children: [
-              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: props.selected, className: "opacity-0 absolute w-full h-full" }),
+              /* @__PURE__ */ jsx(
+                "input",
+                {
+                  type: "checkbox",
+                  readOnly: true,
+                  className: "opacity-0 absolute w-full h-full",
+                  checked: props.selected,
+                  "checked-path": props["checked-path"]
+                }
+              ),
               /* @__PURE__ */ jsx("span", { className: "relative z-10 w-full h-full flex items-center justify-center", children: props.selected ? /* @__PURE__ */ jsx(
                 "circle",
                 {

@@ -38,7 +38,7 @@ __export(select_exports, {
   styleRules: () => styleRules4
 });
 import { useLogic as useLogic4, PropTypes as PropTypes3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
-import { action as action4, after as after3, signal as signal4 } from "@polymita/signal";
+import { action as action4, computed, get, set, signal as signal4 } from "@polymita/signal";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -228,6 +228,7 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
+  console.log("[input] props: ", props);
   const logic5 = useLogic();
   return /* @__PURE__ */ jsx(
     "inputBox",
@@ -246,7 +247,8 @@ var layout = (props) => {
           onBlur: logic5.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic5.value
+          value: logic5.value,
+          "value-path": props["value-path"]
         }
       )
     }
@@ -333,7 +335,6 @@ var logic3 = (props) => {
   const select = (item) => {
     var _a;
     const curKey = item.key;
-    currentKey(() => curKey);
     items((draft) => {
       draft.forEach((di) => {
         var _a2;
@@ -355,8 +356,8 @@ var logic3 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout3 = (props) => {
   const logic5 = useLogic3();
-  return /* @__PURE__ */ jsx3("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx3("ul", { className: "block", children: logic5.items().map((item) => {
-    const isSelected = item.selected;
+  return /* @__PURE__ */ jsx3("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx3("ul", { className: "block", style: { margin: 0, padding: 0 }, children: logic5.items().map((item) => {
+    const isSelected = item.key === logic5.currentKey();
     let element = /* @__PURE__ */ jsx3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
@@ -413,13 +414,22 @@ var logic4 = (props) => {
   }));
   const selectItem = action4(function(item) {
     var _a;
-    current(() => item.key);
+    current((draft) => {
+      const valuePath = props["value-path"];
+      if (valuePath) {
+        set(draft, valuePath, item.key);
+      } else {
+        return item.key;
+      }
+    });
     focused(() => false);
-    (_a = props.onChange) == null ? void 0 : _a.call(props, item.key);
+    (_a = props.onChange) == null ? void 0 : _a.call(props, current());
   });
-  after3(() => {
-  }, [current]);
+  const currentKey = computed(() => {
+    return get(current(), props["value-path"]);
+  });
   return {
+    currentKey,
     optionItems,
     current,
     selectItem,
@@ -433,7 +443,8 @@ var layout4 = (props) => {
     optionItems,
     current,
     selectItem,
-    focused
+    focused,
+    currentKey
   } = useLogic4();
   return /* @__PURE__ */ jsxs2(
     "selectContainer",
@@ -446,7 +457,8 @@ var layout4 = (props) => {
             disabled: props.disabled,
             value: current,
             onFocus: () => focused(true),
-            onBlur: () => focused(false)
+            onBlur: () => focused(false),
+            "value-path": props["value-path"]
           }
         ),
         /* @__PURE__ */ jsx4(
@@ -455,7 +467,7 @@ var layout4 = (props) => {
             if: optionItems().length > 0 && focused(),
             className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
             style: { top: "40px" },
-            children: /* @__PURE__ */ jsx4(Menu, { current, items: optionItems, onClick: selectItem })
+            children: /* @__PURE__ */ jsx4(Menu, { current: currentKey(), items: optionItems, onClick: selectItem })
           }
         )
       ]
@@ -523,22 +535,54 @@ function SelectBox1() {
     })]
   });
 }
+function SelectBoxValuePath() {
+  const [val, setVal] = useState({
+    payload: {
+      section: "A"
+    }
+  });
+  return _jsxs("div", {
+    style: {
+      margin: "10px"
+    },
+    children: ["\u5F53\u524D\u9009\u62E9\u503C val.payload.section\uFF1A", val.payload.section, _jsx("br", {}), _jsx(Component, {
+      value: val,
+      onChange: (v) => {
+        console.log("v: ", v);
+        setVal(v);
+      },
+      "value-path": "payload.section",
+      options: [{
+        value: "A",
+        label: "A"
+      }, {
+        value: "B",
+        label: "B"
+      }, {
+        value: "C",
+        label: "C"
+      }]
+    })]
+  });
+}
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    h3: "h3"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
       children: "Select \u4E0B\u62C9\u9009\u62E9\u5668"
-    }), "\n", _jsx(_components.p, {
-      children: "\u57FA\u672C\u4F7F\u7528"
-    }), "\n", _jsx(SelectBox1, {}), "\n", _jsx(_components.p, {
-      children: "\u7981\u6B62\u6837\u5F0F"
+    }), "\n", _jsx(_components.h3, {
+      children: "1.\u57FA\u672C\u4F7F\u7528"
+    }), "\n", _jsx(SelectBox1, {}), "\n", _jsx(_components.h3, {
+      children: "2.\u7981\u6B62\u6837\u5F0F"
     }), "\n", _jsx(Component, {
       disabled: true,
       value: "Disable Select"
-    })]
+    }), "\n", _jsx(_components.h3, {
+      children: "3.\u643A\u5E26 ValuePath"
+    }), "\n", _jsx(SelectBoxValuePath, {})]
   });
 }
 function MDXContent(props = {}) {
@@ -551,5 +595,6 @@ var demo_default = MDXContent;
 export {
   Component,
   SelectBox1,
+  SelectBoxValuePath,
   demo_default as default
 };

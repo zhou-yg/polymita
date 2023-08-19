@@ -16,6 +16,7 @@ export interface InputProps {
   value:  Signal< string | number>
   type?: string
   focused?: boolean
+  'value-path'?: string | string[]
   onInput?: (v: string | number) => void
   onFocus?: () => void
   onBlur?: () => void
@@ -63,6 +64,7 @@ export type InputLayout = {
 
 // tailwindcss
 export const layout = (props: InputProps): VirtualLayoutJSON => {
+  console.log('[input] props: ', props);
   const logic = useLogic<LogicReturn>()
 
   return (
@@ -80,6 +82,7 @@ export const layout = (props: InputProps): VirtualLayoutJSON => {
         type={props.type}
         disabled={props.disabled}
         value={logic.value}
+        value-path={props['value-path']}
       />
     </inputBox>
   )

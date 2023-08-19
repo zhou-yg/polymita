@@ -31,7 +31,6 @@ export const logic = (props: MenuProps) => {
   const currentKey = props.current
   const select = ((item: MenuItemProps) => {
     const curKey = item.key
-    currentKey(() => curKey)
     /** @TODO items是外部传入的，不是这个logic.scope，所以在action里面修改后产生的patches在commit时会丢失 */
     items(draft => {
       draft.forEach(di => {
@@ -107,9 +106,9 @@ export const layout = (props: MenuProps): VirtualLayoutJSON => {
   
   return (
     <menuBox className="block border-slate-300">
-      <ul className="block" >
+      <ul className="block" style={{ margin:0, padding: 0 }} >
         {logic.items().map((item) => {
-          const isSelected = item.selected
+          const isSelected = item.key === logic.currentKey()
           let element = <MenuItemFunc {...{
             ...item,
             hasItemChildren: !!item.children,
