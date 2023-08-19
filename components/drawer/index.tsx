@@ -40,16 +40,20 @@ export const layout = (props: DrawerProps) => {
     <drawerContainer className="block fixed left-0 top-0 w-full h-full" >
       <drawerMask onClick={onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black" />
       <drawerBox className="block fixed top-0 right-0 h-full z-10 bg-white" style={{ width: `${width}px` }}>
-        <drawerHeader className="flex items-center p-4 border-b" >
-          {title}
-          
+        <drawerHeader className="flex items-center justify-between p-4 border-b relative" >
+          <drawerTitle>
+            {title}
+          </drawerTitle>
+
+          <drawerExtra className="flex gap-2 mr-6">
+            {extra || ''}
+          </drawerExtra>
+
           {closable ? (
-            <closeBox className="block absolute top-4 right-4 cursor-pointer" onClick={onClose} >
+            <closeBox className="block absolute top-1/2 right-1 -translate-x-1/2 -translate-y-1/2 cursor-pointer" onClick={onClose} >
               <CloseIcon color="rgba(0,0,0,.45)" />
             </closeBox>
           ) : ''}
-
-          {extra || ''}
           
         </drawerHeader>
         <drawerBody className="block overflow-auto p-4">
