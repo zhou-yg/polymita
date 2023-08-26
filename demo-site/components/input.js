@@ -108,7 +108,6 @@ var logic = (props) => {
   };
 };
 var layout = (props) => {
-  console.log("[input] props: ", props);
   const logic2 = useLogic();
   return /* @__PURE__ */ jsx(
     "inputBox",

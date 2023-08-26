@@ -39,7 +39,7 @@ export const layout = (props: DrawerProps) => {
   return (
     <drawerContainer className="block fixed left-0 top-0 w-full h-full" >
       <drawerMask onClick={onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black" />
-      <drawerBox className="block fixed top-0 right-0 h-full z-10 bg-white" style={{ width: `${width}px` }}>
+      <drawerBox className="flex flex-col fixed top-0 right-0 h-full z-10 bg-white" style={{ width: `${width}px` }}>
         <drawerHeader className="flex items-center justify-between p-4 border-b relative" >
           <drawerTitle>
             {title}
@@ -56,7 +56,7 @@ export const layout = (props: DrawerProps) => {
           ) : ''}
           
         </drawerHeader>
-        <drawerBody className="block overflow-auto p-4">
+        <drawerBody className="flex-1 min-h-0 block overflow-auto p-4">
           {children}
         </drawerBody>
       </drawerBox>

@@ -315,7 +315,7 @@ var layout2 = (props) => {
   return /* @__PURE__ */ jsxs(
     "modalBox",
     {
-      className: "block fixed left-0 top-0 w-full h-full",
+      className: "block fixed z-50 left-0 top-0 w-full h-full",
       children: [
         /* @__PURE__ */ jsx2("modalMask", { onClick: props.onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
         /* @__PURE__ */ jsxs(
@@ -392,7 +392,6 @@ var logic3 = (props) => {
   };
 };
 var layout3 = (props) => {
-  console.log("[input] props: ", props);
   const logic5 = useLogic2();
   return /* @__PURE__ */ jsx3(
     "inputBox",

@@ -108,13 +108,13 @@ var layout = (props) => {
   const logic3 = useLogic();
   return /* @__PURE__ */ jsxs("drawerContainer", { className: "block fixed left-0 top-0 w-full h-full", children: [
     /* @__PURE__ */ jsx("drawerMask", { onClick: onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
-    /* @__PURE__ */ jsxs("drawerBox", { className: "block fixed top-0 right-0 h-full z-10 bg-white", style: { width: `${width}px` }, children: [
-      /* @__PURE__ */ jsxs("drawerHeader", { className: "flex items-center p-4 border-b", children: [
-        title,
-        closable ? /* @__PURE__ */ jsx("closeBox", { className: "block absolute top-4 right-4 cursor-pointer", onClick: onClose, children: /* @__PURE__ */ jsx(close_default, { color: "rgba(0,0,0,.45)" }) }) : "",
-        extra || ""
+    /* @__PURE__ */ jsxs("drawerBox", { className: "flex flex-col fixed top-0 right-0 h-full z-10 bg-white", style: { width: `${width}px` }, children: [
+      /* @__PURE__ */ jsxs("drawerHeader", { className: "flex items-center justify-between p-4 border-b relative", children: [
+        /* @__PURE__ */ jsx("drawerTitle", { children: title }),
+        /* @__PURE__ */ jsx("drawerExtra", { className: "flex gap-2 mr-6", children: extra || "" }),
+        closable ? /* @__PURE__ */ jsx("closeBox", { className: "block absolute top-1/2 right-1 -translate-x-1/2 -translate-y-1/2 cursor-pointer", onClick: onClose, children: /* @__PURE__ */ jsx(close_default, { color: "rgba(0,0,0,.45)" }) }) : ""
       ] }),
-      /* @__PURE__ */ jsx("drawerBody", { className: "block overflow-auto p-4", children })
+      /* @__PURE__ */ jsx("drawerBody", { className: "flex-1 min-h-0 block overflow-auto p-4", children })
     ] })
   ] });
 };
@@ -367,8 +367,16 @@ function Box() {
       title: "My Drawer",
       onClose: (v) => setShow(false),
       children: [_jsx("p", {
+        style: {
+          background: "green",
+          height: 600
+        },
         children: " i am content row 1 "
       }), _jsx("p", {
+        style: {
+          background: "red",
+          height: 600
+        },
         children: " i am content row 2 "
       })]
     }) : ""]
