@@ -37,7 +37,7 @@ export const layout = (props: DrawerProps) => {
   const { title, width = 600, children, onClose, closable, extra } = props
   const logic = useLogic<LogicReturn>() 
   return (
-    <drawerContainer className="flex fixed left-0 top-0 w-full h-full" >
+    <drawerContainer className="flex flex-col fixed left-0 top-0 w-full h-full" >
       <drawerMask onClick={onClose} className="fixed top-0 left-0 w-full h-full opacity-70 bg-black" />
       <drawerBox className="flex flex-col fixed top-0 right-0 h-full z-10 bg-white" style={{ width: `${width}px` }}>
         <drawerHeader className="flex items-center justify-between p-4 border-b relative" >
