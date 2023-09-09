@@ -106,7 +106,7 @@ var logic = (props) => {
 var layout = (props) => {
   const { title, width = 600, children, onClose, closable, extra } = props;
   const logic3 = useLogic();
-  return /* @__PURE__ */ jsxs("drawerContainer", { className: "block fixed left-0 top-0 w-full h-full", children: [
+  return /* @__PURE__ */ jsxs("drawerContainer", { className: "flex flex-col fixed left-0 top-0 w-full h-full", children: [
     /* @__PURE__ */ jsx("drawerMask", { onClick: onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
     /* @__PURE__ */ jsxs("drawerBox", { className: "flex flex-col fixed top-0 right-0 h-full z-10 bg-white", style: { width: `${width}px` }, children: [
       /* @__PURE__ */ jsxs("drawerHeader", { className: "flex items-center justify-between p-4 border-b relative", children: [

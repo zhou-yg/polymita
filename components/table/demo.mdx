@@ -1,0 +1,32 @@
+import { useState } from 'react'
+import * as Module from './index.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+
+# Table 表格
+
+基本用法
+
+<Component
+  rowKey="name"
+  columns={[
+    {
+      title: '名字',
+      dataIndex: 'name',
+    },
+    {
+      title: '密码',
+      dataIndex: 'password',
+    },
+  ]}
+  dataSource={[
+    {
+      name: 'jon',
+      password: '123',
+    },
+    {
+      name: 'josta',
+      password: '33333star',
+    },
+  ]}
+/>
