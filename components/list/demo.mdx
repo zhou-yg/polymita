@@ -19,11 +19,12 @@ export function InputBox () {
 }
 
 
-export function InputBox2 () {
-  const [val, setVal] = useState('v0')
+export function InputBox2 ({ border }) {
+  const [val, setVal] = useState('v0');
   return (
     <div style={{ margin: '10px' }}>
       <Component 
+        border={border}
         list={[{ name: 'AAA' }, { name: 'BBBBB' }, { name: 'CC' }]}
         extra={<div>extra</div>}
         render={(item, i) => {
@@ -45,3 +46,7 @@ export function InputBox2 () {
 带extra 的列表
 
 <InputBox2 />
+
+border=false
+
+<InputBox2 border={false} />

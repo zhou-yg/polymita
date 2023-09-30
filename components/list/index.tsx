@@ -1,4 +1,4 @@
-import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
+import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, classnames } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
 
 export const name = 'List' as const
@@ -12,6 +12,7 @@ export interface ListProps<T = any> {
   list: Signal<T[]>
   render: (item: T, index: number) => VirtualLayoutJSON
   extra?: VirtualLayoutJSON | string | number
+  border?: boolean
 }
 
 export const propTypes = {
@@ -30,6 +31,7 @@ export type ListLayout = {
   ]
 }
 export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
+  const { border = true } = props
   const logic = useLogic<LogicReturn>()
 
   const ds = props.list();
@@ -39,8 +41,11 @@ export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
        {ds.map((item, index) => {
           const r = props.render(item, index)
           const key = (item as any)?.id ?? (item as any)?.key ?? (item as any)?.name ?? JSON.stringify(item)
+          const cls = classnames('flex p-2 items-center', {
+            'border-b': border,
+          })
           return (
-            <listItem className="flex p-2 border-b items-center" key={key}>
+            <listItem className={cls} key={key}>
               <listContent className="flex-1">
                 {r}
               </listContent>             

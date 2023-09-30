@@ -1,4 +1,4 @@
-import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes, VirtualLayoutJSON } from '@polymita/renderer'
+import { h, PatternStructure, SignalProps, useLayout, useLogic, PropTypes, VirtualLayoutJSON, UseModule } from '@polymita/renderer'
 import { after, action, signal, StateSignal, Signal } from '@polymita/signal';
 import { createFunctionComponent } from '@polymita/renderer';
 import { blockPattern } from '../../patterns';
