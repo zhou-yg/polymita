@@ -46,7 +46,7 @@ export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
           })
           return (
             <listItem className={cls} key={key}>
-              <listContent className="flex-1">
+              <listContent className="flex-1 min-w-0">
                 {r}
               </listContent>             
               <listExtra className="flex-none ml-2">

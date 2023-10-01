@@ -40,7 +40,7 @@ var layout = (props) => {
       "border-b": border
     });
     return /* @__PURE__ */ jsxs("listItem", { className: cls, children: [
-      /* @__PURE__ */ jsx("listContent", { className: "flex-1", children: r }),
+      /* @__PURE__ */ jsx("listContent", { className: "flex-1 min-w-0", children: r }),
       /* @__PURE__ */ jsx("listExtra", { className: "flex-none ml-2", children: props.extra })
     ] }, key);
   }) });
