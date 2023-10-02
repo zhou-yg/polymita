@@ -36,7 +36,7 @@ var layout = (props) => {
     var _a, _b, _c;
     const r = props.render(item, index);
     const key = (_c = (_b = (_a = item == null ? void 0 : item.id) != null ? _a : item == null ? void 0 : item.key) != null ? _b : item == null ? void 0 : item.name) != null ? _c : JSON.stringify(item);
-    const cls = classnames("flex p-2 items-center", {
+    const cls = classnames("flex items-center", {
       "border-b": border
     });
     return /* @__PURE__ */ jsxs("listItem", { className: cls, children: [
