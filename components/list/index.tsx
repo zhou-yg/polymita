@@ -41,7 +41,7 @@ export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
        {ds.map((item, index) => {
           const r = props.render(item, index)
           const key = (item as any)?.id ?? (item as any)?.key ?? (item as any)?.name ?? JSON.stringify(item)
-          const cls = classnames('flex items-center', {
+          const cls = classnames('flex items-center mb-1', {
             'border-b': border,
           })
           return (
