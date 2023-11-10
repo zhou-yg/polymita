@@ -31,7 +31,8 @@ export const layout = (props: TabPanelProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
   const { children } = props;
   return (
-    <tabPanelContainer>
+    <tabPanelContainer className='block'>
+      {children}
     </tabPanelContainer>
   )
 }

@@ -1,5 +1,7 @@
-import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
+import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, createFunctionComponent } from '@polymita/renderer';
 import { after, Signal, signal } from '@polymita/signal'
+import * as TabsModule from './index'
+import * as PanelModule from './panel'
 
 export const name = 'TestingTabs' as const
 export let meta: {
@@ -25,11 +27,21 @@ export type TestingTabsLayout = {
   children: [
   ]
 }
+
+const Tabs = createFunctionComponent(TabsModule);
+const TabPanel = createFunctionComponent(PanelModule);
 export const layout = (props: TestingTabsProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
   return (
     <tabsContainer>
-       
+      <Tabs>
+        <TabPanel header='tab1'>
+          内容1
+        </TabPanel>
+        <TabPanel header='tab2'>
+          内容2
+        </TabPanel>
+      </Tabs>
     </tabsContainer>
   )
 }

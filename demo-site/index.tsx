@@ -41,6 +41,7 @@ const docsPlayground = [
 ]
 
 const componentsPlayground = {
+  Tabs: TabsDemo,
   Button: ButtonDemo,
   LoadingButton: LoadingButtonDemo,
   Menu: MenuDemo,
@@ -57,7 +58,6 @@ const componentsPlayground = {
   Switch: SwitchDemo,
   List: ListDemo,
   SchemaForm: SchemaFormDemo,
-  Tabs: TabsDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)

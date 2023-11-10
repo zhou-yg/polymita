@@ -1,22 +1,4 @@
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b ||= {})
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name4 in all)
     __defProp(target, name4, { get: all[name4], enumerable: true });
@@ -62,7 +44,7 @@ var logic = (props) => {
 var layout = (props) => {
   const logic4 = useLogic();
   const { children } = props;
-  return /* @__PURE__ */ jsx("tabPanelContainer", {});
+  return /* @__PURE__ */ jsx("tabPanelContainer", { className: "block", children });
 };
 var styleRules = (props, layout4) => {
   return [];
@@ -94,9 +76,9 @@ var name2 = "Tabs";
 var meta2;
 var propTypes2 = {};
 var logic2 = (props) => {
-  var _a, _b, _c, _d;
+  var _a, _b, _c, _d, _e, _f, _g;
   const activeTab = signal2(
-    props.defaultActiveTab || ((_a = props.tabs) == null ? void 0 : _a[0]) || ((_d = (_c = (_b = props.panels) == null ? void 0 : _b[0]) == null ? void 0 : _c.props) == null ? void 0 : _d.header)
+    props.defaultActiveTab || ((_a = props.tabs) == null ? void 0 : _a[0]) || ((_d = (_c = (_b = props.panels) == null ? void 0 : _b[0]) == null ? void 0 : _c.props) == null ? void 0 : _d.header) || ((_g = (_f = (_e = props.children) == null ? void 0 : _e[0]) == null ? void 0 : _f.props) == null ? void 0 : _g.header)
   );
   return {
     activeTab
@@ -117,11 +99,13 @@ var layout2 = (props) => {
       return /* @__PURE__ */ jsx2(TabPanel, { header: tab, children: panels[index] });
     });
   }
-  const visiblePanelNodes = panelNodes == null ? void 0 : panelNodes.forEach((node) => {
+  console.log("panelNodes: ", panelNodes);
+  const visiblePanelNodes = panelNodes == null ? void 0 : panelNodes.map((node) => {
     const isCurrent = node.props.header === activeTab;
-    return __spreadProps(__spreadValues({}, node), {
-      props: Object.assign({}, node.props, { if: !!isCurrent })
-    });
+    return {
+      node,
+      visible: isCurrent
+    };
   });
   let headers = tabs;
   if (panelNodes) {
@@ -152,7 +136,9 @@ var layout2 = (props) => {
       }),
       /* @__PURE__ */ jsx2("tabHeaderBarLine", { className: "h-[1px] block bg-slate-200" })
     ] }),
-    /* @__PURE__ */ jsx2("tabBody", { className: "block", children: visiblePanelNodes })
+    /* @__PURE__ */ jsx2("tabBody", { className: "block", children: visiblePanelNodes == null ? void 0 : visiblePanelNodes.map((item) => {
+      return /* @__PURE__ */ jsx2("tabBodyItem", { if: item.visible, className: "block", children: item.node });
+    }) })
   ] });
 };
 var styleRules2 = (props, layout4) => {
@@ -174,17 +160,22 @@ __export(testingTabs_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules3
 });
-import { useLogic as useLogic3 } from "@polymita/renderer";
-import { jsx as jsx3 } from "@polymita/renderer/jsx-runtime";
+import { useLogic as useLogic3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
+import { jsx as jsx3, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name3 = "TestingTabs";
 var meta3;
 var propTypes3 = {};
 var logic3 = (props) => {
   return {};
 };
+var Tabs = createFunctionComponent2(tabs_exports);
+var TabPanel2 = createFunctionComponent2(panel_exports);
 var layout3 = (props) => {
   const logic4 = useLogic3();
-  return /* @__PURE__ */ jsx3("tabsContainer", {});
+  return /* @__PURE__ */ jsx3("tabsContainer", { children: /* @__PURE__ */ jsxs2(Tabs, { children: [
+    /* @__PURE__ */ jsx3(TabPanel2, { header: "tab1", children: "\u5185\u5BB91" }),
+    /* @__PURE__ */ jsx3(TabPanel2, { header: "tab2", children: "\u5185\u5BB92" })
+  ] }) });
 };
 var styleRules3 = (props, layout4) => {
   return [];
@@ -237,7 +228,9 @@ function _createMdxContent(props) {
       children: "\u5934\u90E8\u6807\u7B7E"
     }), "\n", _jsx(Component, {
       tabs: ["tab1", "tab2", "tab3"]
-    })]
+    }), "\n", _jsx(_components.p, {
+      children: "tabs\u5185\u5BB9"
+    }), "\n", _jsx(TestingComponent, {})]
   });
 }
 function MDXContent(props = {}) {
