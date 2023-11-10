@@ -14,6 +14,7 @@ import ListDemo from './components/list'
 import SchemaFormDemo from './components/schema-form'
 import DrawerDemo from './components/drawer'
 import TextareaDemo from './components/textarea'
+import TabsDemo from './components/tabs'
 
 import GetStarted from './docs/get-started'
 import Overview from './docs/overview'
@@ -56,6 +57,7 @@ const componentsPlayground = {
   Switch: SwitchDemo,
   List: ListDemo,
   SchemaForm: SchemaFormDemo,
+  Tabs: TabsDemo,
 }
 
 const searchParams = new URLSearchParams(location.search)

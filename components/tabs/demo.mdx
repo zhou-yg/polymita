@@ -1,0 +1,14 @@
+import { useState } from 'react'
+import * as Module from './index.tsx'
+import * as TestModule from './testingTabs.tsx'
+import { RenderToReactWithWrap } from '../../shared/render'
+export const Component = RenderToReactWithWrap(Module)
+export const TestingComponent = RenderToReactWithWrap(TestModule)
+
+# Tabs 标签
+
+头部标签
+
+<Component
+  tabs={['tab1', 'tab2', 'tab3']}
+/>
