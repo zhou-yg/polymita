@@ -22,7 +22,11 @@ export const propTypes = {
 
 export const logic = (props: TabsProps) => {
 
-  const activeTab = signal<string>(props.defaultActiveTab);
+  const activeTab = signal<string>(
+    props.defaultActiveTab ||
+    props.tabs?.[0] || 
+    props.panels?.[0]?.props?.header
+  );
 
   return {
     activeTab,
@@ -56,9 +60,12 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
       )
     })
   }
-  panelNodes.forEach(node => {
+  const visiblePanelNodes = panelNodes?.forEach(node => {
     const isCurrent = node.props.header === activeTab;
-    node.props.if = !!isCurrent    
+    return {
+      ...node,
+      props: Object.assign({}, node.props, { if : !!isCurrent })
+    }
   })
   
   let headers = tabs;
@@ -80,7 +87,7 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
           return (
             <tabHeader 
               key={header}
-              className='inline-block p-2 pl-0 mr-4 cursor-pointer text' 
+              className='inline-block p-2 mr-4 cursor-pointer text-center' 
               style={style}
               onClick={() => {
                 logic.activeTab(header);
@@ -93,7 +100,7 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
         <tabHeaderBarLine className='h-[1px] block bg-slate-200' />
       </tabHeaderBars>
       <tabBody className='block'>
-        {panelNodes}
+        {visiblePanelNodes}
       </tabBody>
     </tabsContainer>
   )
