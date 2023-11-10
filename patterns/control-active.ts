@@ -309,6 +309,9 @@ export function blockPatternMatrix (
     },
   }
 }
+
+
+
 export function strokePatternMatrix (
   colors: {
     bdw?: number

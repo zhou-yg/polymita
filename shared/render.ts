@@ -10,7 +10,7 @@ export function RenderToReactWithWrap<T = any>(
     console.log('content: ', content);
     return React.createElement(
       'div',
-      { style: { margin: '20px', display: 'inline-block' } },
+      { style: { margin: '20px', width: '50%', display: 'block' } },
       content,
     )
   }
