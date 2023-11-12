@@ -61,7 +61,7 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
       )
     })
   }
-  console.log('panelNodes: ', panelNodes);
+
   const visiblePanelNodes = panelNodes?.map(node => {
     const isCurrent = node.props.header === activeTab;
     return {

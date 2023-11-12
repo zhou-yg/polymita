@@ -99,7 +99,6 @@ var layout2 = (props) => {
       return /* @__PURE__ */ jsx2(TabPanel, { header: tab, children: panels[index] });
     });
   }
-  console.log("panelNodes: ", panelNodes);
   const visiblePanelNodes = panelNodes == null ? void 0 : panelNodes.map((node) => {
     const isCurrent = node.props.header === activeTab;
     return {
@@ -219,7 +218,10 @@ var TestingComponent = RenderToReactWithWrap(testingTabs_exports);
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
-    p: "p"
+    p: "p",
+    strong: "strong",
+    bold: "bold",
+    del: "del"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
@@ -228,6 +230,17 @@ function _createMdxContent(props) {
       children: "\u5934\u90E8\u6807\u7B7E"
     }), "\n", _jsx(Component, {
       tabs: ["tab1", "tab2", "tab3"]
+    }), "\n", _jsx(_components.p, {
+      children: "\u5934\u90E8props\u5185\u5BB9"
+    }), "\n", _jsx(Component, {
+      tabs: ["tab1", "tab2", "tab3"],
+      panels: [_jsx(_components.strong, {
+        children: "strong"
+      }), _jsx(_components.bold, {
+        children: "strong"
+      }), _jsx(_components.del, {
+        children: "strong"
+      })]
     }), "\n", _jsx(_components.p, {
       children: "tabs\u5185\u5BB9"
     }), "\n", _jsx(TestingComponent, {})]
