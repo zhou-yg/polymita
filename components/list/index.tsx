@@ -1,5 +1,6 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, classnames } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
+import { after, ComputedSignal, Signal, signal } from '@polymita/signal'
+export * as ItemModule from './item'
 
 export const name = 'List' as const
 export let meta: {
@@ -9,7 +10,7 @@ export let meta: {
 }
 
 export interface ListProps<T = any> {
-  list: Signal<T[]>
+  list: ComputedSignal<T[]>
   render: (item: T, index: number) => VirtualLayoutJSON
   extra?: VirtualLayoutJSON | string | number
   border?: boolean
@@ -49,7 +50,7 @@ export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
               <listContent className="flex-1 min-w-0">
                 {r}
               </listContent>             
-              <listExtra className="flex-none ml-2">
+              <listExtra if={!!props.extra} className="flex-none ml-2">
                 {props.extra}
               </listExtra>
             </listItem>

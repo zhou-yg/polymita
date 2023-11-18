@@ -41,6 +41,7 @@ export type TabsLayout = {
   ]
 }
 const TabPanel = createFunctionComponent(TabPanelModule);
+export const panelModule = TabPanelModule;
 export const layout = (props: TabsProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>();
   const { children, tabs, panels } = props;
