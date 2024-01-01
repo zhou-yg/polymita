@@ -813,7 +813,7 @@ video {
 }
 
 /* markdown github */
-
+/* 
 @media (prefers-color-scheme: dark) {
   .markdown-body {
     color-scheme: dark;
@@ -860,7 +860,7 @@ video {
     --color-attention-subtle: rgba(187,128,9,0.15);
     --color-danger-fg: #f85149;
   }
-}
+} */
 
 @media (prefers-color-scheme: light) {
   .markdown-body {

@@ -16,6 +16,7 @@ __export(tabs_exports, {
   logic: () => logic2,
   meta: () => meta2,
   name: () => name2,
+  panelModule: () => panelModule,
   propTypes: () => propTypes2,
   styleRules: () => styleRules2
 });
@@ -85,6 +86,7 @@ var logic2 = (props) => {
   };
 };
 var TabPanel = createFunctionComponent(panel_exports);
+var panelModule = panel_exports;
 var layout2 = (props) => {
   const logic4 = useLogic2();
   const { children, tabs, panels } = props;

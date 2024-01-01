@@ -3,7 +3,9 @@
     "loading",
     "accountBook",
     "close",
-    "check"
+    "check",
+    "reload",
+    "plus"
   ],
   "exclude": [
   ]

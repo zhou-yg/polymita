@@ -99,6 +99,42 @@ var Loading3QuartersOutlined_default = Loading3QuartersOutlined;
 var LoadingOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "0 0 1024 1024", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" } }] }, "name": "loading", "theme": "outlined" };
 var LoadingOutlined_default = LoadingOutlined;
 
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusCircleFilled.js
+var PlusCircleFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm192 472c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48z" } }] }, "name": "plus-circle", "theme": "filled" };
+var PlusCircleFilled_default = PlusCircleFilled;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusCircleOutlined.js
+var PlusCircleOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z" } }, { "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" } }] }, "name": "plus-circle", "theme": "outlined" };
+var PlusCircleOutlined_default = PlusCircleOutlined;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusCircleTwoTone.js
+var PlusCircleTwoTone = { "icon": function render6(primaryColor, secondaryColor) {
+  return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm192 396c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z", "fill": primaryColor } }] };
+}, "name": "plus-circle", "theme": "twotone" };
+var PlusCircleTwoTone_default = PlusCircleTwoTone;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusOutlined.js
+var PlusOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "defs", "attrs": {}, "children": [{ "tag": "style", "attrs": {} }] }, { "tag": "path", "attrs": { "d": "M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" } }, { "tag": "path", "attrs": { "d": "M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" } }] }, "name": "plus", "theme": "outlined" };
+var PlusOutlined_default = PlusOutlined;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusSquareFilled.js
+var PlusSquareFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM704 536c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48z" } }] }, "name": "plus-square", "theme": "filled" };
+var PlusSquareFilled_default = PlusSquareFilled;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusSquareOutlined.js
+var PlusSquareOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" } }, { "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z" } }] }, "name": "plus-square", "theme": "outlined" };
+var PlusSquareOutlined_default = PlusSquareOutlined;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/PlusSquareTwoTone.js
+var PlusSquareTwoTone = { "icon": function render7(primaryColor, secondaryColor) {
+  return { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z", "fill": primaryColor } }, { "tag": "path", "attrs": { "d": "M184 840h656V184H184v656zm136-352c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48z", "fill": secondaryColor } }, { "tag": "path", "attrs": { "d": "M328 544h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z", "fill": primaryColor } }] };
+}, "name": "plus-square", "theme": "twotone" };
+var PlusSquareTwoTone_default = PlusSquareTwoTone;
+
+// ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/ReloadOutlined.js
+var ReloadOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92 290 92 102.3 279.5 102 511.5 101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1 1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 00-10.1 4.8c-1.8 5-3.8 10-5.9 14.9-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 01655.9 829c-42.3 17.9-87.4 27-133.8 27-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 01279 755.2a342.16 342.16 0 01-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4 31.6-31.6 68.4-56.4 109.3-73.8 42.3-17.9 87.4-27 133.8-27 46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 01109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 003 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z" } }] }, "name": "reload", "theme": "outlined" };
+var ReloadOutlined_default = ReloadOutlined;
+
 // ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/helpers.js
 var __assign = function() {
   __assign = Object.assign || function(t) {
@@ -440,6 +476,134 @@ var Icon9 = createFunctionComponent9({
 });
 var check_square_default = Icon9;
 
+// icons/reload.tsx
+import { h as h10, createFunctionComponent as createFunctionComponent10 } from "@polymita/renderer";
+var ReloadOutlinedSVGString = renderIconDefinitionToSVGElement(
+  ReloadOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap10 = {
+  outlined: ReloadOutlinedSVGString
+};
+var Icon10 = createFunctionComponent10({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap10[props.type || "outlined"];
+    return h10("polymitaIcon", { _html: html, style, className: cls });
+  }
+});
+var reload_default = Icon10;
+
+// icons/plus-circle.tsx
+import { h as h11, createFunctionComponent as createFunctionComponent11 } from "@polymita/renderer";
+var PlusCircleFilledSVGString = renderIconDefinitionToSVGElement(
+  PlusCircleFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var PlusCircleOutlinedSVGString = renderIconDefinitionToSVGElement(
+  PlusCircleOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var PlusCircleTwoToneSVGString = renderIconDefinitionToSVGElement(
+  PlusCircleTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap11 = {
+  filled: PlusCircleFilledSVGString,
+  outlined: PlusCircleOutlinedSVGString,
+  twoTone: PlusCircleTwoToneSVGString
+};
+var Icon11 = createFunctionComponent11({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap11[props.type || "filled"];
+    return h11("polymitaIcon", { _html: html, style, className: cls });
+  }
+});
+var plus_circle_default = Icon11;
+
+// icons/plus-square.tsx
+import { h as h12, createFunctionComponent as createFunctionComponent12 } from "@polymita/renderer";
+var PlusSquareFilledSVGString = renderIconDefinitionToSVGElement(
+  PlusSquareFilled_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var PlusSquareOutlinedSVGString = renderIconDefinitionToSVGElement(
+  PlusSquareOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var PlusSquareTwoToneSVGString = renderIconDefinitionToSVGElement(
+  PlusSquareTwoTone_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap12 = {
+  filled: PlusSquareFilledSVGString,
+  outlined: PlusSquareOutlinedSVGString,
+  twoTone: PlusSquareTwoToneSVGString
+};
+var Icon12 = createFunctionComponent12({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap12[props.type || "filled"];
+    return h12("polymitaIcon", { _html: html, style, className: cls });
+  }
+});
+var plus_square_default = Icon12;
+
+// icons/plus.tsx
+import { h as h13, createFunctionComponent as createFunctionComponent13 } from "@polymita/renderer";
+var PlusOutlinedSVGString = renderIconDefinitionToSVGElement(
+  PlusOutlined_default,
+  {
+    extraSVGAttrs: { width: "1em", height: "1em", fill: "currentColor" }
+  }
+);
+var styleMap13 = {
+  outlined: PlusOutlinedSVGString
+};
+var Icon13 = createFunctionComponent13({
+  layout: (props = {}) => {
+    const style = {
+      fontSize: (props.size || 16) + "px",
+      color: props.color,
+      display: "inline-block"
+    };
+    const cls = props.className;
+    const html = styleMap13[props.type || "outlined"];
+    return h13("polymitaIcon", { _html: html, style, className: cls });
+  }
+});
+var plus_default = Icon13;
+
 // components/icons/index.tsx
 import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var layout = (props) => {
@@ -483,6 +647,22 @@ var layout = (props) => {
         /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
           /* @__PURE__ */ jsx(check_square_default, { size: 24, color: "black" }),
           /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CheckSquareIcon" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
+          /* @__PURE__ */ jsx(reload_default, { size: 24, color: "black" }),
+          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "ReloadIcon" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
+          /* @__PURE__ */ jsx(plus_circle_default, { size: 24, color: "black" }),
+          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusCircleIcon" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
+          /* @__PURE__ */ jsx(plus_square_default, { size: 24, color: "black" }),
+          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusSquareIcon" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
+          /* @__PURE__ */ jsx(plus_default, { size: 24, color: "black" }),
+          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusIcon" })
         ] })
       ] })
     }
@@ -493,9 +673,9 @@ var layout = (props) => {
 import { createRSRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
-  const render6 = RenderToReact(module);
+  const render8 = RenderToReact(module);
   return (p) => {
-    const content = render6(p);
+    const content = render8(p);
     console.log("content: ", content);
     return React.createElement(
       "div",

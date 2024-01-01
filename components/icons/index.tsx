@@ -8,6 +8,10 @@ import CloseSquareIcon from '../../icons/close-square'
 import CheckIcon from '../../icons/check'
 import CheckCircleIcon from '../../icons/check-circle'
 import CheckSquareIcon from '../../icons/check-square'
+import ReloadIcon from '../../icons/reload'
+import PlusCircleIcon from '../../icons/plus-circle'
+import PlusSquareIcon from '../../icons/plus-square'
+import PlusIcon from '../../icons/plus'
 
 
 export interface IconsProps {
@@ -56,7 +60,22 @@ export const layout = (props: IconsProps): VirtualLayoutJSON => {
           <CheckSquareIcon size={24} color="black" />
           <p className="mt-1">CheckSquareIcon</p>
         </div>
-
+        <div className="m-2 flex flex-col align-center items-center">
+          <ReloadIcon size={24} color="black" />
+          <p className="mt-1">ReloadIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <PlusCircleIcon size={24} color="black" />
+          <p className="mt-1">PlusCircleIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <PlusSquareIcon size={24} color="black" />
+          <p className="mt-1">PlusSquareIcon</p>
+        </div>
+        <div className="m-2 flex flex-col align-center items-center">
+          <PlusIcon size={24} color="black" />
+          <p className="mt-1">PlusIcon</p>
+        </div>
       </row>
     </iconsBox>
   )
