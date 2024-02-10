@@ -1,6 +1,6 @@
 {
   "name": "polymita",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "a infinite extensional component library",
   "scripts": {
     "dev": "node scripts/dev.js",
