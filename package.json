@@ -4,7 +4,7 @@
   "description": "a infinite extensional component library",
   "scripts": {
     "dev": "node scripts/dev.js",
-    "release": "bump --commit \"release: version v%s\" && npm run build && npm publish",
+    "release": "bump --commit \"release: version v%s\" && npm run build",
     "test": "jest",
     "build": "node scripts/build-components.mjs",
     "format": "prettier --write --parser typescript \"*/*.ts?(x)\"",
