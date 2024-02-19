@@ -284,7 +284,7 @@ function _createMdxContent(props) {
     }), "\n", _jsx(_components.pre, {
       children: _jsx(_components.code, {
         className: "language-javascript",
-        children: "import ButtonModule from 'polymita/button'\n\nconst Button = renderToReact(ButtonModule)\n\nexport default () => {\n  return (\n    <div>\n      <Button>Primary Button</Button>\n    </div>\n  )\n}\n"
+        children: "import ButtonModule from '@polymita/ui'/button'\n\nconst Button = renderToReact(ButtonModule)\n\nexport default () => {\n  return (\n    <div>\n      <Button>Primary Button</Button>\n    </div>\n  )\n}\n"
       })
     })]
   });
