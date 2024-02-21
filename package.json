@@ -67,9 +67,9 @@
   },
   "homepage": "https://github.com/zhou-yg/tarat.design#readme",
   "peerDependencies": {
-    "@polymita/renderer": "workspace:*",
-    "@polymita/signal": "workspace:*",
-    "@polymita/signal-model": "workspace:*"
+    "@polymita/renderer": "workspace:^",
+    "@polymita/signal": "workspace:^",
+    "@polymita/signal-model": "workspace:^"
   },
   "dependencies": {
     "@ant-design/icons-svg": "^4.2.1",
@@ -83,9 +83,9 @@
     "@emotion/css": "^11.10.5",
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@mdx-js/esbuild": "^2.1.5",
-    "@polymita/renderer": "workspace:*",
-    "@polymita/signal": "workspace:*",
-    "@polymita/signal-model": "workspace:*",
+    "@polymita/renderer": "workspace:^",
+    "@polymita/signal": "workspace:^",
+    "@polymita/signal-model": "workspace:^",
     "@types/react-dom": "18.2.7",
     "esbuild": "^0.15.14",
     "esbuild-plugin-d.ts": "^1.1.0",
