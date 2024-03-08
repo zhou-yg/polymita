@@ -97,5 +97,8 @@
     "vite-plugin-external": "^1.2.7",
     "vite-plugin-externals": "^0.5.1",
     "vite-tsconfig-paths": "^3.5.2"
+  },
+  "volta": {
+    "node": "20.11.1"
   }
 }
