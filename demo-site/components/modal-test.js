@@ -2,8 +2,22 @@ var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b ||= {})
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -1301,16 +1315,11 @@ __export(input_exports, {
 import { ACTIVE as ACTIVE2, FOCUS, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { useEffect, useState } from "react";
 import { jsx as jsx3 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes = {};
 var config2 = () => ({});
 var logic3 = (props) => {
-  const [value, setValue] = useState(props.value);
-  useEffect(() => {
-    setValue == null ? void 0 : setValue(value);
-  }, [value]);
   function onFocus() {
     var _a;
     (_a = props.onFocus) == null ? void 0 : _a.call(props);
@@ -1321,15 +1330,12 @@ var logic3 = (props) => {
   }
   return {
     onFocus,
-    onBlur,
-    value,
-    setValue
+    onBlur
   };
 };
 var layout3 = (props) => {
   const logic5 = useLogic2();
-  const value = props["value-path"] ? (0, import_get.default)(logic5.value, props["value-path"]) : logic5.value;
-  console.log("logic.value: ", logic5.value, value);
+  const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
   return /* @__PURE__ */ jsx3(
     "inputBox",
     {
@@ -1350,10 +1356,9 @@ var layout3 = (props) => {
           value,
           onChange: (e) => {
             if (props["value-path"]) {
-              const r = (0, import_set.default)(logic5.value, props["value-path"], e.target.value);
-              props.onInput(r);
+              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+              props.onInput(__spreadValues({}, r));
             } else {
-              logic5.setValue(e.target.value);
               props.onInput(e.target.value);
             }
           }
@@ -1373,12 +1378,12 @@ var designPatterns2 = (props) => {
 };
 
 // components/modal-test/index.tsx
-import { useState as useState2 } from "react";
+import { useState } from "react";
 import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var config3 = () => ({});
 var logic4 = (props) => {
-  const [visible, setVisible] = useState2(false);
-  const [name, setName] = useState2("-");
+  const [visible, setVisible] = useState(false);
+  const [name, setName] = useState("-");
   return {
     visible,
     setVisible,
@@ -1439,10 +1444,10 @@ function RenderToReact(module) {
 }
 
 // components/modal-test/demo.mdx
-import { useState as useState3 } from "react";
+import { useState as useState2 } from "react";
 var Component = RenderToReactWithWrap(modal_test_exports);
 function Box() {
-  const [s, setS] = useState3(0);
+  const [s, setS] = useState2(0);
   return _jsxs("div", {
     children: [_jsxs("div", {
       children: [_jsxs("result-s", {

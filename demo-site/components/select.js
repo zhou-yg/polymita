@@ -960,7 +960,7 @@ var require_get = __commonJS({
 
 // components/select/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState as useState4 } from "react";
+import { useState as useState3 } from "react";
 
 // components/select/index.tsx
 var select_exports = {};
@@ -1136,16 +1136,11 @@ function strokePatternMatrix(colors2) {
 // components/input/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { useEffect, useState } from "react";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var config = () => ({});
 var logic = (props) => {
-  const [value, setValue] = useState(props.value);
-  useEffect(() => {
-    setValue == null ? void 0 : setValue(value);
-  }, [value]);
   function onFocus() {
     var _a;
     (_a = props.onFocus) == null ? void 0 : _a.call(props);
@@ -1156,15 +1151,12 @@ var logic = (props) => {
   }
   return {
     onFocus,
-    onBlur,
-    value,
-    setValue
+    onBlur
   };
 };
 var layout = (props) => {
   const logic5 = useLogic();
-  const value = props["value-path"] ? (0, import_get.default)(logic5.value, props["value-path"]) : logic5.value;
-  console.log("logic.value: ", logic5.value, value);
+  const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
   return /* @__PURE__ */ jsx(
     "inputBox",
     {
@@ -1185,10 +1177,9 @@ var layout = (props) => {
           value,
           onChange: (e) => {
             if (props["value-path"]) {
-              const r = (0, import_set.default)(logic5.value, props["value-path"], e.target.value);
-              props.onInput(r);
+              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+              props.onInput(__spreadValues({}, r));
             } else {
-              logic5.setValue(e.target.value);
               props.onInput(e.target.value);
             }
           }
@@ -1264,13 +1255,13 @@ var styleRules = (props) => {
 };
 
 // components/menu/index.tsx
-import { useState as useState2 } from "react";
+import { useState } from "react";
 import { jsx as jsx3, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta3;
 var propTypes2 = {};
 var logic3 = (props) => {
   const currentKey = props.current;
-  const [items, setItems] = useState2(props.items);
+  const [items, setItems] = useState(props.items);
   const select = (item) => {
     var _a;
     const curKey = item.key;
@@ -1337,15 +1328,15 @@ var styleRules2 = (props) => {
 // components/select/index.tsx
 var import_set2 = __toESM(require_set());
 var import_get2 = __toESM(require_get());
-import { useMemo, useState as useState3 } from "react";
+import { useMemo, useState as useState2 } from "react";
 import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name = "Select";
 var meta4;
 var propTypes3 = {};
 var logic4 = (props) => {
-  const [current, setCurrent] = useState3(props.value);
-  const [focused, setFocused] = useState3(false);
-  const [optionItems, setOptionItems] = useState3((props.options || []).map((option) => {
+  const [current, setCurrent] = useState2(props.value);
+  const [focused, setFocused] = useState2(false);
+  const [optionItems, setOptionItems] = useState2((props.options || []).map((option) => {
     return {
       label: option.label,
       key: option.value,
@@ -1456,7 +1447,7 @@ function RenderToReact(module) {
 // components/select/demo.mdx
 var Component = RenderToReactWithWrap(select_exports);
 function SelectBox1() {
-  const [val, setVal] = useState4("A");
+  const [val, setVal] = useState3("A");
   return _jsxs("div", {
     style: {
       margin: "10px"
@@ -1478,7 +1469,7 @@ function SelectBox1() {
   });
 }
 function SelectBoxValuePath() {
-  const [val, setVal] = useState4({
+  const [val, setVal] = useState3({
     payload: {
       section: "A"
     }

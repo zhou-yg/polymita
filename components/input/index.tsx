@@ -33,11 +33,6 @@ export const config = () => ({
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: InputProps<string | number>) => {
-  const [value, setValue] = useState(props.value)
-
-  useEffect(() => {
-    setValue?.(value)
-  }, [value])
 
   function onFocus () {
     props.onFocus?.()
@@ -49,8 +44,6 @@ export const logic = (props: InputProps<string | number>) => {
   return {
     onFocus,
     onBlur,
-    value,
-    setValue,
   }
 }
 
@@ -67,8 +60,7 @@ export type InputLayout = {
 export const layout = (props: InputProps<string | number>): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
-  const value = props['value-path'] ? get(logic.value, props['value-path']) : logic.value
-  console.log('logic.value: ', logic.value, value);
+  const value = props['value-path'] ? get(props.value, props['value-path']) : props.value
 
   return (
     <inputBox
@@ -87,10 +79,9 @@ export const layout = (props: InputProps<string | number>): VirtualLayoutJSON =>
         value={value}
         onChange={e => {
           if (props['value-path']) {
-            const r = set(logic.value as any, props['value-path'], e.target.value)
-            props.onInput(r)
+            const r = set(props.value as any, props['value-path'], e.target.value)
+            props.onInput({...r})
           } else {
-            logic.setValue(e.target.value)
             props.onInput(e.target.value)
           }
         }}

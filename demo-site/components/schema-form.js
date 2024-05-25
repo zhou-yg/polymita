@@ -1098,16 +1098,11 @@ function strokePatternMatrix(colors2) {
 // components/input/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { useEffect, useState } from "react";
 import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes2 = {};
 var config = () => ({});
 var logic2 = (props) => {
-  const [value, setValue] = useState(props.value);
-  useEffect(() => {
-    setValue == null ? void 0 : setValue(value);
-  }, [value]);
   function onFocus() {
     var _a;
     (_a = props.onFocus) == null ? void 0 : _a.call(props);
@@ -1118,15 +1113,12 @@ var logic2 = (props) => {
   }
   return {
     onFocus,
-    onBlur,
-    value,
-    setValue
+    onBlur
   };
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
-  const value = props["value-path"] ? (0, import_get.default)(logic5.value, props["value-path"]) : logic5.value;
-  console.log("logic.value: ", logic5.value, value);
+  const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
   return /* @__PURE__ */ jsx2(
     "inputBox",
     {
@@ -1147,10 +1139,9 @@ var layout2 = (props) => {
           value,
           onChange: (e) => {
             if (props["value-path"]) {
-              const r = (0, import_set.default)(logic5.value, props["value-path"], e.target.value);
-              props.onInput(r);
+              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+              props.onInput(__spreadValues({}, r));
             } else {
-              logic5.setValue(e.target.value);
               props.onInput(e.target.value);
             }
           }
@@ -1206,13 +1197,13 @@ var designPattern2 = (props, layout5) => {
 };
 
 // components/schema-form/index-test.tsx
-import { useState as useState2 } from "react";
+import { useState } from "react";
 import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name3 = "FormTest";
 var meta4;
 var propTypes4 = {};
 var logic4 = (props) => {
-  const [form, setForm] = useState2({
+  const [form, setForm] = useState({
     name: "",
     password: ""
   });
@@ -1298,11 +1289,11 @@ function RenderToReact(module) {
 }
 
 // components/schema-form/demo.mdx
-import { useState as useState3 } from "react";
+import { useState as useState2 } from "react";
 var Component = RenderToReactWithWrap(index_test_exports);
 var FormComponent = RenderToReactWithWrap(schema_form_exports);
 function TestCase() {
-  const [val, setVal] = useState3("v0");
+  const [val, setVal] = useState2("v0");
   return _jsx("div", {
     style: {
       margin: "10px"
@@ -1311,7 +1302,7 @@ function TestCase() {
   });
 }
 function TestCase2() {
-  const [values, setValues] = useState3({
+  const [values, setValues] = useState2({
     first: "",
     second: ""
   });
