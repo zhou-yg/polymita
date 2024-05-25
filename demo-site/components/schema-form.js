@@ -1103,18 +1103,6 @@ var meta2;
 var propTypes2 = {};
 var config = () => ({});
 var logic2 = (props) => {
-  function onFocus() {
-    var _a;
-    (_a = props.onFocus) == null ? void 0 : _a.call(props);
-  }
-  function onBlur() {
-    var _a;
-    (_a = props.onBlur) == null ? void 0 : _a.call(props);
-  }
-  return {
-    onFocus,
-    onBlur
-  };
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
@@ -1132,8 +1120,8 @@ var layout2 = (props) => {
           "is-text": true,
           className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
           autoFocus: props.focused,
-          onFocus: logic5.onFocus,
-          onBlur: logic5.onBlur,
+          onFocus: props.onFocus,
+          onBlur: props.onBlur,
           type: props.type,
           disabled: props.disabled,
           value,
@@ -1175,7 +1163,9 @@ function generateForm(form, onChange) {
       case "input":
       default:
         targetItem = /* @__PURE__ */ jsx3(InputCpt, { value: item.value, onInput: (v) => {
-          item.name && (onChange == null ? void 0 : onChange(item.name, v));
+          if (item.name) {
+            onChange == null ? void 0 : onChange(item.name, v);
+          }
         } });
     }
     return /* @__PURE__ */ jsx3(FormItemCpt, { label: item.label || item.name, children: targetItem }, item.name + item.label + item.type);
@@ -1233,6 +1223,7 @@ var layout4 = (props) => {
       {
         layout: { labelWidth: "6em" },
         onChange: (k, val) => {
+          console.log("k, val: ", k, val);
           logic5.setForm((pre) => {
             return __spreadProps(__spreadValues({}, pre), {
               [k]: val
@@ -1242,10 +1233,12 @@ var layout4 = (props) => {
         form: [
           {
             label: "name",
+            name: "name",
             value: logic5.form.name
           },
           {
             label: "password",
+            name: "password",
             value: logic5.form.password
           }
         ]
@@ -1313,9 +1306,10 @@ function TestCase2() {
     children: [_jsx("div", {
       children: JSON.stringify(values)
     }), _jsx(FormComponent, {
-      onChange: (v) => {
-        console.log("v:", v);
-        setValues((pre) => Object.assign({}, pre, v));
+      onChange: (k, v) => {
+        setValues((pre) => Object.assign({}, pre, {
+          [k]: v
+        }));
       },
       form: [{
         name: "first",

@@ -229,7 +229,7 @@ var layout2 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx2("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
+            (_b = (_a = jsonTree.menuItem).addChild) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx2("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
           }
           return [];
         }

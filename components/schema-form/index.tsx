@@ -54,7 +54,9 @@ function generateForm (form: FormConfig[], onChange: FormProps['onChange'])  {
       case 'input':
       default:
         targetItem = <InputCpt value={item.value} onInput={(v) => {
-          item.name && onChange?.(item.name, v)
+          if (item.name) {
+            onChange?.(item.name, v)
+          }
         }} />
     }
 

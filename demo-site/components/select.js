@@ -1141,18 +1141,6 @@ var meta;
 var propTypes = {};
 var config = () => ({});
 var logic = (props) => {
-  function onFocus() {
-    var _a;
-    (_a = props.onFocus) == null ? void 0 : _a.call(props);
-  }
-  function onBlur() {
-    var _a;
-    (_a = props.onBlur) == null ? void 0 : _a.call(props);
-  }
-  return {
-    onFocus,
-    onBlur
-  };
 };
 var layout = (props) => {
   const logic5 = useLogic();
@@ -1170,8 +1158,8 @@ var layout = (props) => {
           "is-text": true,
           className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
           autoFocus: props.focused,
-          onFocus: logic5.onFocus,
-          onBlur: logic5.onBlur,
+          onFocus: props.onFocus,
+          onBlur: props.onBlur,
           type: props.type,
           disabled: props.disabled,
           value,
@@ -1297,7 +1285,7 @@ var layout3 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).insert) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx3("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
+            (_b = (_a = jsonTree.menuItem).addChild) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx3("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
           }
           return [];
         }
@@ -1334,36 +1322,33 @@ var name = "Select";
 var meta4;
 var propTypes3 = {};
 var logic4 = (props) => {
-  const [current, setCurrent] = useState2(props.value);
   const [focused, setFocused] = useState2(false);
-  const [optionItems, setOptionItems] = useState2((props.options || []).map((option) => {
+  const optionItems = useMemo(() => (props.options || []).map((option) => {
     return {
       label: option.label,
       key: option.value,
-      selected: current === option.value
+      selected: props.value === option.value
     };
-  }));
+  }), [props.value]);
   const selectItem = function(item) {
     var _a;
-    setCurrent((draft) => {
-      const valuePath = props["value-path"];
-      if (valuePath) {
-        (0, import_set2.default)(draft, valuePath, item.key);
-        return __spreadValues({}, draft);
-      } else {
-        return item.key;
-      }
-    });
+    let draft = props.value;
+    const valuePath = props["value-path"];
+    if (valuePath) {
+      (0, import_set2.default)(draft, valuePath, item.key);
+      draft = __spreadValues({}, draft);
+    } else {
+      draft = item.key;
+    }
     setFocused(false);
-    (_a = props.onChange) == null ? void 0 : _a.call(props, current);
+    (_a = props.onChange) == null ? void 0 : _a.call(props, draft);
   };
   const currentKey = useMemo(() => {
-    return (0, import_get2.default)(current, props["value-path"]);
-  }, [current]);
+    return typeof props.value === "object" ? (0, import_get2.default)(props.value, props["value-path"]) : props.value;
+  }, [props.value]);
   return {
     currentKey,
     optionItems,
-    current,
     selectItem,
     focused,
     setFocused
@@ -1374,7 +1359,6 @@ var Menu = createFunctionComponent2(menu_exports);
 var layout4 = (props) => {
   const {
     optionItems,
-    current,
     selectItem,
     focused,
     setFocused,
@@ -1389,7 +1373,7 @@ var layout4 = (props) => {
           Input,
           {
             disabled: props.disabled,
-            value: current,
+            value: props.value,
             onFocus: () => setFocused(true),
             onBlur: () => setFocused(false),
             "value-path": props["value-path"]

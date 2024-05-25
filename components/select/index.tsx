@@ -26,40 +26,36 @@ export const propTypes = {
 }
 
 export const logic = (props: SelectProps) => {
-  const [current, setCurrent] = useState(props.value)
   const [focused, setFocused] = useState(false)
-  const [optionItems, setOptionItems] = useState((props.options || []).map((option) => {
+  const optionItems = useMemo(() => (props.options || []).map((option) => {
     return {
       label: option.label,
       key: option.value,
-      selected: current === option.value,
+      selected: props.value === option.value,
     }
-  }))
+  }), [props.value])
 
   const selectItem = function (item: MenuModule.MenuItemProps) {
-
-    setCurrent((draft) => {
-      const valuePath = props['value-path']
-      // item.key
-      if (valuePath) {
-        set(draft, valuePath, item.key)
-        return {...draft}
-      } else {
-        return item.key
-      }
-    })
+    let draft = props.value
+    const valuePath = props['value-path']
+    // item.key
+    if (valuePath) {
+      set(draft, valuePath, item.key)
+      draft = {...draft}
+    } else {
+      draft = item.key
+    }
     setFocused(false)
-    props.onChange?.(current)
+    props.onChange?.(draft)
   }
 
   const currentKey = useMemo(() => {
-    return get(current, props['value-path'])
-  }, [current])
+    return typeof props.value === 'object' ? get(props.value, props['value-path']) : props.value
+  }, [props.value])
 
   return {
     currentKey,
     optionItems,
-    current,
     selectItem,
     focused,
     setFocused,
@@ -80,7 +76,6 @@ const Menu = createFunctionComponent(MenuModule)
 export const layout = (props: SelectProps): VirtualLayoutJSON => {
   const {
     optionItems,
-    current,
     selectItem,
     focused,
     setFocused,
@@ -92,7 +87,7 @@ export const layout = (props: SelectProps): VirtualLayoutJSON => {
       className="block relative rounded">
       <Input 
         disabled={props.disabled}
-        value={current} 
+        value={props.value} 
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)} 
         value-path={props['value-path']}

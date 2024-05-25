@@ -103,7 +103,7 @@ export const layout = (props: MenuProps): VirtualLayoutJSON => {
                 if (props.hasItemChildren) {
                   jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
                   jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-                  jsonTree.menuItem.insert?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
+                  jsonTree.menuItem.addChild?.(<spanIcon key="tag" is-text className="mx-2" >&gt;</spanIcon>)
                 }
                 return []
               },

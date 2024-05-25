@@ -319,8 +319,9 @@ var layout2 = (props) => {
               ] }),
               /* @__PURE__ */ jsxs("footer", { className: "flex gap-2 p-4 flex-row-reverse", children: [
                 /* @__PURE__ */ jsx2(Button, { type: "primary", onClick: (e) => {
-                  var _a;
+                  var _a, _b;
                   (_a = props.onOk) == null ? void 0 : _a.call(props, e);
+                  (_b = props.onClose) == null ? void 0 : _b.call(props, e);
                 }, children: "\u786E\u5B9A" }),
                 /* @__PURE__ */ jsx2(Button, { onClick: (e) => {
                   var _a, _b;

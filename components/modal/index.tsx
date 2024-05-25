@@ -44,6 +44,7 @@ export const layout = (props: ModalProps): VirtualLayoutJSON => {
         <footer className="flex gap-2 p-4 flex-row-reverse" >
           <Button type="primary" onClick={(e) => {
             props.onOk?.(e)
+            props.onClose?.(e)
           }}>确定</Button>
           <Button onClick={(e) => {
             props.onCancel?.(e)

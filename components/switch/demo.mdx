@@ -3,13 +3,43 @@ import * as Module from './index.tsx'
 import { RenderToReactWithWrap } from '../../shared/render'
 export const Component = RenderToReactWithWrap(Module)
 
+export function SwitchBox () {
+  const [val, setVal] = useState(true)
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {String(val)} 
+      <br/>
+      <Component
+        value={val} 
+        onChange={v => setVal(v)} 
+      />
+    </div>
+  )
+}
+
+export function SwitchBox2 () {
+  const [val, setVal] = useState(true)
+  return (
+    <div style={{ margin: '10px', color: '#999' }}>
+      当前值: {String(val)} 
+      <br/>
+      <Component
+        checkedContent="OK" 
+        uncheckedContent="Not Good"
+        value={val} 
+        onChange={v => setVal(v)} 
+      />
+    </div>
+  )
+}
+
 # Switch 开关
 
 基本用法
 
-<Component id="switch" />
+<SwitchBox id="switch" />
 
 附带内容
 
-<Component id="switch" checkedContent="OK" uncheckedContent="Not Good" />
+<SwitchBox2 id="switch" />
 

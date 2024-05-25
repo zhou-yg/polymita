@@ -1055,7 +1055,10 @@ var layout = (props) => {
       onClick: () => {
         var _a, _b;
         const draft = props.value;
-        const oldValue = (0, import_get.default)(draft, valuePath);
+        let oldValue = draft;
+        if (valuePath) {
+          oldValue = (0, import_get.default)(draft, valuePath);
+        }
         const newValue = !oldValue;
         if (valuePath && typeof draft === "object") {
           (0, import_set.default)(draft, valuePath, newValue);
@@ -1105,24 +1108,25 @@ var layout = (props) => {
   );
 };
 var styleRules = (props, layout2) => {
+  let value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
   return [
     {
       target: layout2.switchContainer.switchHandle,
-      condition: props.value,
+      condition: value,
       style: {
         insetInlineStart: `calc(100% - 20px)`
       }
     },
     {
       target: layout2.switchContainer.contentBox.uncheckedContent,
-      condition: props.value,
+      condition: value,
       style: {
         visibility: "hidden"
       }
     },
     {
       target: layout2.switchContainer.contentBox.checkedContent,
-      condition: !props.value,
+      condition: !value,
       style: {
         visibility: "hidden"
       }
@@ -1175,6 +1179,34 @@ function RenderToReact(module) {
 
 // components/switch/demo.mdx
 var Component = RenderToReactWithWrap(switch_exports);
+function SwitchBox() {
+  const [val, setVal] = useState(true);
+  return _jsxs("div", {
+    style: {
+      margin: "10px",
+      color: "#999"
+    },
+    children: ["\u5F53\u524D\u503C: ", String(val), _jsx("br", {}), _jsx(Component, {
+      value: val,
+      onChange: (v) => setVal(v)
+    })]
+  });
+}
+function SwitchBox2() {
+  const [val, setVal] = useState(true);
+  return _jsxs("div", {
+    style: {
+      margin: "10px",
+      color: "#999"
+    },
+    children: ["\u5F53\u524D\u503C: ", String(val), _jsx("br", {}), _jsx(Component, {
+      checkedContent: "OK",
+      uncheckedContent: "Not Good",
+      value: val,
+      onChange: (v) => setVal(v)
+    })]
+  });
+}
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",
@@ -1185,14 +1217,12 @@ function _createMdxContent(props) {
       children: "Switch \u5F00\u5173"
     }), "\n", _jsx(_components.p, {
       children: "\u57FA\u672C\u7528\u6CD5"
-    }), "\n", _jsx(Component, {
+    }), "\n", _jsx(SwitchBox, {
       id: "switch"
     }), "\n", _jsx(_components.p, {
       children: "\u9644\u5E26\u5185\u5BB9"
-    }), "\n", _jsx(Component, {
-      id: "switch",
-      checkedContent: "OK",
-      uncheckedContent: "Not Good"
+    }), "\n", _jsx(SwitchBox2, {
+      id: "switch"
     })]
   });
 }
@@ -1205,5 +1235,7 @@ function MDXContent(props = {}) {
 var demo_default = MDXContent;
 export {
   Component,
+  SwitchBox,
+  SwitchBox2,
   demo_default as default
 };

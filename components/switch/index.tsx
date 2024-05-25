@@ -60,7 +60,10 @@ export const layout = (props: SwitchProps): VirtualLayoutJSON => {
       style={{ minWidth: '44px', height: '22px', lineHeight: '22px', borderRadius: '11px' }}
       onClick={() => {
         const draft = props.value
-        const oldValue = get(draft, valuePath)
+        let oldValue = draft
+        if (valuePath) {
+          oldValue = get(draft, valuePath)
+        }
         const newValue = !oldValue
         if (valuePath && typeof draft === 'object') {
           set(draft, valuePath, newValue)
@@ -98,24 +101,25 @@ export const styleRules = (
   props: SwitchProps,
   layout: ConvertToLayoutTreeDraft<SwitchLayout>
 ) => {
+  let value = props['value-path'] ? get(props.value, props['value-path']) : props.value
   return [
     {
       target: layout.switchContainer.switchHandle,
-      condition: props.value,
+      condition: value,
       style: {
         insetInlineStart: `calc(100% - 20px)`
       }
     },
     {
       target: layout.switchContainer.contentBox.uncheckedContent,
-      condition: props.value,
+      condition: value,
       style: {
         visibility: 'hidden'
       },
     },
     {
       target: layout.switchContainer.contentBox.checkedContent,
-      condition: !props.value,
+      condition: !value,
       style: {
         visibility: 'hidden'
       },

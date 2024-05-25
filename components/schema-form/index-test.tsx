@@ -1,5 +1,4 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, createComposeComponent, createFunctionComponent } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
 import * as Form from '.'
 import * as FormItem from './form-item'
 import * as Input from '../input'
@@ -53,6 +52,7 @@ export const layout = (props: FormTestProps) => {
       <FormCpt
         layout={{ labelWidth: '6em' }} 
         onChange={(k, val) => {
+          console.log('k, val: ', k, val);
           logic.setForm(pre => {
             return {
               ...pre,
@@ -64,10 +64,12 @@ export const layout = (props: FormTestProps) => {
           [
             {
               label: 'name',
+              name: 'name',
               value: logic.form.name
             },
             {
               label: 'password',
+              name: 'password',
               value: logic.form.password
             }
           ]

@@ -6,7 +6,7 @@ var __export = (target, all) => {
 
 // components/radio-group/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState as useState2 } from "react";
+import { useState } from "react";
 
 // components/radio-group/index.tsx
 var radio_group_exports = {};
@@ -214,36 +214,23 @@ var designPatterns = (props) => {
 };
 
 // components/radio-group/index.tsx
-import { useState } from "react";
 import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes = {};
 var logic2 = (props) => {
-  const [value, setValue] = useState(props.value);
-  function changeValue(v) {
-    if (props.onChange) {
-      props.onChange(v);
-    } else {
-      setValue(v);
-    }
-  }
-  return {
-    changeValue,
-    value,
-    setValue
-  };
+  return {};
 };
 var Radio = createFunctionComponent(radio_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  const currentValue = logic3.value;
+  const currentValue = props.value;
   return /* @__PURE__ */ jsx2("radioGroupContainer", { children: props.options.map((option, index) => {
     return /* @__PURE__ */ jsx2(
       Radio,
       {
         selected: currentValue === option.value,
         onChange: () => {
-          logic3.changeValue(option.value);
+          props.onChange(option.value);
         },
         children: option.label
       },
@@ -289,7 +276,7 @@ function RenderToReact(module) {
 // components/radio-group/demo.mdx
 var Component = RenderToReactWithWrap(radio_group_exports);
 function ComponentBox() {
-  const [val, setVal] = useState2("A");
+  const [val, setVal] = useState("A");
   return _jsxs("div", {
     style: {
       margin: "10px"

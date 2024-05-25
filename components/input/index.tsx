@@ -34,17 +34,6 @@ type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: InputProps<string | number>) => {
 
-  function onFocus () {
-    props.onFocus?.()
-  }
-  function onBlur () {
-    props.onBlur?.()
-  }
-
-  return {
-    onFocus,
-    onBlur,
-  }
 }
 
 export type InputLayout = {
@@ -72,8 +61,8 @@ export const layout = (props: InputProps<string | number>): VirtualLayoutJSON =>
         is-text
         className="block w-full select-none outline-none border-0 px-2 py-1 rounded"
         autoFocus={props.focused}
-        onFocus={logic.onFocus}
-        onBlur={logic.onBlur}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
         type={props.type}
         disabled={props.disabled}
         value={value}

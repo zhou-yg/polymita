@@ -13,6 +13,7 @@ export interface TextareaProps {
   placeholder?: string
   disabled?: boolean
   value:  string
+  focused?: boolean
   rows?: number
   onInput?: (v: string | number) => void
   onFocus?: () => void
@@ -29,25 +30,7 @@ export const config = () => ({
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: TextareaProps) => {
-  const [value, setValue] = useState(props.value)
 
-  useEffect(() => {
-    setValue(props.value)
-  }, [props.value])
-
-  function onFocus () {
-    props.onFocus?.()
-  }
-  function onBlur () {
-    props.onBlur?.()
-  }
-
-  return {
-    onFocus,
-    onBlur,
-    value,
-    setValue,
-  }
 }
 
 export type InputLayout = {
@@ -72,16 +55,17 @@ export const layout = (props: TextareaProps): VirtualLayoutJSON => {
         has-decoration
         is-text
         className="block w-full select-none outline-none border-0 px-2 py-1 rounded"
-        onFocus={logic.onFocus}
-        onBlur={logic.onBlur}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+        autoFocus={props.focused}
         rows={props.rows}
         disabled={props.disabled}
-        value={logic.value}
+        value={props.value}
         onChange={e => {
-          logic.setValue(e.target.value)
+          props.onInput(e.target.value)
         }}
       >
-        {logic.value}
+        {props.value}
       </textarea>
     </inputBox>
   )

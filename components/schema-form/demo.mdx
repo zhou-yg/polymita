@@ -25,9 +25,8 @@ export function TestCase2 () {
       {JSON.stringify(values)}
       </div>
       <FormComponent
-        onChange={v => {
-          console.log('v:', v);
-          setValues(pre => Object.assign({}, pre, v))
+        onChange={(k, v) => {
+          setValues(pre => Object.assign({}, pre, { [k]: v }))
         }}
         form={[
           {

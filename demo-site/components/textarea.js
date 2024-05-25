@@ -80,30 +80,11 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/textarea/index.tsx
-import { useEffect, useState } from "react";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var config = () => ({});
 var logic = (props) => {
-  const [value, setValue] = useState(props.value);
-  useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
-  function onFocus() {
-    var _a;
-    (_a = props.onFocus) == null ? void 0 : _a.call(props);
-  }
-  function onBlur() {
-    var _a;
-    (_a = props.onBlur) == null ? void 0 : _a.call(props);
-  }
-  return {
-    onFocus,
-    onBlur,
-    value,
-    setValue
-  };
 };
 var layout = (props) => {
   const logic2 = useLogic();
@@ -119,15 +100,16 @@ var layout = (props) => {
           "has-decoration": true,
           "is-text": true,
           className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          onFocus: logic2.onFocus,
-          onBlur: logic2.onBlur,
+          onFocus: props.onFocus,
+          onBlur: props.onBlur,
+          autoFocus: props.focused,
           rows: props.rows,
           disabled: props.disabled,
-          value: logic2.value,
+          value: props.value,
           onChange: (e) => {
-            logic2.setValue(e.target.value);
+            props.onInput(e.target.value);
           },
-          children: logic2.value
+          children: props.value
         }
       )
     }
@@ -173,10 +155,10 @@ function RenderToReact(module) {
 }
 
 // components/textarea/demo.mdx
-import { useState as useState2 } from "react";
+import { useState } from "react";
 var Component = RenderToReactWithWrap(textarea_exports);
 function InputBox() {
-  const [val, setVal] = useState2("v0");
+  const [val, setVal] = useState("v0");
   return _jsxs("div", {
     style: {
       margin: "10px",
@@ -191,17 +173,23 @@ function InputBox() {
   });
 }
 function InputBox2() {
-  const [val, setVal] = useState2("v0");
+  const [val, setVal] = useState("v0");
+  const [focused, setFocused] = useState(false);
   return _jsxs("div", {
     style: {
       margin: "10px",
       color: "#999"
     },
-    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), "focused: true", _jsx("br", {}), _jsx(Component, {
-      type: "number",
+    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), "focused: ", String(focused), _jsx("br", {}), _jsx(Component, {
       value: val,
       onInput: (v) => setVal(v),
-      focused: true
+      focused,
+      onBlur: (v) => {
+        setFocused(false);
+      },
+      onFocus: (e) => {
+        setFocused(true);
+      }
     })]
   });
 }

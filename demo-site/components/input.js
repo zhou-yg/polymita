@@ -1037,18 +1037,6 @@ var meta;
 var propTypes = {};
 var config = () => ({});
 var logic = (props) => {
-  function onFocus() {
-    var _a;
-    (_a = props.onFocus) == null ? void 0 : _a.call(props);
-  }
-  function onBlur() {
-    var _a;
-    (_a = props.onBlur) == null ? void 0 : _a.call(props);
-  }
-  return {
-    onFocus,
-    onBlur
-  };
 };
 var layout = (props) => {
   const logic2 = useLogic();
@@ -1066,8 +1054,8 @@ var layout = (props) => {
           "is-text": true,
           className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
           autoFocus: props.focused,
-          onFocus: logic2.onFocus,
-          onBlur: logic2.onBlur,
+          onFocus: props.onFocus,
+          onBlur: props.onBlur,
           type: props.type,
           disabled: props.disabled,
           value,

@@ -21,20 +21,8 @@ export const propTypes = {
 }
 
 export const logic = (props: RadioGroupProps) => {
-  const [value, setValue] = useState(props.value)
-
-  function changeValue (v: any) {
-    if (props.onChange) {
-      props.onChange(v)
-    } else {
-      setValue(v)
-    }
-  }
   
   return {
-    changeValue,
-    value,
-    setValue,
   }
 }
 type LogicReturn = ReturnType<typeof logic>
@@ -47,7 +35,7 @@ export type RadioGroupLayout = {
 const Radio = createFunctionComponent(RadioModule)
 export const layout = (props: RadioGroupProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
-  const currentValue = logic.value
+  const currentValue = props.value
   return (
     <radioGroupContainer>
        {props.options.map((option, index) => {
@@ -56,7 +44,7 @@ export const layout = (props: RadioGroupProps): VirtualLayoutJSON => {
               key={option.label}
               selected={currentValue === option.value}
               onChange={() => {
-                logic.changeValue(option.value)
+                props.onChange(option.value)
               }} 
             >
               {option.label}
