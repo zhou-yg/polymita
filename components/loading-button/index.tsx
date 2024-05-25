@@ -18,7 +18,7 @@ const LoadingButton = extendModule(ButtonModule, () => ({
       {
         op: CommandOP.addChild,
         condition: !!props.loading,
-        parent: layout.buttonBox.span,
+        target: layout.buttonBox.span,
         child: (
           <Loading3Icon size={16} className="animate-spin align-middle ml-1" />
         )

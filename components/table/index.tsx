@@ -1,5 +1,4 @@
 import { h, VirtualLayoutJSON, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
 
 export const name = 'Table' as const
 export let meta: {
@@ -10,8 +9,8 @@ export let meta: {
 
 export interface TableProps<T> {
   rowKey: string
-  columns: { title: string, dataIndex?: string }[]
-  dataSource: Signal<T[]>
+  columns: { title: string, dataIndex?: string, render?: any }[]
+  dataSource: T[]
 }
 
 export const propTypes = {
@@ -42,11 +41,13 @@ export const layout = <T,>(props: TableProps<T>): VirtualLayoutJSON => {
           </tr> 
         </thead>
         <tbody>
-          {dataSource().map((item, index) => {
+          {dataSource.map((item, index) => {
             return (
               <tr key={index + item[rowKey]} className="border-b">
                 {columns.map((column) => (
-                  <td key={item[rowKey] + column.title} className="border-b">{item[column.dataIndex]}</td>
+                  <td key={item[rowKey] + column.title} className="border-b">
+                    {item.render ? item.render(item[column.dataIndex]) : item[column.dataIndex]}
+                  </td>
                 ))}
               </tr>
             )

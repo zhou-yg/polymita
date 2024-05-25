@@ -1,29 +1,28 @@
 import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from '@polymita/renderer'
 import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
-import { action, after, Signal, signal, StateSignal } from '@polymita/signal'
 import { colors } from '../../patterns/token'
-import { SignalProps } from '@polymita/renderer'
+import set from 'lodash/set'
+import { useEffect, useState } from 'react'
 
 export let meta: {
-  props: InputProps,
+  props: InputProps<string | number>,
   layoutStruct: InputLayout,
   patchCommands: []
 }
 
-export interface InputProps {
+export interface InputProps<T extends string | number> {
   placeholder?: string
   disabled?: boolean
-  value:  Signal< string | number>
+  value:  T
   type?: string
   focused?: boolean
   'value-path'?: string | string[]
-  onInput?: (v: string | number) => void
+  onInput?: (v: T) => void
   onFocus?: () => void
   onBlur?: () => void
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired
 }
 
 export const config = () => ({
@@ -32,11 +31,11 @@ export const config = () => ({
 
 type LogicReturn = ReturnType<typeof logic>
 
-export const logic = (props: InputProps) => {
-  const value = props.value
+export const logic = (props: InputProps<string | number>) => {
+  const [value, setValue] = useState(props.value)
 
-  after(() => {
-    props.onInput?.(value())
+  useEffect(() => {
+    setValue?.(value)
   }, [value])
 
   function onFocus () {
@@ -50,6 +49,7 @@ export const logic = (props: InputProps) => {
     onFocus,
     onBlur,
     value,
+    setValue,
   }
 }
 
@@ -63,7 +63,7 @@ export type InputLayout = {
 }
 
 // tailwindcss
-export const layout = (props: InputProps): VirtualLayoutJSON => {
+export const layout = (props: InputProps<string | number>): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
   return (
@@ -82,12 +82,22 @@ export const layout = (props: InputProps): VirtualLayoutJSON => {
         disabled={props.disabled}
         value={logic.value}
         value-path={props['value-path']}
+        onChange={e => {
+          if (props['value-path']) {
+            logic.setValue(prev => {
+              return set(prev, props['value-path'], e.target.value)
+            })
+          } else {
+            logic.setValue(e.target.value)
+          }
+          props.onInput(e.target.value)
+        }}
       />
     </inputBox>
   )
 }
 
-export const designPatterns = (props: InputProps): PatternMatrix2 => {
+export const designPatterns = (props: InputProps<string | number>): PatternMatrix2 => {
 
   return [
     [HOVER, ACTIVE, FOCUS, 'disabled'],
@@ -96,8 +106,4 @@ export const designPatterns = (props: InputProps): PatternMatrix2 => {
       border: [colors.grays[0],colors.primaries[1]],
     })
   ]
-}
-
-// css in js
-export const styleRules = (props: InputProps) => {
 }

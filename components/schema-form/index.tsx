@@ -18,7 +18,7 @@ export interface FormProps {
   // form?: VirtualLayoutJSON | VirtualLayoutJSON[]
   form?: FormConfig[]
   values?: Record<string, any>
-  onChange?: (values: Record<string, any>) => void
+  onChange?: (key: string, value: any) => void
   onSubmit?: (values: Record<string, any>) => void
 }
 
@@ -26,7 +26,7 @@ export interface FormConfig {
   type?: 'input' | 'select' | 'radio' | 'checkbox' | 'switch' | 'date' | 'time' | 'datetime' | 'textarea'
   dataType?: 'string' | 'number' | 'date' | 'time' | 'datetime'
   options?: { label?: string, value?: string | number }[]
-  value?: Signal<string | number>
+  value?: string | number
   label?: string
   name?: string
   children?: FormConfig[]
@@ -54,7 +54,7 @@ function generateForm (form: FormConfig[], onChange: FormProps['onChange'])  {
       case 'input':
       default:
         targetItem = <InputCpt value={item.value} onInput={(v) => {
-          item.name && onChange?.({ [item.name]: v })
+          item.name && onChange?.(item.name, v)
         }} />
     }
 

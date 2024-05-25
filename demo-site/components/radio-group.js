@@ -6,7 +6,7 @@ var __export = (target, all) => {
 
 // components/radio-group/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from "react";
+import { useState as useState2 } from "react";
 
 // components/radio-group/index.tsx
 var radio_group_exports = {};
@@ -18,8 +18,7 @@ __export(radio_group_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic2, PropTypes, createFunctionComponent } from "@polymita/renderer";
-import { signal as signal2 } from "@polymita/signal";
+import { useLogic as useLogic2, createFunctionComponent } from "@polymita/renderer";
 
 // components/radio/index.tsx
 var radio_exports = {};
@@ -215,33 +214,41 @@ var designPatterns = (props) => {
 };
 
 // components/radio-group/index.tsx
+import { useState } from "react";
 import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
-var propTypes = {
-  value: PropTypes.signal.isRequired.default(() => signal2(""))
-};
+var propTypes = {};
 var logic2 = (props) => {
-  const value = props.value;
+  const [value, setValue] = useState(props.value);
   function changeValue(v) {
     if (props.onChange) {
       props.onChange(v);
     } else {
-      value(v);
+      setValue(v);
     }
   }
   return {
     changeValue,
-    value
+    value,
+    setValue
   };
 };
 var Radio = createFunctionComponent(radio_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  const currentValue = logic3.value();
+  const currentValue = logic3.value;
   return /* @__PURE__ */ jsx2("radioGroupContainer", { children: props.options.map((option, index) => {
-    return /* @__PURE__ */ jsx2(Radio, { selected: currentValue === option.value, onChange: () => {
-      logic3.changeValue(option.value);
-    }, children: option.label }, option.label);
+    return /* @__PURE__ */ jsx2(
+      Radio,
+      {
+        selected: currentValue === option.value,
+        onChange: () => {
+          logic3.changeValue(option.value);
+        },
+        children: option.label
+      },
+      option.label
+    );
   }) });
 };
 var styleRules2 = (props, layout3) => {
@@ -253,7 +260,7 @@ var designPattern = (props, layout3) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -268,7 +275,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -283,7 +290,7 @@ function RenderToReact(module) {
 // components/radio-group/demo.mdx
 var Component = RenderToReactWithWrap(radio_group_exports);
 function ComponentBox() {
-  const [val, setVal] = useState("A");
+  const [val, setVal] = useState2("A");
   return _jsxs("div", {
     style: {
       margin: "10px"

@@ -305,7 +305,7 @@ var LoadingButton = extendModule(button_exports, () => ({
       {
         op: CommandOP.addChild,
         condition: !!props.loading,
-        parent: layout3.buttonBox.span,
+        target: layout3.buttonBox.span,
         child: /* @__PURE__ */ jsx2(loading3_quarters_default, { size: 16, className: "animate-spin align-middle ml-1" })
       }
     ];
@@ -320,7 +320,7 @@ var designPatterns2 = LoadingButton.designPatterns;
 var styleRules2 = LoadingButton.styleRules;
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -335,7 +335,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React

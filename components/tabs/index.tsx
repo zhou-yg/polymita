@@ -1,7 +1,7 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, createFunctionComponent, isVirtualNode, classnames } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
 import * as TabPanelModule from './panel'
 import { colors } from '../../patterns';
+import { useState } from 'react';
 
 export const name = 'Tabs' as const
 export let meta: {
@@ -22,7 +22,7 @@ export const propTypes = {
 
 export const logic = (props: TabsProps) => {
 
-  const activeTab = signal<string>(
+  const [activeTab, setActiveTab] = useState<string>(
     props.defaultActiveTab ||
     props.tabs?.[0] || 
     props.panels?.[0]?.props?.header ||
@@ -31,6 +31,7 @@ export const logic = (props: TabsProps) => {
 
   return {
     activeTab,
+    setActiveTab,
   }
 }
 type LogicReturn = ReturnType<typeof logic>
@@ -50,7 +51,7 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
   if (children && panels) {
     throw new Error('[@polymita/tabs]: children and panels cannot be used at the same time');
   }
-  const activeTab = logic.activeTab();
+  const activeTab = logic.activeTab;
 
   let panelNodes = children
   if (panels) {
@@ -93,7 +94,7 @@ export const layout = (props: TabsProps): VirtualLayoutJSON => {
               className='inline-block p-2 mr-4 cursor-pointer text-center' 
               style={style}
               onClick={() => {
-                logic.activeTab(header);
+                logic.setActiveTab(header);
               }}
             >
               {header}

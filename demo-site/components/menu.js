@@ -35,8 +35,7 @@ __export(menu_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic2, PropTypes } from "@polymita/renderer";
-import { signal as signal2 } from "@polymita/signal";
+import { useLogic as useLogic2 } from "@polymita/renderer";
 import { createFunctionComponent } from "@polymita/renderer";
 
 // patterns/control-active.ts
@@ -188,18 +187,17 @@ var styleRules = (props) => {
 };
 
 // components/menu/index.tsx
+import { useState } from "react";
 import { jsx as jsx2, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta2;
-var propTypes = {
-  current: PropTypes.signal.isRequired.default(() => signal2("")),
-  items: PropTypes.signal.isRequired
-};
+var propTypes = {};
 var logic2 = (props) => {
   const currentKey = props.current;
+  const [items, setItems] = useState(props.items);
   const select = (item) => {
     var _a;
     const curKey = item.key;
-    items((draft) => {
+    setItems((draft) => {
       draft.forEach((di) => {
         var _a2;
         di.selected = di.key === curKey;
@@ -207,10 +205,10 @@ var logic2 = (props) => {
           dci.selected = dci.key === curKey;
         });
       });
+      return draft.slice();
     });
     (_a = props.onClick) == null ? void 0 : _a.call(props, item);
   };
-  const items = props.items;
   return {
     items,
     currentKey,
@@ -220,8 +218,8 @@ var logic2 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout2 = (props) => {
   const logic3 = useLogic2();
-  return /* @__PURE__ */ jsx2("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx2("ul", { className: "block", style: { margin: 0, padding: 0 }, children: logic3.items().map((item) => {
-    const isSelected = item.key === logic3.currentKey();
+  return /* @__PURE__ */ jsx2("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx2("ul", { className: "block", style: { margin: 0, padding: 0 }, children: logic3.items.map((item) => {
+    const isSelected = item.key === logic3.currentKey;
     let element = /* @__PURE__ */ jsx2(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
@@ -260,7 +258,7 @@ var styleRules2 = (props) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -275,7 +273,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -288,9 +286,9 @@ function RenderToReact(module) {
 }
 
 // components/menu/demo.mdx
-import { signal as signal3 } from "@polymita/signal";
+import { signal as signal2 } from "@polymita/signal";
 var Component = RenderToReactWithWrap(menu_exports);
-var signal22 = signal3;
+var signal22 = signal2;
 function _createMdxContent(props) {
   const _components = Object.assign({
     h1: "h1",

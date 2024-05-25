@@ -32,8 +32,8 @@ var layout = (props) => {
   const { rowKey, columns, dataSource } = props;
   return /* @__PURE__ */ jsx("tableContainer", { className: "block", children: /* @__PURE__ */ jsxs("table", { className: "w-full", children: [
     /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { children: columns.map((column) => /* @__PURE__ */ jsx("th", { className: "border-b", children: column.title }, column.title)) }) }),
-    /* @__PURE__ */ jsx("tbody", { children: dataSource().map((item, index) => {
-      return /* @__PURE__ */ jsx("tr", { className: "border-b", children: columns.map((column) => /* @__PURE__ */ jsx("td", { className: "border-b", children: item[column.dataIndex] }, item[rowKey] + column.title)) }, index + item[rowKey]);
+    /* @__PURE__ */ jsx("tbody", { children: dataSource.map((item, index) => {
+      return /* @__PURE__ */ jsx("tr", { className: "border-b", children: columns.map((column) => /* @__PURE__ */ jsx("td", { className: "border-b", children: item.render ? item.render(item[column.dataIndex]) : item[column.dataIndex] }, item[rowKey] + column.title)) }, index + item[rowKey]);
     }) })
   ] }) });
 };
@@ -46,7 +46,7 @@ var designPattern = (props, layout2) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -61,7 +61,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React

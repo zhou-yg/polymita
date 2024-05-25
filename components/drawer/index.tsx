@@ -1,5 +1,4 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
 import CloseIcon from '../../icons/close'
 
 export const name = 'Drawer' as const

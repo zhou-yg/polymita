@@ -8,8 +8,10 @@ import {
   HOVER,
   VirtualLayoutJSON
 } from '@polymita/renderer'
-import { Signal, after, get, set, signal } from '@polymita/signal'
 import { blockPatternMatrix, colors } from '../../patterns'
+import set from 'lodash/set'
+import get from 'lodash/get'
+
 
 export let meta: {
   props: SwitchProps
@@ -18,14 +20,14 @@ export let meta: {
 }
 
 export interface SwitchProps {
-  value: Signal<boolean>
+  value: boolean | Record<string, any>
   checkedContent?: string
   uncheckedContent?: string
   'value-path'?: string | string[]
+  onChange: (v: boolean | Record<string, any>) => void
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired.default(() => signal(false))
 }
 
 export const logic = (props: SignalProps<SwitchProps>) => {
@@ -48,8 +50,7 @@ export type SwitchLayout = {
 }
 export const layout = (props: SwitchProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
-
-  const value = props.value()
+  
   const valuePath = props['value-path']
 
   return (
@@ -58,15 +59,15 @@ export const layout = (props: SwitchProps): VirtualLayoutJSON => {
       className="inline-block relative overflow-hidden" 
       style={{ minWidth: '44px', height: '22px', lineHeight: '22px', borderRadius: '11px' }}
       onClick={() => {
-        props.value(draft => {
-          const oldValue = get(draft, valuePath)
-          const newValue = !oldValue
-          if (valuePath) {
-            set(draft, valuePath, newValue)
-          } else {
-            return newValue
-          }
-        })
+        const draft = props.value
+        const oldValue = get(draft, valuePath)
+        const newValue = !oldValue
+        if (valuePath && typeof draft === 'object') {
+          set(draft, valuePath, newValue)
+          props.onChange?.({...draft})
+        } else {
+          props.onChange?.(newValue)
+        }
       }}>
       <switchHandle is-fillText 
         style={{ width: '18px', height: '18px', top: '2px', insetInlineStart: '2px' }} 
@@ -100,21 +101,21 @@ export const styleRules = (
   return [
     {
       target: layout.switchContainer.switchHandle,
-      condition: props.value(),
+      condition: props.value,
       style: {
         insetInlineStart: `calc(100% - 20px)`
       }
     },
     {
       target: layout.switchContainer.contentBox.uncheckedContent,
-      condition: props.value(),
+      condition: props.value,
       style: {
         visibility: 'hidden'
       },
     },
     {
       target: layout.switchContainer.contentBox.checkedContent,
-      condition: !props.value(),
+      condition: !props.value,
       style: {
         visibility: 'hidden'
       },
@@ -132,7 +133,7 @@ export const designPatterns = (
   return [
     entry,
     blockPatternMatrix(
-      props.value()
+      props.value
         ? {
             bg: [colors.primaries[1], colors.primaries[0], colors.primaries[2]],
             text: [colors.light]

@@ -19,7 +19,7 @@ __export(list_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules2
 });
-import { PropTypes as PropTypes2, useLogic as useLogic2, classnames } from "@polymita/renderer";
+import { useLogic as useLogic2, classnames } from "@polymita/renderer";
 
 // components/list/item.tsx
 var item_exports = {};
@@ -59,16 +59,14 @@ var designPattern = (props, layout3) => {
 import { jsx as jsx2, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name2 = "List";
 var meta2;
-var propTypes2 = {
-  list: PropTypes2.signal.isRequired
-};
+var propTypes2 = {};
 var logic2 = (props) => {
   return {};
 };
 var layout2 = (props) => {
   const { border = true } = props;
   const logic3 = useLogic2();
-  const ds = props.list();
+  const ds = props.list;
   return /* @__PURE__ */ jsx2("listContainer", { className: "block", children: ds.map((item, index) => {
     var _a, _b, _c;
     const r = props.render(item, index);
@@ -91,10 +89,10 @@ var designPattern2 = (props, layout3) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React

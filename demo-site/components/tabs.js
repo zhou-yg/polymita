@@ -6,7 +6,7 @@ var __export = (target, all) => {
 
 // components/tabs/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from "react";
+import { useState as useState2 } from "react";
 
 // components/tabs/index.tsx
 var tabs_exports = {};
@@ -21,7 +21,6 @@ __export(tabs_exports, {
   styleRules: () => styleRules2
 });
 import { useLogic as useLogic2, createFunctionComponent } from "@polymita/renderer";
-import { signal as signal2 } from "@polymita/signal";
 
 // components/tabs/panel.tsx
 var panel_exports = {};
@@ -72,17 +71,19 @@ var colors = {
 };
 
 // components/tabs/index.tsx
+import { useState } from "react";
 import { jsx as jsx2, jsxs } from "@polymita/renderer/jsx-runtime";
 var name2 = "Tabs";
 var meta2;
 var propTypes2 = {};
 var logic2 = (props) => {
   var _a, _b, _c, _d, _e, _f, _g;
-  const activeTab = signal2(
+  const [activeTab, setActiveTab] = useState(
     props.defaultActiveTab || ((_a = props.tabs) == null ? void 0 : _a[0]) || ((_d = (_c = (_b = props.panels) == null ? void 0 : _b[0]) == null ? void 0 : _c.props) == null ? void 0 : _d.header) || ((_g = (_f = (_e = props.children) == null ? void 0 : _e[0]) == null ? void 0 : _f.props) == null ? void 0 : _g.header)
   );
   return {
-    activeTab
+    activeTab,
+    setActiveTab
   };
 };
 var TabPanel = createFunctionComponent(panel_exports);
@@ -94,7 +95,7 @@ var layout2 = (props) => {
   if (children && panels) {
     throw new Error("[@polymita/tabs]: children and panels cannot be used at the same time");
   }
-  const activeTab = logic4.activeTab();
+  const activeTab = logic4.activeTab;
   let panelNodes = children;
   if (panels) {
     panelNodes = tabs.map((tab, index) => {
@@ -128,7 +129,7 @@ var layout2 = (props) => {
             className: "inline-block p-2 mr-4 cursor-pointer text-center",
             style,
             onClick: () => {
-              logic4.activeTab(header);
+              logic4.setActiveTab(header);
             },
             children: header
           },
@@ -187,7 +188,7 @@ var designPattern3 = (props, layout4) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -202,7 +203,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React

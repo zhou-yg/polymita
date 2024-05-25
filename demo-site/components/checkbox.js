@@ -13,11 +13,9 @@ __export(checkbox_exports, {
   designPatterns: () => designPatterns,
   layout: () => layout,
   logic: () => logic,
-  meta: () => meta,
-  propTypes: () => propTypes
+  meta: () => meta
 });
-import { ACTIVE, HOVER, PropTypes, useLogic } from "@polymita/renderer";
-import { after, signal as signal2 } from "@polymita/signal";
+import { ACTIVE, HOVER, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -195,22 +193,17 @@ var Icon = createFunctionComponent({
 var check_default = Icon;
 
 // components/checkbox/index.tsx
+import { useState } from "react";
 import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta;
-var propTypes = {
-  value: PropTypes.signal.isRequired.default(() => signal2(false))
-};
 var logic = (props) => {
-  const value = props.value;
-  after(() => {
-    console.log("value:", value());
-  }, [value]);
+  const [value, setValue] = useState(props.value);
   function toggle() {
     var _a;
     if (props.disabled)
       return;
-    value((v) => !v);
-    (_a = props.onChange) == null ? void 0 : _a.call(props, value());
+    setValue((v) => !v);
+    (_a = props.onChange) == null ? void 0 : _a.call(props, value);
   }
   return {
     value,
@@ -232,18 +225,18 @@ var layout = (props) => {
             style: { width: "16px", height: "16px" },
             "is-container": true,
             "has-decoration": true,
-            selected: logic2.value(),
+            selected: logic2.value,
             disabled: props.disabled,
             children: [
-              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: logic2.value(), className: "opacity-0 absolute w-full h-full" }),
+              /* @__PURE__ */ jsx("input", { type: "checkbox", readOnly: true, checked: logic2.value, className: "opacity-0 absolute w-full h-full" }),
               /* @__PURE__ */ jsx(
                 "span",
                 {
                   "is-text": true,
-                  selected: logic2.value(),
+                  selected: logic2.value,
                   disabled: props.disabled,
                   className: "relative z-10 w-full h-full flex items-center justify-center",
-                  children: logic2.value() ? /* @__PURE__ */ jsx(check_default, { size: 12 }) : ""
+                  children: logic2.value ? /* @__PURE__ */ jsx(check_default, { size: 12 }) : ""
                 }
               )
             ]
@@ -257,7 +250,7 @@ var layout = (props) => {
 var designPatterns = (props) => {
   const logicResult = useLogic();
   const arr = [HOVER, ACTIVE, "selected", "disabled"];
-  if (logicResult.value()) {
+  if (logicResult.value) {
     return [
       arr,
       blockPatternMatrix(
@@ -280,7 +273,7 @@ var designPatterns = (props) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -295,7 +288,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React

@@ -10,14 +10,13 @@ export let meta: {
 }
 
 export interface ListProps<T = any> {
-  list: ComputedSignal<T[]>
+  list: T[]
   render: (item: T, index: number) => VirtualLayoutJSON
   extra?: VirtualLayoutJSON | string | number
   border?: boolean
 }
 
 export const propTypes = {
-  list: PropTypes.signal.isRequired,
 }
 
 export const logic = (props: SignalProps<ListProps>) => {
@@ -35,7 +34,7 @@ export const layout = <T,>(props: ListProps<T>): VirtualLayoutJSON => {
   const { border = true } = props
   const logic = useLogic<LogicReturn>()
 
-  const ds = props.list();
+  const ds = props.list;
 
   return (
     <listContainer className="block">

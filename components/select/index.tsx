@@ -1,7 +1,9 @@
 import { h, SignalProps, useLogic, ConvertToLayoutTreeDraft, PropTypes, VirtualLayoutJSON, UseComponent, createFunctionComponent } from '@polymita/renderer';
-import { Signal, action, after, computed, get, set, signal } from '@polymita/signal'
 import * as InputModule from '../input'
 import * as MenuModule from '../menu'
+import { useMemo, useState } from 'react';
+import set from 'lodash/set'
+import get from 'lodash/get'
 
 export const name = 'Select' as const
 
@@ -12,7 +14,7 @@ export let meta: {
 }
 
 export interface SelectProps {
-  value?: Signal<string>
+  value?: any
   options: { label: string, value: any }[]
   disabled?: boolean
   
@@ -21,38 +23,38 @@ export interface SelectProps {
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired.default(() => signal(''))
 }
 
 export const logic = (props: SelectProps) => {
-  const current = props.value
-  const focused = signal(false)
-  const optionItems = signal((props.options || []).map((option) => {
+  const [current, setCurrent] = useState(props.value)
+  const [focused, setFocused] = useState(false)
+  const [optionItems, setOptionItems] = useState((props.options || []).map((option) => {
     return {
       label: option.label,
       key: option.value,
-      selected: current() === option.value,
+      selected: current === option.value,
     }
   }))
 
-  const selectItem = action(function (item: MenuModule.MenuItemProps) {
+  const selectItem = function (item: MenuModule.MenuItemProps) {
 
-    current((draft) => {
+    setCurrent((draft) => {
       const valuePath = props['value-path']
       // item.key
       if (valuePath) {
         set(draft, valuePath, item.key)
+        return {...draft}
       } else {
         return item.key
       }
     })
-    focused(() => false)
-    props.onChange?.(current())
-  })
+    setFocused(false)
+    props.onChange?.(current)
+  }
 
-  const currentKey = computed(() => {
-    return get(current(), props['value-path'])
-  })
+  const currentKey = useMemo(() => {
+    return get(current, props['value-path'])
+  }, [current])
 
   return {
     currentKey,
@@ -60,6 +62,7 @@ export const logic = (props: SelectProps) => {
     current,
     selectItem,
     focused,
+    setFocused,
   }
 }
 type LogicReturn = ReturnType<typeof logic>
@@ -80,6 +83,7 @@ export const layout = (props: SelectProps): VirtualLayoutJSON => {
     current,
     selectItem,
     focused,
+    setFocused,
     currentKey,
   } = useLogic<LogicReturn>()
 
@@ -89,14 +93,14 @@ export const layout = (props: SelectProps): VirtualLayoutJSON => {
       <Input 
         disabled={props.disabled}
         value={current} 
-        onFocus={() => focused(true)}
-        onBlur={() => focused(false)} 
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)} 
         value-path={props['value-path']}
       />
       <optionList
-        if={optionItems().length > 0 && focused()}
+        if={optionItems.length > 0 && focused}
         className="block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white" style={{ top: '40px' }}>
-        <Menu current={currentKey()} items={optionItems} onClick={selectItem} />
+        <Menu current={currentKey} items={optionItems} onClick={selectItem} />
       </optionList>
     </selectContainer>
   )

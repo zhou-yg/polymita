@@ -3,6 +3,7 @@ import { after, Signal, signal } from '@polymita/signal'
 import * as Form from '.'
 import * as FormItem from './form-item'
 import * as Input from '../input'
+import { useState } from 'react';
 
 export const name = 'FormTest' as const
 export let meta: {
@@ -18,12 +19,14 @@ export const propTypes = {
 }
 
 export const logic = (props: SignalProps<FormTestProps>) => {
-  const name = signal('');
-  const password = signal('');
+  const [form, setForm] = useState({
+    name: '',
+    password: '',
+  });
 
   return {
-    name,
-    password,
+    form,
+    setForm,
   }
 }
 type LogicReturn = ReturnType<typeof logic>
@@ -42,22 +45,30 @@ export const layout = (props: FormTestProps) => {
   return (
     <formTestContainer>
       <formResult>
-        name: {logic.name()} <br/>
-        password: {logic.password()}
+        name: {logic.form.name} <br/>
+        password: {logic.form.password}
       </formResult>
       <br/>
       <br/>
       <FormCpt
         layout={{ labelWidth: '6em' }} 
+        onChange={(k, val) => {
+          logic.setForm(pre => {
+            return {
+              ...pre,
+              [k]: val,
+            }
+          })
+        }}
         form={
           [
             {
               label: 'name',
-              value: logic.name
+              value: logic.form.name
             },
             {
               label: 'password',
-              value: logic.password
+              value: logic.form.password
             }
           ]
         }

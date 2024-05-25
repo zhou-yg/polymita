@@ -1,4 +1,4 @@
-import { createRSRenderer, SingleFileModule } from '@polymita/renderer'
+import { createRHRenderer, SingleFileModule } from '@polymita/renderer'
 import React from 'react'
 
 export function RenderToReactWithWrap<T = any>(
@@ -18,7 +18,7 @@ export function RenderToReactWithWrap<T = any>(
 
 export function RenderToReact<T>(module: SingleFileModule<T, any, any, any>) {
   
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: 'react',
       lib: React

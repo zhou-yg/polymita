@@ -1,5 +1,4 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, createFunctionComponent } from '@polymita/renderer';
-import { after, Signal, signal } from '@polymita/signal'
 import * as TabsModule from './index'
 import * as PanelModule from './panel'
 

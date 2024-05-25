@@ -1,7 +1,7 @@
 import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic, VirtualLayoutJSON } from '@polymita/renderer';
-import { StateSignal, after, signal } from '@polymita/signal';
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
 import CheckIcon from '../../icons/check'
+import { useState } from 'react';
 
 export let meta: {
   props: CheckboxProps,
@@ -10,30 +10,21 @@ export let meta: {
 }
 
 export interface CheckboxProps {
-  value?: StateSignal<boolean>
+  value?: boolean
   disabled?: boolean
   onChange?: (value: boolean) => void
   children?: any
 }
 
-
-export const propTypes = {
-  value: PropTypes.signal.isRequired.default(() => signal(false))
-}
-
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: CheckboxProps) => {
-  const value = props.value
-
-  after(() => {
-    console.log('value:', value())
-  }, [value])
+  const [value, setValue] = useState(props.value)
 
   function toggle () {
     if (props.disabled) return
-    value(v => !v)
-    props.onChange?.(value())
+    setValue(v => !v)
+    props.onChange?.(value)
   }
 
   return {
@@ -73,13 +64,13 @@ export const layout = (props: CheckboxProps): VirtualLayoutJSON => {
           style={{ width: '16px', height: '16px' }} 
           is-container
           has-decoration 
-          selected={logic.value()}
+          selected={logic.value}
           disabled={props.disabled} >
-        <input type="checkbox" readOnly checked={logic.value()} className="opacity-0 absolute w-full h-full" />
+        <input type="checkbox" readOnly checked={logic.value} className="opacity-0 absolute w-full h-full" />
         <span
-          is-text selected={logic.value()} disabled={props.disabled}
+          is-text selected={logic.value} disabled={props.disabled}
           className="relative z-10 w-full h-full flex items-center justify-center" >
-          {logic.value() ? <CheckIcon size={12} /> : ''}
+          {logic.value ? <CheckIcon size={12} /> : ''}
         </span>
        </checkBox>
        <checkBoxLabel className="select-none">
@@ -94,7 +85,7 @@ export const designPatterns = (props: CheckboxProps) => {
 
   const arr = [HOVER, ACTIVE, 'selected', 'disabled']
   
-  if (logicResult.value()) {
+  if (logicResult.value) {
 
     return [
       arr,

@@ -18,7 +18,7 @@ __export(textarea_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, HOVER, PropTypes, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, HOVER, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -80,19 +80,16 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/textarea/index.tsx
-import { after } from "@polymita/signal";
+import { useEffect, useState } from "react";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
-var propTypes = {
-  value: PropTypes.signal.isRequired
-};
+var propTypes = {};
 var config = () => ({});
 var logic = (props) => {
-  const value = props.value;
-  after(() => {
-    var _a;
-    (_a = props.onInput) == null ? void 0 : _a.call(props, value());
-  }, [value]);
+  const [value, setValue] = useState(props.value);
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
   function onFocus() {
     var _a;
     (_a = props.onFocus) == null ? void 0 : _a.call(props);
@@ -104,7 +101,8 @@ var logic = (props) => {
   return {
     onFocus,
     onBlur,
-    value
+    value,
+    setValue
   };
 };
 var layout = (props) => {
@@ -126,7 +124,10 @@ var layout = (props) => {
           rows: props.rows,
           disabled: props.disabled,
           value: logic2.value,
-          children: logic2.value()
+          onChange: (e) => {
+            logic2.setValue(e.target.value);
+          },
+          children: logic2.value
         }
       )
     }
@@ -145,7 +146,7 @@ var styleRules = (props) => {
 };
 
 // shared/render.ts
-import { createRSRenderer } from "@polymita/renderer";
+import { createRHRenderer } from "@polymita/renderer";
 import React from "react";
 function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
@@ -160,7 +161,7 @@ function RenderToReactWithWrap(module) {
   };
 }
 function RenderToReact(module) {
-  const renderer = createRSRenderer(module, {
+  const renderer = createRHRenderer(module, {
     framework: {
       name: "react",
       lib: React
@@ -173,10 +174,10 @@ function RenderToReact(module) {
 }
 
 // components/textarea/demo.mdx
-import { useState } from "react";
+import { useState as useState2 } from "react";
 var Component = RenderToReactWithWrap(textarea_exports);
 function InputBox() {
-  const [val, setVal] = useState("v0");
+  const [val, setVal] = useState2("v0");
   return _jsxs("div", {
     style: {
       margin: "10px",
@@ -191,7 +192,7 @@ function InputBox() {
   });
 }
 function InputBox2() {
-  const [val, setVal] = useState("v0");
+  const [val, setVal] = useState2("v0");
   return _jsxs("div", {
     style: {
       margin: "10px",

@@ -1,8 +1,7 @@
 import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, useLayout, useLogic, VirtualLayoutJSON } from '@polymita/renderer'
 import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
-import { action, after, Signal, signal, StateSignal } from '@polymita/signal'
 import { colors } from '../../patterns/token'
-import { SignalProps } from '@polymita/renderer'
+import { useEffect, useState } from 'react'
 
 export let meta: {
   props: TextareaProps,
@@ -13,7 +12,7 @@ export let meta: {
 export interface TextareaProps {
   placeholder?: string
   disabled?: boolean
-  value:  Signal< string | number>
+  value:  string
   rows?: number
   onInput?: (v: string | number) => void
   onFocus?: () => void
@@ -21,7 +20,6 @@ export interface TextareaProps {
 }
 
 export const propTypes = {
-  value: PropTypes.signal.isRequired
 }
 
 export const config = () => ({
@@ -31,11 +29,11 @@ export const config = () => ({
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: TextareaProps) => {
-  const value = props.value
+  const [value, setValue] = useState(props.value)
 
-  after(() => {
-    props.onInput?.(value())
-  }, [value])
+  useEffect(() => {
+    setValue(props.value)
+  }, [props.value])
 
   function onFocus () {
     props.onFocus?.()
@@ -48,6 +46,7 @@ export const logic = (props: TextareaProps) => {
     onFocus,
     onBlur,
     value,
+    setValue,
   }
 }
 
@@ -78,8 +77,11 @@ export const layout = (props: TextareaProps): VirtualLayoutJSON => {
         rows={props.rows}
         disabled={props.disabled}
         value={logic.value}
+        onChange={e => {
+          logic.setValue(e.target.value)
+        }}
       >
-        {logic.value()}
+        {logic.value}
       </textarea>
     </inputBox>
   )

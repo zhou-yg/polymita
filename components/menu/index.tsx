@@ -4,6 +4,7 @@ import { createFunctionComponent } from '@polymita/renderer';
 import { blockPattern } from '../../patterns';
 import * as MenuItemModule from '../menu-item'
 import type { MenuItemProps } from '../menu-item';
+import { useState } from 'react';
 
 type vv = typeof MenuItemModule.layout
 
@@ -14,50 +15,34 @@ export let meta: {
 }
 
 export type MenuProps = {
-  current?: Signal<MenuItemProps['key']>
-  items: Signal<MenuItemProps[]>;
+  current?: MenuItemProps['key']
+  items: MenuItemProps[];
   onClick?: (item: MenuItemProps) => void;
 }
 export type { MenuItemProps } from'../menu-item'
 
 export const propTypes = {
-  current: PropTypes.signal.isRequired.default(() => signal('')),
-  items: PropTypes.signal.isRequired,
 }
 
 type LogicReturn = ReturnType<typeof logic>
 
 export const logic = (props: MenuProps) => {
   const currentKey = props.current
+  const [items, setItems] = useState(props.items)
   const select = ((item: MenuItemProps) => {
     const curKey = item.key
-    /** @TODO items是外部传入的，不是这个logic.scope，所以在action里面修改后产生的patches在commit时会丢失 */
-    items(draft => {
+
+    setItems(draft => {
       draft.forEach(di => {
         di.selected = di.key === curKey
         di.children?.forEach(dci => {
           dci.selected = dci.key === curKey
         })
       })
+      return draft.slice()
     })
     props.onClick?.(item)
   })
-
-  const items = props.items
-
-  // after(() => {
-  //   const curKey = currentKey()
-
-  //   items(draft => {
-  //     draft.forEach(di => {
-  //       di.selected = di.key === curKey
-  //       di.children?.forEach(dci => {
-  //         dci.selected = dci.key === curKey
-  //       })
-  //     })
-  //   })
-    
-  // }, [select])
 
   return {
     items,
@@ -107,8 +92,8 @@ export const layout = (props: MenuProps): VirtualLayoutJSON => {
   return (
     <menuBox className="block border-slate-300">
       <ul className="block" style={{ margin:0, padding: 0 }} >
-        {logic.items().map((item) => {
-          const isSelected = item.key === logic.currentKey()
+        {logic.items.map((item) => {
+          const isSelected = item.key === logic.currentKey
           let element = <MenuItemFunc {...{
             ...item,
             hasItemChildren: !!item.children,
