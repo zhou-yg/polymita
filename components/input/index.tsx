@@ -2,6 +2,7 @@ import { ACTIVE, FOCUS, h, HOVER, PatternMatrix2, PatternStructure, PropTypes, u
 import { blockPattern, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns'
 import { colors } from '../../patterns/token'
 import set from 'lodash/set'
+import get from 'lodash/get'
 import { useEffect, useState } from 'react'
 
 export let meta: {
@@ -66,6 +67,9 @@ export type InputLayout = {
 export const layout = (props: InputProps<string | number>): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
+  const value = props['value-path'] ? get(logic.value, props['value-path']) : logic.value
+  console.log('logic.value: ', logic.value, value);
+
   return (
     <inputBox
       className="block">
@@ -80,17 +84,15 @@ export const layout = (props: InputProps<string | number>): VirtualLayoutJSON =>
         onBlur={logic.onBlur}
         type={props.type}
         disabled={props.disabled}
-        value={logic.value}
-        value-path={props['value-path']}
+        value={value}
         onChange={e => {
           if (props['value-path']) {
-            logic.setValue(prev => {
-              return set(prev, props['value-path'], e.target.value)
-            })
+            const r = set(logic.value as any, props['value-path'], e.target.value)
+            props.onInput(r)
           } else {
             logic.setValue(e.target.value)
+            props.onInput(e.target.value)
           }
-          props.onInput(e.target.value)
         }}
       />
     </inputBox>

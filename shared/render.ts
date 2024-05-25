@@ -7,7 +7,7 @@ export function RenderToReactWithWrap<T = any>(
   const render = RenderToReact(module)
   return (p: T) => {
     const content = render(p);
-    console.log('content: ', content);
+
     return React.createElement(
       'div',
       { style: { margin: '20px', width: '50%', display: 'block' } },

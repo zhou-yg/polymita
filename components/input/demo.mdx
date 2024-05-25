@@ -20,13 +20,25 @@ export function InputBox () {
 
 export function InputBox2 () {
   const [val, setVal] = useState('v0')
+  const [focused, setFocused] = useState(false)
   return (
     <div style={{ margin: '10px', color: '#999' }}>
       当前值: {val} 
       <br/>
-      focused: true
+      focused: {String(focused)}
       <br/>
-      <Component type="number" value={val} onInput={v => setVal(v)} focused />
+      <Component 
+        type="number" 
+        value={val} 
+        onInput={v => setVal(v)} 
+        focused={focused} 
+        onBlur={v => {
+          setFocused(false)
+        }} 
+        onFocus={e => {
+          setFocused(true)
+        }}
+      />
     </div>
   )
 }
@@ -42,7 +54,6 @@ export function InputBoxWithPath () {
       当前值 val.payload.name = "{val.payload.name}"
       <br/>
       <Component value-path={['payload', 'name']} value={val} onInput={v => {
-        console.log('v: ', v);
         setVal(v)
       }} />
     </div>

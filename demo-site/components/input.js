@@ -912,6 +912,35 @@ var require_set = __commonJS({
   }
 });
 
+// ../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js
+var require_baseGet = __commonJS({
+  "../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js"(exports, module) {
+    var castPath = require_castPath();
+    var toKey = require_toKey();
+    function baseGet(object, path) {
+      path = castPath(path, object);
+      var index = 0, length = path.length;
+      while (object != null && index < length) {
+        object = object[toKey(path[index++])];
+      }
+      return index && index == length ? object : void 0;
+    }
+    module.exports = baseGet;
+  }
+});
+
+// ../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js
+var require_get = __commonJS({
+  "../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js"(exports, module) {
+    var baseGet = require_baseGet();
+    function get2(object, path, defaultValue) {
+      var result = object == null ? void 0 : baseGet(object, path);
+      return result === void 0 ? defaultValue : result;
+    }
+    module.exports = get2;
+  }
+});
+
 // components/input/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
@@ -988,6 +1017,7 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 var import_set = __toESM(require_set());
+var import_get = __toESM(require_get());
 import { useEffect, useState } from "react";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
@@ -1015,6 +1045,8 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
+  const value = props["value-path"] ? (0, import_get.default)(logic2.value, props["value-path"]) : logic2.value;
+  console.log("logic.value: ", logic2.value, value);
   return /* @__PURE__ */ jsx(
     "inputBox",
     {
@@ -1032,17 +1064,15 @@ var layout = (props) => {
           onBlur: logic2.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic2.value,
-          "value-path": props["value-path"],
+          value,
           onChange: (e) => {
             if (props["value-path"]) {
-              logic2.setValue((prev) => {
-                return (0, import_set.default)(prev, props["value-path"], e.target.value);
-              });
+              const r = (0, import_set.default)(logic2.value, props["value-path"], e.target.value);
+              props.onInput(r);
             } else {
               logic2.setValue(e.target.value);
+              props.onInput(e.target.value);
             }
-            props.onInput(e.target.value);
           }
         }
       )
@@ -1066,7 +1096,6 @@ function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
     const content = render(p);
-    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", width: "50%", display: "block" } },
@@ -1107,16 +1136,23 @@ function InputBox() {
 }
 function InputBox2() {
   const [val, setVal] = useState2("v0");
+  const [focused, setFocused] = useState2(false);
   return _jsxs("div", {
     style: {
       margin: "10px",
       color: "#999"
     },
-    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), "focused: true", _jsx("br", {}), _jsx(Component, {
+    children: ["\u5F53\u524D\u503C: ", val, _jsx("br", {}), "focused: ", String(focused), _jsx("br", {}), _jsx(Component, {
       type: "number",
       value: val,
       onInput: (v) => setVal(v),
-      focused: true
+      focused,
+      onBlur: (v) => {
+        setFocused(false);
+      },
+      onFocus: (e) => {
+        setFocused(true);
+      }
     })]
   });
 }
@@ -1135,7 +1171,6 @@ function InputBoxWithPath() {
       "value-path": ["payload", "name"],
       value: val,
       onInput: (v) => {
-        console.log("v: ", v);
         setVal(v);
       }
     })]

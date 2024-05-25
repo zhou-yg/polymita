@@ -950,11 +950,11 @@ var require_baseGet = __commonJS({
 var require_get = __commonJS({
   "../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js"(exports, module) {
     var baseGet = require_baseGet();
-    function get2(object, path, defaultValue) {
+    function get3(object, path, defaultValue) {
       var result = object == null ? void 0 : baseGet(object, path);
       return result === void 0 ? defaultValue : result;
     }
-    module.exports = get2;
+    module.exports = get3;
   }
 });
 
@@ -1135,6 +1135,7 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 var import_set = __toESM(require_set());
+var import_get = __toESM(require_get());
 import { useEffect, useState } from "react";
 import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
@@ -1162,6 +1163,8 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic5 = useLogic();
+  const value = props["value-path"] ? (0, import_get.default)(logic5.value, props["value-path"]) : logic5.value;
+  console.log("logic.value: ", logic5.value, value);
   return /* @__PURE__ */ jsx(
     "inputBox",
     {
@@ -1179,17 +1182,15 @@ var layout = (props) => {
           onBlur: logic5.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic5.value,
-          "value-path": props["value-path"],
+          value,
           onChange: (e) => {
             if (props["value-path"]) {
-              logic5.setValue((prev) => {
-                return (0, import_set.default)(prev, props["value-path"], e.target.value);
-              });
+              const r = (0, import_set.default)(logic5.value, props["value-path"], e.target.value);
+              props.onInput(r);
             } else {
               logic5.setValue(e.target.value);
+              props.onInput(e.target.value);
             }
-            props.onInput(e.target.value);
           }
         }
       )
@@ -1335,7 +1336,7 @@ var styleRules2 = (props) => {
 
 // components/select/index.tsx
 var import_set2 = __toESM(require_set());
-var import_get = __toESM(require_get());
+var import_get2 = __toESM(require_get());
 import { useMemo, useState as useState3 } from "react";
 import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name = "Select";
@@ -1366,7 +1367,7 @@ var logic4 = (props) => {
     (_a = props.onChange) == null ? void 0 : _a.call(props, current);
   };
   const currentKey = useMemo(() => {
-    return (0, import_get.default)(current, props["value-path"]);
+    return (0, import_get2.default)(current, props["value-path"]);
   }, [current]);
   return {
     currentKey,
@@ -1432,7 +1433,6 @@ function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
     const content = render(p);
-    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", width: "50%", display: "block" } },

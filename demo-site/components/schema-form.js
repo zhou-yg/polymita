@@ -929,6 +929,35 @@ var require_set = __commonJS({
   }
 });
 
+// ../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js
+var require_baseGet = __commonJS({
+  "../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js"(exports, module) {
+    var castPath = require_castPath();
+    var toKey = require_toKey();
+    function baseGet(object, path) {
+      path = castPath(path, object);
+      var index = 0, length = path.length;
+      while (object != null && index < length) {
+        object = object[toKey(path[index++])];
+      }
+      return index && index == length ? object : void 0;
+    }
+    module.exports = baseGet;
+  }
+});
+
+// ../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js
+var require_get = __commonJS({
+  "../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js"(exports, module) {
+    var baseGet = require_baseGet();
+    function get2(object, path, defaultValue) {
+      var result = object == null ? void 0 : baseGet(object, path);
+      return result === void 0 ? defaultValue : result;
+    }
+    module.exports = get2;
+  }
+});
+
 // components/schema-form/demo.mdx
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
@@ -1068,6 +1097,7 @@ function strokePatternMatrix(colors2) {
 
 // components/input/index.tsx
 var import_set = __toESM(require_set());
+var import_get = __toESM(require_get());
 import { useEffect, useState } from "react";
 import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
@@ -1095,6 +1125,8 @@ var logic2 = (props) => {
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
+  const value = props["value-path"] ? (0, import_get.default)(logic5.value, props["value-path"]) : logic5.value;
+  console.log("logic.value: ", logic5.value, value);
   return /* @__PURE__ */ jsx2(
     "inputBox",
     {
@@ -1112,17 +1144,15 @@ var layout2 = (props) => {
           onBlur: logic5.onBlur,
           type: props.type,
           disabled: props.disabled,
-          value: logic5.value,
-          "value-path": props["value-path"],
+          value,
           onChange: (e) => {
             if (props["value-path"]) {
-              logic5.setValue((prev) => {
-                return (0, import_set.default)(prev, props["value-path"], e.target.value);
-              });
+              const r = (0, import_set.default)(logic5.value, props["value-path"], e.target.value);
+              props.onInput(r);
             } else {
               logic5.setValue(e.target.value);
+              props.onInput(e.target.value);
             }
-            props.onInput(e.target.value);
           }
         }
       )
@@ -1247,7 +1277,6 @@ function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
     const content = render(p);
-    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", width: "50%", display: "block" } },

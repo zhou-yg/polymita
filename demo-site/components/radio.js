@@ -207,7 +207,6 @@ function RenderToReactWithWrap(module) {
   const render = RenderToReact(module);
   return (p) => {
     const content = render(p);
-    console.log("content: ", content);
     return React.createElement(
       "div",
       { style: { margin: "20px", width: "50%", display: "block" } },

@@ -21,11 +21,11 @@ import Overview from './docs/overview'
 
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import * as MenuModule from '../dist/esm/components/menu'
+import * as MenuModule from './components/menu-component'
 import { RenderToReact } from '../shared/render'
 import { NormalizeProps, SingleFileModule } from '@polymita/renderer'
 
-const Menu = RenderToReact<NormalizeProps<MenuModule.MenuProps>>({
+const Menu = RenderToReact<NormalizeProps<any>>({
   ...MenuModule
 } as unknown as SingleFileModule<any, any, any, any>)
 

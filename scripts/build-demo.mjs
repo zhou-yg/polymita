@@ -4,7 +4,7 @@ import mdx from '@mdx-js/esbuild'
 
 import { existsSync, fstat, readdir, readdirSync, watchFile, writeFileSync } from 'fs'
 
-import { join } from 'path'
+import { join, parse } from 'path'
 // get dirname in mjs
 import { fileURLToPath } from 'url'
 import { spawn } from 'child_process'
@@ -61,11 +61,15 @@ watchFile(demoIndex, (s1, s2) => {
 const files = [
   ...docFiles,
   ...componentFiles,
+  {
+    inputFilePath: join(__dirname, '../components/menu/index.tsx'),
+    outputPath: join(__dirname, '../demo-site/components/menu-component.js')
+  }
 ]
 /**
  * compile mdx to site components
  */
-const arr =  files.map(({
+const arr = files.map(({
   inputFilePath,
   outputPath,
 }) => {
@@ -99,15 +103,12 @@ const arr =  files.map(({
 await Promise.all(arr)
 
 files.map(({
-  file,
-  filePath,
-  demoFilePath,
-  demoOutputPath,
+  inputFilePath,
+  outputPath,
 }) => {
-  if (!existsSync(demoFilePath)) {
-    return
-  }
-  const indexDTS = join(demoOutputDir, `${file}.d.ts`)
+  const { name } = parse(outputPath)
+
+  const indexDTS = join(demoOutputDir, `${name}.d.ts`)
   writeFileSync(indexDTS, `
 declare function export_default(): JSX.Element;
 export { export_default as default }

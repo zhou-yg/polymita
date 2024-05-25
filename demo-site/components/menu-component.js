@@ -22,19 +22,7 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// components/menu/demo.mdx
-import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-
 // components/menu/index.tsx
-var menu_exports = {};
-__export(menu_exports, {
-  designPattern: () => designPattern,
-  layout: () => layout2,
-  logic: () => logic2,
-  meta: () => meta2,
-  propTypes: () => propTypes,
-  styleRules: () => styleRules2
-});
 import { useLogic as useLogic2 } from "@polymita/renderer";
 import { createFunctionComponent } from "@polymita/renderer";
 
@@ -256,85 +244,11 @@ var designPattern = (props) => {
 var styleRules2 = (props) => {
   return [];
 };
-
-// shared/render.ts
-import { createRHRenderer } from "@polymita/renderer";
-import React from "react";
-function RenderToReactWithWrap(module) {
-  const render = RenderToReact(module);
-  return (p) => {
-    const content = render(p);
-    return React.createElement(
-      "div",
-      { style: { margin: "20px", width: "50%", display: "block" } },
-      content
-    );
-  };
-}
-function RenderToReact(module) {
-  const renderer = createRHRenderer(module, {
-    framework: {
-      name: "react",
-      lib: React
-    }
-  });
-  return (p) => {
-    const r = renderer.construct(p);
-    return renderer.render();
-  };
-}
-
-// components/menu/demo.mdx
-import { signal as signal2 } from "@polymita/signal";
-var Component = RenderToReactWithWrap(menu_exports);
-var signal22 = signal2;
-function _createMdxContent(props) {
-  const _components = Object.assign({
-    h1: "h1",
-    p: "p",
-    h2: "h2"
-  }, props.components);
-  return _jsxs(_Fragment, {
-    children: [_jsx(_components.h1, {
-      children: "Menu \u83DC\u5355"
-    }), "\n", _jsx(_components.p, {
-      children: "\u4E3A\u9875\u9762\u548C\u529F\u80FD\u63D0\u4F9B\u5BFC\u822A\u7684\u83DC\u5355\u5217\u8868"
-    }), "\n", _jsx(Component, {
-      items: signal22([{
-        label: "Menu Item One",
-        key: "key1"
-      }, {
-        label: "Menu Item Two",
-        key: "key2"
-      }])
-    }), "\n", _jsx(_components.h2, {
-      children: "\u5D4C\u5957\u5B50\u83DC\u5355"
-    }), "\n", _jsx(Component, {
-      items: [{
-        label: "Menu Item One",
-        key: "key1.1",
-        children: [{
-          label: "Child Item",
-          key: "child1"
-        }]
-      }, {
-        label: "Menu Item Two",
-        key: "key2.2"
-      }]
-    }), "\n", _jsx(_components.p, {
-      children: "\u6700\u591A\u652F\u63012\u5C42\u7684\u5D4C\u5957\u5B50\u83DC\u5355"
-    })]
-  });
-}
-function MDXContent(props = {}) {
-  const { wrapper: MDXLayout } = props.components || {};
-  return MDXLayout ? _jsx(MDXLayout, Object.assign({}, props, {
-    children: _jsx(_createMdxContent, props)
-  })) : _createMdxContent(props);
-}
-var demo_default = MDXContent;
 export {
-  Component,
-  demo_default as default,
-  signal22 as signal2
+  designPattern,
+  layout2 as layout,
+  logic2 as logic,
+  meta2 as meta,
+  propTypes,
+  styleRules2 as styleRules
 };
