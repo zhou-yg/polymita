@@ -20,7 +20,7 @@ __export(tabs_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic2, createFunctionComponent } from "@polymita/renderer";
+import { h as h2, useLogic as useLogic2, createFunctionComponent } from "@polymita/renderer";
 
 // components/tabs/panel.tsx
 var panel_exports = {};
@@ -33,8 +33,7 @@ __export(panel_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { useLogic } from "@polymita/renderer";
-import { jsx } from "@polymita/renderer/jsx-runtime";
+import { h, useLogic } from "@polymita/renderer";
 var name = "TabPanel";
 var meta;
 var propTypes = {};
@@ -44,7 +43,7 @@ var logic = (props) => {
 var layout = (props) => {
   const logic4 = useLogic();
   const { children } = props;
-  return /* @__PURE__ */ jsx("tabPanelContainer", { className: "block", children });
+  return /* @__PURE__ */ h("tabPanelContainer", { className: "block" }, children);
 };
 var styleRules = (props, layout4) => {
   return [];
@@ -72,7 +71,6 @@ var colors = {
 
 // components/tabs/index.tsx
 import { useState } from "react";
-import { jsx as jsx2, jsxs } from "@polymita/renderer/jsx-runtime";
 var name2 = "Tabs";
 var meta2;
 var propTypes2 = {};
@@ -99,7 +97,7 @@ var layout2 = (props) => {
   let panelNodes = children;
   if (panels) {
     panelNodes = tabs.map((tab, index) => {
-      return /* @__PURE__ */ jsx2(TabPanel, { header: tab, children: panels[index] });
+      return /* @__PURE__ */ h2(TabPanel, { header: tab }, panels[index]);
     });
   }
   const visiblePanelNodes = panelNodes == null ? void 0 : panelNodes.map((node) => {
@@ -115,33 +113,27 @@ var layout2 = (props) => {
       return node.props.header;
     });
   }
-  return /* @__PURE__ */ jsxs("tabsContainer", { className: "block ", children: [
-    /* @__PURE__ */ jsxs("tabHeaderBars", { className: "block", children: [
-      headers.map((header) => {
-        const isCurrent = header === activeTab;
-        const style = {
-          color: isCurrent ? colors.primaries[1] : void 0,
-          borderBottom: isCurrent ? `2px solid ${colors.primaries[1]}` : `2px solid transparent`
-        };
-        return /* @__PURE__ */ jsx2(
-          "tabHeader",
-          {
-            className: "inline-block p-2 mr-4 cursor-pointer text-center",
-            style,
-            onClick: () => {
-              logic4.setActiveTab(header);
-            },
-            children: header
-          },
-          header
-        );
-      }),
-      /* @__PURE__ */ jsx2("tabHeaderBarLine", { className: "h-[1px] block bg-slate-200" })
-    ] }),
-    /* @__PURE__ */ jsx2("tabBody", { className: "block", children: visiblePanelNodes == null ? void 0 : visiblePanelNodes.map((item) => {
-      return /* @__PURE__ */ jsx2("tabBodyItem", { if: item.visible, className: "block", children: item.node });
-    }) })
-  ] });
+  return /* @__PURE__ */ h2("tabsContainer", { className: "block " }, /* @__PURE__ */ h2("tabHeaderBars", { className: "block" }, headers.map((header) => {
+    const isCurrent = header === activeTab;
+    const style = {
+      color: isCurrent ? colors.primaries[1] : void 0,
+      borderBottom: isCurrent ? `2px solid ${colors.primaries[1]}` : `2px solid transparent`
+    };
+    return /* @__PURE__ */ h2(
+      "tabHeader",
+      {
+        key: header,
+        className: "inline-block p-2 mr-4 cursor-pointer text-center",
+        style,
+        onClick: () => {
+          logic4.setActiveTab(header);
+        }
+      },
+      header
+    );
+  }), /* @__PURE__ */ h2("tabHeaderBarLine", { className: "h-[1px] block bg-slate-200" })), /* @__PURE__ */ h2("tabBody", { className: "block" }, visiblePanelNodes == null ? void 0 : visiblePanelNodes.map((item) => {
+    return /* @__PURE__ */ h2("tabBodyItem", { if: item.visible, className: "block" }, item.node);
+  })));
 };
 var styleRules2 = (props, layout4) => {
   return [];
@@ -162,8 +154,7 @@ __export(testingTabs_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules3
 });
-import { useLogic as useLogic3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
-import { jsx as jsx3, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
+import { h as h3, useLogic as useLogic3, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 var name3 = "TestingTabs";
 var meta3;
 var propTypes3 = {};
@@ -174,10 +165,7 @@ var Tabs = createFunctionComponent2(tabs_exports);
 var TabPanel2 = createFunctionComponent2(panel_exports);
 var layout3 = (props) => {
   const logic4 = useLogic3();
-  return /* @__PURE__ */ jsx3("tabsContainer", { children: /* @__PURE__ */ jsxs2(Tabs, { children: [
-    /* @__PURE__ */ jsx3(TabPanel2, { header: "tab1", children: "\u5185\u5BB91" }),
-    /* @__PURE__ */ jsx3(TabPanel2, { header: "tab2", children: "\u5185\u5BB92" })
-  ] }) });
+  return /* @__PURE__ */ h3("tabsContainer", null, /* @__PURE__ */ h3(Tabs, null, /* @__PURE__ */ h3(TabPanel2, { header: "tab1" }, "\u5185\u5BB91"), /* @__PURE__ */ h3(TabPanel2, { header: "tab2" }, "\u5185\u5BB92")));
 };
 var styleRules3 = (props, layout4) => {
   return [];

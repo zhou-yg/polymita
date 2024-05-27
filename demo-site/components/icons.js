@@ -12,6 +12,7 @@ var icons_exports = {};
 __export(icons_exports, {
   layout: () => layout
 });
+import { h as h14 } from "@polymita/renderer";
 
 // ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/AccountBookFilled.js
 var AccountBookFilled = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zM648.3 426.8l-87.7 161.1h45.7c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4v29.7h63.4c5.5 0 10 4.5 10 10v21.3c0 5.5-4.5 10-10 10h-63.4V752c0 5.5-4.5 10-10 10h-41.3c-5.5 0-10-4.5-10-10v-51.8h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h63.1v-29.7h-63.1c-5.5 0-10-4.5-10-10v-21.3c0-5.5 4.5-10 10-10h45.2l-88-161.1c-2.6-4.8-.9-10.9 4-13.6 1.5-.8 3.1-1.2 4.8-1.2h46c3.8 0 7.2 2.1 8.9 5.5l72.9 144.3 73.2-144.3a10 10 0 018.9-5.5h45c5.5 0 10 4.5 10 10 .1 1.7-.3 3.3-1.1 4.8z" } }] }, "name": "account-book", "theme": "filled" };
@@ -605,67 +606,13 @@ var Icon13 = createFunctionComponent13({
 var plus_default = Icon13;
 
 // components/icons/index.tsx
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var layout = (props) => {
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h14(
     "iconsBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsxs("row", { className: "flex gap-2 flex-wrap", style: { width: "400px" }, children: [
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(account_book_default, { size: 24, color: "blue", type: "outlined" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "AccountBookFilled" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(loading_default, { size: 24, color: "black", className: "animate-spin" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "LoadingIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(loading3_quarters_default, { size: 24, color: "black", className: "animate-spin" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "Loading3Icon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(close_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CloseIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(close_square_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CloseSquareIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(close_circle_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CloseCircleIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(check_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CheckIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(check_circle_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CheckCircleIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(check_square_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "CheckSquareIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(reload_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "ReloadIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(plus_circle_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusCircleIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(plus_square_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusSquareIcon" })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "m-2 flex flex-col align-center items-center", children: [
-          /* @__PURE__ */ jsx(plus_default, { size: 24, color: "black" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1", children: "PlusIcon" })
-        ] })
-      ] })
-    }
+      className: "block"
+    },
+    /* @__PURE__ */ h14("row", { className: "flex gap-2 flex-wrap", style: { width: "400px" } }, /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(account_book_default, { size: 24, color: "blue", type: "outlined" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "AccountBookFilled")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(loading_default, { size: 24, color: "black", className: "animate-spin" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "LoadingIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(loading3_quarters_default, { size: 24, color: "black", className: "animate-spin" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "Loading3Icon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(close_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CloseIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(close_square_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CloseSquareIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(close_circle_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CloseCircleIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(check_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CheckIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(check_circle_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CheckCircleIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(check_square_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "CheckSquareIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(reload_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "ReloadIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(plus_circle_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "PlusCircleIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(plus_square_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "PlusSquareIcon")), /* @__PURE__ */ h14("div", { className: "m-2 flex flex-col align-center items-center" }, /* @__PURE__ */ h14(plus_default, { size: 24, color: "black" }), /* @__PURE__ */ h14("p", { className: "mt-1" }, "PlusIcon")))
   );
 };
 

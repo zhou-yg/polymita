@@ -1,5 +1,6 @@
 import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic, VirtualLayoutJSON } from '@polymita/renderer';
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
+import '@polymita/renderer/jsx-runtime'
 import CheckIcon from '../../icons/check'
 import { useState } from 'react';
 
@@ -52,6 +53,13 @@ export type CheckboxLayout = {
     }
   ]
 }
+const XX =() => {
+  return <>{h('div', {}, 123)}</>
+}
+const XX2 =() => {
+  return <div>123</div>
+}
+
 export const layout = (props: CheckboxProps): VirtualLayoutJSON => {
   const logic = useLogic<LogicReturn>()
 
@@ -70,7 +78,9 @@ export const layout = (props: CheckboxProps): VirtualLayoutJSON => {
         <span
           is-text selected={logic.value} disabled={props.disabled}
           className="relative z-10 w-full h-full flex items-center justify-center" >
-          {logic.value ? <CheckIcon size={12} /> : ''}
+          {logic.value ? <CheckIcon key={12} size={12} /> : ''}
+          <XX />
+          <XX2 />
         </span>
        </checkBox>
        <checkBoxLabel className="select-none">

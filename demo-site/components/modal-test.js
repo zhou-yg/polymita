@@ -967,7 +967,7 @@ __export(modal_test_exports, {
   logic: () => logic4,
   styleRules: () => styleRules3
 });
-import { createFunctionComponent as createFunctionComponent3, useLogic as useLogic3 } from "@polymita/renderer";
+import { createFunctionComponent as createFunctionComponent3, h as h5, useLogic as useLogic3 } from "@polymita/renderer";
 
 // components/button/index.tsx
 var button_exports = {};
@@ -980,6 +980,7 @@ __export(button_exports, {
 });
 import {
   ACTIVE,
+  h,
   HOVER,
   useLayout,
   useLogic
@@ -1086,7 +1087,6 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/button/index.tsx
-import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var logic = (props) => {
   return {
@@ -1095,7 +1095,7 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h(
     "buttonBox",
     {
       className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
@@ -1109,15 +1109,15 @@ var layout = (props) => {
         if (props.disabled)
           return;
         (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+      }
+    },
+    /* @__PURE__ */ h(
+      "span",
+      {
+        className: "block select-none"
       },
-      children: /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: "block select-none",
-          children: props.children
-        }
-      )
-    }
+      props.children
+    )
   );
 };
 var designPatterns = (props) => {
@@ -1177,7 +1177,7 @@ __export(modal_exports, {
   logic: () => logic2,
   styleRules: () => styleRules2
 });
-import { createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
+import { createFunctionComponent as createFunctionComponent2, h as h3 } from "@polymita/renderer";
 
 // ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseOutlined.js
 var CloseOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z" } }] }, "name": "close", "theme": "outlined" };
@@ -1255,47 +1255,36 @@ var Icon = createFunctionComponent({
 var close_default = Icon;
 
 // components/modal/index.tsx
-import { jsx as jsx2, jsxs } from "@polymita/renderer/jsx-runtime";
 var config = () => ({});
 var logic2 = (props) => {
   return {};
 };
 var Button = createFunctionComponent2(button_exports);
 var layout2 = (props) => {
-  return /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ h3(
     "modalBox",
     {
-      className: "block fixed z-50 left-0 top-0 w-full h-full",
-      children: [
-        /* @__PURE__ */ jsx2("modalMask", { onClick: props.onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
-        /* @__PURE__ */ jsxs(
-          "modalBody",
-          {
-            className: "block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-            style: { width: "520px" },
-            children: [
-              /* @__PURE__ */ jsx2("closeBox", { className: "block absolute top-4 right-4 cursor-pointer", onClick: props.onClose, children: /* @__PURE__ */ jsx2(close_default, { color: "rgba(0,0,0,.45)" }) }),
-              /* @__PURE__ */ jsxs("modalContent", { className: "block p-4", style: { minHeight: "40px" }, children: [
-                props.title ? /* @__PURE__ */ jsx2("contentTitle", { className: "block mb-4 font-medium", children: props.title }) : "",
-                props.children
-              ] }),
-              /* @__PURE__ */ jsxs("footer", { className: "flex gap-2 p-4 flex-row-reverse", children: [
-                /* @__PURE__ */ jsx2(Button, { type: "primary", onClick: (e) => {
-                  var _a, _b;
-                  (_a = props.onOk) == null ? void 0 : _a.call(props, e);
-                  (_b = props.onClose) == null ? void 0 : _b.call(props, e);
-                }, children: "\u786E\u5B9A" }),
-                /* @__PURE__ */ jsx2(Button, { onClick: (e) => {
-                  var _a, _b;
-                  (_a = props.onCancel) == null ? void 0 : _a.call(props, e);
-                  (_b = props.onClose) == null ? void 0 : _b.call(props, e);
-                }, children: "\u53D6\u6D88" })
-              ] })
-            ]
-          }
-        )
-      ]
-    }
+      className: "block fixed z-50 left-0 top-0 w-full h-full"
+    },
+    /* @__PURE__ */ h3("modalMask", { onClick: props.onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
+    /* @__PURE__ */ h3(
+      "modalBody",
+      {
+        className: "block relative rounded-lg bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+        style: { width: "520px" }
+      },
+      /* @__PURE__ */ h3("closeBox", { className: "block absolute top-4 right-4 cursor-pointer", onClick: props.onClose }, /* @__PURE__ */ h3(close_default, { color: "rgba(0,0,0,.45)" })),
+      /* @__PURE__ */ h3("modalContent", { className: "block p-4", style: { minHeight: "40px" } }, props.title ? /* @__PURE__ */ h3("contentTitle", { className: "block mb-4 font-medium" }, props.title) : "", props.children),
+      /* @__PURE__ */ h3("footer", { className: "flex gap-2 p-4 flex-row-reverse" }, /* @__PURE__ */ h3(Button, { type: "primary", onClick: (e) => {
+        var _a, _b;
+        (_a = props.onOk) == null ? void 0 : _a.call(props, e);
+        (_b = props.onClose) == null ? void 0 : _b.call(props, e);
+      } }, "\u786E\u5B9A"), /* @__PURE__ */ h3(Button, { onClick: (e) => {
+        var _a, _b;
+        (_a = props.onCancel) == null ? void 0 : _a.call(props, e);
+        (_b = props.onClose) == null ? void 0 : _b.call(props, e);
+      } }, "\u53D6\u6D88"))
+    )
   );
 };
 var designPattern = (props) => {
@@ -1313,10 +1302,9 @@ __export(input_exports, {
   meta: () => meta2,
   propTypes: () => propTypes
 });
-import { ACTIVE as ACTIVE2, FOCUS, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
+import { ACTIVE as ACTIVE2, FOCUS, h as h4, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { jsx as jsx3 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes = {};
 var config2 = () => ({});
@@ -1325,35 +1313,35 @@ var logic3 = (props) => {
 var layout3 = (props) => {
   const logic5 = useLogic2();
   const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ h4(
     "inputBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsx3(
-        "input",
-        {
-          placeholder: props.placeholder,
-          "is-container": true,
-          "has-decoration": true,
-          "is-text": true,
-          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          autoFocus: props.focused,
-          onFocus: props.onFocus,
-          onBlur: props.onBlur,
-          type: props.type,
-          disabled: props.disabled,
-          value,
-          onChange: (e) => {
-            if (props["value-path"]) {
-              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
-              props.onInput(__spreadValues({}, r));
-            } else {
-              props.onInput(e.target.value);
-            }
+      className: "block"
+    },
+    /* @__PURE__ */ h4(
+      "input",
+      {
+        placeholder: props.placeholder,
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: props.onFocus,
+        onBlur: props.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value,
+        onChange: (e) => {
+          if (props["value-path"]) {
+            const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+            props.onInput(__spreadValues({}, r));
+          } else {
+            props.onInput(e.target.value);
           }
         }
-      )
-    }
+      }
+    )
   );
 };
 var designPatterns2 = (props) => {
@@ -1368,7 +1356,6 @@ var designPatterns2 = (props) => {
 
 // components/modal-test/index.tsx
 import { useState } from "react";
-import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var config3 = () => ({});
 var logic4 = (props) => {
   const [visible, setVisible] = useState(false);
@@ -1385,20 +1372,9 @@ var Modal = createFunctionComponent3(modal_exports);
 var Input = createFunctionComponent3(input_exports);
 var layout4 = (props) => {
   const { visible, name, setVisible, setName } = useLogic3();
-  return /* @__PURE__ */ jsxs2("modalTest", { children: [
-    /* @__PURE__ */ jsxs2(Button2, { onClick: () => {
-      setVisible(true);
-    }, children: [
-      "\u663E\u793A ",
-      name
-    ] }),
-    /* @__PURE__ */ jsx4("input", { value: name }),
-    /* @__PURE__ */ jsx4(Input, { value: name, onInput: (v) => setName(v) }),
-    visible ? /* @__PURE__ */ jsx4(Modal, { title: "\u6807\u9898", onClose: () => setVisible(false), children: /* @__PURE__ */ jsxs2("p", { children: [
-      "name:",
-      /* @__PURE__ */ jsx4(Input, { value: name, onInput: (v) => setName(v) }, "name")
-    ] }) }) : ""
-  ] });
+  return /* @__PURE__ */ h5("modalTest", null, /* @__PURE__ */ h5(Button2, { onClick: () => {
+    setVisible(true);
+  } }, "\u663E\u793A ", name), /* @__PURE__ */ h5("input", { value: name }), /* @__PURE__ */ h5(Input, { value: name, onInput: (v) => setName(v) }), visible ? /* @__PURE__ */ h5(Modal, { title: "\u6807\u9898", onClose: () => setVisible(false) }, /* @__PURE__ */ h5("p", null, "name:", /* @__PURE__ */ h5(Input, { key: "name", value: name, onInput: (v) => setName(v) }))) : "");
 };
 var designPattern2 = (props) => {
 };

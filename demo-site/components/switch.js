@@ -970,6 +970,7 @@ __export(switch_exports, {
   styleRules: () => styleRules
 });
 import {
+  h,
   useLogic,
   ACTIVE,
   HOVER
@@ -1037,7 +1038,6 @@ function blockPatternMatrix(colors2) {
 // components/switch/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var logic = (props) => {
@@ -1046,7 +1046,7 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const valuePath = props["value-path"];
-  return /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ h(
     "switchContainer",
     {
       "is-container": true,
@@ -1066,45 +1066,40 @@ var layout = (props) => {
         } else {
           (_b = props.onChange) == null ? void 0 : _b.call(props, newValue);
         }
+      }
+    },
+    /* @__PURE__ */ h(
+      "switchHandle",
+      {
+        "is-fillText": true,
+        style: { width: "18px", height: "18px", top: "2px", insetInlineStart: "2px" },
+        className: "rounded-full absolute"
+      }
+    ),
+    /* @__PURE__ */ h("contentBox", { className: "block h-full pointer-events-none" }, /* @__PURE__ */ h(
+      "checkedContent",
+      {
+        className: "block h-full",
+        style: {
+          marginInlineStart: "9px",
+          marginInlineEnd: "24px"
+        },
+        "is-text": true
       },
-      children: [
-        /* @__PURE__ */ jsx(
-          "switchHandle",
-          {
-            "is-fillText": true,
-            style: { width: "18px", height: "18px", top: "2px", insetInlineStart: "2px" },
-            className: "rounded-full absolute"
-          }
-        ),
-        /* @__PURE__ */ jsxs("contentBox", { className: "block h-full pointer-events-none", children: [
-          /* @__PURE__ */ jsx(
-            "checkedContent",
-            {
-              className: "block h-full",
-              style: {
-                marginInlineStart: "9px",
-                marginInlineEnd: "24px"
-              },
-              "is-text": true,
-              children: props.checkedContent
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "uncheckedContent",
-            {
-              className: "block h-full",
-              style: {
-                marginTop: "-22px",
-                marginInlineStart: "24px",
-                marginInlineEnd: "9px"
-              },
-              "is-text": true,
-              children: props.uncheckedContent
-            }
-          )
-        ] })
-      ]
-    }
+      props.checkedContent
+    ), /* @__PURE__ */ h(
+      "uncheckedContent",
+      {
+        className: "block h-full",
+        style: {
+          marginTop: "-22px",
+          marginInlineStart: "24px",
+          marginInlineEnd: "9px"
+        },
+        "is-text": true
+      },
+      props.uncheckedContent
+    ))
   );
 };
 var styleRules = (props, layout2) => {

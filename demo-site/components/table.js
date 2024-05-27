@@ -19,8 +19,7 @@ __export(table_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { useLogic } from "@polymita/renderer";
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
+import { h, useLogic } from "@polymita/renderer";
 var name = "Table";
 var meta;
 var propTypes = {};
@@ -30,12 +29,9 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const { rowKey, columns, dataSource } = props;
-  return /* @__PURE__ */ jsx("tableContainer", { className: "block", children: /* @__PURE__ */ jsxs("table", { className: "w-full", children: [
-    /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { children: columns.map((column) => /* @__PURE__ */ jsx("th", { className: "border-b", children: column.title }, column.title)) }) }),
-    /* @__PURE__ */ jsx("tbody", { children: dataSource.map((item, index) => {
-      return /* @__PURE__ */ jsx("tr", { className: "border-b", children: columns.map((column) => /* @__PURE__ */ jsx("td", { className: "border-b", children: item.render ? item.render(item[column.dataIndex]) : item[column.dataIndex] }, item[rowKey] + column.title)) }, index + item[rowKey]);
-    }) })
-  ] }) });
+  return /* @__PURE__ */ h("tableContainer", { className: "block" }, /* @__PURE__ */ h("table", { className: "w-full" }, /* @__PURE__ */ h("thead", null, /* @__PURE__ */ h("tr", null, columns.map((column) => /* @__PURE__ */ h("th", { key: column.title, className: "border-b" }, column.title)))), /* @__PURE__ */ h("tbody", null, dataSource.map((item, index) => {
+    return /* @__PURE__ */ h("tr", { key: index + item[rowKey], className: "border-b" }, columns.map((column) => /* @__PURE__ */ h("td", { key: item[rowKey] + column.title, className: "border-b" }, item.render ? item.render(item[column.dataIndex]) : item[column.dataIndex])));
+  }))));
 };
 var styleRules = (props, layout2) => {
   return [];

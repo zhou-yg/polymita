@@ -973,7 +973,7 @@ __export(select_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules3
 });
-import { useLogic as useLogic4, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
+import { h as h4, useLogic as useLogic4, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 
 // components/input/index.tsx
 var input_exports = {};
@@ -985,7 +985,7 @@ __export(input_exports, {
   meta: () => meta,
   propTypes: () => propTypes
 });
-import { ACTIVE, FOCUS, HOVER, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, h, HOVER, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -1136,7 +1136,6 @@ function strokePatternMatrix(colors2) {
 // components/input/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var config = () => ({});
@@ -1145,35 +1144,35 @@ var logic = (props) => {
 var layout = (props) => {
   const logic5 = useLogic();
   const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h(
     "inputBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsx(
-        "input",
-        {
-          placeholder: props.placeholder,
-          "is-container": true,
-          "has-decoration": true,
-          "is-text": true,
-          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          autoFocus: props.focused,
-          onFocus: props.onFocus,
-          onBlur: props.onBlur,
-          type: props.type,
-          disabled: props.disabled,
-          value,
-          onChange: (e) => {
-            if (props["value-path"]) {
-              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
-              props.onInput(__spreadValues({}, r));
-            } else {
-              props.onInput(e.target.value);
-            }
+      className: "block"
+    },
+    /* @__PURE__ */ h(
+      "input",
+      {
+        placeholder: props.placeholder,
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: props.onFocus,
+        onBlur: props.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value,
+        onChange: (e) => {
+          if (props["value-path"]) {
+            const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+            props.onInput(__spreadValues({}, r));
+          } else {
+            props.onInput(e.target.value);
           }
         }
-      )
-    }
+      }
+    )
   );
 };
 var designPatterns = (props) => {
@@ -1196,7 +1195,7 @@ __export(menu_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic3 } from "@polymita/renderer";
+import { h as h3, useLogic as useLogic3 } from "@polymita/renderer";
 import { createFunctionComponent } from "@polymita/renderer";
 
 // components/menu-item/index.tsx
@@ -1208,24 +1207,23 @@ __export(menu_item_exports, {
   meta: () => meta2,
   styleRules: () => styleRules
 });
-import { ACTIVE as ACTIVE2, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
-import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
+import { ACTIVE as ACTIVE2, h as h2, HOVER as HOVER2, useLogic as useLogic2 } from "@polymita/renderer";
 var meta2;
 var logic2 = (props) => {
   return {};
 };
 var layout2 = (props) => {
   const logic5 = useLogic2();
-  return /* @__PURE__ */ jsx2(
+  return /* @__PURE__ */ h2(
     "menuItem",
     {
       "is-container": true,
       "is-text": true,
       selected: props.selected,
       disabled: props.disabled,
-      className: "block p-2 px-3 rounded-lg",
-      children: /* @__PURE__ */ jsx2("span", { children: props.label })
-    }
+      className: "block p-2 px-3 rounded-lg"
+    },
+    /* @__PURE__ */ h2("span", null, props.label)
   );
 };
 var designPatterns2 = (props) => {
@@ -1244,7 +1242,6 @@ var styleRules = (props) => {
 
 // components/menu/index.tsx
 import { useState } from "react";
-import { jsx as jsx3, jsxs } from "@polymita/renderer/jsx-runtime";
 var meta3;
 var propTypes2 = {};
 var logic3 = (props) => {
@@ -1274,9 +1271,9 @@ var logic3 = (props) => {
 var MenuItemFunc = createFunctionComponent(menu_item_exports);
 var layout3 = (props) => {
   const logic5 = useLogic3();
-  return /* @__PURE__ */ jsx3("menuBox", { className: "block border-slate-300", children: /* @__PURE__ */ jsx3("ul", { className: "block", style: { margin: 0, padding: 0 }, children: logic5.items.map((item) => {
+  return /* @__PURE__ */ h3("menuBox", { className: "block border-slate-300" }, /* @__PURE__ */ h3("ul", { className: "block", style: { margin: 0, padding: 0 } }, logic5.items.map((item) => {
     const isSelected = item.key === logic5.currentKey;
-    let element = /* @__PURE__ */ jsx3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
+    let element = /* @__PURE__ */ h3(MenuItemFunc, __spreadValues({}, __spreadProps(__spreadValues({}, item), {
       hasItemChildren: !!item.children,
       selected: isSelected,
       override: {
@@ -1285,26 +1282,23 @@ var layout3 = (props) => {
           if (props2.hasItemChildren) {
             jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} flex items-center`;
             jsonTree.menuItem.span.props.className = `${jsonTree.menuItem.span.props.className} flex-1`;
-            (_b = (_a = jsonTree.menuItem).addChild) == null ? void 0 : _b.call(_a, /* @__PURE__ */ jsx3("spanIcon", { "is-text": true, className: "mx-2", children: ">" }, "tag"));
+            (_b = (_a = jsonTree.menuItem).addChild) == null ? void 0 : _b.call(_a, /* @__PURE__ */ h3("spanIcon", { key: "tag", "is-text": true, className: "mx-2" }, ">"));
           }
           return [];
         }
       }
     })));
-    return /* @__PURE__ */ jsxs("menuItemBox", { "data-name": "menu-item-box", children: [
-      /* @__PURE__ */ jsx3("div", { className: "p-1", onMouseDown: () => {
-        logic5.select(item);
-      }, children: element }),
-      item.children && /* @__PURE__ */ jsx3("subMenuItemBox", { className: "block p-1 bg-slate-200", children: item.children.map((subItem) => {
-        const isSubSelected = subItem.selected;
-        return /* @__PURE__ */ jsx3("subMenuItem", { className: "block m-1", onClick: () => logic5.select(subItem), children: /* @__PURE__ */ jsx3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
-          layout(props2, jsonTree) {
-            jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
-          }
-        } })) });
-      }) })
-    ] }, item.key);
-  }) }) });
+    return /* @__PURE__ */ h3("menuItemBox", { "data-name": "menu-item-box", key: item.key }, /* @__PURE__ */ h3("div", { className: "p-1", onMouseDown: () => {
+      logic5.select(item);
+    } }, element), item.children && /* @__PURE__ */ h3("subMenuItemBox", { className: "block p-1 bg-slate-200" }, item.children.map((subItem) => {
+      const isSubSelected = subItem.selected;
+      return /* @__PURE__ */ h3("subMenuItem", { className: "block m-1", onClick: () => logic5.select(subItem) }, /* @__PURE__ */ h3(MenuItemFunc, __spreadProps(__spreadValues({}, subItem), { selected: isSubSelected, override: {
+        layout(props2, jsonTree) {
+          jsonTree.menuItem.props.className = `${jsonTree.menuItem.props.className} pl-8`;
+        }
+      } })));
+    })));
+  })));
 };
 var designPattern = (props) => {
   const pattern = blockPattern;
@@ -1317,7 +1311,6 @@ var styleRules2 = (props) => {
 var import_set2 = __toESM(require_set());
 var import_get2 = __toESM(require_get());
 import { useMemo, useState as useState2 } from "react";
-import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name = "Select";
 var meta4;
 var propTypes3 = {};
@@ -1364,32 +1357,30 @@ var layout4 = (props) => {
     setFocused,
     currentKey
   } = useLogic4();
-  return /* @__PURE__ */ jsxs2(
+  return /* @__PURE__ */ h4(
     "selectContainer",
     {
-      className: "block relative rounded",
-      children: [
-        /* @__PURE__ */ jsx4(
-          Input,
-          {
-            disabled: props.disabled,
-            value: props.value,
-            onFocus: () => setFocused(true),
-            onBlur: () => setFocused(false),
-            "value-path": props["value-path"]
-          }
-        ),
-        /* @__PURE__ */ jsx4(
-          "optionList",
-          {
-            if: optionItems.length > 0 && focused,
-            className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
-            style: { top: "40px" },
-            children: /* @__PURE__ */ jsx4(Menu, { current: currentKey, items: optionItems, onClick: selectItem })
-          }
-        )
-      ]
-    }
+      className: "block relative rounded"
+    },
+    /* @__PURE__ */ h4(
+      Input,
+      {
+        disabled: props.disabled,
+        value: props.value,
+        onFocus: () => setFocused(true),
+        onBlur: () => setFocused(false),
+        "value-path": props["value-path"]
+      }
+    ),
+    /* @__PURE__ */ h4(
+      "optionList",
+      {
+        if: optionItems.length > 0 && focused,
+        className: "block border absolute z-10 left-0 shadow rounded p-1 w-full bg-white",
+        style: { top: "40px" }
+      },
+      /* @__PURE__ */ h4(Menu, { current: currentKey, items: optionItems, onClick: selectItem })
+    )
   );
 };
 var styleRules3 = (props, layout5) => {

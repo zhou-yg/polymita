@@ -972,7 +972,7 @@ __export(index_test_exports, {
   propTypes: () => propTypes4,
   styleRules: () => styleRules3
 });
-import { useLogic as useLogic4, createComposeComponent as createComposeComponent2, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
+import { h as h4, useLogic as useLogic4, createComposeComponent as createComposeComponent2, createFunctionComponent as createFunctionComponent2 } from "@polymita/renderer";
 
 // components/schema-form/index.tsx
 var schema_form_exports = {};
@@ -985,7 +985,7 @@ __export(schema_form_exports, {
   propTypes: () => propTypes3,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic3, createFunctionComponent, createComposeComponent } from "@polymita/renderer";
+import { h as h3, useLogic as useLogic3, createFunctionComponent, createComposeComponent } from "@polymita/renderer";
 
 // components/schema-form/form-item.tsx
 var form_item_exports = {};
@@ -998,8 +998,7 @@ __export(form_item_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { useLogic } from "@polymita/renderer";
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
+import { h, useLogic } from "@polymita/renderer";
 var name = "FormItem";
 var meta;
 var propTypes = {};
@@ -1008,13 +1007,7 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const { name: name4, label } = props;
-  return /* @__PURE__ */ jsxs("formItemContainer", { className: "flex items-center mb-4", children: [
-    /* @__PURE__ */ jsxs("formItemLabel", { className: "flex-none text-right mr-2", style: { width: props.labelWidth }, children: [
-      label,
-      label ? /* @__PURE__ */ jsx("formItemLabelColon", { className: "m-1", children: ":" }) : null
-    ] }),
-    /* @__PURE__ */ jsx("formItemContent", { className: "flex-1", style: { width: props.contentWidth }, children: props.children })
-  ] });
+  return /* @__PURE__ */ h("formItemContainer", { className: "flex items-center mb-4" }, /* @__PURE__ */ h("formItemLabel", { className: "flex-none text-right mr-2", style: { width: props.labelWidth } }, label, label ? /* @__PURE__ */ h("formItemLabelColon", { className: "m-1" }, ":") : null), /* @__PURE__ */ h("formItemContent", { className: "flex-1", style: { width: props.contentWidth } }, props.children));
 };
 var styleRules = (props, layout5) => {
   return [];
@@ -1034,7 +1027,7 @@ __export(input_exports, {
   meta: () => meta2,
   propTypes: () => propTypes2
 });
-import { ACTIVE, FOCUS, HOVER, useLogic as useLogic2 } from "@polymita/renderer";
+import { ACTIVE, FOCUS, h as h2, HOVER, useLogic as useLogic2 } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -1098,7 +1091,6 @@ function strokePatternMatrix(colors2) {
 // components/input/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var propTypes2 = {};
 var config = () => ({});
@@ -1107,35 +1099,35 @@ var logic2 = (props) => {
 var layout2 = (props) => {
   const logic5 = useLogic2();
   const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
-  return /* @__PURE__ */ jsx2(
+  return /* @__PURE__ */ h2(
     "inputBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsx2(
-        "input",
-        {
-          placeholder: props.placeholder,
-          "is-container": true,
-          "has-decoration": true,
-          "is-text": true,
-          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          autoFocus: props.focused,
-          onFocus: props.onFocus,
-          onBlur: props.onBlur,
-          type: props.type,
-          disabled: props.disabled,
-          value,
-          onChange: (e) => {
-            if (props["value-path"]) {
-              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
-              props.onInput(__spreadValues({}, r));
-            } else {
-              props.onInput(e.target.value);
-            }
+      className: "block"
+    },
+    /* @__PURE__ */ h2(
+      "input",
+      {
+        placeholder: props.placeholder,
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: props.onFocus,
+        onBlur: props.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value,
+        onChange: (e) => {
+          if (props["value-path"]) {
+            const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+            props.onInput(__spreadValues({}, r));
+          } else {
+            props.onInput(e.target.value);
           }
         }
-      )
-    }
+      }
+    )
   );
 };
 var designPatterns = (props) => {
@@ -1149,7 +1141,6 @@ var designPatterns = (props) => {
 };
 
 // components/schema-form/index.tsx
-import { jsx as jsx3 } from "@polymita/renderer/jsx-runtime";
 var name2 = "Form";
 var meta3;
 var propTypes3 = {};
@@ -1162,13 +1153,13 @@ function generateForm(form, onChange) {
     switch (item.type) {
       case "input":
       default:
-        targetItem = /* @__PURE__ */ jsx3(InputCpt, { value: item.value, onInput: (v) => {
+        targetItem = /* @__PURE__ */ h3(InputCpt, { value: item.value, onInput: (v) => {
           if (item.name) {
             onChange == null ? void 0 : onChange(item.name, v);
           }
         } });
     }
-    return /* @__PURE__ */ jsx3(FormItemCpt, { label: item.label || item.name, children: targetItem }, item.name + item.label + item.type);
+    return /* @__PURE__ */ h3(FormItemCpt, { key: item.name + item.label + item.type, label: item.label || item.name }, targetItem);
   });
 }
 var FormItemCpt = createComposeComponent(form_item_exports);
@@ -1176,7 +1167,7 @@ var InputCpt = createFunctionComponent(input_exports);
 var layout3 = (props) => {
   const { form } = props;
   const targetForm = form ? generateForm(form, props.onChange) : "";
-  return /* @__PURE__ */ jsx3("formContainer", { className: "block", children: targetForm });
+  return /* @__PURE__ */ h3("formContainer", { className: "block" }, targetForm);
 };
 var styleRules2 = (props, layout5) => {
   return [];
@@ -1188,7 +1179,6 @@ var designPattern2 = (props, layout5) => {
 
 // components/schema-form/index-test.tsx
 import { useState } from "react";
-import { jsx as jsx4, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name3 = "FormTest";
 var meta4;
 var propTypes4 = {};
@@ -1207,44 +1197,32 @@ var FormItemCpt2 = createComposeComponent2(form_item_exports);
 var InputCpt2 = createFunctionComponent2(input_exports);
 var layout4 = (props) => {
   const logic5 = useLogic4();
-  return /* @__PURE__ */ jsxs2("formTestContainer", { children: [
-    /* @__PURE__ */ jsxs2("formResult", { children: [
-      "name: ",
-      logic5.form.name,
-      " ",
-      /* @__PURE__ */ jsx4("br", {}),
-      "password: ",
-      logic5.form.password
-    ] }),
-    /* @__PURE__ */ jsx4("br", {}),
-    /* @__PURE__ */ jsx4("br", {}),
-    /* @__PURE__ */ jsx4(
-      FormCpt,
-      {
-        layout: { labelWidth: "6em" },
-        onChange: (k, val) => {
-          console.log("k, val: ", k, val);
-          logic5.setForm((pre) => {
-            return __spreadProps(__spreadValues({}, pre), {
-              [k]: val
-            });
+  return /* @__PURE__ */ h4("formTestContainer", null, /* @__PURE__ */ h4("formResult", null, "name: ", logic5.form.name, " ", /* @__PURE__ */ h4("br", null), "password: ", logic5.form.password), /* @__PURE__ */ h4("br", null), /* @__PURE__ */ h4("br", null), /* @__PURE__ */ h4(
+    FormCpt,
+    {
+      layout: { labelWidth: "6em" },
+      onChange: (k, val) => {
+        console.log("k, val: ", k, val);
+        logic5.setForm((pre) => {
+          return __spreadProps(__spreadValues({}, pre), {
+            [k]: val
           });
+        });
+      },
+      form: [
+        {
+          label: "name",
+          name: "name",
+          value: logic5.form.name
         },
-        form: [
-          {
-            label: "name",
-            name: "name",
-            value: logic5.form.name
-          },
-          {
-            label: "password",
-            name: "password",
-            value: logic5.form.password
-          }
-        ]
-      }
-    )
-  ] });
+        {
+          label: "password",
+          name: "password",
+          value: logic5.form.password
+        }
+      ]
+    }
+  ));
 };
 var styleRules3 = (props, layout5) => {
   return [];

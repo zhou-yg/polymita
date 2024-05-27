@@ -18,7 +18,7 @@ __export(drawer_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { useLogic } from "@polymita/renderer";
+import { h as h2, useLogic } from "@polymita/renderer";
 
 // ../../node_modules/.pnpm/@ant-design+icons-svg@4.2.1/node_modules/@ant-design/icons-svg/es/asn/CloseOutlined.js
 var CloseOutlined = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z" } }] }, "name": "close", "theme": "outlined" };
@@ -96,7 +96,6 @@ var Icon = createFunctionComponent({
 var close_default = Icon;
 
 // components/drawer/index.tsx
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
 var name = "Drawer";
 var meta;
 var propTypes = {};
@@ -106,17 +105,7 @@ var logic = (props) => {
 var layout = (props) => {
   const { title, width = 600, children, onClose, closable, extra } = props;
   const logic3 = useLogic();
-  return /* @__PURE__ */ jsxs("drawerContainer", { className: "flex flex-col fixed left-0 top-0 w-full h-full", children: [
-    /* @__PURE__ */ jsx("drawerMask", { onClick: onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }),
-    /* @__PURE__ */ jsxs("drawerBox", { className: "flex flex-col fixed top-0 right-0 h-full z-10 bg-white", style: { width: `${width}px` }, children: [
-      /* @__PURE__ */ jsxs("drawerHeader", { className: "flex items-center justify-between p-4 border-b relative", children: [
-        /* @__PURE__ */ jsx("drawerTitle", { children: title }),
-        /* @__PURE__ */ jsx("drawerExtra", { className: "flex gap-2 mr-6", children: extra || "" }),
-        closable ? /* @__PURE__ */ jsx("closeBox", { className: "block absolute top-1/2 right-1 -translate-x-1/2 -translate-y-1/2 cursor-pointer", onClick: onClose, children: /* @__PURE__ */ jsx(close_default, { color: "rgba(0,0,0,.45)" }) }) : ""
-      ] }),
-      /* @__PURE__ */ jsx("drawerBody", { className: "flex-1 min-h-0 block overflow-auto p-4", children })
-    ] })
-  ] });
+  return /* @__PURE__ */ h2("drawerContainer", { className: "flex flex-col fixed left-0 top-0 w-full h-full" }, /* @__PURE__ */ h2("drawerMask", { onClick: onClose, className: "fixed top-0 left-0 w-full h-full opacity-70 bg-black" }), /* @__PURE__ */ h2("drawerBox", { className: "flex flex-col fixed top-0 right-0 h-full z-10 bg-white", style: { width: `${width}px` } }, /* @__PURE__ */ h2("drawerHeader", { className: "flex items-center justify-between p-4 border-b relative" }, /* @__PURE__ */ h2("drawerTitle", null, title), /* @__PURE__ */ h2("drawerExtra", { className: "flex gap-2 mr-6" }, extra || ""), closable ? /* @__PURE__ */ h2("closeBox", { className: "block absolute top-1/2 right-1 -translate-x-1/2 -translate-y-1/2 cursor-pointer", onClick: onClose }, /* @__PURE__ */ h2(close_default, { color: "rgba(0,0,0,.45)" })) : ""), /* @__PURE__ */ h2("drawerBody", { className: "flex-1 min-h-0 block overflow-auto p-4" }, children)));
 };
 var styleRules = (props, layout3) => {
   return [];
@@ -137,6 +126,7 @@ __export(Button_exports, {
 });
 import {
   ACTIVE,
+  h as h3,
   HOVER,
   useLayout,
   useLogic as useLogic2
@@ -243,7 +233,6 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/Button/index.tsx
-import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
 var meta2;
 var logic2 = (props) => {
   return {
@@ -252,7 +241,7 @@ var logic2 = (props) => {
 };
 var layout2 = (props) => {
   const logicResult = useLogic2();
-  return /* @__PURE__ */ jsx2(
+  return /* @__PURE__ */ h3(
     "buttonBox",
     {
       className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
@@ -266,15 +255,15 @@ var layout2 = (props) => {
         if (props.disabled)
           return;
         (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+      }
+    },
+    /* @__PURE__ */ h3(
+      "span",
+      {
+        className: "block select-none"
       },
-      children: /* @__PURE__ */ jsx2(
-        "span",
-        {
-          className: "block select-none",
-          children: props.children
-        }
-      )
-    }
+      props.children
+    )
   );
 };
 var designPatterns = (props) => {

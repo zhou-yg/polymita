@@ -18,7 +18,7 @@ __export(textarea_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { ACTIVE, FOCUS, HOVER, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, h, HOVER, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -80,7 +80,6 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/textarea/index.tsx
-import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var config = () => ({});
@@ -88,31 +87,31 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic2 = useLogic();
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h(
     "inputBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsx(
-        "textarea",
-        {
-          placeholder: props.placeholder,
-          "is-container": true,
-          "has-decoration": true,
-          "is-text": true,
-          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          onFocus: props.onFocus,
-          onBlur: props.onBlur,
-          autoFocus: props.focused,
-          rows: props.rows,
-          disabled: props.disabled,
-          value: props.value,
-          onChange: (e) => {
-            props.onInput(e.target.value);
-          },
-          children: props.value
+      className: "block"
+    },
+    /* @__PURE__ */ h(
+      "textarea",
+      {
+        placeholder: props.placeholder,
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+        onFocus: props.onFocus,
+        onBlur: props.onBlur,
+        autoFocus: props.focused,
+        rows: props.rows,
+        disabled: props.disabled,
+        value: props.value,
+        onChange: (e) => {
+          props.onInput(e.target.value);
         }
-      )
-    }
+      },
+      props.value
+    )
   );
 };
 var designPatterns = (props) => {

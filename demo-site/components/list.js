@@ -19,7 +19,7 @@ __export(list_exports, {
   propTypes: () => propTypes2,
   styleRules: () => styleRules2
 });
-import { useLogic as useLogic2, classnames } from "@polymita/renderer";
+import { h as h2, useLogic as useLogic2, classnames } from "@polymita/renderer";
 
 // components/list/item.tsx
 var item_exports = {};
@@ -32,8 +32,7 @@ __export(item_exports, {
   propTypes: () => propTypes,
   styleRules: () => styleRules
 });
-import { useLogic } from "@polymita/renderer";
-import { jsx, jsxs } from "@polymita/renderer/jsx-runtime";
+import { h, useLogic } from "@polymita/renderer";
 var name = "ListItem";
 var meta;
 var propTypes = {};
@@ -42,10 +41,7 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logic3 = useLogic();
-  return /* @__PURE__ */ jsxs("listItemContainer", { className: "flex", children: [
-    /* @__PURE__ */ jsx("listItemContent", { className: "flex-1 min-w-0", children: props.children }),
-    /* @__PURE__ */ jsx("listItemExtra", { if: !!props.extra, className: "flex-none ml-2", children: props.extra })
-  ] });
+  return /* @__PURE__ */ h("listItemContainer", { className: "flex" }, /* @__PURE__ */ h("listItemContent", { className: "flex-1 min-w-0" }, props.children), /* @__PURE__ */ h("listItemExtra", { if: !!props.extra, className: "flex-none ml-2" }, props.extra));
 };
 var styleRules = (props, layout3) => {
   return [];
@@ -56,7 +52,6 @@ var designPattern = (props, layout3) => {
 };
 
 // components/list/index.tsx
-import { jsx as jsx2, jsxs as jsxs2 } from "@polymita/renderer/jsx-runtime";
 var name2 = "List";
 var meta2;
 var propTypes2 = {};
@@ -67,18 +62,15 @@ var layout2 = (props) => {
   const { border = true } = props;
   const logic3 = useLogic2();
   const ds = props.list;
-  return /* @__PURE__ */ jsx2("listContainer", { className: "block", children: ds.map((item, index) => {
+  return /* @__PURE__ */ h2("listContainer", { className: "block" }, ds.map((item, index) => {
     var _a, _b, _c;
     const r = props.render(item, index);
     const key = (_c = (_b = (_a = item == null ? void 0 : item.id) != null ? _a : item == null ? void 0 : item.key) != null ? _b : item == null ? void 0 : item.name) != null ? _c : JSON.stringify(item);
     const cls = classnames("flex items-center mb-1", {
       "border-b": border
     });
-    return /* @__PURE__ */ jsxs2("listItem", { className: cls, children: [
-      /* @__PURE__ */ jsx2("listContent", { className: "flex-1 min-w-0", children: r }),
-      /* @__PURE__ */ jsx2("listExtra", { if: !!props.extra, className: "flex-none ml-2", children: props.extra })
-    ] }, key);
-  }) });
+    return /* @__PURE__ */ h2("listItem", { className: cls, key }, /* @__PURE__ */ h2("listContent", { className: "flex-1 min-w-0" }, r), /* @__PURE__ */ h2("listExtra", { if: !!props.extra, className: "flex-none ml-2" }, props.extra));
+  }));
 };
 var styleRules2 = (props, layout3) => {
   return [];

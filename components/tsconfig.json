@@ -1,7 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "@polymita/renderer"
-  }
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "h",
+    "typeRoots": [
+      "../node_modules/@polymita",
+      "../node_modules/@types/jest",
+      "../node_modules/@types/node"
+    ]
+  },
 }

@@ -30,6 +30,7 @@ __export(button_exports, {
 });
 import {
   ACTIVE,
+  h,
   HOVER,
   useLayout,
   useLogic
@@ -136,7 +137,6 @@ function strokePatternMatrix(colors2) {
 }
 
 // components/button/index.tsx
-import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var logic = (props) => {
   return {
@@ -145,7 +145,7 @@ var logic = (props) => {
 };
 var layout = (props) => {
   const logicResult = useLogic();
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h(
     "buttonBox",
     {
       className: "inline-block px-2 py-1 rounded hover:cursor-pointer",
@@ -159,15 +159,15 @@ var layout = (props) => {
         if (props.disabled)
           return;
         (_a = props.onClick) == null ? void 0 : _a.call(props, e);
+      }
+    },
+    /* @__PURE__ */ h(
+      "span",
+      {
+        className: "block select-none"
       },
-      children: /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: "block select-none",
-          children: props.children
-        }
-      )
-    }
+      props.children
+    )
   );
 };
 var designPatterns = (props) => {
@@ -294,8 +294,7 @@ var Icon = createFunctionComponent({
 var loading3_quarters_default = Icon;
 
 // components/loading-button/index.tsx
-import { CommandOP, extendModule } from "@polymita/renderer";
-import { jsx as jsx2 } from "@polymita/renderer/jsx-runtime";
+import { h as h3, CommandOP, extendModule } from "@polymita/renderer";
 var LoadingButton = extendModule(button_exports, () => ({
   layout(props, layout3) {
     layout3.buttonBox.span.props.className += " flex justify-center items-center";
@@ -306,7 +305,7 @@ var LoadingButton = extendModule(button_exports, () => ({
         op: CommandOP.addChild,
         condition: !!props.loading,
         target: layout3.buttonBox.span,
-        child: /* @__PURE__ */ jsx2(loading3_quarters_default, { size: 16, className: "animate-spin align-middle ml-1" })
+        child: /* @__PURE__ */ h3(loading3_quarters_default, { size: 16, className: "animate-spin align-middle ml-1" })
       }
     ];
   }

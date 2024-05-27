@@ -968,7 +968,7 @@ __export(input_exports, {
   meta: () => meta,
   propTypes: () => propTypes
 });
-import { ACTIVE, FOCUS, HOVER, useLogic } from "@polymita/renderer";
+import { ACTIVE, FOCUS, h, HOVER, useLogic } from "@polymita/renderer";
 
 // patterns/control-active.ts
 import { matchPatternMatrix } from "@polymita/renderer";
@@ -1032,7 +1032,6 @@ function strokePatternMatrix(colors2) {
 // components/input/index.tsx
 var import_set = __toESM(require_set());
 var import_get = __toESM(require_get());
-import { jsx } from "@polymita/renderer/jsx-runtime";
 var meta;
 var propTypes = {};
 var config = () => ({});
@@ -1041,35 +1040,35 @@ var logic = (props) => {
 var layout = (props) => {
   const logic2 = useLogic();
   const value = props["value-path"] ? (0, import_get.default)(props.value, props["value-path"]) : props.value;
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ h(
     "inputBox",
     {
-      className: "block",
-      children: /* @__PURE__ */ jsx(
-        "input",
-        {
-          placeholder: props.placeholder,
-          "is-container": true,
-          "has-decoration": true,
-          "is-text": true,
-          className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
-          autoFocus: props.focused,
-          onFocus: props.onFocus,
-          onBlur: props.onBlur,
-          type: props.type,
-          disabled: props.disabled,
-          value,
-          onChange: (e) => {
-            if (props["value-path"]) {
-              const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
-              props.onInput(__spreadValues({}, r));
-            } else {
-              props.onInput(e.target.value);
-            }
+      className: "block"
+    },
+    /* @__PURE__ */ h(
+      "input",
+      {
+        placeholder: props.placeholder,
+        "is-container": true,
+        "has-decoration": true,
+        "is-text": true,
+        className: "block w-full select-none outline-none border-0 px-2 py-1 rounded",
+        autoFocus: props.focused,
+        onFocus: props.onFocus,
+        onBlur: props.onBlur,
+        type: props.type,
+        disabled: props.disabled,
+        value,
+        onChange: (e) => {
+          if (props["value-path"]) {
+            const r = (0, import_set.default)(props.value, props["value-path"], e.target.value);
+            props.onInput(__spreadValues({}, r));
+          } else {
+            props.onInput(e.target.value);
           }
         }
-      )
-    }
+      }
+    )
   );
 };
 var designPatterns = (props) => {
