@@ -3,11 +3,6 @@
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "h",
-    "typeRoots": [
-      "../node_modules/@polymita",
-      "../node_modules/@types/jest",
-      "../node_modules/@types/node"
-    ]
+    "jsxFragmentFactory": "h"
   },
 }
