@@ -3,6 +3,7 @@ import {
   HOVER, PatternMatrix2, PatternStructure, SignalProps, useLayout, useLogic,
   VirtualLayoutJSON
 } from '@polymita/renderer'
+import "@polymita/renderer/jsx-runtime"
 import { blockPatternMatrix, strokePatternMatrix } from '../../patterns'
 import { colors } from '../../patterns/token'
 

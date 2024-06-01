@@ -61,7 +61,7 @@ export const layout = (props: TextareaProps): VirtualLayoutJSON => {
         rows={props.rows}
         disabled={props.disabled}
         value={props.value}
-        onChange={e => {
+        onChange={(e) => {
           props.onInput(e.target.value)
         }}
       >

@@ -5,4 +5,7 @@
     "jsxFactory": "h",
     "jsxFragmentFactory": "h"
   },
+  "include": [
+    "./"
+  ]
 }

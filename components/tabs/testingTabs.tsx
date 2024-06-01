@@ -1,6 +1,7 @@
 import { h, SignalProps, PropTypes, useLogic, ConvertToLayoutTreeDraft, VirtualLayoutJSON, createFunctionComponent } from '@polymita/renderer';
 import * as TabsModule from './index'
 import * as PanelModule from './panel'
+import "@polymita/renderer/jsx-runtime"
 
 export const name = 'TestingTabs' as const
 export let meta: {

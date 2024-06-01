@@ -1,6 +1,5 @@
 import { ACTIVE, h, HOVER, PatternStructure, PropTypes, SignalProps, useLogic, VirtualLayoutJSON } from '@polymita/renderer';
 import { blockPattern, blockPatternMatrix, colors, strokePattern, strokePatternMatrix, useInteractive } from '../../patterns';
-import '@polymita/renderer/jsx-runtime'
 import CheckIcon from '../../icons/check'
 import { useState } from 'react';
 

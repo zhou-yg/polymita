@@ -15,7 +15,8 @@
     "playground": "vite --host --force",
     "build:doc": "vite build && sh after-build-doc.sh",
     "gen:icons": "node scripts/generate-icons.mjs",
-    "prepublishOnly": "npm run release"
+    "prepublishOnly": "npm run release",
+    "tsc-one": "tsc components/tabs/testingTabs.tsx --jsx react --module esnext --moduleResolution Node --jsxFactory h --allowJs --esModuleInterop --declaration --emitDeclarationOnly --outdir test"
   },
   "exports": {
     "./icons/*": {
@@ -78,7 +79,6 @@
     "@ant-design/icons-svg": "^4.2.1"
   },
   "devDependencies": {
-    "@emotion/css": "^11.10.5",
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@mdx-js/esbuild": "^2.1.5",
     "@polymita/renderer": "workspace:^",

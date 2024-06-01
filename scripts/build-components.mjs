@@ -53,51 +53,15 @@ rimraf.sync(componentOutputDir)
 
 const st = Date.now()
 
-buildComponents().then(() => {
+buildComponents().then(async () => {
   const cost = Date.now() - st
   console.log(`build components done, cost ${cost / 1000}s`)
   
-  buildTSC('cjs');
-  buildTSC('esm');
+  await buildTSC('cjs');
+  await buildTSC('esm');
   
-  buildCSS();
-
-  // 下面暂时不用的代码
-  // updatePKGExports()
-
-  // moveDirs('cjs')
-  // moveDirs('esm')
+  await buildCSS();
 })
-
-function moveDirs (format) {
-  const distDir = join(componentOutputDir, format)
-  execSync('mv icons components/', {
-    cwd: distDir
-  })
-}
-
-function updatePKGExports () {
-  const pkgPath = join(__dirname, '../package.json')
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
-  const exports = {}
-  const files = [
-    ...readdirSync(join(componentOutputDir, 'cjs/components')),
-  ]
-  files.forEach((file) => {
-    if (file === 'icons') {
-      return
-    }
-    exports[`./${file}`] = {
-      import: `./dist/esm/components/${file}/index.js`,
-      require: `./dist/cjs/components/${file}/index.js`,
-      types: `./dist/esm/components/${file}/index.d.ts`,
-    }
-  })
-  pkg.exports = exports
-
-  const pkgStr = JSON.stringify(pkg, null, 2)
-  writeFileSync(pkgPath, pkgStr) 
-}
 
 function buildTSC (format) {
   const tsc = spawn('npx', ['tsc', '--declaration', '--project', componentsTsConfig, '--outDir', `dist/${format}`], {
@@ -106,12 +70,16 @@ function buildTSC (format) {
     stdio: 'inherit'
   })
   
-  tsc.on('close', async () => {
-    const cost2 = Date.now() - st
-    console.log(`generate d.ts done, cost ${cost2 / 1000}s`)
-  
-    filesToRemove.forEach((path) => {
-      rimraf.sync(path)
+  return new Promise(resolve => {
+    tsc.on('close', async () => {
+      const cost2 = Date.now() - st
+      console.log(`generate d.ts done, cost ${cost2 / 1000}s`)
+    
+      filesToRemove.forEach((path) => {
+        rimraf.sync(path)
+      })
+
+      resolve();
     })
   })
 }
@@ -124,10 +92,13 @@ function buildCSS () {
       cwd: join(__dirname, '../'),
     }
   );
-  tailwind.on('close', () => {
-    const cost2 = Date.now() - st
-    console.log(`generate index.css done, cost ${cost2 / 1000}s`)
-  });
+  return new Promise(resolve => {
+    tailwind.on('close', () => {
+      const cost2 = Date.now() - st
+      console.log(`generate index.css done, cost ${cost2 / 1000}s`)
+      resolve();
+    });
+  })
 }
 
 
@@ -152,11 +123,10 @@ async function buildComponents ()  {
         plugins: [
           // dtsPlugin()
         ],
+        tsconfig: './components/tsconfig.json',
         splitting: format === 'esm',
         external: [
           '@polymita/renderer',
-          '@polymita/signal-model',
-          '@polymita/signal',
         ]
       })
   }
